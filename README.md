@@ -1,11 +1,33 @@
 # Machine hearing
 
 
+## Research questions
+
+* How can one perform environmental monitoring tasks on audio without invading privacy?
+Can one use very short recording windows, and sparse sampling to avoid recording intelligble speech?
+Can one also avoid speaker detection.
+Can one detect speed and avoid recording in those cases?
+How realistic is it to not store any audio recordings, only perform classification? 
+* How can one enable continious environmental monitoring using audio in a Wireless Sensor Network?
+What is a realistic power budget?. Outdoor, Indoor. Rural, Urban.
+What is the power usage of existing solutions/works? Non-edge ML, deep learning edge ML.
+How much can power usage be reduced by machine learning?
+How would the sensor network architecture look like?
+* Energy efficiency of deep learning
+How does end2end learned systems compare in number of instructions
+versus standard feature engineering?
+Can one adopt feature learnings to hand-coded systems to improve efficiency?
+
+Keywords
+
+* Energy efficiency, energy budget
+* Communication link budget
+* Privacy
+* Cost
 
 
 ## Background
 
-Weak labeling. Entire clip of audio containing event is labeled, not the precise event.
 
 ### Feature representations
 
