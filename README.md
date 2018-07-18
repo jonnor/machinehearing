@@ -25,6 +25,27 @@ Keywords
 * Privacy
 * Cost
 
+## Data collection
+
+Wireless Sensor Network for Acoustic monitoring.
+Ex: Bird detection
+
+Sample period: 10 sec? 1 sec?
+Sample frequency: continious?
+
+Every M minutes send:
+S: number of samples taken
+start,endtime for reporting period
+classifications for all S samples
+features for every S/60 samples
+full audio for every S/60*60 samples
+
+GSM modem.
+MQTT communication
+
+Ideally solar powered.
+https://www.banggood.com/6V-1_1W-200mA-Mini-Solar-Panel-Photovoltaic-Panel-p-1003920.html?rmmds=search&stayold=1&cur_warehouse=CN
+https://www.banggood.com/8000mAh-Solar-Power-Bank-Dual-USB-Battery-Charger-Set-For-Mobile-Phone-p-1111247.html?rmmds=search&ID=229&cur_warehouse=CN
 
 ## Background
 
