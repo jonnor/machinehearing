@@ -47,7 +47,81 @@ Ideally solar powered.
 https://www.banggood.com/6V-1_1W-200mA-Mini-Solar-Panel-Photovoltaic-Panel-p-1003920.html?rmmds=search&stayold=1&cur_warehouse=CN
 https://www.banggood.com/8000mAh-Solar-Power-Bank-Dual-USB-Battery-Charger-Set-For-Mobile-Phone-p-1111247.html?rmmds=search&ID=229&cur_warehouse=CN
 
+
+
 ## Background
+
+
+## Usecases
+
+Bioacoustics/ecoacoustics. 
+Passive acoustic monitoring.
+Biomonitoring.
+Animal population estimation/census.
+
+Birds. Wolves. Insects.
+
+Trigger for camera trap?
+
+Livestock
+Poultry,swine,sheep,diary cows.
+
+Grazing/feeding behavior.
+Heat detection.
+Respiratory disease detection.
+Stress detection.
+Chase away wild animals/birds from fields.
+Insect detection.
+Food quality analysis.
+
+[Acoustic monitoring system to quantify ingestive behavior of free-grazing cattle](https://www.sciencedirect.com/science/article/pii/S016816991100024X)
+[A real-time algorithm for acoustic monitoring of ingestive behavior of grazing cattle](https://www.sciencedirect.com/science/article/pii/S0168169916303076).
+[Formant-based acoustic features for cow's estrus detection in audio surveillance system](https://www.semanticscholar.org/paper/Formant-based-acoustic-features-for-cow%27s-estrus-in-Lee-Zuo/ed1251d3c162bb45c4d9ce84d6826fe5ffc86a23). Heat detection is critical to breeding programs.
+[Sound analysis in dairy cattle vocalisation as a potential welfare monitor](https://www.sciencedirect.com/science/article/pii/S0168169915002549). 2015. It might be possible to apply call recognition to determine cattle welfare.
+Early recognition of bovine respiratory disease in calves using automated continuous monitoring of cough sounds
+
+[A real-time monitoring tool to automatically measure the feed intakes of multiple broiler chickens by sound analysis](https://www.sciencedirect.com/science/article/pii/S0168169915000733). Detect the pecking sounds of multiple broiler chickens
+
+Cough sound analysis to identify respiratory infection in pigs.
+
+[Detecting symptoms of diseases in poultry through audio signal processing](https://ieeexplore.ieee.org/document/7032298/).
+Detects rales, gurgling noises that are a distinct symptom of common respiratory diseases in poultry.
+
+[Stress Detection and Classification of Laying Hens by Sound Analysis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4341110/). 2015.
+
+[On the Design of a Bioacoustic Sensor for the Early Detection of the Red Palm Weevil](https://www.researchgate.net/publication/325006988_Sound_Analysis_and_Detection_and_the_Potential_for_Precision_Livestock_Farming_-_A_Sheep_Vocalization_Case_Study). Detecting a pest that attacks palm trees.
+
+Detect illegal hunting and logging.
+
+Machinery
+Real-Time Acoustic Monitoring of Cutting Blade Sharpness in Agricultural Machinery.
+
+Fish farming
+
+
+Gunshot detection.
+
+Non-destructive testing
+Acoustic Emissions Testing. Acoustic Emission Testing is performed by applying a localized external force such as an abrupt mechanical load or rapid temperature or pressure change to the part being tested. 
+Acoustic Resonance Testing.
+
+Testing of cast-iron castings
+Concrete.
+
+[Acoustic methods for the nondestructive testing of concrete: A review of foreign publications in the experimental field](https://link.springer.com/article/10.1134/S1061830913020034)
+
+
+Structural monitoring.
+
+Buildings.
+Bridges.
+
+[Acoustic techniques for structural health monitoring](https://aip.scitation.org/doi/10.1063/1.2902603)
+Structural health monitoring of bridges using acoustic emission
+
+## Test cases
+
+* Detect clapping and its sound level, for instance in a conference
 
 
 ### Feature representations
