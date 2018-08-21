@@ -40,14 +40,18 @@ classifications for all S samples
 features for every S/60 samples
 full audio for every S/60*60 samples
 
-GSM modem.
-MQTT communication
+MQTT communication w/TLS
 
 Ideally solar powered.
 https://www.banggood.com/6V-1_1W-200mA-Mini-Solar-Panel-Photovoltaic-Panel-p-1003920.html?rmmds=search&stayold=1&cur_warehouse=CN
 https://www.banggood.com/8000mAh-Solar-Power-Bank-Dual-USB-Battery-Charger-Set-For-Mobile-Phone-p-1111247.html?rmmds=search&ID=229&cur_warehouse=CN
 
 
+* Microphone. 1-2 pieces. I2S, PDM or analog?
+* Microcontroller. ESP32?
+* GSM modem.
+* RTC.
+* Power source. Solar+battery
 
 ## Background
 
