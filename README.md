@@ -379,12 +379,20 @@ Ambiguity spectrum. Multitapers. Singular Value Decomposition.
 
 ### Passive monitoring
 
+Wireless Acoustic Sensor Network
+
 [Random Forest for improved analysis efficiency in passive acoustic monitoring](https://www.sciencedirect.com/science/article/pii/S1574954113001234). June 2013.
 Used simple (bandpass?) detectors to generate events, then used Random Forest on a set of statistical features calculating during the event time.
 Was able to reduce false positives by 80-90%.
 
 [An FPGA-Based WASN for Remote Real-Time Monitoring of Endangered Species: A Case Study on the Birdsong Recognition of Botaurus stellaris](http://www.mdpi.com/1424-8220/17/6/1331). Wireless Acoustic Sensor Networks (WASN). #TODO
 
+[Applications and trends in wireless acoustic sensor networks: a signal processing perspective](https://www.researchgate.net/publication/248702130_Applications_and_trends_in_wireless_acoustic_sensor_networks_A_signal_processing_perspective).
+Considers WSN for microphone arrays. 2011. 103 citations.
+
+[Wireless Acoustic Sensor Networks and Applications](https://www.hindawi.com/journals/wcmc/si/493820/).
+Special issue in Wireless Communications and Mobile Computing.
+[introduction](https://www.hindawi.com/journals/wcmc/2017/1085290/)
 
 [Design and Implementation of a Robust Acoustic Recognition System for Waterbird Species using TMS320C6713 DSK](https://www.igi-global.com/gateway/article/176715). A. Boulmaiz. International Journal of Ambient Computing and Intelligence (IJACI), 2017. 
 Tonal region detector (TRD) using a sigmoid function.
