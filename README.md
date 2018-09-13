@@ -278,48 +278,6 @@ Time-frequency (TF) analysis of non-stationary signals.
 Ecoacoustics.
 
 
-
-### Prior challenges
-
-[Bird Audio Detection: tips on building robust detectors](http://machine-listening.eecs.qmul.ac.uk/2016/11/bird-audio-detection-tips-on-building-robust-detectors/)
-Filtering.
-Noise reduction.
-Data normalization. Amplitude normalized. Spectral whitening. Linear predictive coding filtering.
-Representation. Default: Spectrogram, MFCC. Not getting good improvements by changing?
-Data augmentation.
-Self-adaptation.
-Regularisation.
-Combining models.
-
-[Bird Audio Detection: baseline tests – and the problem of generalisation](http://machine-listening.eecs.qmul.ac.uk/2016/10/bird-audio-detection-baseline-generalisation/). First baseline of MFCCs and GMM method generalizes very badly to samples from unseen training sets.
-Second baseline of spherical k-means feature learning, followed by a Random Forest classifier still managed 80% on unseen training sets.
-
-
-[Bird detection in audio: a survey and a challenge](https://arxiv.org/abs/1608.03417). D.Stowell, 2016. Introducing DCASE2016.
-Usecases: Unattended monitoring, prefiltering step before other automatic analyses such as bird species classification.
-Detection types:
-Presence/absence in a given sound clip: a detector outputs a zero if none of the target species are detected, and a one otherwise.
-Monotonic segmentation. Partition the time axis into positive and negative regions. Analogous to voice activity detection (VAD).
-Methods:
-Energy thresholding.
-Spectrogram cross-correlation.
-Hidden Markov Models.
-Template matching with Dynamic Time Warping.
-Open question whether the various different approaches (for single species detection)
-can simply be aggregated under a meta-algorithm to produce species-agnostic output.
-Sinousoidal tracks.
-
-[Detection and Classification of Acoustic Scenes and Events: Outcome of the DCASE 2016 Challenge](https://ieeexplore.ieee.org/document/8123864/).
-November 2017.
-
-2018 BirdCLEF Baseline System. [Paper](https://arxiv.org/pdf/1804.07177.pdf).
-[Github](https://github.com/kahst/BirdCLEF-Baseline)
-Feature extraction: https://github.com/kahst/BirdCLEF-Baseline/blob/master/utils/audio.py#L115
-Use a high-pass and a low-pass filter with cut-off frequencies of 300 Hz and 15 kHz
-Uses a simple SNR estimation to not train on samples with bad signal2noise ratio.
-Based on median filtering and morphological operations on spectogram.
-Very low score => unlikely to contain any birds.
-
 ### Feature learning
 
 Aka, related
@@ -409,7 +367,6 @@ spectral subtraction (SS), cepstral mean and variance (CMVN), and recently intro
 Compares MFCC, perceptual-MVDR (PMVDR) and power-normalized cepstral coefficients (PNCC).
 Using different feature normalizations; SS, CMVN, CGN, and QCN.
 GTECC had the best recognition rate, while being slightly less computationally intensive than MFCC.
-
 
 
 ### Source separation and denoising
