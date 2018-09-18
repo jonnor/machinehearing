@@ -195,6 +195,12 @@ Eigen Value Decomposition (EVD)
 Spectral decomposition
 Factorial HMM
 
+### Generating sound
+
+[Roundtripping data via spectrograms in Python](https://timsainb.github.io/spectrograms-mfccs-and-inversion-in-python.html),
+has code for converting (Mel) spectrogram back to audio.
+
+
 
 ### Temporal coherence
 
@@ -385,6 +391,33 @@ Supervised
 
 * Supervised Non-negative factorization
 
+[DCASE 2017 TASK 1: Acoustic Scene Classification Using Shift-Invariant Kernels and Random Features](http://www.cs.tut.fi/sgn/arg/dcase2017/documents/challenge_technical_reports/DCASE2017_Jimenez_186.pdf). 6k random features. Performed 4% points better than baseline with Gaussian kernel. Random features can be used as privacy measure, keeping the W,b parameters private.
+
+[YouTube: Scattering Invariants for Audio Classification](https://www.youtube.com/watch?v=W_Wbnp_uw-o).
+Associated paper: Deep Scattering Spectrum.
+Classic approach: Construct an intermediate representation.
+Conservative approach: Remove transformations which dont change the class.
+Time-shifting. Want invariant. Want to be stable across time-warping (including dilation).
+Can be done with Mels, want constant-Q at high frequencies.
+Actually comes from biology/psycoacoustics, but has the good mathematical property of time-shift invariance.
+8:55. Alternate way to get equivalent data of Mel spectrogram. Convolve filters, then time average them.
+Can be seen as a wavelet transform. Constant-Q 'wavelet' filterbank.
+But inveriance depends on frame size, and at large frame sizes loses temporal structure.
+Want to relieve the model/classifier of having to learn temporal dynamics (equivalence)
+Modulation spectrograms, one approach.
+Wavelet Modulus Transform. Scattering Cascade.
+Basically a convolutional network. Stages of filters and non-linearity (modulus).
+Not learned coefficients, but comes from invariants.
+Complimentary, CNN does then need to learn these. 
+Typically wavelets per octave. 8,4,2 typical in stage 0,1,2.
+Energy decays quickly with stages. Most info in 1-2 stages.
+First order: Excitation info, Second order: modulation. 
+Typical dimensions. 30-80 wavelet in first order, 100 in second order. 
+Transform is O(n log n).
+Possible to get a rough inverse of the scattering transform.
+Frequency-transposition. Different formants can be seen as frequency warping.
+Want to be stable for frequency warping for speech signals, often.
+Joint (time-frequency) scattering. With a 2d wavelet.
 
 [Automatic large-scale classification of bird sounds is strongly improved by unsupervised feature learning](https://peerj.com/articles/488/).
 D. Stowell, 2014. Classifier got strongest audio-only results in LifeCLEF2014.
