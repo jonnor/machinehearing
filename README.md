@@ -106,7 +106,6 @@ Real-Time Acoustic Monitoring of Cutting Blade Sharpness in Agricultural Machine
 
 Fish farming
 
-
 Gunshot detection.
 
 Non-destructive testing
@@ -126,6 +125,8 @@ Bridges.
 
 [Acoustic techniques for structural health monitoring](https://aip.scitation.org/doi/10.1063/1.2902603)
 Structural health monitoring of bridges using acoustic emission
+
+Smart home. Extending voice assistants
 
 ## Test cases
 
@@ -613,6 +614,14 @@ This caught the attention of companies in the smart home marketplace which were 
 
 IDC executive brief. [Needs registration](https://www.audioanalytic.com/idc-executive-brief-sound-recognition/)
 
+http://cochlear.ai
+Founded in 2017. 6 employees.
+Seoul, South Korea
+
+https://www.soundintel.com/
+Founded in 2000. 50+ employees?
+SigardTM, detects verbal aggression. For use with video surveillance
+Utrecht, Netherlands.
 
 ## Interesting software
 
@@ -627,5 +636,7 @@ Using harmonic-percussive separation, non-local filtering and median-based filte
 
 [muda: Python library for augmenting annotated audio data](https://github.com/bmcfee/muda)
 
+## Smart home assistants
 
+[Whisper to Alexa, and She’ll Whisper Back](https://developer.amazon.com/blogs/alexa/post/c0e7798d-32bc-4549-9c24-97d204a7bf3a/whisper-to-alexa-and-she-ll-whisper-back). Tech details from researcher on whisper detection
 
