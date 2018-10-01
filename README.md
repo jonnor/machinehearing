@@ -287,6 +287,9 @@ Time-frequency (TF) analysis of non-stationary signals.
 #### Computational Analysis of Sound Scenes and Events
 Notes.
 
+Ch11. Computational Bioacoustic Scene Analysis
+
+
 Ch12. 24/7 AER systems. Smart home applications.
 Ch12.2.1. User concept of "event" may comprise several acoustic events taken together. 
 Ch12.2.2. Real life AER as an open-set problem, unbounded number of classes.
@@ -367,10 +370,9 @@ Triplet loss. Only needs same/different annotation for pairs instead of class la
 Transfer learning. Can be based on embeddings
 Source separation, joint estimation.
 
-### Bioacoustics
+#### Human and Machine Hearing
 
-[Computational Bioacoustic Scene Analysis](https://link.springer.com/chapter/10.1007%2F978-3-319-63450-0_11). D. Stowell, from book, 2017.
-Ecoacoustics.
+Ch31. Page51. Great diagram of relationship between log,exp,pow(...) as expanding or contracting non-linear functions.
 
 
 ### Feature learning
