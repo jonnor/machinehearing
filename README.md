@@ -82,6 +82,8 @@ Chase away wild animals/birds from fields.
 Insect detection.
 Food quality analysis.
 
+[Awesome Bioacoustic](https://github.com/ybayle/awesome-bioacoustic). List of resources by  Yann Bayle. Lots on birds, underwater species.
+
 [Acoustic monitoring system to quantify ingestive behavior of free-grazing cattle](https://www.sciencedirect.com/science/article/pii/S016816991100024X)
 [A real-time algorithm for acoustic monitoring of ingestive behavior of grazing cattle](https://www.sciencedirect.com/science/article/pii/S0168169916303076).
 [Formant-based acoustic features for cow's estrus detection in audio surveillance system](https://www.semanticscholar.org/paper/Formant-based-acoustic-features-for-cow%27s-estrus-in-Lee-Zuo/ed1251d3c162bb45c4d9ce84d6826fe5ffc86a23). Heat detection is critical to breeding programs.
@@ -517,6 +519,8 @@ Given a mixture spectrogram, these trees classify individual T-F bin as belongin
 to one of the speakers thus returning an estimate of the IBM.
 An estimated IBM in a given layer is used to train a RF classifier in the next higher layer.
 Outperforms a deep learning based method in terms of SNR of reconstructed audio.
+
+[Inverting spectrogram after Binary Masking](https://stackoverflow.com/questions/51655119/how-do-i-apply-a-binary-mask-and-stft-to-produce-an-audio-file/51773435#51773435).
 
 [Birdsong Denoising Using Wavelets](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4728069/).
 Using wavelets as alternative to bandpass. Not considering any source separation techniques.
