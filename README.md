@@ -374,8 +374,33 @@ Source separation, joint estimation.
 
 #### Human and Machine Hearing
 
-Ch31. Page51. Great diagram of relationship between log,exp,pow(...) as expanding or contracting non-linear functions.
+Ch3.1. Page51. Great diagram of relationship between log,exp,pow(...) as expanding or contracting non-linear functions.
 
+Ch5.5. Page 98. Power-law compression of mel-spectrogram with exponents 0.25-0.67 can be better than log or lin.
+
+MFCC sometimes used for pitch tracking, easy to split out fundamental.
+
+Ch7.11. IIR filter standard forms. Direct1, direct2. Second order needs 2 delay elements and 5 multiplications.
+Larger filters often a cascade of 2-order, favorable for numerical stability and modularity.
+
+Ch7.13. Shows speech with two spectrograms. One with high frequency resolution, other with high temporal resolution.
+
+Ch9. Gammatone and related filters.
+Ch9.4. Real gammatone has impulse response of a gammatone distribution times a sinousoid.
+Order N, dampening factor, gammatone phase. Orders 3-5 typical for auditory filters.
+Ch9.4. All-pole gammatone filter (APGF). No zeroes. One zero gammatone filter (OZGF). Asymmertric
+Gammatone filters are special case of gammachirp. Easier to control asymmetry.
+
+Ch10. Nonlinear sytems. Cannot be fully described by responses to sinewaves.
+But often characterised by response to sines at different levels, and pairs of sinewaves.
+Ch10.1. Volterra Series. Linear convolution model plus corretion terms. (also Wiener series)
+Zero term: constant. First term: Linear response. Second term: Product response. Third order: cubic.
+Ch10.3-10.4. Essential nonlinearities (in the ear).
+Fig10.2. Measurements on live cochlea demonstrating non-linearity.
+Two-tone supression.
+Intermodulation distortion.
+
+Ch11. Automatic gain control.
 
 ### Feature learning
 
