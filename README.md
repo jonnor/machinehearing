@@ -230,6 +230,9 @@ Many factorization approaches. Gradient descent. Multiplicative update rules, ea
 Semi-supervised method possible with Schmidt2007 "Wind Noise Reduction using Non-negative
 Sparse Coding".
 
+[Non-Negative Matrix Factorization And Its Application to Audio](https://www.cs.cmu.edu/~bhiksha/courses/mlsp.fall2009/class16/nmf.pdf). Tuomas Virtanen.
+Easy to follow introduction.
+References many works on applying NMF to audio.
 
 ### Noise types
 Biophony, geophony, and anthrophony
