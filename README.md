@@ -156,6 +156,13 @@ Change and change-rate. Common with MFCC
 Nice summary of feature calculation in Python 'from scratch'.
 http://haythamfayek.com/2016/04/21/speech-processing-for-machine-learning.html
 
+[](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0182309).
+Using SIF features, spectrograms downscaled. 720 features per frame.
+Used one frame energy summary feature. 
+Shows SIF-SVM performing almost as good as SIF-CNN and SIF-DNN, and favorable under high noise.
+
+
+
 ### Preprocessing
 
 * A-weighting
