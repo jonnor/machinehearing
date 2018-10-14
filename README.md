@@ -444,6 +444,11 @@ to rectify filter output or choose sparsity based on outputs with highest power.
 Cascading layers of bandpass quadraticfeature extraction,
 using wavelet transforms with power detection: Wavelet modulus operators.
 
+Ch28.5 Medial diagnostics through sound. `auscultation`
+Heart murmurs. Lung.
+The relevant range of frequencies for hearts is lower than normal human hearing. `<20Hz`.
+
+Fault detection in machinery by technicians often also use sound.
 
 
 ### Feature learning
@@ -562,6 +567,25 @@ spectral subtraction (SS), cepstral mean and variance (CMVN), and recently intro
 Compares MFCC, perceptual-MVDR (PMVDR) and power-normalized cepstral coefficients (PNCC).
 Using different feature normalizations; SS, CMVN, CGN, and QCN.
 GTECC had the best recognition rate, while being slightly less computationally intensive than MFCC.
+
+### Computer-aided auscultation
+Electronic stethoscope. Transferred over Bluetooth or cable.
+Detecting and characterizing heart murmurs / cardiac murmurs.
+"automatic heart sound analysis"
+Much cheaper than echocardiography (ECG).
+Murmurs classified as innocent/physiological/functional or pathological/abnormal
+Descriptive murmur information like murmur timing, grading, positions of the S1/S2 heart sounds.
+Analysis stages.
+1. Heart rate detection
+2. Heart sound segmentation. Identify two main phases of heart. Styole,diastole.
+3. Feature extraction
+4. Feature classification.
+
+Auscultation of the respiratory sounds.
+Diagnosing cardio-pulmonary disorders using lung sounds from chest and back.
+Asthmaic breath sounds.
+
+Lots of research in 2017 on using smartphones, machine learning, low-cost portable devices.
 
 
 ### Source separation and denoising
@@ -700,18 +724,25 @@ Utrecht, Netherlands.
 
 ## Interesting software
 
-[librosa: Vocal separation](http://librosa.github.io/librosa/auto_examples/plot_vocal_separation.html#sphx-glr-auto-examples-plot-vocal-separation-py). Simple technique for separating vocals (and other sporadic foreground signals) from accompanying instrumentation.
-Foreground/background separation.
-
-[librosa: Harmonic-percussive source separation](https://librosa.github.io/librosa/auto_examples/plot_hprss.html?highlight=harmonic).
-Including a margin-based approach which also separates out noise.
-
-[librosa: enhanced Chroma](http://librosa.github.io/librosa/auto_examples/plot_chroma.html#sphx-glr-auto-examples-plot-chroma-py).
-Using harmonic-percussive separation, non-local filtering and median-based filtering.
-
-[muda: Python library for augmenting annotated audio data](https://github.com/bmcfee/muda)
+* [librosa](http://librosa.github.io).
+* essentia
+* [muda: Python library for augmenting annotated audio data](https://github.com/bmcfee/muda)
+* [kapre](https://github.com/keunwoochoi/kapre). On-demand GPU computation of melspectrograms, for Keras
 
 ## Smart home assistants
 
 [Whisper to Alexa, and She’ll Whisper Back](https://developer.amazon.com/blogs/alexa/post/c0e7798d-32bc-4549-9c24-97d204a7bf3a/whisper-to-alexa-and-she-ll-whisper-back). Tech details from researcher on whisper detection
 
+## Human Activity Detection
+
+* Audio-Based Human Activity Recognition Using Non-Markovian Ensemble Voting. 2012. Johannes A. Stork. 50 citations.
+* Audio-Based Human Activity Recognition with Robots. 2011. Johannes A. Stork.
+* [Transfer Learning for Improved Audio-Based Human Activity Recognition](www.mdpi.com/2079-6374/8/3/60/pdf). 2018.
+* A Similarity Analysis of Audio Signal to Develop a Human Activity Detection. 2017, A García-Hernández.
+
+Context aware services. Social robots, domotics/smart-home.
+
+## Fault detection
+In machinery/parts.
+Fault diagnosis
+Anomaly detection
