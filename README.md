@@ -412,6 +412,40 @@ Intermodulation distortion.
 
 Ch11. Automatic gain control.
 
+Ch21. Stabilized Audatory Image (SAI)
+
+Ch22. Binaural spatial hearing.
+
+Head-related transfer function. Acoustic reason for differences in sound from different sides.
+Neural extraction of interaural differences.
+
+How we can localize sound even in reverberant conditions.
+Precedence effect. Law of first waveform. Haas effect. 
+
+Ch23.1. Scene analysis.
+CASA: Computational Auditory Scene Analysis.
+
+Ch23.2 Attention and Stream Segregation
+Separating pieces of sound into different tracks.
+Pay 'attention' to particular streams
+Following Gestalt principles: common-fate etc
+time-frequency masks. Binary masks.
+
+Ch24. Learning and applications
+
+Application: Hearing aids
+
+Ch25.3 Bandpass power and Quadratic Features
+Autocorrelation coefficients, power spectra equivalent.
+Direct learning of waveform filters. Filter learning.
+RElies on a nonlinearity of some kind, quadratic or other,
+to rectify filter output or choose sparsity based on outputs with highest power.
+
+Cascading layers of bandpass quadraticfeature extraction,
+using wavelet transforms with power detection: Wavelet modulus operators.
+
+
+
 ### Feature learning
 
 Aka, related
