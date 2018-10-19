@@ -138,11 +138,14 @@ Smart home. Extending voice assistants
 
 ### Feature representations
 
-* Spectrograms. Linear/log
+* Energy
+* Chroma.
+* Spectrograms. Linear/log. Mel, bark, constant-Q.
 * MFCC
-* Bag of frames
-* Chroma. 
-* Learned features
+* modulation spectrogram
+* Scattering transform
+
+
 
 Summarization, pooling
 Typically across a set of frames
@@ -152,6 +155,8 @@ Typically across a set of frames
 
 Delta-frames, delta-delta frames.
 Change and change-rate. Common with MFCC
+
+* Bag of frames
 
 Nice summary of feature calculation in Python 'from scratch'.
 http://haythamfayek.com/2016/04/21/speech-processing-for-machine-learning.html
@@ -176,8 +181,16 @@ Removes redundancies in spectrogram. For each frame in spectogram
 
 Normalization
 
+* Cepstral Mean Normalisation (CMN): subtract the average feature value from each feature, so each feature has a mean value of 0.
+makes features robust to some linear filtering of the signal (channel variation).
+* Cepstral Variance Normalisation (CVN): Divide feature vector by standard deviation of feature vectors, so each feature vector element has a variance of 1.
+* For real-time, need to compute a moving average.
 * RMS normalization
 * Gaussianization, mapping to Gaussian distribution
+
+[Speech Signal Analysis, Lecture 2](https://www.inf.ed.ac.uk/teaching/courses/asr/2016-17/asr02-signal-handout.pdf).
+January 2017, Hiroshi Shimodaira and Steve Renals.
+! great diagrams of audio discretization, mel filters, wide versus narrow-band spectrograms.
 
 ### Blind source separation
 
@@ -498,6 +511,14 @@ Frequency-transposition. Different formants can be seen as frequency warping.
 Want to be stable for frequency warping for speech signals, often.
 Joint (time-frequency) scattering. With a 2d wavelet.
 
+[FEATURE LEARNING WITH DEEP SCATTERING FOR URBAN SOUND ANALYSIS](https://www.researchgate.net/profile/Justin_Salamon/publication/278019931_Feature_Learning_with_Deep_Scattering_for_Urban_Sound_Analysis/links/5578aec208aeacff200287c5.pdf). 2015.
+Evaluate the scattering transform as an alternative signal representation to the mel-spectrogram
+in the context of unsupervised feature learning for urban sound classification.
+Comparable (or better) performance using the scattering transform whilst reducing
+both the amount of training data required for feature learning and the size of the learned codebook by an order of magnitude.
+Note that in practice computing the scattering transform will take longer than computing the mel-spectrogram
+by a multiplicative factor proportionate to the dimensionality of the scattering output.
+
 [Automatic large-scale classification of bird sounds is strongly improved by unsupervised feature learning](https://peerj.com/articles/488/).
 D. Stowell, 2014. Classifier got strongest audio-only results in LifeCLEF2014.
 Inspired by techniques that have proven useful in other domains.
@@ -508,6 +529,15 @@ Using spherical k-means, adapted to run in streaming fashion using online Hartig
 Birdsong often contains rapid temporal modulations, and this information should be useful for identifying species-specific characteristics.
 feature learning is that it can be applied not only to single spectral frames, but to short sequences (or “patches”) of a few frames.
 Also tested a two-layer version, second layer downsampled projected data by 8 then applying feature learning again. 
+
+[Multiscale approaches to music audio feature learning](https://biblio.ugent.be/publication/4152117). 2013.
+Music audio exhibits structure on multiple timescales, which are relevant for different MIR tasks to varying degrees.
+We develop and compare three approaches to multiscale audio feature learning using the spherical K-means algorithm.
+
+[A support vector machine (SVM) classifier was built on the sparse representation for acoustic event detection](https://ieeexplore.ieee.org/abstract/document/6854807). 2014.
+Bag of spectral patch exemplars. k-means clustering based vector quantization (VQ) was applied on the whitened spectral patches.
+sparse feature representation is extracted based on the similarity measurement to the learned exemplars.
+A support vector machine (SVM) classifier was built on the sparse representation for acoustic event detection.
 
 [A joint separation-classification model for sound event detection of weakly labelled data](https://arxiv.org/abs/1711.03037)
 
