@@ -483,7 +483,16 @@ Supervised
 
 * Supervised Non-negative factorization
 
+Random Features
+
 [DCASE 2017 TASK 1: Acoustic Scene Classification Using Shift-Invariant Kernels and Random Features](http://www.cs.tut.fi/sgn/arg/dcase2017/documents/challenge_technical_reports/DCASE2017_Jimenez_186.pdf). 6k random features. Performed 4% points better than baseline with Gaussian kernel. Random features can be used as privacy measure, keeping the W,b parameters private.
+[Another copy](http://www.cs.tut.fi/sgn/arg/dcase2017/documents/workshop_presentations/DCASE2017Workshop_Jimenez_195_presentation.pdf).
+[ACOUSTIC SCENE CLASSIFICATION USING DISCRETE RANDOM HASHING FOR LAPLACIAN KERNEL MACHINES](http://www.mirlab.org/conference_papers/international_conference/ICASSP%202018/pdfs/0000146.pdf). IEEE paper.
+Uses a linear SVM with random features to approximate a non-linear kernel SVM. Avoids expensive computation of high-dimensional kernel.
+Approximates a shift-invariant kernel, like Gaussian, Laplacian and Cauchy.
+Allows XOR Hamming distance based similarity calculation. 
+With hashing, can reduce data by 2**6 / 64 with minor loss in performance.
+
 
 [YouTube: Scattering Invariants for Audio Classification](https://www.youtube.com/watch?v=W_Wbnp_uw-o).
 Associated paper: Deep Scattering Spectrum.
