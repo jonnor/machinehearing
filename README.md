@@ -785,3 +785,10 @@ Context aware services. Social robots, domotics/smart-home.
 In machinery/parts.
 Fault diagnosis
 Anomaly detection
+
+
+# Lecture notes
+
+Audio Classification.
+http://www.cs.tut.fi/~sgn24006/PDF/L04-audio-classification.pdf
+Covers low-level features, MFCC. Classification by distance metrics. GMM. HMM.
