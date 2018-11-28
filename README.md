@@ -786,6 +786,28 @@ In machinery/parts.
 Fault diagnosis
 Anomaly detection
 
+Acoustic method for detecting defects in concrete bridges.
+[1](https://phys.org/news/2017-08-acoustics-early-bridges.html).
+[2](https://news.unl.edu/newsrooms/today/article/how-acoustics-can-be-an-early-warning-system-for-bridges/)
+Dragging balls on string along the concrete, recording with contract microphone.
+
+## Early warning systems
+Natural disasters etc.
+
+[An acoustic emission landslide early warning system for communities in low-income and middle-income countries](https://link.springer.com/article/10.1007/s10346-018-0977-1). 2018.
+Research and field trials have demonstrated conclusively that
+acoustic emission (AE) monitoring can be an effective approach to detect accelerating slope movements
+and to subsequently communicate warnings to users.
+Cost constrained to a few hundred dollars.
+[New acoustic early warning system for landslide prediction](https://www.lboro.ac.uk/service/publicity/news-releases/2010/164_ALARMS.html). 2010.
+Details on an acoustic sensor. Steel waveguide. ! nice diagram.
+[paper](https://impact.ref.ac.uk/casestudies/CaseStudy.aspx?Id=36220).
+
+
+[Underwater acoustic sensor network for early warning generation](https://ieeexplore.ieee.org/document/6405009). 2012.
+Underwater wireless sensor network (UWSN).
+This paper highlights the physical layer challenges in establishing a reliable,
+low power consuming and long life UWSN system for early warning generation.
 
 # Lecture notes
 
