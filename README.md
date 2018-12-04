@@ -29,33 +29,6 @@ Keywords
 * Privacy
 * Cost
 
-## Data collection
-
-Wireless Sensor Network for Acoustic monitoring.
-Ex: Bird detection
-
-Sample period: 10 sec? 1 sec?
-Sample frequency: continious?
-
-Every M minutes send:
-S: number of samples taken
-start,endtime for reporting period
-classifications for all S samples
-features for every S/60 samples
-full audio for every S/60*60 samples
-
-MQTT communication w/TLS
-
-Ideally solar powered.
-https://www.banggood.com/6V-1_1W-200mA-Mini-Solar-Panel-Photovoltaic-Panel-p-1003920.html?rmmds=search&stayold=1&cur_warehouse=CN
-https://www.banggood.com/8000mAh-Solar-Power-Bank-Dual-USB-Battery-Charger-Set-For-Mobile-Phone-p-1111247.html?rmmds=search&ID=229&cur_warehouse=CN
-
-
-* Microphone. 1-2 pieces. I2S, PDM or analog?
-* Microcontroller. ESP32?
-* GSM modem.
-* RTC.
-* Power source. Solar+battery
 
 ## Background
 
@@ -82,26 +55,9 @@ Chase away wild animals/birds from fields.
 Insect detection.
 Food quality analysis.
 
-[Awesome Bioacoustic](https://github.com/ybayle/awesome-bioacoustic). List of resources by  Yann Bayle. Lots on birds, underwater species.
+### Bioacoustics
 
-[Acoustic monitoring system to quantify ingestive behavior of free-grazing cattle](https://www.sciencedirect.com/science/article/pii/S016816991100024X)
-[A real-time algorithm for acoustic monitoring of ingestive behavior of grazing cattle](https://www.sciencedirect.com/science/article/pii/S0168169916303076).
-[Formant-based acoustic features for cow's estrus detection in audio surveillance system](https://www.semanticscholar.org/paper/Formant-based-acoustic-features-for-cow%27s-estrus-in-Lee-Zuo/ed1251d3c162bb45c4d9ce84d6826fe5ffc86a23). Heat detection is critical to breeding programs.
-[Sound analysis in dairy cattle vocalisation as a potential welfare monitor](https://www.sciencedirect.com/science/article/pii/S0168169915002549). 2015. It might be possible to apply call recognition to determine cattle welfare.
-Early recognition of bovine respiratory disease in calves using automated continuous monitoring of cough sounds
 
-[A real-time monitoring tool to automatically measure the feed intakes of multiple broiler chickens by sound analysis](https://www.sciencedirect.com/science/article/pii/S0168169915000733). Detect the pecking sounds of multiple broiler chickens
-
-Cough sound analysis to identify respiratory infection in pigs.
-
-[Detecting symptoms of diseases in poultry through audio signal processing](https://ieeexplore.ieee.org/document/7032298/).
-Detects rales, gurgling noises that are a distinct symptom of common respiratory diseases in poultry.
-
-[Stress Detection and Classification of Laying Hens by Sound Analysis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4341110/). 2015.
-
-[On the Design of a Bioacoustic Sensor for the Early Detection of the Red Palm Weevil](https://www.researchgate.net/publication/325006988_Sound_Analysis_and_Detection_and_the_Potential_for_Precision_Livestock_Farming_-_A_Sheep_Vocalization_Case_Study). Detecting a pest that attacks palm trees.
-
-Detect illegal hunting and logging.
 
 Machinery
 Real-Time Acoustic Monitoring of Cutting Blade Sharpness in Agricultural Machinery.
@@ -120,15 +76,189 @@ Concrete.
 [Acoustic methods for the nondestructive testing of concrete: A review of foreign publications in the experimental field](https://link.springer.com/article/10.1134/S1061830913020034)
 
 
-Structural monitoring.
+Smart home. Extending voice assistants
 
-Buildings.
-Bridges.
+## Applications
+
+### Bioacoustics / ecoacoustics
+
+[Awesome Bioacoustic](https://github.com/ybayle/awesome-bioacoustic). List of resources by  Yann Bayle. Lots on birds, underwater species.
+
+[On the Design of a Bioacoustic Sensor for the Early Detection of the Red Palm Weevil](https://www.researchgate.net/publication/325006988_Sound_Analysis_and_Detection_and_the_Potential_for_Precision_Livestock_Farming_-_A_Sheep_Vocalization_Case_Study). Detecting a pest that attacks palm trees.
+
+
+### Monitoring of domestic animals
+
+[Acoustic monitoring system to quantify ingestive behavior of free-grazing cattle](https://www.sciencedirect.com/science/article/pii/S016816991100024X)
+[A real-time algorithm for acoustic monitoring of ingestive behavior of grazing cattle](https://www.sciencedirect.com/science/article/pii/S0168169916303076).
+[Formant-based acoustic features for cow's estrus detection in audio surveillance system](https://www.semanticscholar.org/paper/Formant-based-acoustic-features-for-cow%27s-estrus-in-Lee-Zuo/ed1251d3c162bb45c4d9ce84d6826fe5ffc86a23). Heat detection is critical to breeding programs.
+[Sound analysis in dairy cattle vocalisation as a potential welfare monitor](https://www.sciencedirect.com/science/article/pii/S0168169915002549). 2015. It might be possible to apply call recognition to determine cattle welfare.
+Early recognition of bovine respiratory disease in calves using automated continuous monitoring of cough sounds
+
+[A real-time monitoring tool to automatically measure the feed intakes of multiple broiler chickens by sound analysis](https://www.sciencedirect.com/science/article/pii/S0168169915000733). Detect the pecking sounds of multiple broiler chickens
+
+Cough sound analysis to identify respiratory infection in pigs.
+
+[Detecting symptoms of diseases in poultry through audio signal processing](https://ieeexplore.ieee.org/document/7032298/).
+Detects rales, gurgling noises that are a distinct symptom of common respiratory diseases in poultry.
+
+[Stress Detection and Classification of Laying Hens by Sound Analysis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4341110/). 2015.
+
+
+[Compressive sensing in wireless sensor network for poultry acoustic monitoring](http://www.ijabe.org/index.php/ijabe/article/view/2148). 2017.
+Zigbee based network.
+
+### Monitoring of wildlife
+
+[Compressive Sensing for Efficiently Collecting Wildlife Sounds with Wireless Sensor Networks](https://ieeexplore.ieee.org/abstract/document/6289298/). 2012. !!
+Determine a sparse base that best represents the audio information used for identifying the target species. As a proof-of-concept, we focus on anuran (frogs and toads). 98% classification rate can be achieved by using as little as 10% of the original data.
+
+[On the effect of compression on the complexity characteristics of wireless acoustic sensor network signals](https://www.sciencedirect.com/science/article/pii/S0165168414003752). Tatlas, 2015. Wireless acoustic sensor network for environmental monitoring is considered.
+
+[Evaluation of MPEG-7-Based Audio Descriptors for Animal Voice Recognition over Wireless Acoustic Sensor Networks](http://www.mdpi.com/1424-8220/16/5/717/htm). Joaquín Luque. Use of generic descriptors based on an MPEG-7 standard. Demonstrate it to be suitable to be used in the recognition of different patterns
+
+
+
+[Wireless sensor networks for environmental research: A survey on limitations and challenges](https://ieeexplore.ieee.org/abstract/document/6624996/). 2013.
+
+
+### Poaching detection
+Detect illegal hunting and logging.
+
+[Optimization of sensor deployment for acoustic detection and localization in terrestrial environments](https://zslpublications.onlinelibrary.wiley.com/doi/full/10.1002/rse2.97).
+We developed probabilistic algorithms for near‐optimal placement of sensors,
+and for localization of the sound source as a function of spatial variation in sound pressure.
+We employed a principled‐GIS tool for mapping soundscapes to test the methods on a tropical‐forest case study using gunshot sensors.
+On hilly terrain, near‐optimal placement halved the required number of sensors compared to a square grid.
+Using a Greedy heuristic for near‐optimal placement of detectors.
+
+TMNR is a 25‐km2 area of mature tropical moist forest on undulating topography of 100–400 m elevation.
+Detection frequently possible up to 500 m distance from a gun, but much rarer above 1000 m.
+Predicted 79 devices within TMNR when applied to the soundscape from 829 gunshots on a 200‐m grid.
+50 devices within TMNR (on a 750‐m grid) would achieve a residual detection‐failure probability of 0.237,
+which is just bettered by near‐optimal placement of only 26 devices. 
+
+onitoring in the Korup National Park in Cameroon using 12 passive acoustic devices
+continuously recording for 2 years detected a high level of shooting within a 54‐km2 grid.
+
+ew advances in radio communication promise the future capability for real‐time detection and localization of exploitation activity,
+by linking networked devices to a base station. And are undergoing development for open‐source AudioMoth sensors (Hill et al. 2018)
+
+### Computer-aided auscultation
+Electronic stethoscope. Transferred over Bluetooth or cable.
+Detecting and characterizing heart murmurs / cardiac murmurs.
+"automatic heart sound analysis"
+Much cheaper than echocardiography (ECG).
+Murmurs classified as innocent/physiological/functional or pathological/abnormal
+Descriptive murmur information like murmur timing, grading, positions of the S1/S2 heart sounds.
+Analysis stages.
+1. Heart rate detection
+2. Heart sound segmentation. Identify two main phases of heart. Styole,diastole.
+3. Feature extraction
+4. Feature classification.
+
+Auscultation of the respiratory sounds.
+Diagnosing cardio-pulmonary disorders using lung sounds from chest and back.
+Asthmaic breath sounds.
+
+Lots of research in 2017 on using smartphones, machine learning, low-cost portable devices.
+
+### Acoustic Emission monitoring
+Using the emission of acoustic waves from materials under load/stress/failure.
+Alternative to ultrasonic testing in some cases.
+
+### Structural health monitoring
+
+Buildings. Bridges.
 
 [Acoustic techniques for structural health monitoring](https://aip.scitation.org/doi/10.1063/1.2902603)
 Structural health monitoring of bridges using acoustic emission
 
-Smart home. Extending voice assistants
+### Quality control.
+
+Non-destructive testing
+
+## Process monitoring and regulation
+
+Structural health monitoring (SHM),
+
+System feedback
+Process monitoring
+
+May require capture rates of 100-500kHz.
+
+## Human Activity Detection
+
+* Audio-Based Human Activity Recognition Using Non-Markovian Ensemble Voting. 2012. Johannes A. Stork. 50 citations.
+* Audio-Based Human Activity Recognition with Robots. 2011. Johannes A. Stork.
+* [Transfer Learning for Improved Audio-Based Human Activity Recognition](www.mdpi.com/2079-6374/8/3/60/pdf). 2018.
+* A Similarity Analysis of Audio Signal to Develop a Human Activity Detection. 2017, A García-Hernández.
+
+Context aware services. Social robots, domotics/smart-home.
+
+## Fault detection
+In machinery/parts.
+Fault diagnosis
+Anomaly detection
+
+Acoustic method for detecting defects in concrete bridges.
+[1](https://phys.org/news/2017-08-acoustics-early-bridges.html).
+[2](https://news.unl.edu/newsrooms/today/article/how-acoustics-can-be-an-early-warning-system-for-bridges/)
+Dragging balls on string along the concrete, recording with contract microphone.
+
+## Early warning systems
+Natural disasters etc.
+
+[An acoustic emission landslide early warning system for communities in low-income and middle-income countries](https://link.springer.com/article/10.1007/s10346-018-0977-1). 2018.
+Research and field trials have demonstrated conclusively that
+acoustic emission (AE) monitoring can be an effective approach to detect accelerating slope movements
+and to subsequently communicate warnings to users.
+Cost constrained to a few hundred dollars.
+[New acoustic early warning system for landslide prediction](https://www.lboro.ac.uk/service/publicity/news-releases/2010/164_ALARMS.html). 2010.
+Details on an acoustic sensor. Steel waveguide. ! nice diagram.
+[paper](https://impact.ref.ac.uk/casestudies/CaseStudy.aspx?Id=36220).
+
+
+[Underwater acoustic sensor network for early warning generation](https://ieeexplore.ieee.org/document/6405009). 2012.
+Underwater wireless sensor network (UWSN).
+This paper highlights the physical layer challenges in establishing a reliable,
+low power consuming and long life UWSN system for early warning generation.
+
+## Techniques
+
+### Passive monitoring
+
+Wireless Acoustic Sensor Network
+
+[Random Forest for improved analysis efficiency in passive acoustic monitoring](https://www.sciencedirect.com/science/article/pii/S1574954113001234). June 2013.
+Used simple (bandpass?) detectors to generate events, then used Random Forest on a set of statistical features calculating during the event time.
+Was able to reduce false positives by 80-90%.
+
+[An FPGA-Based WASN for Remote Real-Time Monitoring of Endangered Species: A Case Study on the Birdsong Recognition of Botaurus stellaris](http://www.mdpi.com/1424-8220/17/6/1331). Wireless Acoustic Sensor Networks (WASN). #TODO
+
+[Applications and trends in wireless acoustic sensor networks: a signal processing perspective](https://www.researchgate.net/publication/248702130_Applications_and_trends_in_wireless_acoustic_sensor_networks_A_signal_processing_perspective).
+Considers WSN for microphone arrays. 2011. 103 citations.
+
+[Wireless Acoustic Sensor Networks and Applications](https://www.hindawi.com/journals/wcmc/si/493820/).
+Special issue in Wireless Communications and Mobile Computing.
+[introduction](https://www.hindawi.com/journals/wcmc/2017/1085290/)
+
+[Design and Implementation of a Robust Acoustic Recognition System for Waterbird Species using TMS320C6713 DSK](https://www.igi-global.com/gateway/article/176715). A. Boulmaiz. International Journal of Ambient Computing and Intelligence (IJACI), 2017. 
+Tonal region detector (TRD) using a sigmoid function.
+Mel Frequency Cepstral Coefficients, Spectral Subtraction. Support Vector Machine. #TODO
+
+[Audio Classification of Bird Species: A Statistical Manifold Approach](https://www.researchgate.net/publication/220765656_Audio_Classification_of_Bird_Species_A_Statistical_Manifold_Approach) #TODO
+
+[Robust acoustic bird recognition for habitat monitoring with wireless sensor networks](https://link.springer.com/article/10.1007%2Fs10772-016-9354-4). Amira Boulmaiz. International Journal of Speech Technology, September 2016.
+Tonal region detector (TRD) using sigmoid function is proposed.
+Once the tonal regions in the noisy bird sound are detected, the features gammatone teager energy cepstral coefficients (GTECC).
+TRD–GTECC.
+Quantile-based cepstral dynamics normalization (QCN) for noise reduction. Extending ideas from computationally inexpensive normalizations of
+spectral subtraction (SS), cepstral mean and variance (CMVN), and recently introduced cepstral gain normalization (CGN).
+Compares MFCC, perceptual-MVDR (PMVDR) and power-normalized cepstral coefficients (PNCC).
+Using different feature normalizations; SS, CMVN, CGN, and QCN.
+GTECC had the best recognition rate, while being slightly less computationally intensive than MFCC.
+
 
 ## Test cases
 
@@ -144,8 +274,6 @@ Smart home. Extending voice assistants
 * MFCC
 * modulation spectrogram
 * Scattering transform
-
-
 
 Summarization, pooling
 Typically across a set of frames
@@ -166,6 +294,13 @@ Using SIF features, spectrograms downscaled. 720 features per frame.
 Used one frame energy summary feature. 
 Shows SIF-SVM performing almost as good as SIF-CNN and SIF-DNN, and favorable under high noise.
 
+### Directional Derivative Features
+A generalization of delta-features for arbitrary angles.
+
+Comparing Time-Frequency Representations for Directional Derivative Features
+https://www.researchgate.net/publication/269097301_Comparing_Time-Frequency_Representations_for_Directional_Derivative_Features
+Found cube-root compression to be good, both on Gammatone and Mels.
+Directional Derivative Features computed from a Steerable Pyramid Filter-bank.
 
 
 ### Preprocessing
@@ -296,11 +431,6 @@ https://www.xeno-canto.org/
 
 ### Topics
 
-Birdsong denoising
-Birdsong source separation
-bioacoustic denoising 
-
-Passive acoustic monitoring.
 
 Time-frequency (TF) analysis of non-stationary signals.
 
@@ -574,58 +704,6 @@ Kumar, 2016. Audio Event Detection
 A novel feature set for low-dimensional signal representation, designed for classification or clustering of non-stationary signals with complex variation in time and frequency. Applied to birdsong and *within-species* classification.
 Ambiguity spectrum. Multitapers. Singular Value Decomposition.
 
-### Passive monitoring
-
-Wireless Acoustic Sensor Network
-
-[Random Forest for improved analysis efficiency in passive acoustic monitoring](https://www.sciencedirect.com/science/article/pii/S1574954113001234). June 2013.
-Used simple (bandpass?) detectors to generate events, then used Random Forest on a set of statistical features calculating during the event time.
-Was able to reduce false positives by 80-90%.
-
-[An FPGA-Based WASN for Remote Real-Time Monitoring of Endangered Species: A Case Study on the Birdsong Recognition of Botaurus stellaris](http://www.mdpi.com/1424-8220/17/6/1331). Wireless Acoustic Sensor Networks (WASN). #TODO
-
-[Applications and trends in wireless acoustic sensor networks: a signal processing perspective](https://www.researchgate.net/publication/248702130_Applications_and_trends_in_wireless_acoustic_sensor_networks_A_signal_processing_perspective).
-Considers WSN for microphone arrays. 2011. 103 citations.
-
-[Wireless Acoustic Sensor Networks and Applications](https://www.hindawi.com/journals/wcmc/si/493820/).
-Special issue in Wireless Communications and Mobile Computing.
-[introduction](https://www.hindawi.com/journals/wcmc/2017/1085290/)
-
-[Design and Implementation of a Robust Acoustic Recognition System for Waterbird Species using TMS320C6713 DSK](https://www.igi-global.com/gateway/article/176715). A. Boulmaiz. International Journal of Ambient Computing and Intelligence (IJACI), 2017. 
-Tonal region detector (TRD) using a sigmoid function.
-Mel Frequency Cepstral Coefficients, Spectral Subtraction. Support Vector Machine. #TODO
-
-[Audio Classification of Bird Species: A Statistical Manifold Approach](https://www.researchgate.net/publication/220765656_Audio_Classification_of_Bird_Species_A_Statistical_Manifold_Approach) #TODO
-
-[Robust acoustic bird recognition for habitat monitoring with wireless sensor networks](https://link.springer.com/article/10.1007%2Fs10772-016-9354-4). Amira Boulmaiz. International Journal of Speech Technology, September 2016.
-Tonal region detector (TRD) using sigmoid function is proposed.
-Once the tonal regions in the noisy bird sound are detected, the features gammatone teager energy cepstral coefficients (GTECC).
-TRD–GTECC.
-Quantile-based cepstral dynamics normalization (QCN) for noise reduction. Extending ideas from computationally inexpensive normalizations of
-spectral subtraction (SS), cepstral mean and variance (CMVN), and recently introduced cepstral gain normalization (CGN).
-Compares MFCC, perceptual-MVDR (PMVDR) and power-normalized cepstral coefficients (PNCC).
-Using different feature normalizations; SS, CMVN, CGN, and QCN.
-GTECC had the best recognition rate, while being slightly less computationally intensive than MFCC.
-
-### Computer-aided auscultation
-Electronic stethoscope. Transferred over Bluetooth or cable.
-Detecting and characterizing heart murmurs / cardiac murmurs.
-"automatic heart sound analysis"
-Much cheaper than echocardiography (ECG).
-Murmurs classified as innocent/physiological/functional or pathological/abnormal
-Descriptive murmur information like murmur timing, grading, positions of the S1/S2 heart sounds.
-Analysis stages.
-1. Heart rate detection
-2. Heart sound segmentation. Identify two main phases of heart. Styole,diastole.
-3. Feature extraction
-4. Feature classification.
-
-Auscultation of the respiratory sounds.
-Diagnosing cardio-pulmonary disorders using lung sounds from chest and back.
-Asthmaic breath sounds.
-
-Lots of research in 2017 on using smartphones, machine learning, low-cost portable devices.
-
 
 ### Source separation and denoising
 
@@ -729,7 +807,6 @@ Splits spectrogram into 3 bins.
 Linear spectrogram better than log spectrogram in presence of noise.
 
 
-
 [RNNoise](https://people.xiph.org/~jm/demo/rnnoise/).
 Using deep learning combined with conventional signal processing.
 Tuned for real-time usage, 10ms lookahead.
@@ -772,42 +849,6 @@ Utrecht, Netherlands.
 
 [Whisper to Alexa, and She’ll Whisper Back](https://developer.amazon.com/blogs/alexa/post/c0e7798d-32bc-4549-9c24-97d204a7bf3a/whisper-to-alexa-and-she-ll-whisper-back). Tech details from researcher on whisper detection
 
-## Human Activity Detection
-
-* Audio-Based Human Activity Recognition Using Non-Markovian Ensemble Voting. 2012. Johannes A. Stork. 50 citations.
-* Audio-Based Human Activity Recognition with Robots. 2011. Johannes A. Stork.
-* [Transfer Learning for Improved Audio-Based Human Activity Recognition](www.mdpi.com/2079-6374/8/3/60/pdf). 2018.
-* A Similarity Analysis of Audio Signal to Develop a Human Activity Detection. 2017, A García-Hernández.
-
-Context aware services. Social robots, domotics/smart-home.
-
-## Fault detection
-In machinery/parts.
-Fault diagnosis
-Anomaly detection
-
-Acoustic method for detecting defects in concrete bridges.
-[1](https://phys.org/news/2017-08-acoustics-early-bridges.html).
-[2](https://news.unl.edu/newsrooms/today/article/how-acoustics-can-be-an-early-warning-system-for-bridges/)
-Dragging balls on string along the concrete, recording with contract microphone.
-
-## Early warning systems
-Natural disasters etc.
-
-[An acoustic emission landslide early warning system for communities in low-income and middle-income countries](https://link.springer.com/article/10.1007/s10346-018-0977-1). 2018.
-Research and field trials have demonstrated conclusively that
-acoustic emission (AE) monitoring can be an effective approach to detect accelerating slope movements
-and to subsequently communicate warnings to users.
-Cost constrained to a few hundred dollars.
-[New acoustic early warning system for landslide prediction](https://www.lboro.ac.uk/service/publicity/news-releases/2010/164_ALARMS.html). 2010.
-Details on an acoustic sensor. Steel waveguide. ! nice diagram.
-[paper](https://impact.ref.ac.uk/casestudies/CaseStudy.aspx?Id=36220).
-
-
-[Underwater acoustic sensor network for early warning generation](https://ieeexplore.ieee.org/document/6405009). 2012.
-Underwater wireless sensor network (UWSN).
-This paper highlights the physical layer challenges in establishing a reliable,
-low power consuming and long life UWSN system for early warning generation.
 
 # Lecture notes
 
@@ -815,381 +856,7 @@ Audio Classification.
 http://www.cs.tut.fi/~sgn24006/PDF/L04-audio-classification.pdf
 Covers low-level features, MFCC. Classification by distance metrics. GMM. HMM.
 
-# DCASE2018 notes
 
-## Overall
-150 attendees.
-90 last year.
-
-## Keynote Monday
-Herve Glotin
-
-Bioacoustics
-
-Physteter
-Biggest  dolphin
-up to 20 meters
-endangered
-
-Hear sonar
-clicks
-
-dive 1000 meters deep
-studying them
-
-sound consists of multiple pulses
-
-
-### 1d tracking.
-Long-term spectral average
-Jan Schuter
-
-### Stereoscoptic
-Dual hydrophone, 1.83m aperture
-Placed at the entrance of national park
-Using time-delay to detect crossing and direction. TDOA
-Counting waves going in and out
-
-### Quadrophonic
-JASON sound card
-5 channel, 1MSamples/channel
-antenna with 4 hydrophones,
-another nea surface
-using 9-DOF MPU to know position of
-
-clicks increase in frequency
-when no clicks, eating the prey
-3-dimensional tracking of whale.
-Show in rich 3d animation
-3 kilometers away
-
-Denoising TDOA with Autoencoder
-Stereo autoencoder
-Creates an latent representation, embeddings
-Unsupervised learning
-Using T-SNE in 2d to plot clusters
-2dB SNR robustness improvement
-
-Noise from boats
-
-### Welcome to collaborate
-http://sabiod.org
-
-### Questions
-
-What is the calibrated precision of the system?
-
-Can it be that one is hearing the reflections,
-from the cliffs/bottom, and not directly the animal?
-
-Sperm whales also recycle air.
-Can it be that some silences are for this reason, not for foraging?
-
-To which extent do these techniques apply in air?
-
-343 m/s in air; it travels at 1,480 m/s in water
-
-## DCASE challenge 2018
-
-Growing year over year. 2013,2016,2017, 2018
-
-81 participating teams
-
-Tasks organized by different teams,
-
-Welcome proposals on new tasks.
-
-### Task 1. Acoustic Scene Classiication
-10 classes. 3 subtasks.
-
-A) single device
-B) mismatched devices
-C) with A, but allowing external data
-
-Recordings from many places in Europe.
-
-### Task2. 
-
-Frederic Font
-UPF. Barcelona
-Maintain Freesound
-Improve free software
-AudioSet release
-Kaggle/Google wanted audio challenges
-
-41 categories
-multi-class classification. Plan for multi-label tagging
-
-558 teams on Kaggle. Only 20 for DCASE.
-Lots of people shared their code,knowledge in Kaggle forums
-
-
-### Task3. Bird audio detection
-
-Generalization task. Mismatched.
-Huge variation between different sets.
-
-### Task4. Domestic
-Weak labels. Small labeled.
-10 classes, selected from AudioSet.
-Not so much source code submitted. Want more of that.
-
-### Task5
-Microphone array.
-Unknown locationzation relative to sound source.
-Spectral and Spatial information.
-4-channels arrays. 7 arrays. Some for test, some only for validation.1
-12 team totals.
-Only 4 teams used spatial features.
-Graph of mismatched performance. Dev versus test.
-
-### Making sense of sound challenge
-High-level classes. Broad "categories"
-Based on lower-level classes. Dendrogram
-From FreeSound
-
-## Mosquito detection
-
-Mosquittos kill 750k people every year
-Some particular species carry
-Want a map of where mosquittoes are
-
-Mosquittoe use sound to communicate to eachother
-Trained mosquitto researches can detect mosquitto subfamilies
-3500 species
-Mosquitto 'flight tone'. Harmonic structure.
-Many very challenging.
-
-Mozz Wear mobile app.
-
-Capture mosquttios, record their sound.
-Some tens,hundreds
-Need to bait with humand or cows.
-
-Prefer mel-spectrogram.
-Performs similar to MFCC, but more interpretable.
-
-0.1 second audio clips.
-7-way species classification.
-60% accuracy.
-
-Want early warning systems.
-Using 20 dollar smart-phones.
-
-### Questions
-How to avoid False Positive from non-Mosquitto sound?
-Currently not comparing for . Small dataset. 
-
-Emitting carbon dioxide attacts the mosquittos.
-Use dry-ice for this.
-
-Interesting to have an autonomous sensor device?
-Needs continious production of CO2.
-
-
-## lasseck 
-Highest performing system DCASE2018.
-
-Animal Sound Archive, Museam fuer Naturekunde Berlin.
-Focus on data augmentation
-
-Split folds by dataset, to estimate handling mismatch.
-2 folds with 2+1.
-
-Cutoff 2kHz.
-
-Pre-trained networks. InceptionV3,ResNet152.
-Replaced fully connected layer.
-Fine-tuned the model
-
-ImageNet not allowed! Had to re-train from scratch
-
-4 second audio chunks. Selected randomly inside 10 second.
-Resized to fit image input. 
-
-### Data augmentation
-Jitter audio chunk length.
-TIme stretching. Global, piecewise local.
-Frequency stretching. Global, piecewise local.
-! nice GIF animations showing the augmentations.
-Adding chunks with same labels.
-
-LifeCLEF paper has details on augmentations used.
-+14% total accuracy improvement total.
-
-### Questions/suggestions
-
-Error analysis bird detection.
-Not performed.
-D.Stowell. Extremely brief vocalization at low SNR, are typically what strong models confuse.
-Ex. Raindrops.
-
-## Domain adaptation for birdsound audio detection
-Uni Kentucky
-Non-passerine birds. Much more low frequncy information.
-Background in bioacoustics. Marine, elephants,
-Used for a long time Hidden Markov Models.
-
-* Adjust time,frequency resolution
-bulbul used 45ms. Used very shorter. HMM typical 5ms.
-bulbul used 80 bands.
-* Signal enhancement
-Noise different for different sets.
-Hypothosis: Reducing noise, 
-LSA with IMCRA noise tracking.
-* Direct domain enhancement
-From image classification litterature.
-Used CORAL. 'Whitening'. Recolors second-order statistics
-Normalized in the frequency domain.
-Tranfered "to" the warblr set, from each dataset.
-
-Within-dataset performance, cross-dataset performance
-
-### Domain adaptations
-Individually, did not really improve?
-
-### Ensembles
-Boosting. 86% -> 90%
-
-
-## Dealing with weakly labeled
-
-10-class problem.
-
-Baseline model.
-3 layer CNN.
-Semi-supervised method: Two-pass
-First pass with model trained on weak labels.
-Use this model to annotate unlabeled set.
-Train second, stronger model.
-F1 7.5% first pass, 11% second pass.
-Best system: F1 32.4%
-
-### MMM loss function
-Veronica Morfi
-
-MMM loss function. Uses min, mean/2, max
-Also tested mean/2 + max, which did basically as well
-
-
-## Keynote Day 2
-Fraunhofer IDMT. Erlangen
-
-Acoustic condition monitoring. Condition=some process or states
-Sound -> Hearing -> Consideration -> Decison 
-Sound -> Sensor -> Apprisal -> Processing -> Decision
-
-Motivation: Increase efficient, product flexibility
-Challenes: Complexity, invesments, security
-
-Monitoring systems.
-Auality Assurance. Predictive maintenance, end-of-line testing
-Acoustic Control advantages: non-destructive, contactless, retrofittable
-
-What model to choose?
-Training data?
-Expert annotations?
-Data aquisition? Costumer constaints?
-Online, offline decision making?
-Sensitive data. What data can be transmitted/stored?
-Expected quality? What quality is useful?
-Deployment, integration
-
-Privacy & Security
-- Secure data aquisition, transmission, storage
-- Avoidance of data corruption (sensor identification)
-- Decoupling real and pseudonym identity (pauth)
-
-Data aquisition.
-Their approach: get sample data as soon as possilbe.
-Even if low quality, ie customer smartphone
-
-Expert annotation is the bottleneck.
-Can use side-information from existing monitoring system. ("oracle")
-
-How to detect early that unable to meet needed quality, to avoid wasting time/money
-
-
-### Usecase: Stadlarm project 'city noise'
-Embedded. Sensor Network.
-City of Jena.
-Noise exposure: 3 residential areas surrounding
-Systematic,distributed, continious acoustic noisemonitoring
-Want objective measurement
-Want to know why it was too loud
-
-Do full analysis on acoustic sensor.
-Transmit noise noise level, category classification.
-
-Sensor Unit.
-Based on Raspberry PI 3 Compute Module.
-Industrial rated components
-M.2 slot for modem
-Hanging from a lamp. Gets power during the night.
-Battery keeps it running during the day 
-Microphone at the bottom
-
-Noise measurements.
-German DIN normas. TA-Larm
-Law defines sound event level, average sound level
-8 measurements per second
-
-Classification.
-14 classes.
-5 scenes. Msuice Event, Public, Place, Roadworks, Sports Event, Traffic
-... events.
-
-Use data augmentation a lot.
-
-Hybrid DNN. inspired by Trakashi, INterspeech 2016.
-VGG architecture. 3layers
-
-Used an audio clip 'medley' of noise sources,
-plotted together with the activations of different classes.
-
-Web application with full database available to the city.
-Real-time and historical.
-Merging event calendar.
-Planned to be release to the public.
-
-Now running a 6 month testing phase.
-Plant o keep it running for at least one more year.
-
-Future directions
-Traffic mnitoring. Speed, vehicle type, count
-Touristic recommendations
-
-### Usecase: End of line test of motorized car seats.
-
-Listening to the car seat.
-Analysis is done on conveyer belt.
-8 omni microphones.
-Need to make decision right away:
-Product is either accepted or rejected
-
-Customer requirements: C library for LabVIEW.
-Using small neural networks.
-Models specific to motor types.
-
-### Usecase: Tunnel digging machine
-Single machine that digs the entire tunell.
-Huge. Lots of different parts. People working around.
-
-Work in crews on shifts. Each shift gets a different number of meters.
-Want to have measurements that can explain this variatio.
-
-Training models specific to each tool.
-Inferring from the activity, what the crew is doing.
-
-Acoustic monitoring is a big topic right now. "will be much bigger"
-
-Hanna Lukashevich.
-Hanna.Lukashevich@idmt.fraunhofer.de
-
-### Questions
-VGG style network on RPi. Was it hard to make it work?
-Not a big challenge. Using a small network.
-Running on standard Keras. Some optimization. 
 
 # DCASE2018 model complexities
 
@@ -1231,4 +898,80 @@ Interesting
 * Koutini_JKU_task4_1		21.5 %	126k
 * Liu_USTC_task4_2		28.8 %	534k
 
+
+### Compressed sensing
+Aka compressive sensing.
+
+[A Systematic Review of Compressive Sensing: Concepts, Implementations and Applications](). 2018, IEEE Access. MEENU RANI.
+Accessible intro, good diagrams. Table over Number of Required Compressive Measurements with different random methods.
+Including structured random and determenistic, which does not have to be sent along with signal.
+Acquisition strategies: RANDOM DEMODULATOR, MODULATED WIDEBAND CONVERTER (MWC), RANDOM MODULATION PRE-INTEGRATOR (RMPI), RANDOM FILTERING,
+COMPRESSIVE MULTIPLEXER, RANDOM EQUIVALENT SAMPLING (RES), RANDOM CONVOLUTION, QUADRATURE ANALOG-TO-INFORMATION
+CONVERTER (QAIC), RANDOM TRIGGERING-BASED MODULATED WIDEBAND COMPRESSIVE SAMPLING (RT-MWCS).
+! Random Filtering seems easy and applicable to streaming data.
+Recovery methods.
+Basis Pursuit, Basis Pursuit Denoising (BPDN), Dantzig Selector, Total Variation Denoising (TV).
+Convex optimization: BP simplex, BP interior...
+Greedy algorithms. Faster but requires knowledge of signal sparsity.
+Matching Pursiot, Orthongonal Matching Pursuit.
+Compressive sampling matching pursuit (CoSaMP) and subspace pursuit (SP).
+Iterative hard thresholding (IHT), Iterative soft thresholding (IST), approximate message passing (AMP).
+Fourier sampling, heavy hitters on steroids (HHS), chaining pursuits and sparse sequential matching pursuit. 
+
+Applications in MRI, 3d-imaging, hyperspectral imaging, ultrasound imaging.
+DiffuserCam, [Lensless single exposure 3d-imager](http://nuit-blanche.blogspot.com/2017/10/diffusercam-lensless-single-exposure-3d.html).
+[3d-ultrasound with single sensor](http://nuit-blanche.blogspot.com/2017/12/compressive-3d-ultrasound-imaging-using.html)
+
+[Introduction to Compressed Sensing](http://www.dfg-spp1324.de/download/preprints/preprint093.pdf). !!
+
+[Compressed Sensing: The big picture](https://sites.google.com/site/igorcarron2/cs).
+Acquiring and recovering a sparse signal in the most efficient way possible (subsampling) with the help of an incoherent projecting basis.
+Buildling sensing hardware that can directly produced such compressed signals.
+Sparse means signal of interest is compressible. Challenge: Need to know with which family of functions it is sparse.
+Fourier,polynomials,wavelets.
+Many approaches to finding sparse representations/sparse dictionaries. Page lists 11.
+Donoho-Tanner phase transition diagram, tool for evaluating whether a signal is compressible with an L1 solver.
+Lists a set of 10 different conditions needed to enable sparse recovery.
+Lists some 40 different solvers, until 2013.
+
+[Convolutional Dictionary Learning: A Comparative Review and New Algorithms](https://arxiv.org/abs/1709.02893). 2018.
+
+[Single-sensor multispeaker listening with acoustic metamaterials](http://people.duke.edu/~yx35/reprints/Cocktail_party_listener_PNAS2015.pdf)
+Hardware approach to multi-source separation. Using 3d-printed waveguides, single sensor.
+
+[Compressive Sensing](https://link.springer.com/referenceworkentry/10.1007%2F978-0-387-92920-0_6). 2011.
+Introduction and overview on both theoretical and numerical aspects of compressive sensing
+
+[Compressive Sensing by Random Convolution](https://epubs.siam.org/doi/abs/10.1137/08072975X). 2009. !!
+Demonstrates that convolution with random waveform followed by random time-domain subsampling is a universally efficient compressive sensing strategy. 
+
+[Distributed Compressive Sensing](https://arxiv.org/abs/0901.3403). 2009.
+
+[Sparse Representations, Compressive Sensing and dictionaries for pattern recognition](https://ieeexplore.ieee.org/abstract/document/6166711/).
+2011, Vishal M. Patel. !!
+Compressive Sensing (CS), Sparse Representation (SR) and Dictionary Learning (DL). 
+Recent works in SR and CS have shown that if sparsity in the recognition problem is properly harnessed then the choice of features is less critical. What becomes critical, however, is the number of features and the sparsity of representation
+
+Practical Compressed Sensing: modern data acquisition and signal processing. 2011. Becker.
+One of the world’s first compressed sensing hardware devices, the random modulation pre-integrator (RMPI). The RMPI
+
+[COMPRESSED SENSING OF AUDIO SIGNALS USING MULTIPLE SENSORS](https://www.researchgate.net/publication/257304755_Compressed_sensing_of_audio_signals_using_multiple_sensors). 2008. Anthony Griffin and Panagiotis Tsakalides.
+Compares Signal Distortion Ratio (SDR) of Speech,Music,Birdcall,Impulsive type audio with DCT/DWT and basis/orthononal matching pursuit.
+! Birdcall shows very high SDR, when using DCT. Good for denoising? 
+
+[Effect of downsampling and compressive sensing on audio-based continuous cough monitoring](https://ieeexplore.ieee.org/abstract/document/7319816/). 2015. 98% at full rate. Undersampling to 400Hz 90%. Sampling with compressive sensing at 100Hz also 90%.
+
+
+[A Comparative Study of Audio Compression Based on Compressed Sensing and Sparse Fast Fourier Transform (SFFT): Performance and Challenges](https://arxiv.org/abs/1403.3061).
+References two other papers about compressed sensing in audio compression.
+To obtain exact recovery, the rule of thumb is to apply incoherent sampling and taking measurements 4 times the sparsity level of the signal.
+Orthogonal Matching Pursuit one algorithm for doing recovery.
+Sparse Fast Fourier Transform can transform in sub-linear time.
+Binning Fourier coefficients into a small number of buckets.
+The recovery process reduces to extracting the location of the non-zero (index) elements in the matrix A and use them to order the sparse K signal, embed zeros in the other locations and perform inverse FFT.
+Considerably simpler than the general compressed sensing case.
+Propose an innovative way to embed the indices in the extracted largest frequency bins to relax the need for extra coded values.
+! Only tested on a single, unspecified audio file, 15 seconds long.
+
+[A compressive beamforming method](https://ieeexplore.ieee.org/abstract/document/4518185/). Direction of Arrival estimation.
 
