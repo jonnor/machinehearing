@@ -30,64 +30,38 @@ Keywords
 * Cost
 
 
-## Background
-
-
-## Usecases
-
-Bioacoustics/ecoacoustics. 
-Passive acoustic monitoring.
-Biomonitoring.
-Animal population estimation/census.
-
-Birds. Wolves. Insects.
-
-Trigger for camera trap?
-
-Livestock
-Poultry,swine,sheep,diary cows.
-
-Grazing/feeding behavior.
-Heat detection.
-Respiratory disease detection.
-Stress detection.
-Chase away wild animals/birds from fields.
-Insect detection.
-Food quality analysis.
-
-### Bioacoustics
-
-
-
-Machinery
-Real-Time Acoustic Monitoring of Cutting Blade Sharpness in Agricultural Machinery.
-
-Fish farming
-
-Gunshot detection.
-
-Non-destructive testing
-Acoustic Emissions Testing. Acoustic Emission Testing is performed by applying a localized external force such as an abrupt mechanical load or rapid temperature or pressure change to the part being tested. 
-Acoustic Resonance Testing.
-
-Testing of cast-iron castings
-Concrete.
-
-[Acoustic methods for the nondestructive testing of concrete: A review of foreign publications in the experimental field](https://link.springer.com/article/10.1134/S1061830913020034)
-
-
-Smart home. Extending voice assistants
-
 ## Applications
 
 ### Bioacoustics / ecoacoustics
 
 [Awesome Bioacoustic](https://github.com/ybayle/awesome-bioacoustic). List of resources by  Yann Bayle. Lots on birds, underwater species.
 
+Bioacoustics/ecoacoustics. 
+
+* Biomonitoring
+* Animal population estimation/census. Dirds. Wolves. Insects.
+* Trigger for camera trap?
+
 [On the Design of a Bioacoustic Sensor for the Early Detection of the Red Palm Weevil](https://www.researchgate.net/publication/325006988_Sound_Analysis_and_Detection_and_the_Potential_for_Precision_Livestock_Farming_-_A_Sheep_Vocalization_Case_Study). Detecting a pest that attacks palm trees.
 
+### Agriculture
+
+Machinery
+
+"Real-Time Acoustic Monitoring of Cutting Blade Sharpness in Agricultural Machinery"
 
 ### Monitoring of domestic animals
+
+Livestock
+
+* Poultry,swine,sheep,diary cows.
+* Grazing/feeding behavior.
+* Heat detection.
+* Respiratory disease detection.
+* Stress detection.
+* Chase away wild animals/birds from fields.
+* Insect detection.
+* Food quality analysis.
 
 [Acoustic monitoring system to quantify ingestive behavior of free-grazing cattle](https://www.sciencedirect.com/science/article/pii/S016816991100024X)
 [A real-time algorithm for acoustic monitoring of ingestive behavior of grazing cattle](https://www.sciencedirect.com/science/article/pii/S0168169916303076).
@@ -104,7 +78,6 @@ Detects rales, gurgling noises that are a distinct symptom of common respiratory
 
 [Stress Detection and Classification of Laying Hens by Sound Analysis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4341110/). 2015.
 
-
 [Compressive sensing in wireless sensor network for poultry acoustic monitoring](http://www.ijabe.org/index.php/ijabe/article/view/2148). 2017.
 Zigbee based network.
 
@@ -116,8 +89,6 @@ Determine a sparse base that best represents the audio information used for iden
 [On the effect of compression on the complexity characteristics of wireless acoustic sensor network signals](https://www.sciencedirect.com/science/article/pii/S0165168414003752). Tatlas, 2015. Wireless acoustic sensor network for environmental monitoring is considered.
 
 [Evaluation of MPEG-7-Based Audio Descriptors for Animal Voice Recognition over Wireless Acoustic Sensor Networks](http://www.mdpi.com/1424-8220/16/5/717/htm). Joaquín Luque. Use of generic descriptors based on an MPEG-7 standard. Demonstrate it to be suitable to be used in the recognition of different patterns
-
-
 
 [Wireless sensor networks for environmental research: A survey on limitations and challenges](https://ieeexplore.ieee.org/abstract/document/6624996/). 2013.
 
@@ -176,7 +147,17 @@ Structural health monitoring of bridges using acoustic emission
 
 ### Quality control.
 
-Non-destructive testing
+* Non-destructive testing
+* Acoustic Emissions Testing.
+* Acoustic Resonance Testing.
+
+Acoustic Emission Testing is performed by applying a localized external force such as an abrupt mechanical load or rapid temperature or pressure change to the part being tested. 
+
+* Testing of cast-iron castings
+* Concrete.
+
+[Acoustic methods for the nondestructive testing of concrete: A review of foreign publications in the experimental field](https://link.springer.com/article/10.1134/S1061830913020034)
+
 
 ## Process monitoring and regulation
 
@@ -187,14 +168,6 @@ Process monitoring
 
 May require capture rates of 100-500kHz.
 
-## Human Activity Detection
-
-* Audio-Based Human Activity Recognition Using Non-Markovian Ensemble Voting. 2012. Johannes A. Stork. 50 citations.
-* Audio-Based Human Activity Recognition with Robots. 2011. Johannes A. Stork.
-* [Transfer Learning for Improved Audio-Based Human Activity Recognition](www.mdpi.com/2079-6374/8/3/60/pdf). 2018.
-* A Similarity Analysis of Audio Signal to Develop a Human Activity Detection. 2017, A García-Hernández.
-
-Context aware services. Social robots, domotics/smart-home.
 
 ## Fault detection
 In machinery/parts.
@@ -223,6 +196,18 @@ Details on an acoustic sensor. Steel waveguide. ! nice diagram.
 Underwater wireless sensor network (UWSN).
 This paper highlights the physical layer challenges in establishing a reliable,
 low power consuming and long life UWSN system for early warning generation.
+
+## Context aware computing
+
+Context aware services. Social robots, domotics/smart-home.
+
+Human Activity Detection
+
+* Audio-Based Human Activity Recognition Using Non-Markovian Ensemble Voting. 2012. Johannes A. Stork. 50 citations.
+* Audio-Based Human Activity Recognition with Robots. 2011. Johannes A. Stork.
+* [Transfer Learning for Improved Audio-Based Human Activity Recognition](www.mdpi.com/2079-6374/8/3/60/pdf). 2018.
+* A Similarity Analysis of Audio Signal to Develop a Human Activity Detection. 2017, A García-Hernández.
+
 
 ## Techniques
 
