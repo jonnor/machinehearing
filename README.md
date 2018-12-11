@@ -63,7 +63,6 @@ Livestock
 * Insect detection.
 * Food quality analysis.
 
-[Acoustic monitoring system to quantify ingestive behavior of free-grazing cattle](https://www.sciencedirect.com/science/article/pii/S016816991100024X)
 [A real-time algorithm for acoustic monitoring of ingestive behavior of grazing cattle](https://www.sciencedirect.com/science/article/pii/S0168169916303076).
 [Formant-based acoustic features for cow's estrus detection in audio surveillance system](https://www.semanticscholar.org/paper/Formant-based-acoustic-features-for-cow%27s-estrus-in-Lee-Zuo/ed1251d3c162bb45c4d9ce84d6826fe5ffc86a23). Heat detection is critical to breeding programs.
 [Sound analysis in dairy cattle vocalisation as a potential welfare monitor](https://www.sciencedirect.com/science/article/pii/S0168169915002549). 2015. It might be possible to apply call recognition to determine cattle welfare.
@@ -600,6 +599,11 @@ Supervised
 
 Random Features
 
+[On Random Weights and Unsupervised Feature Learning](http://www.robotics.stanford.edu/~ang/papers/nipsdlufl10-RandomWeights.pdf).
+ICML2011. References works showing that random convolutional kernels can do suprisingly well.
+Suggesting that one important baseline should be random + linear classifier.
+Uses this for fast CNN architecture search.
+
 [DCASE 2017 TASK 1: Acoustic Scene Classification Using Shift-Invariant Kernels and Random Features](http://www.cs.tut.fi/sgn/arg/dcase2017/documents/challenge_technical_reports/DCASE2017_Jimenez_186.pdf). 6k random features. Performed 4% points better than baseline with Gaussian kernel. Random features can be used as privacy measure, keeping the W,b parameters private.
 [Another copy](http://www.cs.tut.fi/sgn/arg/dcase2017/documents/workshop_presentations/DCASE2017Workshop_Jimenez_195_presentation.pdf).
 [ACOUSTIC SCENE CLASSIFICATION USING DISCRETE RANDOM HASHING FOR LAPLACIAN KERNEL MACHINES](http://www.mirlab.org/conference_papers/international_conference/ICASSP%202018/pdfs/0000146.pdf). IEEE paper.
@@ -653,6 +657,22 @@ Using spherical k-means, adapted to run in streaming fashion using online Hartig
 Birdsong often contains rapid temporal modulations, and this information should be useful for identifying species-specific characteristics.
 feature learning is that it can be applied not only to single spectral frames, but to short sequences (or “patches”) of a few frames.
 Also tested a two-layer version, second layer downsampled projected data by 8 then applying feature learning again. 
+
+Hierarchical representation learning using spherical k-means for segmentation-free word spotting
+https://www.sciencedirect.com/science/article/pii/S0167865517304166
+For Handwriting recognition.
+
+[Learning Feature Representations with K-means](https://cs.stanford.edu/~acoates/papers/coatesng_nntot2012.pdf). Adam Coates, Andrew Ng. 2012.
+Best practices for unsupervised learning of convolutional kernels using K-means.
+Contrast/mean normalization. ZCA whitening.
+6x6 to 8x8 image patches work well, with 500'000 examples, and 256 size codebook.
+Suggest 2x2 or 3x3 average pooling.
+Tips for multi-resolution and pooling.
+Deep models using a 'receptive field' learning scheme. Tested on CIFAR-10.
+! Suggests feature learning in separate image regions where they are expected to differ significantly.
+This would be case along frequency axis in spectrograms.
+
+
 
 [Multiscale approaches to music audio feature learning](https://biblio.ugent.be/publication/4152117). 2013.
 Music audio exhibits structure on multiple timescales, which are relevant for different MIR tasks to varying degrees.
