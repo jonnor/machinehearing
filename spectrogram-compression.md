@@ -26,14 +26,30 @@ TODO: test classification with compressed spectograms
 Both mismatched (train on originals, test on compressed)
 and reduced (train+test on compressed)
 
-### Implementation on sensor
+## Usage as raw data
+Can spectrograms be used as 'raw' data format, intead of the audio waveform?
 
-"have tried running a JPEG encoder on ESP32, and got about 20 fps at 320×240 when compiling with -Os"
-https://hackaday.com/2016/10/31/whats-new-esp-32-testing-the-arduino-esp32-library/#comment-3250015
+Requirements: 
+
+- Learn-able. Can be used to train strong methods.
+- **Annotate-able**. Can be labeled by humans to establish ground truth.
+Transform back to audio for listening? Is the phase information neccesary?
+Can one use DCT compression and skill preserve intelligibility?
+- Adaptable, can be used for other purposes than originally intended.
+Ex. From birdsong presence detection to bird species classification
+Can be used to develop stronger systems as state of art improves, or constraints are relaxed.
+- General-purpose. Can be used across a wide range of problems.
+Bioacoustics, ecoacoustics, industrial monitoring, security
+
+### Implementation on sensor
 
 OpenMV has an MIT licensed software JPEG encoder, optimized for microcontrollers.
 Mostly integer math, using precomputed DCT etc.
 https://github.com/openmv/openmv/blob/master/src/omv/img/jpeg.c
+
+"have tried running a JPEG encoder on ESP32, and got about 20 fps at 320×240 when compiling with -Os"
+https://hackaday.com/2016/10/31/whats-new-esp-32-testing-the-arduino-esp32-library/#comment-3250015
+
 
 Refs
 
