@@ -278,6 +278,21 @@ Using SIF features, spectrograms downscaled. 720 features per frame.
 Used one frame energy summary feature. 
 Shows SIF-SVM performing almost as good as SIF-CNN and SIF-DNN, and favorable under high noise.
 
+CARFAC aka CAR-FAC, Cascade of Asymmetric Resonators with Fast-Acting Compression
+
+* [Using a Cascade of Asymmetric Resonators with Fast-Acting Compression as a Cochlear Model for Machine-Hearing Applications](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/37215.pdf). Richard F. Lyon, 2011.
+* Coclear model. PZFC. Pole-zero filter cascade.
+Non-linearity. Feedback in AGC models saturation.
+Computational load, approx that of a second-order filter per output channel.
+Typical number of channels = 7?
+* Converted to Stablilized Audatory Image (SAI). Using STFT?
+* Local multi-scale sparse features.
+Using Vector Quantization. Bag of Features representation of a file.
+High dimesionality, 100'000 dimensions.
+Fast online training using Passive Agressive classifier
+* [CARFAC reference implementation in C++](https://github.com/google/carfac)
+
+
 ### Directional Derivative Features
 A generalization of delta-features for arbitrary angles.
 
@@ -580,8 +595,12 @@ Fault detection in machinery by technicians often also use sound.
 
 ### Feature learning
 
-Aka, related
+Feature learning
 
+* Aka feature construction
+* Supervised/unsupervised dictionary learning
+* Sparse coding. Unsupervised
+* Non-negative matrix factorization. Unsupervised
 * Representation learning
 * Dictionary learning
 * Codebook learning
@@ -611,6 +630,13 @@ Uses a linear SVM with random features to approximate a non-linear kernel SVM. A
 Approximates a shift-invariant kernel, like Gaussian, Laplacian and Cauchy.
 Allows XOR Hamming distance based similarity calculation. 
 With hashing, can reduce data by 2**6 / 64 with minor loss in performance.
+
+
+Papers
+
+* Learning Sparse Adversarial Dictionaries For Multi-Class Audio Classification. 2017.
+Uses adverserial and reconstructive learning, and can be directly used as a classifier.
+* Dictionary Learning for Bioacoustic monitoring with applications to species classification
 
 
 [YouTube: Scattering Invariants for Audio Classification](https://www.youtube.com/watch?v=W_Wbnp_uw-o).
