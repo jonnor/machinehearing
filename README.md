@@ -22,6 +22,14 @@ How does end2end learned systems compare in number of instructions
 versus standard feature engineering?
 Can one adopt feature learnings to hand-coded systems to improve efficiency?
 
+Neural Networks for Machine Hearing
+
+* Can Data Augmentation be applied successfully to (mel)spectrogram representation instead of raw audio?
+Mixup/between-class.
+* How to find the most efficient feature representation for audio classification.
+Ex: Time window range, time resolution, frequeny range, frequency resolution.
+Answer may be class dependent, but also inter-class. Can one do a per-class search to simplify?
+
 Keywords
 
 * Energy efficiency, energy budget
@@ -310,6 +318,8 @@ Directional Derivative Features computed from a Steerable Pyramid Filter-bank.
 * Per-channel energy normalization (PCEN).
 Static version exists as [librosa.pen](https://librosa.github.io/librosa/generated/librosa.core.pcen.html).
 Can also be learned as a neural network layer, see arXiv:1607.05666v1
+[Per-Channel Energy Normalization: Why and How](www.justinsalamon.com/uploads/4/3/9/4/4394963/lostanlen_pcen_spl2018.pdf).
+
 * Whitening. Eg PCA.
 Removes redundancies in spectrogram. For each frame in spectogram
 
@@ -868,6 +878,8 @@ https://www.soundintel.com/
 Founded in 2000. 50+ employees?
 SigardTM, detects verbal aggression. For use with video surveillance
 Utrecht, Netherlands.
+
+
 
 ## Interesting software
 
