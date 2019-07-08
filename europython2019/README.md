@@ -1,3 +1,4 @@
+
 # EuroPython
 45 minute session
 
@@ -35,11 +36,60 @@ Jon loves making things and teaching others to do the same, and is very active i
 
 ### Tags
 Data Science
-Deep Learning
 Machine Learning
-Image Processing?
+Deep Learning
 
-### Notes
+
+# Presentation
+
+## Format
+
+- 30 minutes.
+30 slides
+- 10 minutes. Q/A 
+
+## TODO
+
+- Test OpenL3 audio embeddings
+- Find some example problems.
+Urbansound8k?
+Google Speech Commands?
+Some audio event thing. Birds?
+
+
+## Outline
+
+- About me
+- Talk outline
+- Example applications
+- Problem formulations
+Classification
+Segmentation
+- Digital audio
+- Streaming/analysis-windows
+- mel-spectrogram
+- CNN for audio
+- Audio Embeddings
+- Transfer Learning
+- Data Augmentation
+- Summary
+
+Secondary
+
+- Weakly labeled data
+
+BONUS
+
+- Running on microcontroller
+- Running on Embedded Linux
+- Running on Android
+
+Out-of-scope
+
+- CNN details
+- Fourier Transform
+
+## Notes
 
 Example applications
 
@@ -47,6 +97,8 @@ Know your problem.
 How often do you want outputs
 Classification vs Event/onset detection
 (weakly labeled, multi-instance)
+
+Streaming.
 
 Tasks that build upon classification
 Segmentation.
@@ -57,6 +109,8 @@ DO:
 Use (log-mel) spectrograms
 Divide into analysis windows. Overlap optional
 Use AudioSet audio-embeddings, with RF/SVM
+https://github.com/marl/openl3
+
 Use CNN, transfer learning from ImageNet
 
 Use basic data augmentation. Time-shift! Time-stretch, pitch-shift. Try Mixup!
