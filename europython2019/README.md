@@ -56,6 +56,9 @@ Urbansound8k?
 Google Speech Commands?
 Some audio event thing. Birds?
 
+- Find out if have HDMI input in room
+- Test setup
+
 
 ## Outline
 
