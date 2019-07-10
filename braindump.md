@@ -1,4 +1,51 @@
 
+## Application ideas
+
+Fun stuffs
+
+* Detect clapping and its sound level in a conference
+
+
+## Research questions
+
+* How can one perform environmental monitoring tasks on audio without invading privacy?
+Issues: capturing conversations, identifying/tracking speakers.
+Possible mitigations.
+Use very short recording windows, and sparse sampling to avoid recording (intelligeble) speech?
+Can one detect speech and avoid recording in those cases? / discard sample.
+Process classification etc on the fly, and do not store the audio recordings?
+Device firmware verifiable.
+Indicator light on when recording. Can be hardwired to the microphone subsystem power.
+Pause mode? Activate to avoid capture for NN minutes. 
+* How can one enable continious environmental monitoring using audio in a Wireless Sensor Network?
+What is a realistic power budget?. Outdoor, Indoor. Rural, Urban.
+What is the power usage of existing solutions/works? Non-edge ML, deep learning edge ML.
+How much can power usage be reduced by machine learning?
+How would the sensor network architecture look like?
+* Energy efficiency of deep learning
+How does end2end learned systems compare in number of instructions
+versus standard feature engineering?
+Can one adopt feature learnings to hand-coded systems to improve efficiency?
+
+Neural Networks for Machine Hearing
+
+* Can Data Augmentation be applied successfully to (mel)spectrogram representation instead of raw audio?
+Mixup/between-class.
+See: `SpecAugment`
+
+* How to find the most efficient feature representation for audio classification.
+Ex: Time window range, time resolution, frequeny range, frequency resolution.
+Answer may be class dependent, but also inter-class. Can one do a per-class search to simplify?
+Sparsity constraints on initial filters in end2end model. Grouped.
+
+Keywords
+
+* Energy efficiency, energy budget
+* Communication link budget
+* Privacy
+* Cost
+
+
 ## Book reviews
 
 #### Computational Analysis of Sound Scenes and Events

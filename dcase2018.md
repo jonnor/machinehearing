@@ -1,5 +1,5 @@
 
-# DCASE2018 notes
+# DCASE2018 workshop notes
 
 ## Overall
 150 attendees.
@@ -374,3 +374,49 @@ Hanna.Lukashevich@idmt.fraunhofer.de
 VGG style network on RPi. Was it hard to make it work?
 Not a big challenge. Using a small network.
 Running on standard Keras. Some optimization. 
+
+
+
+# Model complexities
+
+For the various parts of DCASE2018 challenge.
+Looking to find more efficient models.
+
+## Task1a
+C: 5k - 256M. Most models 1M++.
+Best performing: 81%, 1M size.
+
+Interesting
+
+* Fraile_UPM_task1a_1		62.7 %	5k. MLP.
+* Waldekar_IITKGP_task1a_1		69.7 %	20k. SVM, 3 ensembles.
+* DCASE2018 baseline		61.0 %	116k. CNN. 
+
+## Task1b
+C: 20k - 22M. Most models 1-10M. Best: 62%. 
+
+Interesting
+
+* Waldekar_IITKGP_task1b_1 56.2%	20k. SVM, 3 ensembles.
+* Ren_UAU_task1b_1 60.5 %	616k. CNN.
+
+## Task2
+C: - 425M. Best: 0.9538 mAP@3, 
+Almost all models had 0.90-0.94 perf. 1M++ complexity.
+
+Interesting
+
+* Han_NPU_task2_1	0.8723  24k. CNN, 2 ensembles.
+* Nguyen_NTU_task2_2	0.9251. 652k. CNN	
+
+## Task3
+Missing complexity data!
+
+## Task4
+C: 126k - 24M.
+
+Interesting
+
+* Koutini_JKU_task4_1		21.5 %	126k
+* Liu_USTC_task4_2		28.8 %	534k
+
