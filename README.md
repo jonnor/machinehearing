@@ -49,26 +49,13 @@ Companion website: https://www.audiocontentanalysis.org/
 * CSC 83060: Speech and Audio Understanding. http://mr-pc.org/t/csc83060/
 Brooklyn College (CUNY).
 
-### Phd thesis
-
-*  Real-time Speech and Music Classification by Large Audio Feature Space Extraction.
-Describes OpenSMILE. Florian Eyben. 2016.
-https://www.amazon.com/Real-time-Classification-Feature-Extraction-Springer/dp/3319272985
-
-### Lists
-
-* https://github.com/ybayle/awesome-deep-learning-music
-* [Fast.ai forums: Deep Learning with Audio](https://forums.fast.ai/t/deep-learning-with-audio-thread/38123).
-Large lists of resources, both in first post and "popular links". Feb 2019, 315 replies over 4 months.
-
-
 
 ## Software
 
 Feature extraction
 
 * [librosa](http://librosa.github.io). The go-to Python module.
-* essentia. C++ library. Lots of Music Analysis extractors. Used by FreeSound.
+* [essentia](https://essentia.upf.edu). C++ library, with Python bindings. Lots of Music Analysis extractors. Used by FreeSound and Acousticbrainz.
 * [kapre](https://github.com/keunwoochoi/kapre). On-demand GPU computation of melspectrograms, for Keras
 
 Data Augmentation
@@ -77,18 +64,12 @@ Data Augmentation
 
 # Lecture notes
 
-Audio Classification.
+* Audio Classification.
 http://www.cs.tut.fi/~sgn24006/PDF/L04-audio-classification.pdf
 Covers low-level features, MFCC. Classification by distance metrics. GMM. HMM.
-
-[Speech Signal Analysis, Lecture 2](https://www.inf.ed.ac.uk/teaching/courses/asr/2016-17/asr02-signal-handout.pdf).
+* [Speech Signal Analysis, Lecture 2](https://www.inf.ed.ac.uk/teaching/courses/asr/2016-17/asr02-signal-handout.pdf).
 January 2017, Hiroshi Shimodaira and Steve Renals.
 ! great diagrams of audio discretization, mel filters, wide versus narrow-band spectrograms.
-
-
-## Online Communities
-
-* https://mircommunity.slack.com/ - Music Information Retrieval
 
 ## Competions
 
@@ -98,5 +79,18 @@ January 2017, Hiroshi Shimodaira and Steve Renals.
 * DCASE2014
 * DCASE2018
 * DCASE2019 
+
+
+## Online Communities
+
+* https://mircommunity.slack.com/ - Music Information Retrieval
+
+### Lists
+
+* [Awesome Deep Learning Music](https://github.com/ybayle/awesome-deep-learning-music)
+* [Fast.ai forums: Deep Learning with Audio](https://forums.fast.ai/t/deep-learning-with-audio-thread/38123).
+Large lists of resources, both in first post and "popular links". Feb 2019, 315 replies over 4 months.
+
+
 
 
