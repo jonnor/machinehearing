@@ -48,17 +48,27 @@ Deep Learning
 30 slides
 - 10 minutes. Q/A 
 
+## Scope
+Building a dataset?
+Structure.
+Annotating with Audacity
+
+Where to get datasets?
+TODO: find existing reference
+
+https://www.audiocontentanalysis.org/data-sets/
+
+
+
 ## TODO
 
+- Finish basic slides
 - Test OpenL3 audio embeddings
-- Find some example problems.
-Urbansound8k?
-Google Speech Commands?
-Some audio event thing. Birds?
+- Finish code examples
 
-- Find out if have HDMI input in room
-- Test setup
-
+- Tweak style of slides.
+Header background for the slide title?
+Add Twitter handle to slides.
 
 ## Outline
 
@@ -80,17 +90,23 @@ Segmentation
 Secondary
 
 - Weakly labeled data
+- Audio Event Detection
+- Tagging (as multi-label classification)
 
 BONUS
 
-- Running on microcontroller
-- Running on Embedded Linux
-- Running on Android
+- Streaming
 
 Out-of-scope
 
 - CNN details
 - Fourier Transform
+
+Skip
+
+- Running on microcontroller
+- Running on Embedded Linux
+- Running on Android
 
 ## Notes
 
@@ -102,6 +118,8 @@ Classification vs Event/onset detection
 (weakly labeled, multi-instance)
 
 Streaming.
+Listening continiously
+Word-error-rate, false-predictions per hour
 
 Tasks that build upon classification
 Segmentation.

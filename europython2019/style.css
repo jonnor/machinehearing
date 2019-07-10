@@ -1,0 +1,19 @@
+
+/* White background for images, to handle transparency */
+.reveal section img { 
+    border:none;
+    box-shadow:none;
+    background: rgba(255, 255, 255, 1.0);
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+#sb-cnn h2 {
+    display: none;
+}
+
+#pipeline h2 {
+    display: none;
+}
