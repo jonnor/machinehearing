@@ -1,16 +1,22 @@
 # Machine Hearing
 
-## Environmental Sound Classification on Microcontroller
-
-Master thesis. Report and code available in the Github repository:
+## Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
 
 <a href="https://github.com/jonnor/ESC-CNN-microcontroller">
-<img src="https://github.com/jonnor/ESC-CNN-microcontroller/raw/master/report/img/frontpage.png" height="100" alt="Github: jonnor/ESC-CNN-microcontroller">
+<img src="https://github.com/jonnor/ESC-CNN-microcontroller/raw/master/report/img/frontpage.png" height="200" alt="Github: jonnor/ESC-CNN-microcontroller">
 </a>
+
+Master thesis. Report and code available in the [Github repository](https://github.com/jonnor/ESC-CNN-microcontroller).
 
 ## EuroPython2019: Audio Classification using Machine Learning
 
-[Notes](./europython2019)
+<!-- FIXME: link properly to slides and notes -->
+
+<a href="https://github.com/jonnor/machinehearing/tree/master/europython2019">
+<img src="https://github.com/jonnor/machinehearing/raw/master/europython2019/slides.png" height="200" alt="Github: jonnor/ESC-CNN-microcontroller">
+</a>
+
+Presentation at EuroPython2019. [Notes](./europython2019)
 
 ## Notes
 
