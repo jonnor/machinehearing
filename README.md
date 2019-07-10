@@ -18,6 +18,14 @@ Master thesis. Report and code available in the [Github repository](https://gith
 
 Presentation at EuroPython2019. [Notes](./europython2019)
 
+## NMBU lecture on Audio Classification
+
+Report and lecture at [NMBU](https://nmbu.no) Data Science.
+
+[Report](https://github.com/jonnor/datascience-master/raw/master/dat390/merged.pdf) |
+[Slides](https://jonnor.github.io/datascience-master/dat390/slides.html)
+
+
 ## Notes
 
 Rough notes on various topics.
