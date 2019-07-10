@@ -30,6 +30,11 @@ Sensor Systems for Noise Monitoring
 
 ## This talk
 
+- Background
+- Audio Classification pipeline
+- Tips & Tricks
+- Pointers to more information
+
 Very practically oriented
 
 TODO: describe scope
@@ -57,7 +62,7 @@ Audio sub-fields
 ![](img/audio-aquisition.svg){width=100%}
 
 
-# Practical example
+# A practical example
 
 ## Environmental Sound Classification
 
@@ -93,7 +98,7 @@ Foreground/background annotated
 :::
 
 
-# Audio Classification
+# A basic Audio Classification pipeline
 
 ## Pipeline
 
@@ -212,8 +217,16 @@ Much bigger field.
 
 ## SB-CNN
 
-![](img/sbcnn.svg){height=100%,max-width=100%}
+![Salamon & Bello, 2016](img/sbcnn.svg){height=80%,max-width=100%}
 
+
+::: notes
+
+40 mels
+61 frames
+
+
+:::
 
 ## Training setup
 
@@ -231,33 +244,23 @@ TimeDistributed in Keras
 
 
 
-# More advanced uses
+# Tips and Tricks
 
 
 ## Normalization
 
 ![](img/spectrograms.svg){width=100%}
 
+log-scale compression
+
 Mean-subtract 
 Per recording or per analysis window
 
-Global analysis not possible when streaming
-
-## Transfer Learning from images
-
-Pre-trained model ImageNet
-
-
-- Transfer Learning from image data works OK
-
 ::: notes
 
-Problem: Images are usually 3 channels: RGB
-Spectrogram only has 1 channel
+Global clip/dataset analysis for normalization not possible when streaming
 
 :::
-
-
 
 ## Data Augmentation
 
@@ -274,6 +277,65 @@ TODO: mention Mixup
 TODO: mention Cutout, SpecAugment
 
 :::
+
+## Transfer Learning from images
+
+Pre-trained model ImageNet
+
+
+- Transfer Learning from image data works OK
+
+
+`TODO: code example using Keras Applications MobileNet ?`
+
+::: notes
+
+Problem: Images are usually 3 channels (RGB), spectrogram only has 1 channel
+
+
+:::
+
+
+## Audio Embeddings
+
+Model pretrained for sound
+
+Look, Listen, Learn ({L^3})
+
+OpenL3
+
+`TODO: code example using OpenL3 ?`
+
+::: notes
+
+Uses a CNN under the hood
+
+Only need to add a simple classifier!
+Linear.
+
+??? Could classifying across N frames give good perf.
+??? What about adding difference vector
+
+EdgeL3
+SoundNet
+
+:::
+
+
+# More information
+
+## More info
+
+Book.
+
+
+TensorFlow Speech Recognition tutorial
+https://www.tensorflow.org/tutorials/sequences/audio_recognition
+
+Environmental Sound Classification on Microcontrollers
+https://github.com/jonnor/ESC-CNN-microcontroller
+
+Datasets
 
 
 
@@ -300,6 +362,8 @@ Tricks
 1. Time-shift data augmentation
 2. Time-stretch, pitch-shift, noiseaddition
 3. Mixup, SpecAugment
+
+
 
 
 # BONUS

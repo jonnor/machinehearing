@@ -66,6 +66,9 @@ https://www.audiocontentanalysis.org/data-sets/
 - Test OpenL3 audio embeddings
 - Finish code examples
 
+- Move MachineHearing to own github repo/webpage
+- Link to this in the presentation
+
 - Tweak style of slides.
 Header background for the slide title?
 Add Twitter handle to slides.
