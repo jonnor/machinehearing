@@ -2,7 +2,7 @@
 # EuroPython 2019
 
 [Presentation video (YouTube)](https://youtu.be/2FmMESSD2CM?t=8470) |
-[Slides](./slides.html)
+[Slides](https://github.com/jonnor/machinehearing/raw/master/europython2019/slides.html)
 
 # Proposal
 
