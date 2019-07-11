@@ -416,8 +416,7 @@ def build_multi_instance(base, windows=6, bands=32, frames=72, channels=1):
 
 ## Demo video
 
-<video src="demo.mp4" type="video/mp4" controls/>
-</video>
+<iframe src="https://www.youtube.com/embed/KQHQxMG1CZo" controls width="1500" height="1000"/></iframe>
 
 ## Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
 
@@ -472,35 +471,63 @@ https://neurohive.io/en/news/specaugment-new-and-simple-data-augmentation-techni
 
 ## Transfer Learning from images
 
-Pre-trained model ImageNet
+Transfer Learning from image data works 
 
+=> Can use models pretrained on ImageNet
 
-- Transfer Learning from image data works OK
+Caveats:
 
-
-`TODO: code example using Keras Applications MobileNet ?`
+- If RGB input, should to fill all 3 channels
+- Multi-scale,
+- Usually need to fine tune. Some or all layers
 
 ::: notes
 
 Problem: Images are usually 3 channels (RGB), spectrogram only has 1 channel
 
+`TODO: code example using Keras Applications MobileNet ?`
+
+```
+
+from keras.applications.inception_v3 import InceptionV3
+
+base_model = InceptionV3(weights='imagenet', include_top=False)
+
+# add a global spatial average pooling layer
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+# let's add a fully-connected layer
+x = Dense(1024, activation='relu')(x)
+# and a logistic layer -- let's say we have 200 classes
+predictions = Dense(200, activation='softmax')(x)
+
+```
 
 :::
 
 
 ## Audio Embeddings
 
-Model pretrained for sound
+- Model pretrained for sound, feature-extracting only
+- Uses a CNN under the hood
 
-Look, Listen, Learn ({L^3})
+Look, Listen, Learn ({L^3}). 1 second, 512 dimensional vector
 
-OpenL3
 
-`TODO: code example using OpenL3 ?`
+```
+import openl3
+
+
+
+```
+
 
 ::: notes
 
-Uses a CNN under the hood
+`TODO: code example using OpenL3 ?`
+
+
+
 
 Only need to add a simple classifier!
 Linear.
@@ -540,8 +567,6 @@ labels = pandas.read_csv(path, sep='\t', header=None,
 
 ## Summary
 
-`FIXME: style sensibly`
-
 Pipeline
 
 - Fixed-length analysis windows
@@ -561,7 +586,11 @@ Data Augmentation
 2. Time-stretch, pitch-shift, noise-add
 3. Mixup, SpecAugment
 
+::: notes
 
+`FIXME: style sensibly`
+
+:::
 
 ## More learning
 

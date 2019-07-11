@@ -10,13 +10,11 @@ Master thesis. Report and code available in the [Github repository](https://gith
 
 ## EuroPython2019: Audio Classification using Machine Learning
 
-<!-- FIXME: link properly to slides and notes -->
-
-<a href="https://github.com/jonnor/machinehearing/tree/master/europython2019">
-<img src="https://github.com/jonnor/machinehearing/raw/master/europython2019/slides.png" height="200" alt="Github: jonnor/ESC-CNN-microcontroller">
+<a href="https://youtu.be/2FmMESSD2CM?t=8470">
+<img src="video.png" height="200" alt="Youtube: Audio Classification using Machine Learning by Jon Nordby, EuroPython 2019">
 </a>
 
-Presentation at EuroPython2019. [Notes](./europython2019)
+Presentation at EuroPython2019. [Video recording](https://youtu.be/2FmMESSD2CM?t=8470), [notes](./europython2019)
 
 ## NMBU lecture on Audio Classification
 

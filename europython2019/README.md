@@ -1,5 +1,11 @@
 
-# EuroPython
+# EuroPython 2019
+
+[Presentation video (YouTube)](https://youtu.be/2FmMESSD2CM?t=8470)
+[Slides](,/slides.html)
+
+# Proposal
+
 45 minute session
 
 ## Audio Classification with Machine Learning
@@ -47,28 +53,6 @@ Deep Learning
 - 30 minutes.
 30 slides
 - 10 minutes. Q/A 
-
-## Scope
-Building a dataset?
-Structure.
-Annotating with Audacity
-
-Where to get datasets?
-TODO: find existing reference
-
-https://www.audiocontentanalysis.org/data-sets/
-
-
-
-## TODO
-
-- Finish basic slides
-
-- Add some questions for audience
-
-- Test OpenL3 audio embeddings
-- Finish code examples
-- ?? Add some sort of demo
 
 
 ## Outline
