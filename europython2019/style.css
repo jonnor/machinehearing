@@ -17,3 +17,7 @@
 #pipeline h2 {
     display: none;
 }
+
+#more-learning p {
+    padding: 80px;
+}

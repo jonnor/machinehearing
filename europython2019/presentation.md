@@ -2,9 +2,11 @@
 ---
 author: Jon Nordby @jononor
 date: EuroPython 2019, Basel
+title: Audio Classification using Machine Learning
+width: 1920
+height: 1080
 margin: 0
 css: style.css
-title: Audio Classification using Machine Learning
 ---
 
 # Introduction
@@ -47,8 +49,6 @@ Audio sub-fields
 - Music (Music Information Retrieval)
 - **General** / other
 
-# Background
-
 ## Why Audio Classification
 
 - Rich source of information
@@ -57,20 +57,68 @@ Audio sub-fields
 - Good compliment to image/video
 - Humans use our hearing
 
-## Audio aquisition
+## Example applications
 
-![](img/audio-aquisition.svg){width=100%}
+`FIXME: get them`
 
+# Background
 
-# A practical example
+## Audio Mixtures
+
+![Sounds mix together](./img/sound-sources.png){width=80%}
+
+::: notes
+
+https://www.researchgate.net/profile/Raimund_Dachselt/publication/228715257/figure/fig1/AS:301960805797899@1449004474993/Reverberant-rooms-with-walls-and-openings-For-overlapping-areas-a-parameter-called.png
+
+Channel effects
+
+- Noise
+- Frequency response
+- Reverberation
+
+:::
+
+<!--
+
+## Human hearing
+
+Two ears (Binaural). Frequencies approx 20Hz - 20kHz. 
+
+A non-linear system
+
+* Loudness is not linear with sound pressure
+* Loudness is frequency dependent 
+* Compression. Sensitivity lowered when loud
+* Masking. Close sounds can hide eachother
+
+::: notes
+:::
+-->
+
+## Audio acquisition
+
+![](img/audio-aquisition.svg){width=80%}
+
+## Digital sound representation
+
+* Quantized in time (ex: 44100 Hz)
+* Quantizied in amplitude (ex: 16 bit)
+* N channels. **Mono**/Stereo
+* Uncompressed formats: PCM **.WAV**
+* Lossless compression: .FLAC
+* Lossy compression: .MP3
+
+# Practical example
 
 ## Environmental Sound Classification
 
 > Given an audio signal of environmental sounds,
+> 
 > determine which class it belongs to
 
 * Widely researched. 1000 hits on Google Scholar
-* Datasets. ESC-50, Urbansound8k (10 classes), AudioSet (632 classes)
+* Open datasets. ESC-50, Urbansound8k (10 classes), AudioSet (632 classes)
 * 2017: Human-level performance (on ESC-50)
 
 ::: notes
@@ -84,29 +132,28 @@ https://github.com/karoldvl/ESC-50
 
 ## Urbansound8k 
 
-![](img/urbansound8k-examples.png){width=100%}
+![10 classes, ~8k samples, ~4s long. ~9 hours total](img/urbansound8k-examples.png){width=100%}
 
 ::: notes 
 
-Classes from an urban sound taxonomy,
-based on noise complains in New York city
-
-Most sounds around 4 seconds. Some classes around 1 second
-
-Foreground/background annotated
+- Classes from an urban sound taxonomy,
+- Based on noise complains in New York City
+- Most sounds around 4 seconds.
+- Some classes around 1 second
+- Saliency annotated  (foreground/background)
 
 :::
 
 
-# A basic Audio Classification pipeline
+# Basic Audio Classification pipeline
 
 ## Pipeline
 
-![](img/classification-pipeline.svg){width=80%}
+![](img/classification-pipeline.svg){width=70%}
 
 ## Analysis windows
 
-![Splitting audio stream into windows of fixed length, with overlap. Image: Sajjad2019](img/framing.png)
+![Splitting audio stream into windows of fixed length, with overlap. Image: Sajjad2019](img/framing.png){width=80%}
 
 ::: notes
 
@@ -149,7 +196,7 @@ we have a 'weak labeling' scenario
 
 ## Mel-filters
 
-![Mel-scale triangular filters. Applied to linear spectrogram (STFT) => mel-spectrogram](img/melfilters.png){width=100%}
+![Mel-scale triangular filters. Applied to linear spectrogram (STFT) => mel-spectrogram](img/melfilters.png){width=80%}
 
 ::: notes
 
@@ -266,17 +313,32 @@ Global clip/dataset analysis for normalization not possible when streaming
 
 ![](img/dataaugmentations.png){width=100%}
 
+* Adding noise. Random/sampled
+
 ::: notes
 
 Mostly done in time-domain,
 but can also be done in spectrograms
 
-TODO: mention noise addition. White noise
 TODO: mention Mixup
 
-TODO: mention Cutout, SpecAugment
+TODO: mention SpecAugment
 
 :::
+
+## Mixup
+
+![Mixup: Create new sample using weighted combination of two samples. Image: Xu2018](./img/mixup.jpg){height=100%}
+
+::: notes
+
+Xu2018:
+https://arxiv.org/abs/1805.07319
+
+:::
+
+
+
 
 ## Transfer Learning from images
 
@@ -322,84 +384,113 @@ SoundNet
 :::
 
 
-# More information
-
-## More info
-
-Book.
 
 
-TensorFlow Speech Recognition tutorial
-https://www.tensorflow.org/tutorials/sequences/audio_recognition
-
-Environmental Sound Classification on Microcontrollers
-https://github.com/jonnor/ESC-CNN-microcontroller
-
-Datasets
-
-
-
-# Summary
+# Outro
 
 ## Summary
 
 Pipeline
 
-- Audio stream
-- Fixed-length analysis windows (overlapping)
+- Fixed-length analysis windows
 - log-mel spectrograms
 - ML model
-- Aggregate using mean
+- Aggregate analysis windows
 
 Models
 
 1. Audio Embeddings (OpenL3) + simple model (scikit-learn)
 2. Convolutional Neural Networks with Transfer Learning (ImageNet etc)
-3. ... train CNN from scratch ... 
+3. ... train **simple** CNN from scratch ... 
 
-Tricks
+Data Augmentation
 
-1. Time-shift data augmentation
-2. Time-stretch, pitch-shift, noiseaddition
+1. Time-shift
+2. Time-stretch, pitch-shift, noise-add
 3. Mixup, SpecAugment
 
 
+## Thesis
 
+Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
+
+[https://github.com/jonnor/ESC-CNN-microcontroller](https://github.com/jonnor/ESC-CNN-microcontroller)
+
+
+## More learning
+
+Slides and more info: [https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
+
+Hands-on: [TensorFlow Speech Recognition tutorial](https://www.tensorflow.org/tutorials/sequences/audio_recognition)
+
+Book: Computational Analysis of Sound Scenes and Events (Virtanen/Plumbley/Ellis, 2018) 
+
+<!--
+![Computational Analysis of Sound Scenes and Events. Tuomas Virtanen, Mark D. Plumbley, Dan Ellis. 2018.](./img/cassebook.jpg){width=20%}
+-->
+
+## Questions
+
+Slides and more: [https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
+
+<h1 style="padding: 100px">?</h1>
+
+Interested in Audio Classification or Machine Hearing generally? Get in touch!
+
+Twitter: @[jononor](https://twitter.com/jononor)
 
 # BONUS
 
 ## Audio Event Detection
 
-Onset detection
+> Return: time something occurred.
 
-- Can use a Classifier
-- Shorter time-windows
-- Avoid time-shift augmentation
+* Ex: "Bird singing started", "Bird singing stopped"
+* Classification-as-detection. Classifier on short time-frames
+* Monophonic: Returns most prominent event
 
-## Segmentation
-
-Cutting up a long audio recording into smaller audio snippets of interest.
-
-Often part of a workflow for more complex cases.
-Eg: Extract only birdcall audio, then perform bird species identification
+Aka: Onset detection
 
 ::: notes
 
+- Avoid time-shift augmentation
+
+:::
+
+## Segmentation
+
+> Return: sections of audio containing desired class
+
+* Postprocesing on Event Detection time-stamps
+* Pre-processing to specialized classifiers
+
+
+::: notes
+
+Eg: Extract only birdcall audio, then perform bird species identification
+
 - Can alternatively be done unsupervised
+- Can be real-time / single-pass, or multi-pass
 
 :::
 
 ## Tagging
 
-Output multiple sounds that occur in audio.
+> Return: All classes/events that occurred in audio.
 
-Multi-class classification
+Approaches
+
+* separate classifiers per 'track'
+* joint model: multi-label classifier
 
 
 ## Streaming
 
 Real-time classification
 
+`TODO: document how to do in Python`
+
+<!--
 
 ## Creating datasets
 
@@ -420,7 +511,21 @@ Timestamp important events.
 
 :::
 
+-->
+
 ## Annotating audio
+
+![](./img/audacity.png){width=100%}
+
+```python
+import pandas
+
+labels = pandas.read_csv(path, sep='\t', header=None,
+                        names=['start', 'end', 'annotation'],
+                        dtype=dict(start=float,end=float,annotation=str))
+```
+
+::: notes
 
 - Use Audacity
 - Label track
@@ -428,7 +533,27 @@ Timestamp important events.
 - Annotation file is a basic CSV
 - Tools. Editing. Spectrogram view. Noise removal
 
+:::
+
 
 ## Mel-Frequency Cepstral Coefficients (MFCC)
+
+* MFCC = DCT(mel-spectrogram)
+* Popular in Speech Detection
+* Compresses: 13-20 coefficients
+* Decorrelates: Beneficial with linear models 
+
+On general audio, with strong classifier, performs worse than log mel-spectrogram
+
+## End2End learning
+
+Using the raw audio input as features with Deep Neural Networks.
+
+Need to learn also the time-frequency decomposition,
+normally performed by the spectrogram. 
+
+Actively researched using advanced models and large datasets.
+
+`TODO: link EnvNet`
 
 

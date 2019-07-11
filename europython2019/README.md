@@ -63,10 +63,13 @@ https://www.audiocontentanalysis.org/data-sets/
 ## TODO
 
 - Finish basic slides
+
+- Add some questions for audience
+
 - Test OpenL3 audio embeddings
 - Finish code examples
+- ?? Add some sort of demo
 
-- Move MachineHearing to own github repo/webpage
 - Link to this in the presentation
 
 - Tweak style of slides.
@@ -75,41 +78,44 @@ Add Twitter handle to slides.
 
 ## Outline
 
+Introduction
+
 - About me
 - Talk outline
 - Example applications
-- Problem formulations
-Classification
-Segmentation
 - Digital audio
-- Streaming/analysis-windows
+
+Audio Classification pipeline
+
+- Analysis-windows
 - mel-spectrogram
 - CNN for audio
+
+Better models
+
 - Audio Embeddings
 - Transfer Learning
 - Data Augmentation
+
+Outro
+
 - Summary
-
-Secondary
-
-- Weakly labeled data
-- Audio Event Detection
-- Tagging (as multi-label classification)
+- More info
 
 BONUS
 
+- Own dataset
 - Streaming
+- Audio Event Detection
+- Weakly labeled data
+- Tagging
+- Segmentation
 
 Out-of-scope
 
 - CNN details
 - Fourier Transform
 
-Skip
-
-- Running on microcontroller
-- Running on Embedded Linux
-- Running on Android
 
 ## Notes
 
