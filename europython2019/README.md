@@ -1,8 +1,8 @@
 
 # EuroPython 2019
 
-[Presentation video (YouTube)](https://youtu.be/2FmMESSD2CM?t=8470)
-[Slides](,/slides.html)
+[Presentation video (YouTube)](https://youtu.be/2FmMESSD2CM?t=8470) |
+[Slides](./slides.html)
 
 # Proposal
 
