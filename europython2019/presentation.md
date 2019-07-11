@@ -11,24 +11,19 @@ css: style.css
 
 # Introduction
 
-## Me
+## Jon Nordby
 
 Internet of Things specialist
 
-- B.Eng in **Electronics**
+- B.Eng in **Electronics** (2010)
 - 9 years as **Software** developer. **Embedded** + **Web**
-- M. Sc in **Data** Science
+- M.Sc in **Data** Science (2019)
 
+Today
 
-## Soundsensing
+- Consulting on IoT + Machine Learning
+- CTO @ Soundsensing.no
 
-![](img/soundsensing-logo.png)
-
-Sensor Systems for Noise Monitoring
-
-- Supported by Norwegian Research Council
-- Pilot project with Oslo Kommune
-- Accepted to incubator at StartupLab
 
 ## This talk
 
@@ -262,18 +257,53 @@ GPU. Using Tensorflow STFT operation
 
 :::
 
+## Normalization
+
+- log-scale compression
+- Subtract mean
+- Standard scale
+
+![](img/spectrograms.svg){width=60%}
+
+::: notes
+
+Per recording or per analysis window
+
+Global clip/dataset analysis for normalization not possible when streaming
+
+:::
+
+
 ## Feature preprocessing
 
-`FIXNE: finish code example`
 
 ```python
-import librosa
+def load_audio_windows(path, ...):
 
-y, sr = librosa.load('audio/0001.wav')
-mels = librosa.feature.melspectrogram(y, sr)
+    y, sr = librosa.load(path, sr=samplerate)
+    S = librosa.core.stft(y, n_fft=n_fft,
+                            hop_length=hop_length, win_length=win_length)
+    mels = librosa.feature.melspectrogram(y=y, sr=sr, S=S,
+                                            n_mels=n_mels, fmin=fmin, fmax=fmax)
+
+    # Truncate at end to only have windows full data. Alternative: zero-pad
+    start_frame = window_size
+    end_frame = window_hop * math.floor(float(frames.shape[1]) / window_hop)
+    windows = []
+    for frame_idx in range(start_frame, end_frame, window_hop):
+
+        window = mels[:, frame_idx-window_size:frame_idx]
+
+        mels = numpy.log(window + 1e-9)
+        mels -= numpy.mean(mels)
+        mels /= numpy.std(mels)
+
+        assert mels.shape == (n_mels, window_size)
+        windows.append(mels)
+
+    return windows
 ```
 
-`TODO: image of chopped spectrogram?`
 
 ## Convolutional Neural Network
 
@@ -312,9 +342,8 @@ Much bigger field.
 
 ::: notes
 
-40 mels
-61 frames
-
+- 40 mels
+- 61 frames
 
 :::
 
@@ -399,27 +428,12 @@ def build_multi_instance(base, windows=6, bands=32, frames=72, channels=1):
 # Tips and Tricks
 
 
-## Normalization
-
-- log-scale compression
-- Subtract mean
-- Standard scale
-
-![](img/spectrograms.svg){width=60%}
-
-::: notes
-
-Per recording or per analysis window
-
-Global clip/dataset analysis for normalization not possible when streaming
-
-:::
-
 ## Data Augmentation
 
 ![](img/dataaugmentations.png){width=100%}
 
 * Adding noise. Random/sampled
+* Mixup: Mixing two samples
 
 ::: notes
 
@@ -427,6 +441,9 @@ Mostly done in time-domain,
 but can also be done in spectrograms
 
 :::
+
+
+<!--
 
 ## Mixup
 
@@ -440,7 +457,6 @@ https://arxiv.org/abs/1805.07319
 :::
 
 
-<!--
 
 ## SpecAugment
 
@@ -494,6 +510,28 @@ Linear.
 
 EdgeL3
 SoundNet
+
+:::
+
+## Annotating audio
+
+![](./img/audacity.png){width=100%}
+
+```python
+import pandas
+
+labels = pandas.read_csv(path, sep='\t', header=None,
+                        names=['start', 'end', 'annotation'],
+                        dtype=dict(start=float,end=float,annotation=str))
+```
+
+::: notes
+
+- Use Audacity
+- Label track
+- Keyboard shortcuts to add
+- Annotation file is a basic CSV
+- Tools. Editing. Spectrogram view. Noise removal
 
 :::
 
@@ -621,27 +659,7 @@ Timestamp important events.
 
 -->
 
-## Annotating audio
 
-![](./img/audacity.png){width=100%}
-
-```python
-import pandas
-
-labels = pandas.read_csv(path, sep='\t', header=None,
-                        names=['start', 'end', 'annotation'],
-                        dtype=dict(start=float,end=float,annotation=str))
-```
-
-::: notes
-
-- Use Audacity
-- Label track
-- Keyboard shortcuts to add
-- Annotation file is a basic CSV
-- Tools. Editing. Spectrogram view. Noise removal
-
-:::
 
 
 ## Mel-Frequency Cepstral Coefficients (MFCC)

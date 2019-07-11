@@ -45,18 +45,27 @@
     display: none;
 }
 
+#feature-preprocessing h2 {
+    display: none;
+}
+
 #keras-model h2 {
     display: none;
 }
 #keras-model code {
     font-size: 1.2em; !important
 }
-#keras-model .sourceCode {
-    margin: 0px;
+.reveal .sourceCode {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #demo-video h2 {
     display: none;
+}
+
+#convolutional-neural-network p {
+    padding: 30px;
 }
 
 #more-learning p {
