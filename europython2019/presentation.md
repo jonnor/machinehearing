@@ -318,18 +318,81 @@ Much bigger field.
 
 :::
 
-## Training setup
+## Keras model
 
-`FIXME: show SB-CNN code example`
+```python
+from keras.layers import ...
 
+def build_model(...):
 
-## Aggregating
+    block1 = [
+        Convolution2D(filters, kernel, padding='same', strides=strides,
+                      input_shape=(bands, frames, channels)),
+        MaxPooling2D(pool_size=pool),
+        Activation('relu'),
+    ]
+    block2 = [
+        Convolution2D(filters*kernels_growth, kernel, padding='same', strides=strides),
+        MaxPooling2D(pool_size=pool),
+        Activation('relu'),
+    ]
+    block3 = [
+        Convolution2D(filters*kernels_growth, kernel, padding='valid', strides=strides),
+        Activation('relu'),
+    ]
+    backend = [
+        Flatten(),
 
-* Probabalistic voting (mean)
+        Dropout(dropout),
+        Dense(fully_connected, kernel_regularizer=l2(0.001)),
+        Activation('relu'),
 
-`FIXME: show TimeDistributed in Keras`
+        Dropout(dropout),
+        Dense(num_labels, kernel_regularizer=l2(0.001)),
+        Activation('softmax'),
+    ]
+    layers = block1 + block2 + block3 + backend
+    model = Sequential(layers)
+    return model
+```
 
-TimeDistributed in Keras
+## Aggregating analysis windows
+
+```python
+from keras import Model
+from keras.layers import Input, TimeDistributed, GlobalAveragePooling1D
+
+def build_multi_instance(base, windows=6, bands=32, frames=72, channels=1):
+
+    input = Input(shape=(windows, bands, frames, channels))
+
+    x = input
+    x = TimeDistributed(base)(x)
+    x = GlobalAveragePooling1D()(x)
+    model = Model(input,x)
+    return model
+```
+
+*GlobalAveragePooling* -> "Probabilistic voting"
+
+::: notes 
+
+* Max pooling
+* Majority vote
+* Trained classifier
+
+:::
+
+# Demo
+
+## Demo video
+
+<video src="demo.mp4" type="video/mp4" controls/>
+</video>
+
+## Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
+
+![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){height=600px}
 
 
 
@@ -461,13 +524,6 @@ Data Augmentation
 3. Mixup, SpecAugment
 
 
-## Thesis
-
-Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
-
-[https://github.com/jonnor/ESC-CNN-microcontroller](https://github.com/jonnor/ESC-CNN-microcontroller)
-
-<!-- TODO: add picture of cover + microcontroller -->
 
 ## More learning
 
