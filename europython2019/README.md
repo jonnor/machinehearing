@@ -70,11 +70,6 @@ https://www.audiocontentanalysis.org/data-sets/
 - Finish code examples
 - ?? Add some sort of demo
 
-- Link to this in the presentation
-
-- Tweak style of slides.
-Header background for the slide title?
-Add Twitter handle to slides.
 
 ## Outline
 

@@ -8,8 +8,28 @@
     padding: 0px;
 }
 
+/* Increase font sizes a bit */
+.reveal section h1 {
+    font-size: 3.0em !important;
+}
+.reveal section h2 {
+    font-size: 2.0em !important;
+}
+.reveal section p {
+    font-size: 1.2em !important;
+}
+.reveal section li {
+    font-size: 1.2em;
+}
+.reveal section figcaption {
+    font-size: 1.2em;
+}
+.reveal section pre code {
+    font-size: 1.5em !important;
+}
 
 
+/* Slide specifix layout tweaks */
 #sb-cnn h2 {
     display: none;
 }
@@ -21,3 +41,14 @@
 #more-learning p {
     padding: 80px;
 }
+
+
+/*
+#summary {
+    text-align:left;
+}
+#summary h2 {
+    text-align:center;
+}
+*/
+

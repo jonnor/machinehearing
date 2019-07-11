@@ -32,22 +32,35 @@ Sensor Systems for Noise Monitoring
 
 ## This talk
 
-- Background
+Goal
+
+> a machine learning practitioner
+> 
+> without prior knowledge about sound processing
+> 
+> can solve basic Audio Classification problems
+
+Outline
+
+- Introduction
 - Audio Classification pipeline
 - Tips & Tricks
 - Pointers to more information
 
-Very practically oriented
+Slides and more: [https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 
-TODO: describe scope
+::: notes
+
+Very practically oriented
 
 Recommended background knowledge
 
-Audio sub-fields
+:::
 
-- Speech (Speech Recognition)
-- Music (Music Information Retrieval)
-- **General** / other
+<!--
+
+
+
 
 ## Why Audio Classification
 
@@ -57,11 +70,29 @@ Audio sub-fields
 - Good compliment to image/video
 - Humans use our hearing
 
-## Example applications
+-->
 
-`FIXME: get them`
+## Applications
 
-# Background
+Audio sub-fields
+
+- Speech Recognition. Keyword spotting.
+- Music Analysis. Genre classification.
+- **General** / other
+
+Examples
+
+* Eco-acoustics. Analyze bird migrations
+* Wildlife preservation. Detect poachers in protected areas
+* Manufacturing Quality Control. Testing electric car seat motors
+* Security: Highlighting CCTV feeds with verbal agression
+* Medical. Detect heart murmurs
+
+<!--
+* Process industry. Advance process once audible event happens (popcorn)
+-->
+
+# Digital sound primer
 
 ## Audio Mixtures
 
@@ -109,6 +140,15 @@ A non-linear system
 * Lossless compression: .FLAC
 * Lossy compression: .MP3
 
+## Spectrogram
+
+Computed using Short-Time-Fourier-Transform (STFT)
+
+![A frog croaking with ciccadas in background](img/frog_spectrogram.png){width=60%}
+
+
+
+
 # Practical example
 
 ## Environmental Sound Classification
@@ -132,7 +172,9 @@ https://github.com/karoldvl/ESC-50
 
 ## Urbansound8k 
 
-![10 classes, ~8k samples, ~4s long. ~9 hours total](img/urbansound8k-examples.png){width=100%}
+![10 classes, ~8k samples, ~4s long. ~9 hours total](img/urbansound8k-examples.png){width=80%}
+
+State-of-the-art accuracy: 79% - 82%
 
 ::: notes 
 
@@ -193,6 +235,7 @@ if we want output on a shorter time-basis than labels are available for,
 we have a 'weak labeling' scenario
 
 :::
+
 
 ## Mel-filters
 
@@ -277,17 +320,16 @@ Much bigger field.
 
 ## Training setup
 
-Multiple-instance
+`FIXME: show SB-CNN code example`
+
+
+## Aggregating
+
+* Probabalistic voting (mean)
+
+`FIXME: show TimeDistributed in Keras`
 
 TimeDistributed in Keras
-
-
-## Aggregating predictions
-
-* Majority vote
-* Mean voting
-* Max
-
 
 
 
@@ -296,14 +338,15 @@ TimeDistributed in Keras
 
 ## Normalization
 
-![](img/spectrograms.svg){width=100%}
+- log-scale compression
+- Subtract mean
+- Standard scale
 
-log-scale compression
-
-Mean-subtract 
-Per recording or per analysis window
+![](img/spectrograms.svg){width=60%}
 
 ::: notes
+
+Per recording or per analysis window
 
 Global clip/dataset analysis for normalization not possible when streaming
 
@@ -320,15 +363,11 @@ Global clip/dataset analysis for normalization not possible when streaming
 Mostly done in time-domain,
 but can also be done in spectrograms
 
-TODO: mention Mixup
-
-TODO: mention SpecAugment
-
 :::
 
 ## Mixup
 
-![Mixup: Create new sample using weighted combination of two samples. Image: Xu2018](./img/mixup.jpg){height=100%}
+![Mixup: Create new sample using weighted combination of two samples. Image: Xu2018](./img/mixup.jpg){width=60%}
 
 ::: notes
 
@@ -338,7 +377,19 @@ https://arxiv.org/abs/1805.07319
 :::
 
 
+<!--
 
+## SpecAugment
+
+![SpecAugment: Mask spectrogram sections to augment. Image: Neurohive](./img/specaugment.png){width=60%}
+
+::: notes
+
+https://neurohive.io/en/news/specaugment-new-and-simple-data-augmentation-technique-for-audio-data/
+
+:::
+
+-->
 
 ## Transfer Learning from images
 
@@ -384,11 +435,11 @@ SoundNet
 :::
 
 
-
-
 # Outro
 
 ## Summary
+
+`FIXME: style sensibly`
 
 Pipeline
 
@@ -416,12 +467,13 @@ Environmental Sound Classification on Microcontrollers using Convolutional Neura
 
 [https://github.com/jonnor/ESC-CNN-microcontroller](https://github.com/jonnor/ESC-CNN-microcontroller)
 
+<!-- TODO: add picture of cover + microcontroller -->
 
 ## More learning
 
-Slides and more info: [https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
+Slides and more: [https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 
-Hands-on: [TensorFlow Speech Recognition tutorial](https://www.tensorflow.org/tutorials/sequences/audio_recognition)
+Hands-on: [TensorFlow tutorial, Simple Audio Recognition](https://www.tensorflow.org/tutorials/sequences/audio_recognition)
 
 Book: Computational Analysis of Sound Scenes and Events (Virtanen/Plumbley/Ellis, 2018) 
 
