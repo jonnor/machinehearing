@@ -14,7 +14,7 @@ Master thesis. Report and code available in the [Github repository](https://gith
 <img src="https://github.com/jonnor/machinehearing/raw/master/europython2019/video.png" height="200" alt="Youtube: Audio Classification using Machine Learning by Jon Nordby, EuroPython 2019">
 </a>
 
-Presentation at EuroPython2019. [Video recording](https://youtu.be/2FmMESSD2CM?t=8470), [notes](./europython2019)
+Presentation at EuroPython2019. [Video recording](https://www.youtube.com/watch?v=uCGROOUO_wY), [notes](./europython2019)
 
 ## NMBU lecture on Audio Classification
 
@@ -86,6 +86,10 @@ January 2017, Hiroshi Shimodaira and Steve Renals.
 * DCASE2018
 * DCASE2019 
 
+## Datasets
+
+* [Audio cats and dogs (Kaggle)](https://www.kaggle.com/mmoreaux/audio-cats-and-dogs)
+* [Heartbeat anomalies (Kaggle)](https://www.kaggle.com/kinguistics/heartbeat-sounds).
 
 ## Online Communities
 
