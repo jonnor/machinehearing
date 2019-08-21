@@ -218,4 +218,20 @@ Human Activity Detection
 * A Similarity Analysis of Audio Signal to Develop a Human Activity Detection. 2017, A García-Hernández.
 
 
+# Music
+
+Musical composition
+
+* [Harmonizing Pop Melodies using Hidden Markov Models](https://luckytoilet.wordpress.com/2017/04/25/ai-project-harmonizing-pop-melodies-using-hidden-markov-models/)
+
+Music or not?
+
+* [Changing FM stations on ads!](https://medium.com/@kshitij.d1989/deep-learning-experiment-changing-fm-stations-on-ads-c1a0a1f96bf1).
+Binary classification, music or ad. Based on radio station.
+2x100 samples. 80% val acc. Keras. MFCC. Code and dataset available.
+
+Music remixing
+
+* [Audio AI: isolating vocals from stereo music using Convolutional Neural Networks](https://towardsdatascience.com/audio-ai-isolating-vocals-from-stereo-music-using-convolutional-neural-networks-210532383785)
+* [Audio AI: isolating instruments from stereo music using Convolutional Neural Networks](https://towardsdatascience.com/audio-ai-isolating-instruments-from-stereo-music-using-convolutional-neural-networks-584ababf69de)
 

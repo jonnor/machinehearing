@@ -201,3 +201,24 @@ Heart murmurs. Lung.
 The relevant range of frequencies for hearts is lower than normal human hearing. `<20Hz`.
 
 Fault detection in machinery by technicians often also use sound.
+
+
+## Multi-channel audio
+
+Stereo. Binaural.
+Many-channels. Microphone array.
+
+Input represenations
+
+- Left, right. L-R (absolute) difference.
+- Phase and magnitude spectrograms.
+- Reference audio,
+
+Strategies
+
+- Early fusion. Multiple spectrogram as input to first layer.
+- Intermediate fusion. Multi-head Neural Network.
+- Late fusion. Concatenation of features, then classifiers backend.
+- Ensembling. Multiple separate neural networks. Results combined.
+
+

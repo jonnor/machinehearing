@@ -9,6 +9,7 @@ General
 * Audio Source Separation
 * Audio Fingerprinting
 * Audio Retrieval
+* Anomaly Detection
 
 Music
 
@@ -21,7 +22,9 @@ Music
 Speech
 
 * Automatic Transcription
-* Speaker Recognition
+* Speaker Identification
+* Speech Recognition
+* Emotion Recognition
 * Diarization
 
 ### Blind source separation

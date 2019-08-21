@@ -90,6 +90,7 @@ January 2017, Hiroshi Shimodaira and Steve Renals.
 
 * [Audio cats and dogs (Kaggle)](https://www.kaggle.com/mmoreaux/audio-cats-and-dogs)
 * [Heartbeat anomalies (Kaggle)](https://www.kaggle.com/kinguistics/heartbeat-sounds).
+* [Respiratory sounds (Kaggle)](https://www.kaggle.com/vbookshelf/respiratory-sound-database)
 
 ## Online Communities
 
