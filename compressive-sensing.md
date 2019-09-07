@@ -103,3 +103,175 @@ Propose an innovative way to embed the indices in the extracted largest frequenc
 [Distributed Compressive Sensing](https://arxiv.org/abs/0901.3403). 2009.
 
 
+
+# Compressed sensing (CS) and its relation to neural networks and deep learning
+Notes from presentation given at meetup.
+https://www.meetup.com/Under-the-hood-Explaining-what-goes-on-inside-DNN-AI/events/263780245/
+
+By Dr. Anders Hansen.
+Head of research group Applied Functional and Harmonic Analysis
+at the Cambridge Centre of Analysis at DAMTP.
+
+Secure and Safe AI. Want them to be probably so.
+
+## Safe AI.
+Humans make mistakes.
+If replacing humans with AI must allow AI to do the same.
+But placing restrictions of what kinds of mistakes being made
+
+## Secure.
+
+Secure to adversarities
+
+Would like to use AI to
+
+- Replace humans in problem solving.
+/ Replace established algoritms in sciences **focus today**
+
+## compressed Sensing
+
+Typically used for inverse problem.
+MRI is the flagship usecase.
+In 2017 CS is approved for use in MRI machines by FDA.
+
+- Single pixel camera
+- Lessless camera
+- Compresive video
+
+### Inverse problems. Related to "integraral transform"
+
+- Electron microscopy
+- Xray, tomography
+- Radio inferiometry
+
+Sensor gives a Fourier sequence.
+Need to decode this integral to get the signal of interest.
+
+MRI imaging takes a long time. Expensive, annoying. Desirable to reduce this.
+High resolution traditionally takes multiple hours.
+Subsample measurements.
+
+CS uses randomness in the sampling.
+
+How many samples needed in order to recover the signal of interest?
+Dependent on sparsity.
+
+## Sparsity
+Extra assumption that Compressed Sensing makes.
+
+
+Wavelets can be used to represent images.
+Weighted sum of wavelets.
+Can use very few non-zero coefficients in order to represent the image.
+Well known for modern compression techniques. 
+
+CS idea. WHy don't we exploit sparsity *when we sample*
+
+
+Many possible solutions.
+Sparsity constraint.
+L0 formulation requires Non-convex optimization.
+Basis pursuit problem.
+
+Linear system.
+
+There is a theorem for deciding `m`, number of samples.
+incoherence parameters U.
+
+Can be very hard to get the best performance.
+Sampling strategy is one critical parameter.
+
+- Uniform random.
+- Full sampling center + uniform random elsewhere
+- Gaussian distribution
+
+
+FDA has approved Deep Learning for diagnostics.
+Under what kind of restrictions?
+
+
+## AI replacing (standard) algorithms
+
+ReLu popular also for inverse problems.
+
+
+Instability issue.
+AutoMAP network.
+Image reconstruction.
+
+CS on the other hand is stable against perturpations.
+
+
+Want to use neural network for inverse problems.
+
+Image denoising with NN has been very successful.
+Learn the noise, and then subtract it from the image.
+Need to know the noise model.
+Could the same technique be used for inverse problem?
+
+First idea: Use denoising algorithm on the filtered back projection.
+Shown to be working in 2016.
+
+## Instability test
+How does NN perform with perturbated inputs
+
+"in instabilities of deep learning in image reconstruction"
+
+Obvious mistakes might be OK. Have to redo the experiment
+Subtle mistakes are worse. Not detected, can cause (serious) mistakes.
+Tumor detected where none, or tumor missed where present.
+
+Can easily synthesize examples which fails. 
+Does it happen in practice? We don't know yet!
+
+
+## A reason for instability
+
+Recovering the null space.
+null space. Domain where the function takes a non-zero input and maps it to zero.
+When trying to interpolate (as is the nature of the DL training processs),
+this will happen. 
+
+"kernel awareness".
+We need information about the null space.
+Compressed sensing is stable *on some specified domain*.
+Robust nullspace property.
+
+'need to figure out what areas we can do things. Which inputs (domain) are valid'.
+There is a limitation between how we sample and how well we can do (in a stable fashion).
+Especially how sparse our input are, and the size of our reduced sparse space.
+
+For fixed M1, an A. - can find an optimality constant
+If we can reach the optimality constant, call this an optimal map.
+May not be able to. Have a family of 
+
+
+Mathematically there is basically a guarantee that DL training will not reach an optimal map.
+
+
+### Are there stable NNs for inverse problem that performs well 
+
+Lasso problem. Very similar to Basis Pursuit problem.
+Lasso is common in image recovery.
+ISTA. Solver algorithm for Lasso problem.
+If writing out N steps of ISTA, it forms a neural network!
+
+This allows to construct NNs that.
+
+### Instability in classification
+
+Instability guarantees given are for inverse problems.
+For classification dont have the same limits/theorems.
+
+Preventing for instability in classification:
+State of the Art. Adversarial training.
+
+
+## Questions
+How would one start with compressed sensing to an IoT sampling problem?
+Want to sample as seldomly as possible, for energy efficiency. 
+
+
+
+
+
