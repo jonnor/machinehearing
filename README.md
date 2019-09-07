@@ -54,8 +54,11 @@ https://stackoverflow.com/questions/57443870/stream-binary-audio-data-from-http-
 
 Streaming audio from HTTP to for audio classification. Supports real-time streaming
 
-Chunk download audio from Youtube. Can classify in parallel
+Chunk download audio from Youtube.
+Benefit: Can classify in parallel.
+Can get a particular location in time
 
+https://unix.stackexchange.com/questions/230481/how-to-download-portion-of-video-with-youtube-dl-command
 
 -->
 
