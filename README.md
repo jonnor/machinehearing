@@ -37,19 +37,9 @@ With example code in Python
 * [Multi-core preprocessing of audio files using joblib](https://stackoverflow.com/a/55680757/1967571)
 * [Compute MFCC or mel-spectrogram from existing STFT spectrograms](https://stackoverflow.com/a/57833078/1967571)
 * [Converting mel-spectrograms into PNG images](https://stackoverflow.com/a/57204349/1967571)
+* [Converting mel-spectrogram or MFCC back to audio waveform using librosa](https://stackoverflow.com/a/57323359/1967571)
 
 <!--
-TODO
-* [Spectrogram inversion, creating waveform from FFT data](https://stackoverflow.com/questions/56931834/creating-wave-data-from-fft-data)
-https://stackoverflow.com/questions/56292729/how-to-convert-mfcc-features-to-wav-file-in-python
-
-Convert to PNG image.
-https://stackoverflow.com/questions/56719138/how-can-i-save-a-librosa-spectrogram-plot-as-a-specific-sized-image/57204349#57204349
-
-Edit PNG image in image editor.
-Load modified PNG image, output audio file
-
-
 https://stackoverflow.com/questions/57443870/stream-binary-audio-data-from-http-request-for-librosa-analysis/57672134#57672134
 
 Streaming audio from HTTP to for audio classification. Supports real-time streaming
