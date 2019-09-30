@@ -62,6 +62,8 @@ Rough notes on various topics.
 * [Preprocessing](./preprocessing.md). Preprocessing techniques
 * [DCASE2018](./dcase2018.md). Notes from DCASE2018 challenge and conference
 * [Commercial solutions](./commercial.md). Companies and products in Machine Hearing
+* [Speech](./speech.md). Speech-specific techniques and applications
+* [Music](./music.md). Music-specific techniques and applications
 * [Compressive Sensing](./compressive-sensing.md).
 
 ## Resources
