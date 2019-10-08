@@ -3,8 +3,8 @@
 author: Jon Nordby @jononor
 date: PyCode 2019, Gdansk
 title: Recognizing sounds with Machine Learning and Python
-width: 1920
-height: 1080
+width: 1280
+height: 960
 margin: 0
 css: style.css
 ---
@@ -24,68 +24,136 @@ Today
 - Consulting on IoT + Machine Learning
 - CTO @ Soundsensing.no
 
+## Soundsensing.no
+
+Provide **Noise Monitoring** and **Condition Monitoring** solutions
+that are used in Real-Estate, Industry, and Smart Cities.
+
+`TODO: picture of Soundsensing.no sensor unit`
+
+Perform Machine Learning for sound classification **on sensor**.
 
 ## This talk
 
 Goal
 
-> a machine learning practitioner
+> a Python programmer
 > 
-> without prior knowledge about sound processing
+> without expertice in sound processing
+> and limited machine learning experience
 > 
 > can solve basic Audio Classification problems
 
-Outline
+## Outline
 
-- Introduction
-- Audio Classification pipeline
+- An example task
+- Digital sound primer
+- Audio Classification basics
 - Tips & Tricks
 - Pointers to more information
 
 Slides and more: [https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 
 ::: notes
+Very practically oriented.
 
-Very practically oriented
+Will try to define the neccesary Machine Learning concepts as we go along
+:::
 
-Recommended background knowledge
+
+# Practical task
+
+## Recognizing Urban sounds
+
+`TODO: audio example of inputs`
+
+::: notes
+
+Environmental Sound Classification
 
 :::
 
-<!--
+## System specification
+
+> Given an audio signal of environmental sounds,
+> 
+> determine which class it belongs to
 
 
+`TODO: image of overall system`
+
+::: notes
+
+Classification.
+Each input is mapped to a single discrete output.
+Only a single class sound per audio clip.
+
+Closed-set.
+Sound has to be one of the N defined classes. 
+Cannot handle out-of-domain inputs.
+
+Ok, so how do we realize such a system?
+
+:::
+
+## Supervised Machine Learning
 
 
-## Why Audio Classification
+`TODO: image of inputs,outputs`
 
-- Rich source of information
-- Any physical motion creates sound
-- Sound 
-- Good compliment to image/video
-- Humans use our hearing
+::: notes
 
--->
+*Supervised* Machine Learning process:
 
-## Applications
+Supervised learning: using (large amounts of) labeled data, for training.
 
-Audio sub-fields
+Inputs.
 
-- Speech Recognition. Keyword spotting.
-- Music Analysis. Genre classification.
-- **General** / other
+- Labeled dataset. Many audio samples, each **already labeled** (by humans) with the associated class
+- Model architecture. An untrained model for recognizing sounds (more generally). 
+- Goal specification. The metric we want to optimize for. Ex: average accuracy
 
-Examples
+Outputs:
 
-* Eco-acoustics. Analyze bird migrations
-* Wildlife preservation. Detect poachers in protected areas
-* Manufacturing Quality Control. Testing electric car seat motors
-* Security: Highlighting CCTV feeds with verbal agression
-* Medical. Detect heart murmurs
+- A **trained model**. That can classify Environmental Sounds with high accuracy.
+Hopefully also sounds similar to, but not from the Urbansound8k dataset.
+- Results. Metrics, plots of how well the model did. 
 
-<!--
-* Process industry. Advance process once audible event happens (popcorn)
--->
+How to get dataset?
+See if there are publically available dataset.
+General rule. 1k samples per class.
+But, tricks exist for cases where there is less data available.
+"Low resource" datasets.
+
+What kind of model architecture to use?
+Find the most similar usecase to yours.
+Start simple!
+
+How to specify goal?
+Analyze your business/usecase.
+What aspect of model performance are critical.
+What kind of errors are more acceptable?
+
+::: 
+
+
+## Urbansound8k 
+
+![10 classes, ~8k samples, ~4s long. ~9 hours total](img/urbansound8k-examples.png){width=80%}
+
+State-of-the-art accuracy: 79% - 82%
+
+::: notes 
+
+- Classes from an urban sound taxonomy,
+- Based on noise complains in New York City
+- Most sounds around 4 seconds.
+- Some classes around 1 second
+- Saliency annotated  (foreground/background)
+
+:::
+
+
 
 # Digital sound primer
 
@@ -144,135 +212,50 @@ Computed using Short-Time-Fourier-Transform (STFT)
 
 
 
-# Practical example
-
-## Environmental Sound Classification
-
-> Given an audio signal of environmental sounds,
-> 
-> determine which class it belongs to
-
-* Widely researched. 1000 hits on Google Scholar
-* Open datasets. ESC-50, Urbansound8k (10 classes), AudioSet (632 classes)
-* 2017: Human-level performance (on ESC-50)
-
-::: notes
-
-Finite set of classes
-
-https://github.com/karoldvl/ESC-50
-
-:::
-
-
-## Urbansound8k 
-
-![10 classes, ~8k samples, ~4s long. ~9 hours total](img/urbansound8k-examples.png){width=80%}
-
-State-of-the-art accuracy: 79% - 82%
-
-::: notes 
-
-- Classes from an urban sound taxonomy,
-- Based on noise complains in New York City
-- Most sounds around 4 seconds.
-- Some classes around 1 second
-- Saliency annotated  (foreground/background)
-
-:::
-
-
 # Basic Audio Classification pipeline
 
 ## Pipeline
 
 ![](img/classification-pipeline.svg){width=70%}
 
-## Analysis windows
+::: notes
 
-![Splitting audio stream into windows of fixed length, with overlap. Image: Sajjad2019](img/framing.png){width=80%}
+
+## Choices
+
+**Window size**. How big in time?
+
+Spectrogram preprocessing. Try Mel-filtered, log-scaled and standardized first. 40-128 bands.
+
+- 
 
 ::: notes
 
-Image:
-https://www.researchgate.net/figure/Framing-the-input-audio-signal-into-several-frames-s-s-1-with-appropriate_fig1_332553888
+Window size (in time). Decides how much the model "sees" at a time.
 
-@misc{Sajjad2019,
-  author = {Abdoli, Sajjad and Cardinal, Patrick and Koerich, Alessandro},
-  year = {2019},
-  month = {04},
-  pages = {},
-  title = {End-to-End Environmental Sound Classification using a 1D Convolutional Neural Network}
-}
+Longer when phenomenon of interest is longer.
+Shorter if needing predictions more often (event detection).
+Shorter window is beneficial. Smaller input, smaller model. 
+Easier to train, lower inference time, lower storage/RAM requirements.
+
++ pretrained image models often want rectangular inputs. Ex: 128x128
 
 
-Hyperparameters:
+Mel-spectrogram.
+First try what everyone else uses.
+Look at the spectrograms.
+Check that *you* can see the phenomenon in question!
+And see differences between spectrograms of different classes.
 
-- Window length
-- Window hop / overlap
-
-
-Depends primarily on how often you want predictions
-but beneficial to limit window size:
-
-- lower input dimensionality, easier to learn
-- smaller model size
-- lower inference time
-- lower RAM consumption
-
-+ pretrained image models often want rectangular inputs.
-Ex: 128x128
-
-if using a short window compared to label/prediction time,
-need to aggregate the predictions somehow
-
-if we want output on a shorter time-basis than labels are available for,
-we have a 'weak labeling' scenario
-
-:::
-
-
-## Mel-filters
-
-![Mel-scale triangular filters. Applied to linear spectrogram (STFT) => mel-spectrogram](img/melfilters.png){width=80%}
-
-::: notes
-
-Hyperparameters:
-
-- Samplerate
-(44.1/48kHz originals. 22kHz commonly used, 16 kHz sometimes)
-- Mel filters
-- Hop length
-- Filter frequency range
-
-(window function: Hann, overlap 50%)
-
-In Python:
-
-- librosa.feature.melspectrogram()
-CPU only. Numpy
-- Kapre Melspectrogram layer.
-GPU. Using Tensorflow STFT operation
-
-:::
-
-## Normalization
-
+- Mel-filters. 40-128
 - log-scale compression
-- Subtract mean
-- Standard scale
-
-![](img/spectrograms.svg){width=60%}
-
-::: notes
+- Standardize. Subtract mean, divide by std
 
 Per recording or per analysis window
-
 Global clip/dataset analysis for normalization not possible when streaming
 
-:::
 
+:::
 
 ## Feature preprocessing
 
@@ -412,6 +395,7 @@ def build_multi_instance(base, windows=6, bands=32, frames=72, channels=1):
 
 :::
 
+
 # Demo
 
 ## Demo video
@@ -471,19 +455,18 @@ https://neurohive.io/en/news/specaugment-new-and-simple-data-augmentation-techni
 
 ## Transfer Learning from images
 
-Transfer Learning from image data works 
+Transfer Learning from image data works!
 
 => Can use models pretrained on ImageNet
 
 Caveats:
 
-- If RGB input, should to fill all 3 channels
-- Multi-scale,
-- Usually need to fine tune. Some or all layers
+- If RGB input, should fill all 3 channels
+- Usually need to fine tune the model. Some or all layers
 
 ::: notes
 
-Problem: Images are usually 3 channels (RGB), spectrogram only has 1 channel
+`TODO: image explaining Transfer Learning` 
 
 `TODO: code example using Keras Applications MobileNet ?`
 
@@ -502,17 +485,19 @@ x = Dense(1024, activation='relu')(x)
 predictions = Dense(200, activation='softmax')(x)
 
 ```
-
 :::
 
 
 ## Audio Embeddings
 
 - Model pretrained for sound, feature-extracting only
+- Example. Look, Listen, Learn ({L^3}). 1 second, 512-d vector
+- Accessible as Python package `OpenL3`
+- Only need to add a simple classifier on this
 - Uses a CNN under the hood
 
-Look, Listen, Learn ({L^3}). 1 second, 512 dimensional vector
 
+::: notes
 
 ```
 import openl3
@@ -521,19 +506,15 @@ import openl3
 
 ```
 
-
-::: notes
-
-`TODO: code example using OpenL3 ?`
-
-
-
+`FIXME: finish code example using OpenL3 ?`
 
 Only need to add a simple classifier!
-Linear.
+Linear. Random Forest.
 
-??? Could classifying across N frames give good perf.
-??? What about adding difference vector
+Can OpenL3 be used with real-time streaming?
+https://github.com/marl/openl3/issues/36
+
+Other embedding models:
 
 EdgeL3
 SoundNet
@@ -616,6 +597,8 @@ Twitter: @[jononor](https://twitter.com/jononor)
 
 # BONUS
 
+# More advanced problem formulations
+
 ## Audio Event Detection
 
 > Return: time something occurred.
@@ -659,11 +642,105 @@ Approaches
 * joint model: multi-label classifier
 
 
+##
+
+# Details
+
+## Analysis windows
+
+![Splitting audio stream into windows of fixed length, with overlap. Image: Sajjad2019](img/framing.png){width=80%}
+
+::: notes
+
+Image:
+https://www.researchgate.net/figure/Framing-the-input-audio-signal-into-several-frames-s-s-1-with-appropriate_fig1_332553888
+
+@misc{Sajjad2019,
+  author = {Abdoli, Sajjad and Cardinal, Patrick and Koerich, Alessandro},
+  year = {2019},
+  month = {04},
+  pages = {},
+  title = {End-to-End Environmental Sound Classification using a 1D Convolutional Neural Network}
+}
+
+
+Hyperparameters:
+
+- Window length
+- Window hop / overlap
+
+Depends primarily on how often you want predictions
+but beneficial to limit window size:
+
+- lower input dimensionality, easier to learn
+- smaller model size
+- lower inference time
+- lower RAM consumption
+
++ pretrained image models often want rectangular inputs.
+Ex: 128x128
+
+if using a short window compared to label/prediction time,
+need to aggregate the predictions somehow
+
+if we want output on a shorter time-basis than labels are available for,
+we have a 'weak labeling' scenario
+
+:::
+
+
+## Mel-filters
+
+![Mel-scale triangular filters. Applied to linear spectrogram (STFT) => mel-spectrogram](img/melfilters.png){width=80%}
+
+::: notes
+
+Hyperparameters:
+
+- Samplerate
+(44.1/48kHz originals. 22kHz commonly used, 16 kHz sometimes)
+- Mel filters
+- Hop length
+- Filter frequency range
+
+(window function: Hann, overlap 50%)
+
+In Python:
+
+- librosa.feature.melspectrogram()
+CPU only. Numpy
+- Kapre Melspectrogram layer.
+GPU. Using Tensorflow STFT operation
+
+:::
+
+## Spectrogram normalization
+
+- log-scale compression
+- Subtract mean
+- Standard scale
+
+![](img/spectrograms.svg){width=60%}
+
+::: notes
+
+
+:::
+
+
 ## Streaming
 
 Real-time classification
 
+- Global clip/dataset analysis for normalization not possible
+
+::: notes
+
 `TODO: document how to do in Python`
+
+:::
+
+
 
 <!--
 
@@ -691,6 +768,7 @@ Timestamp important events.
 
 
 
+
 ## Mel-Frequency Cepstral Coefficients (MFCC)
 
 * MFCC = DCT(mel-spectrogram)
@@ -710,5 +788,39 @@ normally performed by the spectrogram.
 Actively researched using advanced models and large datasets.
 
 `TODO: link EnvNet`
+
+## Sequence models
+
+Convolutional Recurrent Neural Networks
+
+
+
+# Bla bla
+
+## Why Audio Classification
+
+- Rich source of information
+- Any physical motion creates sound
+- Sound 
+- Good compliment to image/video
+- Humans use our hearing
+
+
+## Applications
+
+Audio sub-fields
+
+- Speech Recognition. Keyword spotting.
+- Music Analysis. Genre classification.
+- **General** / other
+
+Examples
+
+* Eco-acoustics. Analyze bird migrations
+* Wildlife preservation. Detect poachers in protected areas
+* Manufacturing Quality Control. Testing electric car seat motors
+* Security: Highlighting CCTV feeds with verbal agression
+* Medical. Detect heart murmurs
+* Process industry. Advance process once audible event happens (popcorn)
 
 
