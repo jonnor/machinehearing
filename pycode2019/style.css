@@ -1,0 +1,84 @@
+
+/* White background for images, to handle transparency */
+.reveal section img { 
+    border:none;
+    box-shadow:none;
+    background: rgba(255, 255, 255, 1.0);
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/* Allow bigger code blocks */
+.reveal pre code {
+    max-height: 80%;
+}
+
+
+/* Increase font sizes a bit */
+.reveal section h1 {
+    font-size: 3.0em !important;
+}
+.reveal section h2 {
+    font-size: 2.0em !important;
+}
+.reveal section p {
+    font-size: 1.2em !important;
+}
+.reveal section li {
+    font-size: 1.2em;
+}
+.reveal section figcaption {
+    font-size: 1.2em;
+}
+.reveal section pre code {
+    font-size: 1.5em;
+}
+
+
+/* Slide specifix layout tweaks */
+#sb-cnn h2 {
+    display: none;
+}
+
+#pipeline h2 {
+    display: none;
+}
+
+#feature-preprocessing h2 {
+    display: none;
+}
+
+#keras-model h2 {
+    display: none;
+}
+#keras-model code {
+    font-size: 1.2em; !important
+}
+.reveal .sourceCode {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#demo-video h2 {
+    display: none;
+}
+
+#convolutional-neural-network p {
+    padding: 30px;
+}
+
+#more-learning p {
+    padding: 80px;
+}
+
+
+/*
+#summary {
+    text-align:left;
+}
+#summary h2 {
+    text-align:center;
+}
+*/
+
