@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jon Nordby @jononor">
+  <title>Recognizing sounds with Machine Learning and Python</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reset.css">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Recognizing sounds with Machine Learning and Python</h1>
+  <p class="author">Jon Nordby <span class="citation" data-cites="jononor">@jononor</span></p>
+  <p class="date">PyCode 2019, Gdansk</p>
+</section>
+
+<section><section id="introduction" class="title-slide slide level1"><h1>Introduction</h1></section><section id="jon-nordby" class="slide level2">
+<h2>Jon Nordby</h2>
+<p>Internet of Things specialist</p>
+<ul>
+<li>B.Eng in <strong>Electronics</strong> (2010)</li>
+<li>9 years as <strong>Software</strong> developer. <strong>Embedded</strong> + <strong>Web</strong></li>
+<li>M.Sc in <strong>Data</strong> Science (2019)</li>
+</ul>
+<p>Today</p>
+<ul>
+<li>Consulting on IoT + Machine Learning</li>
+<li>CTO @ Soundsensing.no</li>
+</ul>
+</section><section id="soundsensing.no" class="slide level2">
+<h2>Soundsensing.no</h2>
+<p>Provide <strong>Noise Monitoring</strong> and <strong>Condition Monitoring</strong> solutions that are used in Real-Estate, Industry, and Smart Cities.</p>
+<p><code>TODO: picture of Soundsensing.no sensor unit</code></p>
+<p>Perform Machine Learning for sound classification <strong>on sensor</strong>.</p>
+</section><section id="this-talk" class="slide level2">
+<h2>This talk</h2>
+<p>Goal</p>
+<blockquote>
+<p>a Python programmer</p>
+<p>without expertice in sound processing and limited machine learning experience</p>
+<p>can solve basic Audio Classification problems</p>
+</blockquote>
+</section><section id="outline" class="slide level2">
+<h2>Outline</h2>
+<ul>
+<li>An example task</li>
+<li>Digital sound primer</li>
+<li>Audio Classification basics</li>
+<li>Tips &amp; Tricks</li>
+<li>Pointers to more information</li>
+</ul>
+<p>Slides and more: <a href="https://github.com/jonnor/machinehearing">https://github.com/jonnor/machinehearing</a></p>
+<aside class="notes">
+<p>Very practically oriented.</p>
+<p>Will try to define the neccesary Machine Learning concepts as we go along</p>
+</aside>
+</section></section>
+<section><section id="practical-task" class="title-slide slide level1"><h1>Practical task</h1></section><section id="recognizing-urban-sounds" class="slide level2">
+<h2>Recognizing Urban sounds</h2>
+<p><code>TODO: audio example of inputs</code></p>
+<aside class="notes">
+<p>Environmental Sound Classification</p>
+</aside>
+</section><section id="system-specification" class="slide level2">
+<h2>System specification</h2>
+<blockquote>
+<p>Given an audio signal of environmental sounds,</p>
+<p>determine which class it belongs to</p>
+</blockquote>
+<p><code>TODO: image of overall system</code></p>
+<aside class="notes">
+<p>Classification. Each input is mapped to a single discrete output. Only a single class sound per audio clip.</p>
+<p>Closed-set. Sound has to be one of the N defined classes. Cannot handle out-of-domain inputs.</p>
+<p>Ok, so how do we realize such a system?</p>
+</aside>
+</section><section id="supervised-machine-learning" class="slide level2">
+<h2>Supervised Machine Learning</h2>
+<p><code>TODO: image of inputs,outputs</code></p>
+<aside class="notes">
+<p><em>Supervised</em> Machine Learning process:</p>
+<p>Supervised learning: using (large amounts of) labeled data, for training.</p>
+<p>Inputs.</p>
+<ul>
+<li>Labeled dataset. Many audio samples, each <strong>already labeled</strong> (by humans) with the associated class</li>
+<li>Model architecture. An untrained model for recognizing sounds (more generally).</li>
+<li>Goal specification. The metric we want to optimize for. Ex: average accuracy</li>
+</ul>
+<p>Outputs:</p>
+<ul>
+<li>A <strong>trained model</strong>. That can classify Environmental Sounds with high accuracy. Hopefully also sounds similar to, but not from the Urbansound8k dataset.</li>
+<li>Results. Metrics, plots of how well the model did.</li>
+</ul>
+<p>How to get dataset? See if there are publically available dataset. General rule. 1k samples per class. But, tricks exist for cases where there is less data available. “Low resource” datasets.</p>
+<p>What kind of model architecture to use? Find the most similar usecase to yours. Start simple!</p>
+<p>How to specify goal? Analyze your business/usecase. What aspect of model performance are critical. What kind of errors are more acceptable?</p>
+</aside>
+</section><section id="urbansound8k" class="slide level2">
+<h2>Urbansound8k</h2>
+<figure>
+<img data-src="img/urbansound8k-examples.png" style="width:80.0%" alt="" /><figcaption>10 classes, ~8k samples, ~4s long. ~9 hours total</figcaption>
+</figure>
+<p>State-of-the-art accuracy: 79% - 82%</p>
+<aside class="notes">
+<ul>
+<li>Classes from an urban sound taxonomy,</li>
+<li>Based on noise complains in New York City</li>
+<li>Most sounds around 4 seconds.</li>
+<li>Some classes around 1 second</li>
+<li>Saliency annotated (foreground/background)</li>
+</ul>
+</aside>
+</section></section>
+<section><section id="digital-sound-primer" class="title-slide slide level1"><h1>Digital sound primer</h1></section><section id="audio-mixtures" class="slide level2">
+<h2>Audio Mixtures</h2>
+<figure>
+<img data-src="./img/sound-sources.png" style="width:80.0%" alt="" /><figcaption>Sounds mix together</figcaption>
+</figure>
+<aside class="notes">
+<p>https://www.researchgate.net/profile/Raimund_Dachselt/publication/228715257/figure/fig1/AS:301960805797899@1449004474993/Reverberant-rooms-with-walls-and-openings-For-overlapping-areas-a-parameter-called.png</p>
+<p>Channel effects</p>
+<ul>
+<li>Noise</li>
+<li>Frequency response</li>
+<li>Reverberation</li>
+</ul>
+</aside>
+<!--
+
+## Human hearing
+
+Two ears (Binaural). Frequencies approx 20Hz - 20kHz. 
+
+A non-linear system
+
+* Loudness is not linear with sound pressure
+* Loudness is frequency dependent 
+* Compression. Sensitivity lowered when loud
+* Masking. Close sounds can hide eachother
+
+::: notes
+:::
+-->
+</section><section id="audio-acquisition" class="slide level2">
+<h2>Audio acquisition</h2>
+<p><img data-src="img/audio-aquisition.svg" style="width:80.0%" /></p>
+</section><section id="digital-sound-representation" class="slide level2">
+<h2>Digital sound representation</h2>
+<ul>
+<li>Quantized in time (ex: 44100 Hz)</li>
+<li>Quantizied in amplitude (ex: 16 bit)</li>
+<li>N channels. <strong>Mono</strong>/Stereo</li>
+<li>Uncompressed formats: PCM <strong>.WAV</strong></li>
+<li>Lossless compression: .FLAC</li>
+<li>Lossy compression: .MP3</li>
+</ul>
+</section><section id="spectrogram" class="slide level2">
+<h2>Spectrogram</h2>
+<p>Computed using Short-Time-Fourier-Transform (STFT)</p>
+<figure>
+<img data-src="img/frog_spectrogram.png" style="width:60.0%" alt="" /><figcaption>A frog croaking with ciccadas in background</figcaption>
+</figure>
+</section></section>
+<section><section id="basic-audio-classification-pipeline" class="title-slide slide level1"><h1>Basic Audio Classification pipeline</h1></section><section id="pipeline" class="slide level2">
+<h2>Pipeline</h2>
+<p><img data-src="img/classification-pipeline.svg" style="width:70.0%" /></p>
+<p>::: notes</p>
+</section><section id="choices" class="slide level2">
+<h2>Choices</h2>
+<p><strong>Window size</strong>. How big in time?</p>
+<p>Spectrogram preprocessing. Try Mel-filtered, log-scaled and standardized first. 40-128 bands.</p>
+<ul>
+<li></li>
+</ul>
+<aside class="notes">
+<p>Window size (in time). Decides how much the model “sees” at a time.</p>
+<p>Longer when phenomenon of interest is longer. Shorter if needing predictions more often (event detection). Shorter window is beneficial. Smaller input, smaller model. Easier to train, lower inference time, lower storage/RAM requirements.</p>
+<ul>
+<li>pretrained image models often want rectangular inputs. Ex: 128x128</li>
+</ul>
+<p>Mel-spectrogram. First try what everyone else uses. Look at the spectrograms. Check that <em>you</em> can see the phenomenon in question! And see differences between spectrograms of different classes.</p>
+<ul>
+<li>Mel-filters. 40-128</li>
+<li>log-scale compression</li>
+<li>Standardize. Subtract mean, divide by std</li>
+</ul>
+<p>Per recording or per analysis window Global clip/dataset analysis for normalization not possible when streaming</p>
+</aside>
+</section><section id="feature-preprocessing" class="slide level2">
+<h2>Feature preprocessing</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> load_audio_windows(path, ...):</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    y, sr <span class="op">=</span> librosa.load(path, sr<span class="op">=</span>samplerate)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    S <span class="op">=</span> librosa.core.stft(y, n_fft<span class="op">=</span>n_fft,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>                            hop_length<span class="op">=</span>hop_length, win_length<span class="op">=</span>win_length)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    mels <span class="op">=</span> librosa.feature.melspectrogram(y<span class="op">=</span>y, sr<span class="op">=</span>sr, S<span class="op">=</span>S,</span>
+<span id="cb1-7"><a href="#cb1-7"></a>                                            n_mels<span class="op">=</span>n_mels, fmin<span class="op">=</span>fmin, fmax<span class="op">=</span>fmax)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="co"># Truncate at end to only have windows full data. Alternative: zero-pad</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    start_frame <span class="op">=</span> window_size</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    end_frame <span class="op">=</span> window_hop <span class="op">*</span> math.floor(<span class="bu">float</span>(frames.shape[<span class="dv">1</span>]) <span class="op">/</span> window_hop)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    windows <span class="op">=</span> []</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="cf">for</span> frame_idx <span class="kw">in</span> <span class="bu">range</span>(start_frame, end_frame, window_hop):</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>        window <span class="op">=</span> mels[:, frame_idx<span class="op">-</span>window_size:frame_idx]</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>        mels <span class="op">=</span> numpy.log(window <span class="op">+</span> <span class="fl">1e-9</span>)</span>
+<span id="cb1-18"><a href="#cb1-18"></a>        mels <span class="op">-=</span> numpy.mean(mels)</span>
+<span id="cb1-19"><a href="#cb1-19"></a>        mels <span class="op">/=</span> numpy.std(mels)</span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a>        <span class="cf">assert</span> mels.shape <span class="op">==</span> (n_mels, window_size)</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        windows.append(mels)</span>
+<span id="cb1-23"><a href="#cb1-23"></a></span>
+<span id="cb1-24"><a href="#cb1-24"></a>    <span class="cf">return</span> windows</span></code></pre></div>
+</section><section id="convolutional-neural-network" class="slide level2">
+<h2>Convolutional Neural Network</h2>
+<p>1: Spectrograms are <em>image-like</em></p>
+<p>2: CNNs are best-in-class for image-classification</p>
+<p>=&gt; Will CNNs work well on spectrograms?</p>
+<p class="fragment fade-in" style="padding-top: 30px">
+Yes!
+</p>
+<p class="fragment fade-in" style="padding-top: 30px">
+A bit suprising?
+</p>
+<aside class="notes">
+<p>Suprising?</p>
+<ul>
+<li>Spectrogram axes not equivalent to eachother. One is frequency, other is time. Shifting does not mean the same in each axis.</li>
+<li>No direct ability to model larger frequency patterns (overtones, formants)</li>
+<li>Longer-term time information is lost</li>
+<li>Convolutional Recurrent Neural Networks (CRNN)</li>
+</ul>
+<p>Benefits:</p>
+<ul>
+<li>Practices from image classification apply! Much bigger field.</li>
+</ul>
+</aside>
+</section><section id="sb-cnn" class="slide level2">
+<h2>SB-CNN</h2>
+<figure>
+<img data-src="img/sbcnn.svg" alt="" /><figcaption>Salamon &amp; Bello, 2016</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>40 mels</li>
+<li>61 frames</li>
+</ul>
+</aside>
+</section><section id="keras-model" class="slide level2">
+<h2>Keras model</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> ...</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">def</span> build_model(...):</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    block1 <span class="op">=</span> [</span>
+<span id="cb2-6"><a href="#cb2-6"></a>        Convolution2D(filters, kernel, padding<span class="op">=</span><span class="st">&#39;same&#39;</span>, strides<span class="op">=</span>strides,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>                      input_shape<span class="op">=</span>(bands, frames, channels)),</span>
+<span id="cb2-8"><a href="#cb2-8"></a>        MaxPooling2D(pool_size<span class="op">=</span>pool),</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    ]</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    block2 <span class="op">=</span> [</span>
+<span id="cb2-12"><a href="#cb2-12"></a>        Convolution2D(filters<span class="op">*</span>kernels_growth, kernel, padding<span class="op">=</span><span class="st">&#39;same&#39;</span>, strides<span class="op">=</span>strides),</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        MaxPooling2D(pool_size<span class="op">=</span>pool),</span>
+<span id="cb2-14"><a href="#cb2-14"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    ]</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    block3 <span class="op">=</span> [</span>
+<span id="cb2-17"><a href="#cb2-17"></a>        Convolution2D(filters<span class="op">*</span>kernels_growth, kernel, padding<span class="op">=</span><span class="st">&#39;valid&#39;</span>, strides<span class="op">=</span>strides),</span>
+<span id="cb2-18"><a href="#cb2-18"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    ]</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    backend <span class="op">=</span> [</span>
+<span id="cb2-21"><a href="#cb2-21"></a>        Flatten(),</span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a>        Dropout(dropout),</span>
+<span id="cb2-24"><a href="#cb2-24"></a>        Dense(fully_connected, kernel_regularizer<span class="op">=</span>l2(<span class="fl">0.001</span>)),</span>
+<span id="cb2-25"><a href="#cb2-25"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a>        Dropout(dropout),</span>
+<span id="cb2-28"><a href="#cb2-28"></a>        Dense(num_labels, kernel_regularizer<span class="op">=</span>l2(<span class="fl">0.001</span>)),</span>
+<span id="cb2-29"><a href="#cb2-29"></a>        Activation(<span class="st">&#39;softmax&#39;</span>),</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    ]</span>
+<span id="cb2-31"><a href="#cb2-31"></a>    layers <span class="op">=</span> block1 <span class="op">+</span> block2 <span class="op">+</span> block3 <span class="op">+</span> backend</span>
+<span id="cb2-32"><a href="#cb2-32"></a>    model <span class="op">=</span> Sequential(layers)</span>
+<span id="cb2-33"><a href="#cb2-33"></a>    <span class="cf">return</span> model</span></code></pre></div>
+</section><section id="aggregating-analysis-windows" class="slide level2">
+<h2>Aggregating analysis windows</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> keras <span class="im">import</span> Model</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> keras.layers <span class="im">import</span> Input, TimeDistributed, GlobalAveragePooling1D</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">def</span> build_multi_instance(base, windows<span class="op">=</span><span class="dv">6</span>, bands<span class="op">=</span><span class="dv">32</span>, frames<span class="op">=</span><span class="dv">72</span>, channels<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="bu">input</span> <span class="op">=</span> Input(shape<span class="op">=</span>(windows, bands, frames, channels))</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    x <span class="op">=</span> <span class="bu">input</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    x <span class="op">=</span> TimeDistributed(base)(x)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    x <span class="op">=</span> GlobalAveragePooling1D()(x)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    model <span class="op">=</span> Model(<span class="bu">input</span>,x)</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="cf">return</span> model</span></code></pre></div>
+<p><em>GlobalAveragePooling</em> -&gt; “Probabilistic voting”</p>
+<aside class="notes">
+<ul>
+<li>Max pooling</li>
+<li>Majority vote</li>
+<li>Trained classifier</li>
+</ul>
+</aside>
+</section></section>
+<section><section id="demo" class="title-slide slide level1"><h1>Demo</h1></section><section id="demo-video" class="slide level2">
+<h2>Demo video</h2>
+<iframe src="https://www.youtube.com/embed/KQHQxMG1CZo" controls width="1500" height="1000"></iframe>
+</iframe>
+</section><section id="environmental-sound-classification-on-microcontrollers-using-convolutional-neural-networks" class="slide level2">
+<h2>Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks</h2>
+<figure>
+<img data-src="./img/thesis.png" height="600" alt="" /><figcaption>Report &amp; Code: https://github.com/jonnor/ESC-CNN-microcontroller</figcaption>
+</figure>
+</section></section>
+<section><section id="tips-and-tricks" class="title-slide slide level1"><h1>Tips and Tricks</h1></section><section id="data-augmentation" class="slide level2">
+<h2>Data Augmentation</h2>
+<p><img data-src="img/dataaugmentations.png" style="width:100.0%" /></p>
+<ul>
+<li>Adding noise. Random/sampled</li>
+<li><code>Mixup</code>. Mixing two samples, adjusting class labels</li>
+<li><code>SpecAugment</code>. Mask spectrogram sections to augment</li>
+</ul>
+<aside class="notes">
+<p>Synthesizing samples to increase size of dataset. Adding variations (that may occur in real-life), without changing the label.</p>
+<p>Mostly done in time-domain, but can also be done in spectrograms</p>
+<figure>
+<img data-src="./img/mixup.jpg" style="width:60.0%" alt="" /><figcaption>Mixup: Create new sample using weighted combination of two samples. Image: Xu2018</figcaption>
+</figure>
+<figure>
+<img data-src="./img/specaugment.png" style="width:60.0%" alt="" /><figcaption>SpecAugment: Mask spectrogram sections to augment. Image: Neurohive</figcaption>
+</figure>
+<p>Xu2018: https://arxiv.org/abs/1805.07319</p>
+<p>https://neurohive.io/en/news/specaugment-new-and-simple-data-augmentation-technique-for-audio-data/</p>
+</aside>
+</section><section id="transfer-learning-from-images" class="slide level2">
+<h2>Transfer Learning from images</h2>
+<p>Transfer Learning from image data works!</p>
+<p>=&gt; Can use models pretrained on ImageNet</p>
+<p>Caveats:</p>
+<ul>
+<li>If RGB input, should fill all 3 channels</li>
+<li>Usually need to fine tune the model. Some or all layers</li>
+</ul>
+<aside class="notes">
+<p><code>TODO: image explaining Transfer Learning</code></p>
+<p><code>TODO: code example using Keras Applications MobileNet ?</code></p>
+<pre><code>
+from keras.applications.inception_v3 import InceptionV3
+
+base_model = InceptionV3(weights=&#39;imagenet&#39;, include_top=False)
+
+# add a global spatial average pooling layer
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+# let&#39;s add a fully-connected layer
+x = Dense(1024, activation=&#39;relu&#39;)(x)
+# and a logistic layer -- let&#39;s say we have 200 classes
+predictions = Dense(200, activation=&#39;softmax&#39;)(x)
+</code></pre>
+</aside>
+</section><section id="audio-embeddings" class="slide level2">
+<h2>Audio Embeddings</h2>
+<ul>
+<li>Model pretrained for sound, feature-extracting only</li>
+<li>Example. Look, Listen, Learn ({L^3}). 1 second, 512-d vector</li>
+<li>Accessible as Python package <code>OpenL3</code></li>
+<li>Only need to add a simple classifier on this</li>
+<li>Uses a CNN under the hood</li>
+</ul>
+<aside class="notes">
+<pre><code>import openl3
+
+</code></pre>
+<p><code>FIXME: finish code example using OpenL3 ?</code></p>
+<p>Only need to add a simple classifier! Linear. Random Forest.</p>
+<p>Can OpenL3 be used with real-time streaming? https://github.com/marl/openl3/issues/36</p>
+<p>Other embedding models:</p>
+<p>EdgeL3 SoundNet</p>
+</aside>
+</section></section>
+<section><section id="your-own-audio-task" class="title-slide slide level1"><h1>Your own Audio task</h1></section><section id="annotating-audio" class="slide level2">
+<h2>Annotating audio</h2>
+<p><img data-src="./img/audacity.png" style="width:100.0%" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> pandas</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>labels <span class="op">=</span> pandas.read_csv(path, sep<span class="op">=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                        names<span class="op">=</span>[<span class="st">&#39;start&#39;</span>, <span class="st">&#39;end&#39;</span>, <span class="st">&#39;annotation&#39;</span>],</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                        dtype<span class="op">=</span><span class="bu">dict</span>(start<span class="op">=</span><span class="bu">float</span>,end<span class="op">=</span><span class="bu">float</span>,annotation<span class="op">=</span><span class="bu">str</span>))</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>Use Audacity</li>
+<li>Label track</li>
+<li>Keyboard shortcuts to add</li>
+<li>Annotation file is a basic CSV</li>
+<li>Tools. Editing. Spectrogram view. Noise removal</li>
+</ul>
+</aside>
+</section></section>
+<section><section id="outro" class="title-slide slide level1"><h1>Outro</h1></section><section id="summary" class="slide level2">
+<h2>Summary</h2>
+<p>Try the standard audio pipeline shown!</p>
+<ul>
+<li>Fixed-length analysis windows</li>
+<li>Use log-mel spectrograms as features</li>
+<li>Convolutional Neural Network as model</li>
+<li>Aggregate prediction from each window</li>
+</ul>
+<p>Start simple!</p>
+<ol type="1">
+<li>Audio Embeddings (OpenL3) + simple model (scikit-learn)</li>
+<li>Convolutional Neural Networks with Transfer Learning (ImageNet etc)</li>
+<li>… train <strong>simple</strong> CNN from scratch …</li>
+</ol>
+<p>Use Data Augmentation!</p>
+<ol type="1">
+<li>Time-shift</li>
+<li>Time-stretch, pitch-shift, noise-add</li>
+<li>Mixup, SpecAugment</li>
+</ol>
+<aside class="notes">
+<p><code>FIXME: style sensibly</code></p>
+</aside>
+</section><section id="more-learning" class="slide level2">
+<h2>More learning</h2>
+<p>Slides and more: <a href="https://github.com/jonnor/machinehearing">https://github.com/jonnor/machinehearing</a></p>
+<p>Hands-on: <a href="https://www.tensorflow.org/tutorials/sequences/audio_recognition">TensorFlow tutorial, Simple Audio Recognition</a></p>
+<p>Book: Computational Analysis of Sound Scenes and Events (Virtanen/Plumbley/Ellis, 2018)</p>
+<!--
+![Computational Analysis of Sound Scenes and Events. Tuomas Virtanen, Mark D. Plumbley, Dan Ellis. 2018.](./img/cassebook.jpg){width=20%}
+-->
+</section><section id="questions" class="slide level2">
+<h2>Questions</h2>
+<p>Slides and more: <a href="https://github.com/jonnor/machinehearing">https://github.com/jonnor/machinehearing</a></p>
+<h1 style="padding: 100px">
+?
+</h1>
+<p>Interested in Audio Classification or Machine Hearing generally? Get in touch!</p>
+<p>Twitter: @<a href="https://twitter.com/jononor">jononor</a></p>
+<p>Email: <code>jon@soundsensing.no</code></p>
+</section></section>
+<section id="bonus" class="title-slide slide level1"><h1>BONUS</h1></section>
+<section><section id="more-advanced-problem-formulations" class="title-slide slide level1"><h1>More advanced problem formulations</h1></section><section id="audio-event-detection" class="slide level2">
+<h2>Audio Event Detection</h2>
+<blockquote>
+<p>Return: time something occurred.</p>
+</blockquote>
+<ul>
+<li>Ex: “Bird singing started”, “Bird singing stopped”</li>
+<li>Classification-as-detection. Classifier on short time-frames</li>
+<li>Monophonic: Returns most prominent event</li>
+</ul>
+<p>Aka: Onset detection</p>
+<aside class="notes">
+<ul>
+<li>Avoid time-shift augmentation</li>
+</ul>
+</aside>
+</section><section id="segmentation" class="slide level2">
+<h2>Segmentation</h2>
+<blockquote>
+<p>Return: sections of audio containing desired class</p>
+</blockquote>
+<ul>
+<li>Postprocesing on Event Detection time-stamps</li>
+<li>Pre-processing to specialized classifiers</li>
+</ul>
+<aside class="notes">
+<p>Eg: Extract only birdcall audio, then perform bird species identification</p>
+<ul>
+<li>Can alternatively be done unsupervised</li>
+<li>Can be real-time / single-pass, or multi-pass</li>
+</ul>
+</aside>
+</section><section id="tagging" class="slide level2">
+<h2>Tagging</h2>
+<blockquote>
+<p>Return: All classes/events that occurred in audio.</p>
+</blockquote>
+<p>Approaches</p>
+<ul>
+<li>separate classifiers per ‘track’</li>
+<li>joint model: multi-label classifier</li>
+</ul>
+</section><section id="section" class="slide level2">
+<h2></h2>
+</section></section>
+<section><section id="details" class="title-slide slide level1"><h1>Details</h1></section><section id="analysis-windows" class="slide level2">
+<h2>Analysis windows</h2>
+<figure>
+<img data-src="img/framing.png" style="width:80.0%" alt="" /><figcaption>Splitting audio stream into windows of fixed length, with overlap. Image: Sajjad2019</figcaption>
+</figure>
+<aside class="notes">
+<p>Image: https://www.researchgate.net/figure/Framing-the-input-audio-signal-into-several-frames-s-s-1-with-appropriate_fig1_332553888</p>
+<p><span class="citation" data-cites="misc">@misc</span>{Sajjad2019, author = {Abdoli, Sajjad and Cardinal, Patrick and Koerich, Alessandro}, year = {2019}, month = {04}, pages = {}, title = {End-to-End Environmental Sound Classification using a 1D Convolutional Neural Network} }</p>
+<p>Hyperparameters:</p>
+<ul>
+<li>Window length</li>
+<li>Window hop / overlap</li>
+</ul>
+<p>Depends primarily on how often you want predictions but beneficial to limit window size:</p>
+<ul>
+<li><p>lower input dimensionality, easier to learn</p></li>
+<li><p>smaller model size</p></li>
+<li><p>lower inference time</p></li>
+<li><p>lower RAM consumption</p></li>
+<li><p>pretrained image models often want rectangular inputs. Ex: 128x128</p></li>
+</ul>
+<p>if using a short window compared to label/prediction time, need to aggregate the predictions somehow</p>
+<p>if we want output on a shorter time-basis than labels are available for, we have a ‘weak labeling’ scenario</p>
+</aside>
+</section><section id="mel-filters" class="slide level2">
+<h2>Mel-filters</h2>
+<figure>
+<img data-src="img/melfilters.png" style="width:80.0%" alt="" /><figcaption>Mel-scale triangular filters. Applied to linear spectrogram (STFT) =&gt; mel-spectrogram</figcaption>
+</figure>
+<aside class="notes">
+<p>Hyperparameters:</p>
+<ul>
+<li>Samplerate (44.1/48kHz originals. 22kHz commonly used, 16 kHz sometimes)</li>
+<li>Mel filters</li>
+<li>Hop length</li>
+<li>Filter frequency range</li>
+</ul>
+<p>(window function: Hann, overlap 50%)</p>
+<p>In Python:</p>
+<ul>
+<li>librosa.feature.melspectrogram() CPU only. Numpy</li>
+<li>Kapre Melspectrogram layer. GPU. Using Tensorflow STFT operation</li>
+</ul>
+</aside>
+</section><section id="spectrogram-normalization" class="slide level2">
+<h2>Spectrogram normalization</h2>
+<ul>
+<li>log-scale compression</li>
+<li>Subtract mean</li>
+<li>Standard scale</li>
+</ul>
+<p><img data-src="img/spectrograms.svg" style="width:60.0%" /></p>
+<aside class="notes">
+
+</aside>
+</section><section id="streaming" class="slide level2">
+<h2>Streaming</h2>
+<p>Real-time classification</p>
+<ul>
+<li>Global clip/dataset analysis for normalization not possible</li>
+</ul>
+<aside class="notes">
+<p><code>TODO: document how to do in Python</code></p>
+</aside>
+<!--
+
+## Creating datasets
+
+::: notes
+
+Use lossless compression
+Make sure autogain is off (smartphones)
+
+Make a plan for how to record
+
+Capture information about recording setup.
+Recording equipment. Recording settings.
+System under test.
+Environmental conditions.
+Take pictures.
+Keep a written log of things that happen during recording.
+Timestamp important events.
+
+:::
+
+-->
+</section><section id="mel-frequency-cepstral-coefficients-mfcc" class="slide level2">
+<h2>Mel-Frequency Cepstral Coefficients (MFCC)</h2>
+<ul>
+<li>MFCC = DCT(mel-spectrogram)</li>
+<li>Popular in Speech Detection</li>
+<li>Compresses: 13-20 coefficients</li>
+<li>Decorrelates: Beneficial with linear models</li>
+</ul>
+<p>On general audio, with strong classifier, performs worse than log mel-spectrogram</p>
+</section><section id="end2end-learning" class="slide level2">
+<h2>End2End learning</h2>
+<p>Using the raw audio input as features with Deep Neural Networks.</p>
+<p>Need to learn also the time-frequency decomposition, normally performed by the spectrogram.</p>
+<p>Actively researched using advanced models and large datasets.</p>
+<p><code>TODO: link EnvNet</code></p>
+</section><section id="sequence-models" class="slide level2">
+<h2>Sequence models</h2>
+<p>Convolutional Recurrent Neural Networks</p>
+</section></section>
+<section><section id="bla-bla" class="title-slide slide level1"><h1>Bla bla</h1></section><section id="why-audio-classification" class="slide level2">
+<h2>Why Audio Classification</h2>
+<ul>
+<li>Rich source of information</li>
+<li>Any physical motion creates sound</li>
+<li>Sound</li>
+<li>Good compliment to image/video</li>
+<li>Humans use our hearing</li>
+</ul>
+</section><section id="applications" class="slide level2">
+<h2>Applications</h2>
+<p>Audio sub-fields</p>
+<ul>
+<li>Speech Recognition. Keyword spotting.</li>
+<li>Music Analysis. Genre classification.</li>
+<li><strong>General</strong> / other</li>
+</ul>
+<p>Examples</p>
+<ul>
+<li>Eco-acoustics. Analyze bird migrations</li>
+<li>Wildlife preservation. Detect poachers in protected areas</li>
+<li>Manufacturing Quality Control. Testing electric car seat motors</li>
+<li>Security: Highlighting CCTV feeds with verbal agression</li>
+<li>Medical. Detect heart murmurs</li>
+<li>Process industry. Advance process once audible event happens (popcorn)</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+        height: 960,
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

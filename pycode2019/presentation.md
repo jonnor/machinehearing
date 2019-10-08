@@ -416,42 +416,27 @@ def build_multi_instance(base, windows=6, bands=32, frames=72, channels=1):
 ![](img/dataaugmentations.png){width=100%}
 
 * Adding noise. Random/sampled
-* Mixup: Mixing two samples
+* `Mixup`. Mixing two samples, adjusting class labels 
+* `SpecAugment`. Mask spectrogram sections to augment
 
 ::: notes
+
+Synthesizing samples to increase size of dataset.
+Adding variations (that may occur in real-life), without changing the label.
 
 Mostly done in time-domain,
 but can also be done in spectrograms
 
-:::
-
-
-<!--
-
-## Mixup
-
 ![Mixup: Create new sample using weighted combination of two samples. Image: Xu2018](./img/mixup.jpg){width=60%}
 
-::: notes
+![SpecAugment: Mask spectrogram sections to augment. Image: Neurohive](./img/specaugment.png){width=60%}
 
 Xu2018:
 https://arxiv.org/abs/1805.07319
 
-:::
-
-
-
-## SpecAugment
-
-![SpecAugment: Mask spectrogram sections to augment. Image: Neurohive](./img/specaugment.png){width=60%}
-
-::: notes
-
 https://neurohive.io/en/news/specaugment-new-and-simple-data-augmentation-technique-for-audio-data/
-
 :::
 
--->
 
 ## Transfer Learning from images
 
@@ -503,7 +488,6 @@ predictions = Dense(200, activation='softmax')(x)
 import openl3
 
 
-
 ```
 
 `FIXME: finish code example using OpenL3 ?`
@@ -520,6 +504,10 @@ EdgeL3
 SoundNet
 
 :::
+
+# Your own Audio task
+
+
 
 ## Annotating audio
 
@@ -548,20 +536,20 @@ labels = pandas.read_csv(path, sep='\t', header=None,
 
 ## Summary
 
-Pipeline
+Try the standard audio pipeline shown!
 
 - Fixed-length analysis windows
-- log-mel spectrograms
-- ML model
-- Aggregate analysis windows
+- Use log-mel spectrograms as features
+- Convolutional Neural Network as model
+- Aggregate prediction from each window
 
-Models
+Start simple!
 
 1. Audio Embeddings (OpenL3) + simple model (scikit-learn)
 2. Convolutional Neural Networks with Transfer Learning (ImageNet etc)
 3. ... train **simple** CNN from scratch ... 
 
-Data Augmentation
+Use Data Augmentation!
 
 1. Time-shift
 2. Time-stretch, pitch-shift, noise-add
@@ -594,6 +582,10 @@ Slides and more: [https://github.com/jonnor/machinehearing](https://github.com/j
 Interested in Audio Classification or Machine Hearing generally? Get in touch!
 
 Twitter: @[jononor](https://twitter.com/jononor)
+
+Email: `jon@soundsensing.no`
+
+
 
 # BONUS
 
