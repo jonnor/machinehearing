@@ -82,17 +82,19 @@ Environmental Sound Classification
 :::
 
 
-## System specification
+## Problem formulation
 
-> Given an audio signal of environmental sounds
+> Given an audio signal
+> 
+> of environmental sound
 > 
 > determine which *class* it belongs to
 
-Simplifications
+Classification simplifications
 
-- Single output
-- Discrete classes
-- Closed set
+- Single output. One class at a time
+- Discrete. Exists or not
+- Closed set. Must be known class
 
 ::: notes
 
@@ -112,16 +114,27 @@ Ok, so how do we realize such a system?
 
 :::
 
-## Supervised Machine Learning
+## Supervised Learning
 
-
-`TODO: image of inputs,outputs`
+![In principle...](./img/supervised-principle.svg){width=70%}
 
 ::: notes
 
-*Supervised* Machine Learning process:
+Supervised learning: using (large amounts of) **labeled data**, for training.
+Optimizes a particular **metric**. Estimated on a parts of the dataset.
 
-Supervised learning: using (large amounts of) labeled data, for training.
+In principle, needs no more guidance.
+In practice, we need to peek inside the black box.
+
+AutoML. Field of creating that magical black-box.
+
+:::
+
+## Learning process
+
+![](./img/learning-process.svg){width=80%}
+
+::: notes
 
 Inputs.
 
@@ -221,10 +234,13 @@ A non-linear system
 
 ## Spectrogram
 
-Computed using Short-Time-Fourier-Transform (STFT)
+![Time-Frequency representation](img/frog_spectrogram.png){width=100%}
 
-![A frog croaking with ciccadas in background](img/frog_spectrogram.png){width=60%}
+::: notes
 
+Short-Time-Fourier-Transform (STFT)
+
+:::
 
 
 # Basic Audio Classification pipeline
@@ -241,7 +257,7 @@ Computed using Short-Time-Fourier-Transform (STFT)
 
 - **Window size**. How long in time? *Problem dependent!*
 - Spectrogram. **Mel**-filter, **log**-scale, standardize.
-~64 bands. ~25 ms frame hop.
+- Params. ~64 bands. ~25 ms frame hop.
 - Model. **Convolutional Neural Network**.
 - Voting. **Soft** voting
 
@@ -517,52 +533,6 @@ SoundNet
 
 :::
 
-## Out-of-domain data
-
-
-::: notes
-
-Problem. Out of domain data.
-What happends when the audio input is *not* one of the classes represented?
-The model will... 
-
-Solution A)
-Threshold on model output probabilities
-
-Can be integrated as Active learning.
-Record input signal, store and mark for labeling. 
-
-
-Solution B)
-Add "Other" to your training data, as its own class.
-
-Ex using data from AudioSet.
-Or compiling yourself from Freesound
-
-:::
-
-## Interpreting noise
-
-Problem
-
-When audio volume is low,
-normalization will blow up noise.
-Can easily cause spurious classifications.
-
-Solution
-
-Compute RMS energy of the input.
-If RMS low, disregard classifier output, mark as Silence instead.
-
-::: notes
-
-interpresting the tealeafs
-
-"gate" the classification by audio input level
-
-TODO: make a schematic drawing
-
-:::
 
 ## Annotating audio
 
@@ -589,7 +559,7 @@ labels = pandas.read_csv(path, sep='\t', header=None,
 
 # Outro
 
-## Summary
+## Summary 1/3
 
 Try the standard audio pipeline shown!
 
@@ -598,11 +568,15 @@ Try the standard audio pipeline shown!
 - Convolutional Neural Network as model
 - Aggregate prediction from each window
 
+## Summary 2/3
+
 Start simple!
 
-1. Audio Embeddings (OpenL3) + simple model (scikit-learn)
-2. Convolutional Neural Networks with Transfer Learning (ImageNet etc)
-3. ... train **simple** CNN from scratch ... 
+1. Audio Embeddings (OpenL3)
+2. Transfer Learning from pretrained CNN (ImageNet)
+3. Train **simple** CNN from scratch ... 
+
+## Summary 3/3
 
 Use Data Augmentation!
 
@@ -649,6 +623,55 @@ Email: `jon@soundsensing.no`
 
 
 # BONUS
+
+# Classification limitations
+
+## Out-of-domain data
+
+::: notes
+
+Problem. Out of domain data.
+What happends when the audio input is *not* one of the classes represented?
+The model will... 
+
+Solution A)
+Threshold on model output probabilities
+
+Can be integrated as Active learning.
+Record input signal, store and mark for labeling. 
+
+
+Solution B)
+Add "Other" to your training data, as its own class.
+
+Ex using data from AudioSet.
+Or compiling yourself from Freesound
+
+:::
+
+## Interpreting noise
+
+Problem
+
+When audio volume is low,
+normalization will blow up noise.
+Can easily cause spurious classifications.
+
+Solution
+
+Compute RMS energy of the input.
+If RMS low, disregard classifier output, mark as Silence instead.
+
+::: notes
+
+interpresting the tealeafs
+
+"gate" the classification by audio input level
+
+TODO: make a schematic drawing
+
+:::
+
 
 # More advanced problem formulations
 

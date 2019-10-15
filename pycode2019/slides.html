@@ -159,17 +159,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Recognizing Urban sounds</p>
 <p>Environmental Sound Classification</p>
 </aside>
-</section><section id="system-specification" class="slide level2">
-<h2>System specification</h2>
+</section><section id="problem-formulation" class="slide level2">
+<h2>Problem formulation</h2>
 <blockquote>
-<p>Given an audio signal of environmental sounds</p>
+<p>Given an audio signal</p>
+<p>of environmental sound</p>
 <p>determine which <em>class</em> it belongs to</p>
 </blockquote>
-<p>Simplifications</p>
+<p>Classification simplifications</p>
 <ul>
-<li>Single output</li>
-<li>Discrete classes</li>
-<li>Closed set</li>
+<li>Single output. One class at a time</li>
+<li>Discrete. Exists or not</li>
+<li>Closed set. Must be known class</li>
 </ul>
 <aside class="notes">
 <p>Classification. Each input is mapped to a single discrete output. Only a single class sound per audio clip.</p>
@@ -178,12 +179,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Alt: open-set</p>
 <p>Ok, so how do we realize such a system?</p>
 </aside>
-</section><section id="supervised-machine-learning" class="slide level2">
-<h2>Supervised Machine Learning</h2>
-<p><code>TODO: image of inputs,outputs</code></p>
+</section><section id="supervised-learning" class="slide level2">
+<h2>Supervised Learning</h2>
+<figure>
+<img data-src="./img/supervised-principle.svg" style="width:70.0%" alt="" /><figcaption>In principle…</figcaption>
+</figure>
 <aside class="notes">
-<p><em>Supervised</em> Machine Learning process:</p>
-<p>Supervised learning: using (large amounts of) labeled data, for training.</p>
+<p>Supervised learning: using (large amounts of) <strong>labeled data</strong>, for training. Optimizes a particular <strong>metric</strong>. Estimated on a parts of the dataset.</p>
+<p>In principle, needs no more guidance. In practice, we need to peek inside the black box.</p>
+<p>AutoML. Field of creating that magical black-box.</p>
+</aside>
+</section><section id="learning-process" class="slide level2">
+<h2>Learning process</h2>
+<p><img data-src="./img/learning-process.svg" style="width:80.0%" /></p>
+<aside class="notes">
 <p>Inputs.</p>
 <ul>
 <li>Labeled dataset. Many audio samples, each <strong>already labeled</strong> (by humans) with the associated class</li>
@@ -260,10 +269,12 @@ A non-linear system
 </ul>
 </section><section id="spectrogram" class="slide level2">
 <h2>Spectrogram</h2>
-<p>Computed using Short-Time-Fourier-Transform (STFT)</p>
 <figure>
-<img data-src="img/frog_spectrogram.png" style="width:60.0%" alt="" /><figcaption>A frog croaking with ciccadas in background</figcaption>
+<img data-src="img/frog_spectrogram.png" style="width:100.0%" alt="" /><figcaption>Time-Frequency representation</figcaption>
 </figure>
+<aside class="notes">
+<p>Short-Time-Fourier-Transform (STFT)</p>
+</aside>
 </section></section>
 <section><section id="basic-audio-classification-pipeline" class="title-slide slide level1"><h1>Basic Audio Classification pipeline</h1></section><section id="pipeline" class="slide level2">
 <h2>Pipeline</h2>
@@ -275,7 +286,8 @@ A non-linear system
 <h2>Choices… ?</h2>
 <ul>
 <li><strong>Window size</strong>. How long in time? <em>Problem dependent!</em></li>
-<li>Spectrogram. <strong>Mel</strong>-filter, <strong>log</strong>-scale, standardize. ~64 bands. ~25 ms frame hop.</li>
+<li>Spectrogram. <strong>Mel</strong>-filter, <strong>log</strong>-scale, standardize.</li>
+<li>Params. ~64 bands. ~25 ms frame hop.</li>
 <li>Model. <strong>Convolutional Neural Network</strong>.</li>
 <li>Voting. <strong>Soft</strong> voting</li>
 </ul>
@@ -481,26 +493,6 @@ Audio embedding. 512 dim</code></pre>
 <p>Other embedding models:</p>
 <p>EdgeL3 SoundNet</p>
 </aside>
-</section><section id="out-of-domain-data" class="slide level2">
-<h2>Out-of-domain data</h2>
-<aside class="notes">
-<p>Problem. Out of domain data. What happends when the audio input is <em>not</em> one of the classes represented? The model will…</p>
-<p>Solution A) Threshold on model output probabilities</p>
-<p>Can be integrated as Active learning. Record input signal, store and mark for labeling.</p>
-<p>Solution B) Add “Other” to your training data, as its own class.</p>
-<p>Ex using data from AudioSet. Or compiling yourself from Freesound</p>
-</aside>
-</section><section id="interpreting-noise" class="slide level2">
-<h2>Interpreting noise</h2>
-<p>Problem</p>
-<p>When audio volume is low, normalization will blow up noise. Can easily cause spurious classifications.</p>
-<p>Solution</p>
-<p>Compute RMS energy of the input. If RMS low, disregard classifier output, mark as Silence instead.</p>
-<aside class="notes">
-<p>interpresting the tealeafs</p>
-<p>“gate” the classification by audio input level</p>
-<p>TODO: make a schematic drawing</p>
-</aside>
 </section><section id="annotating-audio" class="slide level2">
 <h2>Annotating audio</h2>
 <p><img data-src="./img/audacity.png" style="width:100.0%" /></p>
@@ -519,8 +511,8 @@ Audio embedding. 512 dim</code></pre>
 </ul>
 </aside>
 </section></section>
-<section><section id="outro" class="title-slide slide level1"><h1>Outro</h1></section><section id="summary" class="slide level2">
-<h2>Summary</h2>
+<section><section id="outro" class="title-slide slide level1"><h1>Outro</h1></section><section id="summary-13" class="slide level2">
+<h2>Summary 1/3</h2>
 <p>Try the standard audio pipeline shown!</p>
 <ul>
 <li>Fixed-length analysis windows</li>
@@ -528,12 +520,16 @@ Audio embedding. 512 dim</code></pre>
 <li>Convolutional Neural Network as model</li>
 <li>Aggregate prediction from each window</li>
 </ul>
+</section><section id="summary-23" class="slide level2">
+<h2>Summary 2/3</h2>
 <p>Start simple!</p>
 <ol type="1">
-<li>Audio Embeddings (OpenL3) + simple model (scikit-learn)</li>
-<li>Convolutional Neural Networks with Transfer Learning (ImageNet etc)</li>
-<li>… train <strong>simple</strong> CNN from scratch …</li>
+<li>Audio Embeddings (OpenL3)</li>
+<li>Transfer Learning from pretrained CNN (ImageNet)</li>
+<li>Train <strong>simple</strong> CNN from scratch …</li>
 </ol>
+</section><section id="summary-33" class="slide level2">
+<h2>Summary 3/3</h2>
 <p>Use Data Augmentation!</p>
 <ol type="1">
 <li>Time-shift</li>
@@ -568,6 +564,27 @@ Audio embedding. 512 dim</code></pre>
 <p>Email: <code>jon@soundsensing.no</code></p>
 </section></section>
 <section id="bonus" class="title-slide slide level1"><h1>BONUS</h1></section>
+<section><section id="classification-limitations" class="title-slide slide level1"><h1>Classification limitations</h1></section><section id="out-of-domain-data" class="slide level2">
+<h2>Out-of-domain data</h2>
+<aside class="notes">
+<p>Problem. Out of domain data. What happends when the audio input is <em>not</em> one of the classes represented? The model will…</p>
+<p>Solution A) Threshold on model output probabilities</p>
+<p>Can be integrated as Active learning. Record input signal, store and mark for labeling.</p>
+<p>Solution B) Add “Other” to your training data, as its own class.</p>
+<p>Ex using data from AudioSet. Or compiling yourself from Freesound</p>
+</aside>
+</section><section id="interpreting-noise" class="slide level2">
+<h2>Interpreting noise</h2>
+<p>Problem</p>
+<p>When audio volume is low, normalization will blow up noise. Can easily cause spurious classifications.</p>
+<p>Solution</p>
+<p>Compute RMS energy of the input. If RMS low, disregard classifier output, mark as Silence instead.</p>
+<aside class="notes">
+<p>interpresting the tealeafs</p>
+<p>“gate” the classification by audio input level</p>
+<p>TODO: make a schematic drawing</p>
+</aside>
+</section></section>
 <section><section id="more-advanced-problem-formulations" class="title-slide slide level1"><h1>More advanced problem formulations</h1></section><section id="audio-event-detection" class="slide level2">
 <h2>Audio Event Detection</h2>
 <blockquote>
