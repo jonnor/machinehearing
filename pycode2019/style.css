@@ -45,6 +45,10 @@
     display: none;
 }
 
+#soundsensing h2 {
+    display: none;
+}
+
 #feature-preprocessing h2 {
     display: none;
 }

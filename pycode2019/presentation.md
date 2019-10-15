@@ -1,6 +1,6 @@
 
 ---
-author: Jon Nordby @jononor
+author: Jon Nordby <jon@soundsensing.no>
 date: PyCode 2019, Gdansk
 title: Recognizing sounds with Machine Learning and Python
 width: 1280
@@ -16,26 +16,26 @@ css: style.css
 Internet of Things specialist
 
 - B.Eng in **Electronics** (2010)
-- 9 years as **Software** developer. **Embedded** + **Web**
+- 9 years as **Software** developer
 - M.Sc in **Data** Science (2019)
 
 Today
 
 - Consulting on IoT + Machine Learning
-- CTO @ Soundsensing.no
+- CTO @ [Soundsensing.no](http://soundsensing.no)
 
-## Soundsensing.no
+## Soundsensing
 
-Provide **Noise Monitoring** and **Condition Monitoring** solutions
+![](./img/soundsensing-sensor-metro.jpg)
+
+::: notes
+Provide **Noise Monitoring** and Audio **Condition Monitoring** solutions
 that are used in Real-Estate, Industry, and Smart Cities.
 
-`TODO: picture of Soundsensing.no sensor unit`
-
 Perform Machine Learning for sound classification **on sensor**.
+:::
 
-## This talk
-
-Goal
+## Goal of this talk
 
 > a Python programmer
 > 
@@ -46,13 +46,19 @@ Goal
 
 ## Outline
 
-- An example task
-- Digital sound primer
+- Example task. Urban sounds
+- Digital sound. A primer
 - Audio Classification basics
 - Tips & Tricks
 - Pointers to more information
 
-Slides and more: [https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
+Slides and more:
+
+[https://github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
+
+Not included
+
+- Running on constrained embedded device
 
 ::: notes
 Very practically oriented.
@@ -63,24 +69,30 @@ Will try to define the neccesary Machine Learning concepts as we go along
 
 # Practical task
 
-## Recognizing Urban sounds
+## Demo video
 
-`TODO: audio example of inputs`
+<iframe src="https://www.youtube.com/embed/KQHQxMG1CZo" controls width="1000" height="700"/></iframe>
 
 ::: notes
+
+Recognizing Urban sounds
 
 Environmental Sound Classification
 
 :::
 
+
 ## System specification
 
-> Given an audio signal of environmental sounds,
+> Given an audio signal of environmental sounds
 > 
-> determine which class it belongs to
+> determine which *class* it belongs to
 
+Simplifications
 
-`TODO: image of overall system`
+- Single output
+- Discrete classes
+- Closed set
 
 ::: notes
 
@@ -88,9 +100,13 @@ Classification.
 Each input is mapped to a single discrete output.
 Only a single class sound per audio clip.
 
+Alt: multi-label "tagging"
+
 Closed-set.
 Sound has to be one of the N defined classes. 
 Cannot handle out-of-domain inputs.
+
+Alt: open-set
 
 Ok, so how do we realize such a system?
 
@@ -211,23 +227,23 @@ Computed using Short-Time-Fourier-Transform (STFT)
 
 
 
-
 # Basic Audio Classification pipeline
 
 ## Pipeline
 
-![](img/classification-pipeline.svg){width=70%}
+![](img/classification-pipeline.svg){width=100%}
 
 ::: notes
 
+:::
 
-## Choices
+## Choices... ?
 
-**Window size**. How big in time?
-
-Spectrogram preprocessing. Try Mel-filtered, log-scaled and standardized first. 40-128 bands.
-
-- 
+- **Window size**. How long in time? *Problem dependent!*
+- Spectrogram. **Mel**-filter, **log**-scale, standardize.
+~64 bands. ~25 ms frame hop.
+- Model. **Convolutional Neural Network**.
+- Voting. **Soft** voting
 
 ::: notes
 
@@ -396,17 +412,6 @@ def build_multi_instance(base, windows=6, bands=32, frames=72, channels=1):
 :::
 
 
-# Demo
-
-## Demo video
-
-<iframe src="https://www.youtube.com/embed/KQHQxMG1CZo" controls width="1500" height="1000"/></iframe>
-
-## Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
-
-![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){height=600px}
-
-
 
 # Tips and Tricks
 
@@ -487,10 +492,17 @@ predictions = Dense(200, activation='softmax')(x)
 ```
 import openl3
 
-
 ```
 
 `FIXME: finish code example using OpenL3 ?`
+
+1 second time frame
+
+    Waveform. 16-44.1 kHz
+    Spectrogram frame. 128x128 16k
+    Audio embedding. 512 dim
+
+Dimensionality reduction: > 30x
 
 Only need to add a simple classifier!
 Linear. Random Forest.
@@ -505,9 +517,52 @@ SoundNet
 
 :::
 
-# Your own Audio task
+## Out-of-domain data
 
 
+::: notes
+
+Problem. Out of domain data.
+What happends when the audio input is *not* one of the classes represented?
+The model will... 
+
+Solution A)
+Threshold on model output probabilities
+
+Can be integrated as Active learning.
+Record input signal, store and mark for labeling. 
+
+
+Solution B)
+Add "Other" to your training data, as its own class.
+
+Ex using data from AudioSet.
+Or compiling yourself from Freesound
+
+:::
+
+## Interpreting noise
+
+Problem
+
+When audio volume is low,
+normalization will blow up noise.
+Can easily cause spurious classifications.
+
+Solution
+
+Compute RMS energy of the input.
+If RMS low, disregard classifier output, mark as Silence instead.
+
+::: notes
+
+interpresting the tealeafs
+
+"gate" the classification by audio input level
+
+TODO: make a schematic drawing
+
+:::
 
 ## Annotating audio
 
@@ -517,8 +572,8 @@ SoundNet
 import pandas
 
 labels = pandas.read_csv(path, sep='\t', header=None,
-                        names=['start', 'end', 'annotation'],
-                        dtype=dict(start=float,end=float,annotation=str))
+    names=['start', 'end', 'annotation'],
+    dtype=dict(start=float,end=float,annotation=str))
 ```
 
 ::: notes
@@ -572,6 +627,12 @@ Book: Computational Analysis of Sound Scenes and Events (Virtanen/Plumbley/Ellis
 <!--
 ![Computational Analysis of Sound Scenes and Events. Tuomas Virtanen, Mark D. Plumbley, Dan Ellis. 2018.](./img/cassebook.jpg){width=20%}
 -->
+
+## Thesis
+
+Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
+
+![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){height=600px}
 
 ## Questions
 
