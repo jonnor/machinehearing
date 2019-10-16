@@ -76,6 +76,13 @@
     padding: 80px;
 }
 
+#transfer-learning-from-images h2 {
+    font-size: 1.6em !important;
+}
+
+#convolutional-neural-network h2 {
+    font-size: 1.2em !important;
+}
 
 /*
 #summary {

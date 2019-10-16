@@ -119,7 +119,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section><section id="soundsensing" class="slide level2">
 <h2>Soundsensing</h2>
-<p><img data-src="./img/soundsensing-sensor-metro.jpg" /></p>
+<p><img data-src="./img/soundsensing-withlogo.png" /></p>
 <aside class="notes">
 <p>Provide <strong>Noise Monitoring</strong> and Audio <strong>Condition Monitoring</strong> solutions that are used in Real-Estate, Industry, and Smart Cities.</p>
 <p>Perform Machine Learning for sound classification <strong>on sensor</strong>.</p>
@@ -331,18 +331,19 @@ A non-linear system
 <span id="cb1-22"><a href="#cb1-22"></a>        windows.append(mels)</span>
 <span id="cb1-23"><a href="#cb1-23"></a></span>
 <span id="cb1-24"><a href="#cb1-24"></a>    <span class="cf">return</span> windows</span></code></pre></div>
+<aside class="notes">
+<p>TODO: update to corrected code</p>
+</aside>
 </section><section id="convolutional-neural-network" class="slide level2">
 <h2>Convolutional Neural Network</h2>
+<p><img data-src="./img/cnn-features.jpg" style="width:85.0%" /></p>
+<p>Img: Data Science Central, Albelwi2017</p>
+<aside class="notes">
+<p>https://www.datasciencecentral.com/profiles/blogs/a-primer-on-deep-learning</p>
+<p>A Framework for Designing the Architectures of Deep Convolutional Neural Networks https://www.mdpi.com/1099-4300/19/6/242</p>
 <p>1: Spectrograms are <em>image-like</em></p>
 <p>2: CNNs are best-in-class for image-classification</p>
 <p>=&gt; Will CNNs work well on spectrograms?</p>
-<p class="fragment fade-in" style="padding-top: 30px">
-Yes!
-</p>
-<p class="fragment fade-in" style="padding-top: 30px">
-A bit suprising?
-</p>
-<aside class="notes">
 <p>Suprising?</p>
 <ul>
 <li>Spectrogram axes not equivalent to eachother. One is frequency, other is time. Shifting does not mean the same in each axis.</li>
@@ -369,38 +370,32 @@ A bit suprising?
 </section><section id="keras-model" class="slide level2">
 <h2>Keras model</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> ...</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">def</span> build_model(...):</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a>    block1 <span class="op">=</span> [</span>
-<span id="cb2-6"><a href="#cb2-6"></a>        Convolution2D(filters, kernel, padding<span class="op">=</span><span class="st">&#39;same&#39;</span>, strides<span class="op">=</span>strides,</span>
-<span id="cb2-7"><a href="#cb2-7"></a>                      input_shape<span class="op">=</span>(bands, frames, channels)),</span>
-<span id="cb2-8"><a href="#cb2-8"></a>        MaxPooling2D(pool_size<span class="op">=</span>pool),</span>
-<span id="cb2-9"><a href="#cb2-9"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    ]</span>
-<span id="cb2-11"><a href="#cb2-11"></a>    block2 <span class="op">=</span> [</span>
-<span id="cb2-12"><a href="#cb2-12"></a>        Convolution2D(filters<span class="op">*</span>kernels_growth, kernel, padding<span class="op">=</span><span class="st">&#39;same&#39;</span>, strides<span class="op">=</span>strides),</span>
-<span id="cb2-13"><a href="#cb2-13"></a>        MaxPooling2D(pool_size<span class="op">=</span>pool),</span>
-<span id="cb2-14"><a href="#cb2-14"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
-<span id="cb2-15"><a href="#cb2-15"></a>    ]</span>
-<span id="cb2-16"><a href="#cb2-16"></a>    block3 <span class="op">=</span> [</span>
-<span id="cb2-17"><a href="#cb2-17"></a>        Convolution2D(filters<span class="op">*</span>kernels_growth, kernel, padding<span class="op">=</span><span class="st">&#39;valid&#39;</span>, strides<span class="op">=</span>strides),</span>
-<span id="cb2-18"><a href="#cb2-18"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
-<span id="cb2-19"><a href="#cb2-19"></a>    ]</span>
-<span id="cb2-20"><a href="#cb2-20"></a>    backend <span class="op">=</span> [</span>
-<span id="cb2-21"><a href="#cb2-21"></a>        Flatten(),</span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a>        Dropout(dropout),</span>
-<span id="cb2-24"><a href="#cb2-24"></a>        Dense(fully_connected, kernel_regularizer<span class="op">=</span>l2(<span class="fl">0.001</span>)),</span>
-<span id="cb2-25"><a href="#cb2-25"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
-<span id="cb2-26"><a href="#cb2-26"></a></span>
-<span id="cb2-27"><a href="#cb2-27"></a>        Dropout(dropout),</span>
-<span id="cb2-28"><a href="#cb2-28"></a>        Dense(num_labels, kernel_regularizer<span class="op">=</span>l2(<span class="fl">0.001</span>)),</span>
-<span id="cb2-29"><a href="#cb2-29"></a>        Activation(<span class="st">&#39;softmax&#39;</span>),</span>
-<span id="cb2-30"><a href="#cb2-30"></a>    ]</span>
-<span id="cb2-31"><a href="#cb2-31"></a>    layers <span class="op">=</span> block1 <span class="op">+</span> block2 <span class="op">+</span> block3 <span class="op">+</span> backend</span>
-<span id="cb2-32"><a href="#cb2-32"></a>    model <span class="op">=</span> Sequential(layers)</span>
-<span id="cb2-33"><a href="#cb2-33"></a>    <span class="cf">return</span> model</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">def</span> build_model(....):</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    block1 <span class="op">=</span> [</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        Convolution2D(filters, kernel, padding<span class="op">=</span><span class="st">&#39;same&#39;</span>, strides<span class="op">=</span>strides, input_shape<span class="op">=</span>(bands, frames, channels)),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>        MaxPooling2D(pool_size<span class="op">=</span>pool),</span>
+<span id="cb2-6"><a href="#cb2-6"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    ]</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    block2 <span class="op">=</span> [</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        Convolution2D(filters<span class="op">*</span>kernels_growth, kernel, padding<span class="op">=</span><span class="st">&#39;same&#39;</span>, strides<span class="op">=</span>strides),</span>
+<span id="cb2-10"><a href="#cb2-10"></a>        MaxPooling2D(pool_size<span class="op">=</span>pool),</span>
+<span id="cb2-11"><a href="#cb2-11"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    ]</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    block3 <span class="op">=</span> [</span>
+<span id="cb2-14"><a href="#cb2-14"></a>        Convolution2D(filters<span class="op">*</span>kernels_growth, kernel, padding<span class="op">=</span><span class="st">&#39;valid&#39;</span>, strides<span class="op">=</span>strides),</span>
+<span id="cb2-15"><a href="#cb2-15"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    ]</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    backend <span class="op">=</span> [</span>
+<span id="cb2-18"><a href="#cb2-18"></a>        Flatten(),</span>
+<span id="cb2-19"><a href="#cb2-19"></a>        Dropout(dropout),</span>
+<span id="cb2-20"><a href="#cb2-20"></a>        Dense(fully_connected, kernel_regularizer<span class="op">=</span>l2(<span class="fl">0.001</span>)),</span>
+<span id="cb2-21"><a href="#cb2-21"></a>        Activation(<span class="st">&#39;relu&#39;</span>),</span>
+<span id="cb2-22"><a href="#cb2-22"></a>        Dropout(dropout),</span>
+<span id="cb2-23"><a href="#cb2-23"></a>        Dense(num_labels, kernel_regularizer<span class="op">=</span>l2(<span class="fl">0.001</span>)),</span>
+<span id="cb2-24"><a href="#cb2-24"></a>        Activation(<span class="st">&#39;softmax&#39;</span>),</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    ]</span>
+<span id="cb2-26"><a href="#cb2-26"></a>    model <span class="op">=</span> Sequential(block1 <span class="op">+</span> block2 <span class="op">+</span> block3 <span class="op">+</span> backend)</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="cf">return</span> model</span></code></pre></div>
 </section><section id="aggregating-analysis-windows" class="slide level2">
 <h2>Aggregating analysis windows</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> keras <span class="im">import</span> Model</span>
@@ -446,42 +441,34 @@ A bit suprising?
 </aside>
 </section><section id="transfer-learning-from-images" class="slide level2">
 <h2>Transfer Learning from images</h2>
-<p>Transfer Learning from image data works!</p>
-<p>=&gt; Can use models pretrained on ImageNet</p>
+<p><img data-src="./img/transfer-learning.jpg" /></p>
+<aside class="notes">
+<p>Image Identifying Medical Diagnoses and Treatable Diseases by Image-Based Deep Learning Kermany et al https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5</p>
+<p><code>TODO: code example using Keras Applications MobileNet ?</code></p>
+<p>Transfer Learning from image data works! =&gt; Can use models pretrained on ImageNet</p>
+<p>Easy to use tools in all deep learning frameworks Ex. <code>keras.applications</code></p>
 <p>Caveats:</p>
 <ul>
+<li>Particular input size requirements. Ex 128x128</li>
 <li>If RGB input, should fill all 3 channels</li>
 <li>Usually need to fine tune the model. Some or all layers</li>
 </ul>
-<aside class="notes">
-<p><code>TODO: image explaining Transfer Learning</code></p>
-<p><code>TODO: code example using Keras Applications MobileNet ?</code></p>
-<pre><code>
-from keras.applications.inception_v3 import InceptionV3
-
-base_model = InceptionV3(weights=&#39;imagenet&#39;, include_top=False)
-
-# add a global spatial average pooling layer
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-# let&#39;s add a fully-connected layer
-x = Dense(1024, activation=&#39;relu&#39;)(x)
-# and a logistic layer -- let&#39;s say we have 200 classes
-predictions = Dense(200, activation=&#39;softmax&#39;)(x)
-</code></pre>
 </aside>
 </section><section id="audio-embeddings" class="slide level2">
 <h2>Audio Embeddings</h2>
 <ul>
 <li>Model pretrained for sound, feature-extracting only</li>
-<li>Example. Look, Listen, Learn ({L^3}). 1 second, 512-d vector</li>
-<li>Accessible as Python package <code>OpenL3</code></li>
+<li>Papers: “Look, Listen, Learn (more)”.</li>
+<li>Outputs per 1 second, a <code>512-d</code> vector</li>
 <li>Only need to add a simple classifier on this</li>
 <li>Uses a CNN under the hood</li>
 </ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> openl3</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> soundfile</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>audio, sr <span class="op">=</span> soundfile.read(<span class="st">&#39;audio/file.wav&#39;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>embeddings, times <span class="op">=</span> openl3.get_embedding(audio, sr)</span></code></pre></div>
 <aside class="notes">
-<pre><code>import openl3
-</code></pre>
 <p><code>FIXME: finish code example using OpenL3 ?</code></p>
 <p>1 second time frame</p>
 <pre><code>Waveform. 16-44.1 kHz
@@ -496,11 +483,11 @@ Audio embedding. 512 dim</code></pre>
 </section><section id="annotating-audio" class="slide level2">
 <h2>Annotating audio</h2>
 <p><img data-src="./img/audacity.png" style="width:100.0%" /></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> pandas</span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>labels <span class="op">=</span> pandas.read_csv(path, sep<span class="op">=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, header<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>    names<span class="op">=</span>[<span class="st">&#39;start&#39;</span>, <span class="st">&#39;end&#39;</span>, <span class="st">&#39;annotation&#39;</span>],</span>
-<span id="cb7-5"><a href="#cb7-5"></a>    dtype<span class="op">=</span><span class="bu">dict</span>(start<span class="op">=</span><span class="bu">float</span>,end<span class="op">=</span><span class="bu">float</span>,annotation<span class="op">=</span><span class="bu">str</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> pandas</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>labels <span class="op">=</span> pandas.read_csv(path, sep<span class="op">=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    names<span class="op">=</span>[<span class="st">&#39;start&#39;</span>, <span class="st">&#39;end&#39;</span>, <span class="st">&#39;annotation&#39;</span>],</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    dtype<span class="op">=</span><span class="bu">dict</span>(start<span class="op">=</span><span class="bu">float</span>,end<span class="op">=</span><span class="bu">float</span>,annotation<span class="op">=</span><span class="bu">str</span>))</span></code></pre></div>
 <aside class="notes">
 <ul>
 <li>Use Audacity</li>
@@ -564,27 +551,6 @@ Audio embedding. 512 dim</code></pre>
 <p>Email: <code>jon@soundsensing.no</code></p>
 </section></section>
 <section id="bonus" class="title-slide slide level1"><h1>BONUS</h1></section>
-<section><section id="classification-limitations" class="title-slide slide level1"><h1>Classification limitations</h1></section><section id="out-of-domain-data" class="slide level2">
-<h2>Out-of-domain data</h2>
-<aside class="notes">
-<p>Problem. Out of domain data. What happends when the audio input is <em>not</em> one of the classes represented? The model will…</p>
-<p>Solution A) Threshold on model output probabilities</p>
-<p>Can be integrated as Active learning. Record input signal, store and mark for labeling.</p>
-<p>Solution B) Add “Other” to your training data, as its own class.</p>
-<p>Ex using data from AudioSet. Or compiling yourself from Freesound</p>
-</aside>
-</section><section id="interpreting-noise" class="slide level2">
-<h2>Interpreting noise</h2>
-<p>Problem</p>
-<p>When audio volume is low, normalization will blow up noise. Can easily cause spurious classifications.</p>
-<p>Solution</p>
-<p>Compute RMS energy of the input. If RMS low, disregard classifier output, mark as Silence instead.</p>
-<aside class="notes">
-<p>interpresting the tealeafs</p>
-<p>“gate” the classification by audio input level</p>
-<p>TODO: make a schematic drawing</p>
-</aside>
-</section></section>
 <section><section id="more-advanced-problem-formulations" class="title-slide slide level1"><h1>More advanced problem formulations</h1></section><section id="audio-event-detection" class="slide level2">
 <h2>Audio Event Detection</h2>
 <blockquote>
@@ -627,8 +593,27 @@ Audio embedding. 512 dim</code></pre>
 <li>separate classifiers per ‘track’</li>
 <li>joint model: multi-label classifier</li>
 </ul>
-</section><section id="section" class="slide level2">
-<h2></h2>
+</section></section>
+<section><section id="classification-limitations" class="title-slide slide level1"><h1>Classification limitations</h1></section><section id="out-of-domain-data" class="slide level2">
+<h2>Out-of-domain data</h2>
+<aside class="notes">
+<p>Problem. Out of domain data. What happends when the audio input is <em>not</em> one of the classes represented? The model will…</p>
+<p>Solution A) Threshold on model output probabilities</p>
+<p>Can be integrated as Active learning. Record input signal, store and mark for labeling.</p>
+<p>Solution B) Add “Other” to your training data, as its own class.</p>
+<p>Ex using data from AudioSet. Or compiling yourself from Freesound</p>
+</aside>
+</section><section id="interpreting-noise" class="slide level2">
+<h2>Interpreting noise</h2>
+<p>Problem</p>
+<p>When audio volume is low, normalization will blow up noise. Can easily cause spurious classifications.</p>
+<p>Solution</p>
+<p>Compute RMS energy of the input. If RMS low, disregard classifier output, mark as Silence instead.</p>
+<aside class="notes">
+<p>interpresting the tealeafs</p>
+<p>“gate” the classification by audio input level</p>
+<p>TODO: make a schematic drawing</p>
+</aside>
 </section></section>
 <section><section id="details" class="title-slide slide level1"><h1>Details</h1></section><section id="analysis-windows" class="slide level2">
 <h2>Analysis windows</h2>

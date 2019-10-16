@@ -26,7 +26,7 @@ Today
 
 ## Soundsensing
 
-![](./img/soundsensing-sensor-metro.jpg)
+![](./img/soundsensing-withlogo.png)
 
 ::: notes
 Provide **Noise Monitoring** and Audio **Condition Monitoring** solutions
@@ -319,20 +319,30 @@ def load_audio_windows(path, ...):
     return windows
 ```
 
+::: notes
+
+TODO: update to corrected code
+
+:::
 
 ## Convolutional Neural Network
+
+![](./img/cnn-features.jpg){width=85%}
+
+Img: Data Science Central, Albelwi2017
+
+::: notes
+
+https://www.datasciencecentral.com/profiles/blogs/a-primer-on-deep-learning
+
+A Framework for Designing the Architectures of Deep Convolutional Neural Networks
+https://www.mdpi.com/1099-4300/19/6/242
 
 1: Spectrograms are *image-like* 
 
 2: CNNs are best-in-class for image-classification
 
 => Will CNNs work well on spectrograms?
-
-<p class="fragment fade-in" style='padding-top: 30px'>Yes!</p>
-
-<p class="fragment fade-in" style='padding-top: 30px'>A bit suprising?</p>
-
-::: notes
 
 Suprising?
 
@@ -366,12 +376,9 @@ Much bigger field.
 
 ```python
 from keras.layers import ...
-
-def build_model(...):
-
+def build_model(....):
     block1 = [
-        Convolution2D(filters, kernel, padding='same', strides=strides,
-                      input_shape=(bands, frames, channels)),
+        Convolution2D(filters, kernel, padding='same', strides=strides, input_shape=(bands, frames, channels)),
         MaxPooling2D(pool_size=pool),
         Activation('relu'),
     ]
@@ -386,17 +393,14 @@ def build_model(...):
     ]
     backend = [
         Flatten(),
-
         Dropout(dropout),
         Dense(fully_connected, kernel_regularizer=l2(0.001)),
         Activation('relu'),
-
         Dropout(dropout),
         Dense(num_labels, kernel_regularizer=l2(0.001)),
         Activation('softmax'),
     ]
-    layers = block1 + block2 + block3 + backend
-    model = Sequential(layers)
+    model = Sequential(block1 + block2 + block3 + backend)
     return model
 ```
 
@@ -461,54 +465,51 @@ https://neurohive.io/en/news/specaugment-new-and-simple-data-augmentation-techni
 
 ## Transfer Learning from images
 
-Transfer Learning from image data works!
-
-=> Can use models pretrained on ImageNet
-
-Caveats:
-
-- If RGB input, should fill all 3 channels
-- Usually need to fine tune the model. Some or all layers
+![](./img/transfer-learning.jpg)
 
 ::: notes
 
-`TODO: image explaining Transfer Learning` 
+Image
+Identifying Medical Diagnoses and Treatable Diseases by Image-Based Deep Learning
+Kermany et al
+https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5
 
 `TODO: code example using Keras Applications MobileNet ?`
 
-```
+Transfer Learning from image data works!
+=> Can use models pretrained on ImageNet
 
-from keras.applications.inception_v3 import InceptionV3
+Easy to use tools in all deep learning frameworks
+Ex. `keras.applications`
 
-base_model = InceptionV3(weights='imagenet', include_top=False)
+Caveats:
 
-# add a global spatial average pooling layer
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-# let's add a fully-connected layer
-x = Dense(1024, activation='relu')(x)
-# and a logistic layer -- let's say we have 200 classes
-predictions = Dense(200, activation='softmax')(x)
+- Particular input size requirements. Ex 128x128
+- If RGB input, should fill all 3 channels
+- Usually need to fine tune the model. Some or all layers
 
-```
 :::
 
 
 ## Audio Embeddings
 
 - Model pretrained for sound, feature-extracting only
-- Example. Look, Listen, Learn ({L^3}). 1 second, 512-d vector
-- Accessible as Python package `OpenL3`
+- Papers: "Look, Listen, Learn (more)".
+- Outputs per 1 second, a `512-d` vector
 - Only need to add a simple classifier on this
 - Uses a CNN under the hood
 
+```python
+import openl3
+import soundfile
+
+audio, sr = soundfile.read('audio/file.wav')
+embeddings, times = openl3.get_embedding(audio, sr)
+```
 
 ::: notes
 
-```
-import openl3
 
-```
 
 `FIXME: finish code example using OpenL3 ?`
 
@@ -624,6 +625,54 @@ Email: `jon@soundsensing.no`
 
 # BONUS
 
+
+
+
+# More advanced problem formulations
+
+## Audio Event Detection
+
+> Return: time something occurred.
+
+* Ex: "Bird singing started", "Bird singing stopped"
+* Classification-as-detection. Classifier on short time-frames
+* Monophonic: Returns most prominent event
+
+Aka: Onset detection
+
+::: notes
+
+- Avoid time-shift augmentation
+
+:::
+
+## Segmentation
+
+> Return: sections of audio containing desired class
+
+* Postprocesing on Event Detection time-stamps
+* Pre-processing to specialized classifiers
+
+
+::: notes
+
+Eg: Extract only birdcall audio, then perform bird species identification
+
+- Can alternatively be done unsupervised
+- Can be real-time / single-pass, or multi-pass
+
+:::
+
+## Tagging
+
+> Return: All classes/events that occurred in audio.
+
+Approaches
+
+* separate classifiers per 'track'
+* joint model: multi-label classifier
+
+
 # Classification limitations
 
 ## Out-of-domain data
@@ -672,53 +721,6 @@ TODO: make a schematic drawing
 
 :::
 
-
-# More advanced problem formulations
-
-## Audio Event Detection
-
-> Return: time something occurred.
-
-* Ex: "Bird singing started", "Bird singing stopped"
-* Classification-as-detection. Classifier on short time-frames
-* Monophonic: Returns most prominent event
-
-Aka: Onset detection
-
-::: notes
-
-- Avoid time-shift augmentation
-
-:::
-
-## Segmentation
-
-> Return: sections of audio containing desired class
-
-* Postprocesing on Event Detection time-stamps
-* Pre-processing to specialized classifiers
-
-
-::: notes
-
-Eg: Extract only birdcall audio, then perform bird species identification
-
-- Can alternatively be done unsupervised
-- Can be real-time / single-pass, or multi-pass
-
-:::
-
-## Tagging
-
-> Return: All classes/events that occurred in audio.
-
-Approaches
-
-* separate classifiers per 'track'
-* joint model: multi-label classifier
-
-
-##
 
 # Details
 
