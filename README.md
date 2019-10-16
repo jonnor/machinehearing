@@ -28,7 +28,9 @@ Presentation at EuroPython2019. [Video recording](https://www.youtube.com/watch?
 </a>
 -->
 
-Presentation at PyCode Conference 2019 in Gdansk. [notes](./pycode2019)
+Presentation at PyCode Conference 2019 in Gdansk.
+[Slides](https://jonnor.github.io/machinehearing/pycode2019/slides.html),
+[notes](./pycode2019)
 
 Video recording. Coming, maybe in November.
 
