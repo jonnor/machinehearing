@@ -16,6 +16,23 @@ Master thesis. Report and code available in the [Github repository](https://gith
 
 Presentation at EuroPython2019. [Video recording](https://www.youtube.com/watch?v=uCGROOUO_wY), [notes](./europython2019)
 
+## PyCode2019: Recognizing sounds with Machine Learning and Python
+
+<a href="https://jonnor.github.io/machinehearing/pycode2019/slides.html">
+<img src="https://github.com/jonnor/machinehearing/raw/master/pycode/slides.png" height="200" alt="Slides">
+</a>
+
+<!--
+<a href="https://youtu.be/2FmMESSD2CM?t=8470">
+<img src="https://github.com/jonnor/machinehearing/raw/master/europython2019/video.png" height="200" alt="Youtube: Audio Classification using Machine Learning by Jon Nordby, EuroPython 2019">
+</a>
+-->
+
+Presentation at PyCode Conference 2019 in Gdansk. [notes](./pycode2019)
+
+Video recording. Coming, maybe in November.
+
+
 ## NMBU lecture on Audio Classification
 
 Report and lecture at [NMBU](https://nmbu.no) Data Science.
