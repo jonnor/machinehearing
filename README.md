@@ -19,7 +19,7 @@ Presentation at EuroPython2019. [Video recording](https://www.youtube.com/watch?
 ## PyCode2019: Recognizing sounds with Machine Learning and Python
 
 <a href="https://jonnor.github.io/machinehearing/pycode2019/slides.html">
-<img src="https://github.com/jonnor/machinehearing/raw/master/pycode/slides.png" height="200" alt="Slides">
+<img src="https://github.com/jonnor/machinehearing/raw/master/pycode2019/slides.png" height="200" alt="Slides">
 </a>
 
 <!--
