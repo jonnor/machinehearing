@@ -34,6 +34,16 @@ Presentation at PyCode Conference 2019 in Gdansk.
 
 Video recording. Coming, maybe in November.
 
+## SenseCamp2019: Classification of Environmental Sound using IoT sensors
+
+<a href="https://jonnor.github.io/machinehearing/sensecamp2019/slides.html">
+<img src="https://github.com/jonnor/machinehearing/raw/master/sensecamp2019/slides.png" height="200" alt="Slides">
+</a>
+
+Presentation at SenseCamp 2019 hosted by FORCE Technology Senselab.
+Slides: [web](https://jonnor.github.io/machinehearing/pycode2019/slides.html),
+[.PDF](./sensecamp2019/slides.pdf)
+
 
 ## NMBU lecture on Audio Classification
 
