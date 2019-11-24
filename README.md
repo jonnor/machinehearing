@@ -41,8 +41,8 @@ Video recording. Coming, maybe in November.
 </a>
 
 Presentation at SenseCamp 2019 hosted by FORCE Technology Senselab.
-Slides: [web](https://jonnor.github.io/machinehearing/pycode2019/slides.html),
-[.PDF](./sensecamp2019/slides.pdf)
+Slides: [web](https://jonnor.github.io/machinehearing/sensecamp2019/slides.html),
+[.PDF](https://github.com/jonnor/machinehearing/raw/master/sensecamp2019/slides.pdf)
 
 
 ## NMBU lecture on Audio Classification
