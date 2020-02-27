@@ -1,13 +1,13 @@
 
 ---
-title: Classification of Environmental Sound using IoT sensors
+title: Classifying sound using Machine Learning
 author: Jon Nordby <jon@soundsensing.no>
-date: November 19, 2019
+date: February 27, 2020
 css: style.css
 width: 1920
 height: 1080
 margin: 0
-pagetitle: 'Sensecamp2019: Classification of Environmental Sound using IoT sensors'
+pagetitle: 'Artificial Summit, Knowit, Oslo: Classifying sound using Machine Learning'
 ---
 
 
@@ -51,33 +51,62 @@ Perform Machine Learning for sound classification **on sensor**.
 
 ![Pilot projects with customers Now - 2020](img/what-we-do.png)
 
+## Goal
+
+The goals of this talk
+
+> you as Developers, understand:
+>
+> possibilities and applications of Audio ML
+> 
+> overall workflow of creating an Audio Classification solution
+> 
+> what Soundsensing provides in this area
 
 
+<!--
 
+## Outline
+
+TODO: is it needed?
+
+- 
+- Digital sound. A primer
+- Audio Classification basics
+- Tips & Tricks
+- Pointers to more information
+-->
+
+<!--
+FIXME: explain briefly Digital Sound
+-->
 
 # How to make an Audio ML solution
 
 ## Overall process
 
-- Problem definition
-- Data collection
-- Data labeling
-- Training setup
-- Feature representation
-- Model
-- Evaluation
-- Deployment
+1. Problem definition
+2. Data collection
+3. Data labeling
+4. Training setup
+5. Feature representation
+6. Model
+7. Evaluation
+8. Deployment
 
-## Environmental Sound Classification
 
-Our example
+## Example task
+
+Noise Classification in Urban environments
+
+"Environmental Sound Classification"
 
 > Given an audio signal of environmental sounds,
 > 
 > determine which class it belongs to
 
 * Widely researched. 1000 hits on Google Scholar
-* Datasets. Urbansound8k (10 classes), ESC-50, AudioSet (632 classes)
+* Open Datasets. Urbansound8k (10 classes), ESC-50, AudioSet (632 classes)
 * 2017: Human-level performance on ESC-50
 
 ::: notes
@@ -86,11 +115,134 @@ https://github.com/karoldvl/ESC-50
 
 :::
 
+
+## Supervised Learning
+
+![In principle...](./img/supervised-principle.svg){width=70%}
+
+::: notes
+
+Supervised learning: using (large amounts of) **labeled data**, for training.
+Optimizes a particular **metric**. Estimated on a parts of the dataset.
+
+In principle, needs no more guidance.
+In practice, we need to peek inside the black box.
+
+AutoML. Field of creating that magical black-box.
+
+:::
+
+## Learning process
+
+![](./img/learning-process.svg){width=80%}
+
+::: notes
+
+Inputs.
+
+- Labeled dataset. Many audio samples, each **already labeled** (by humans) with the associated class
+- Model architecture. An untrained model for recognizing sounds (more generally). 
+- Goal specification. The metric we want to optimize for. Ex: average accuracy
+
+Outputs:
+
+- A **trained model**. That can classify Environmental Sounds with high accuracy.
+Hopefully also sounds similar to, but not from the Urbansound8k dataset.
+- Results. Metrics, plots of how well the model did. 
+
+How to get dataset?
+See if there are publically available dataset.
+General rule. 1k samples per class.
+But, tricks exist for cases where there is less data available.
+"Low resource" datasets.
+
+What kind of model architecture to use?
+Find the most similar usecase to yours.
+Start simple!
+
+How to specify goal?
+Analyze your business/usecase.
+What aspect of model performance are critical.
+What kind of errors are more acceptable?
+
+:::
+
+## Audio Classification
+
+> Given an audio clip
+> 
+> with some sounds
+> 
+> determine which *class* it is
+
+Classification simplifications
+
+- Single output. One class at a time
+- Discrete. Exists or not
+- Closed set. Must be known class
+
+::: notes
+
+Classification.
+Each input is mapped to a single discrete output.
+Only a single class sound per audio clip.
+
+Alt: multi-label "tagging"
+
+Closed-set.
+Sound has to be one of the N defined classes. 
+Cannot handle out-of-domain inputs.
+
+Alt: open-set
+
+Ok, so how do we realize such a system?
+
+:::
+
+<!--
+Other Audio ML tasks
+
+## Audio Event Detection
+
+> Return: time something occurred.
+
+* Ex: "Bird singing started", "Bird singing stopped"
+* Classification-as-detection. Classifier on short time-frames
+* Monophonic: Returns most prominent event
+
+Aka: Onset detection
+
+::: notes
+
+- Avoid time-shift augmentation
+
+:::
+
+## Anomaly Detection
+
+TODO: define AD task
+
+-->
+
 ## Data collection
+
+Key challenges
+
+* Ensuring representativeness
+* Ensuring coverage
+* Maintaining structure
+* Capturing relevant metadata
+* Maintaining privacy
+
+::: notes
 
 `FIXME: image of our Data document`
 
-::: notes
+Personally identifyable information. GDPR
+Sensitive data
+Privacy
+
+:::
 
 ## Data Requirements
 
@@ -121,13 +273,51 @@ Controlled environment
 
 ## Data labeling
 
-`FIXME: image of our tool`
+Challenge: Keeping quality high, and costs low
+
+- What is the *human level performance*?
+- Annotator *self-agreement*
+- Inter-annotator *agreement*
+
+How to label
+
+- Outsource. Data labeling services, Mechanical Turk, ..
+- Crowdsource. From the public. From your users?
+- Inhouse. Dedicated resource? Part of DS team? 
+- Automated. Other datasources? Existing models?
 
 ::: notes
 
-`FIXME: image of CSV/output` 
+Make sure at least validation and testsets are good
+Run chesks. Estimate quality 
+
+Expertice required? Domain knowledge?
 
 :::
+
+## Annotation tools
+
+::: notes
+`FIXME: image of our tool`
+
+Audacity
+Audio Annotator
+...
+
+:::
+
+## Curated dataset 
+
+![Labeled audio data](img/urbansound8k-examples.png){width=80%}
+
+
+::: notes
+`FIXME: image of our tool`
+:::
+
+
+
+<!--
 
 ## Training setup
 
@@ -141,9 +331,9 @@ Mark it with the label
 Pretty standard supervised ML setup
 As in image classification etc
 
-FIXME: image from PyCode?
-
 :::
+
+-->
 
 ## Pipeline
 
@@ -153,6 +343,12 @@ FIXME: image from PyCode?
 TODO: 
 
 :::
+
+<!--
+FIXME: explain briefly Convolutional Neural Network
+-->
+
+
 
 ## Model
 
@@ -177,10 +373,32 @@ CONV = entry point for trying different convolution operators
 :::
 
 
+<!--
 ## Evaluation
 
 Performance metrics
 
+-->
+
+
+# Soundsensing Platform
+
+<!--
+FIXME: 
+-->
+
+
+## Demo video
+
+<iframe src="https://www.youtube.com/embed/KQHQxMG1CZo" controls width="1000" height="700"/></iframe>
+
+::: notes
+
+Recognizing Urban sounds
+
+Environmental Sound Classification
+
+:::
 
 
 
@@ -686,7 +904,7 @@ Much lower overlap
 
 ![](img/models_efficiency.png){width=100%}
 
-:::
+::: notes
 
 - Performance of Strided-DS-24 similar to Baseline despite 12x the CPU use
 - Suprising? Stride alone worse than Strided-DS-24

@@ -68,8 +68,13 @@ Customization/**integration** providers
 2 full stack developers. 1 frontend-lead
 3. Attract investors
 Raising money now. Opportunities for angels.
-4. Attracting pilot customers
+(
+4. Attracting potential customers
 Usecases that can be done based on existing/planned offering
+)
+
+Establish tech/thought leadership
+
 
 From audience POV
 
@@ -78,7 +83,7 @@ From audience POV
 > possibilities and applications of Audio ML
 > 
 > how the overall workflow of creating an Audio ML solution is
->
+> 
 > what Soundsensing provides to make this easier
 
 ## Takeaways
@@ -138,6 +143,100 @@ CNNs. Sequence modelling (RNNs).
 - Come talk to us about applications of Audio ML
 
 
+# Outline
+Red thread. Example usecase,
+Noise Monitoring in Urban environments 
+
+
+Introduction
+
+- About me
+- About Soundsensing
+- Applications
+- What can Audio ML do
+- Technical landscape.
+What can it do in future
+
+Howto
+
+- OVERALL Process
+- Our example usecase. ESC. Urban Noise
+- ML principle. Supervised
+- Problem definition
+- Data collection
+- Data labeling
+- Training setup
+- Feature representation
+- Model. CNN
+(- Evaluation)
+(- Deployment)
+
+Deploying with Soundsensing
+
+- Our platform
+Deploy on device. How to make model small enough?
+Deploy in cloud.
+Spectrogram conversion on device.
+Get it in an API
+
+
+- Demo. VIDEO
+
+
+Outro
+Call to Action
+
+- Work with us
+- Be our customer
+- Invest in Us 
+
+Questions
+Summary
+More resources
+
+
+## Rich media
+
+
+Image. Annotation tool
+Image. Soundsensing Platform diagram
+
+Image. 
+
+Snippet. Data Collection protocol / Data Management
+
+BONUS
+
+Make it easier/better
+
+- Data Augmentation
+- Pretrained models / transfer learning
+- 
+
+
+## CTAs
+
+Think that this sounds cool to work on?
+
+Internships in Data Science now
+Hiring 2 developers in 2020
+Open
+
+Have an application that needs Audio ML
+but think this sounds wayy to complicated.
+
+Come talk to us about our platform and services
+Possibility of pilot projects in Fall 2020
+
+
+Want to invest in an ML and IoT startup
+
+Fundraising now.
+Some openings still
+Have a pipeline of commercial pilots (worth 600k in 2020)
+
+
+
 
 ## Offering
 
@@ -151,10 +250,11 @@ Layer cake
 
 Infrastructure
 
-- Data aquisition
+- Data aquisition (Sensors)
 - Data transport
 - Data storage
 - Sensor fleet management
+
 
 DB-10 as one of many sensor possibilities
 
@@ -181,24 +281,14 @@ Target Markets
 - Acousticians
 - Construction
 - Office
-- 
+
 
 - Manufacturing
 - Real-estate
-- 
+- Process industry
 
 
 
-# Outline
-
-
-Introduction
-
-- About me
-- About Soundsensing
-
-Scope
-- 
 
 ## More
 

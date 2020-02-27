@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Jon Nordby jon@soundsensing.no">
-  <meta name="dcterms.date" content="2019-11-19">
-  <title>Sensecamp2019: Classification of Environmental Sound using IoT sensors</title>
+  <meta name="dcterms.date" content="2020-02-27">
+  <title>Artificial Summit, Knowit, Oslo: Classifying sound using Machine Learning</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -37,9 +37,9 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Classification of Environmental Sound using IoT sensors</h1>
+  <h1 class="title">Classifying sound using Machine Learning</h1>
   <p class="author">Jon Nordby <a href="mailto:jon@soundsensing.no" class="email">jon@soundsensing.no</a></p>
-  <p class="date">November 19, 2019</p>
+  <p class="date">February 27, 2020</p>
 </section>
 
 <section><section id="introduction" class="title-slide slide level1"><h1>Introduction</h1></section>
@@ -48,14 +48,22 @@
 <p>Internet of Things specialist</p>
 <ul>
 <li>B.Eng in <strong>Electronics</strong></li>
-<li>9 years as <strong>Software</strong> developer. <strong>Embedded</strong> + <strong>Web</strong></li>
+<li>10 years as <strong>Software</strong> developer. <strong>Embedded</strong> + <strong>Web</strong></li>
 <li>M. Sc in <strong>Data</strong> Science</li>
 </ul>
 <p>Now:</p>
 <ul>
 <li>CTO at Soundsensing</li>
-<li>Machine Learning Consultant</li>
 </ul>
+</section>
+<section id="thesis" class="slide level2">
+<h2>Thesis</h2>
+<blockquote>
+<p>Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks</p>
+</blockquote>
+<figure>
+<img data-src="./img/thesis.png" style="width:30.0%" alt="" /><figcaption>Report &amp; Code: https://github.com/jonnor/ESC-CNN-microcontroller</figcaption>
+</figure>
 </section>
 <section id="soundsensing" class="slide level2">
 <h2>Soundsensing</h2>
@@ -71,168 +79,237 @@
 <img data-src="img/what-we-do.png" alt="" /><figcaption>Pilot projects with customers Now - 2020</figcaption>
 </figure>
 </section>
-<section id="thesis" class="slide level2">
-<h2>Thesis</h2>
+<section id="goal" class="slide level2">
+<h2>Goal</h2>
+<p>The goals of this talk</p>
 <blockquote>
-<p>Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks</p>
+<p>you as Developers, understand:</p>
+<p>possibilities and applications of Audio ML</p>
+<p>overall workflow of creating an Audio Classification solution</p>
+<p>what Soundsensing provides in this area</p>
 </blockquote>
-<figure>
-<img data-src="./img/thesis.png" style="width:30.0%" alt="" /><figcaption>Report &amp; Code: https://github.com/jonnor/ESC-CNN-microcontroller</figcaption>
-</figure>
-</section>
-<section id="wireless-sensor-networks" class="slide level2">
-<h2>Wireless Sensor Networks</h2>
-<ul>
-<li>Want: Wide and dense coverage</li>
-<li>Need: Sensors need to be low-cost</li>
-<li><strong>Opportunity</strong>: Wireless reduces costs</li>
-<li><strong>Challenge</strong>: Power consumption</li>
-</ul>
-<aside class="notes">
-<ul>
-<li>No network cabling, no power cabling</li>
-<li>No site infrastructure needed</li>
-<li>Less invasive</li>
-<li>Fewer approvals needed</li>
-<li>Temporary installs feasible</li>
-<li>Mobile sensors possible</li>
-</ul>
-<p>Electrician is 750 NOK/hour</p>
-<p>Image: https://www.nti-audio.com/en/applications/noise-measurement/unattended-monitoring</p>
-</aside>
-</section>
-<section id="sensor-network-architectures" class="slide level2">
-<h2>Sensor Network Architectures</h2>
-<p><img data-src="img/sensornetworks.png" style="width:70.0%" /></p>
+<!--
+
+## Outline
+
+TODO: is it needed?
+
+- 
+- Digital sound. A primer
+- Audio Classification basics
+- Tips & Tricks
+- Pointers to more information
+-->
+<!--
+FIXME: explain briefly Digital Sound
+-->
 </section></section>
-<section><section id="audio-machine-learning-on-low-power-sensors" class="title-slide slide level1"><h1>Audio Machine Learning on low-power sensors</h1></section>
-<section id="what-do-you-mean-by-low-power" class="slide level2">
-<h2>What do you mean by low-power?</h2>
-<p>Want: 1 year lifetime for palm-sized battery</p>
-<p>Need: <code>&lt;1mW</code> system power</p>
+<section><section id="how-to-make-an-audio-ml-solution" class="title-slide slide level1"><h1>How to make an Audio ML solution</h1></section>
+<section id="overall-process" class="slide level2">
+<h2>Overall process</h2>
+<ol type="1">
+<li>Problem definition</li>
+<li>Data collection</li>
+<li>Data labeling</li>
+<li>Training setup</li>
+<li>Feature representation</li>
+<li>Model</li>
+<li>Evaluation</li>
+<li>Deployment</li>
+</ol>
 </section>
-<section id="general-purpose-microcontroller" class="slide level2">
-<h2>General purpose microcontroller</h2>
-<p><img data-src="img/cortexM4.png" style="width:40.0%" /></p>
-<p>STM32L4 @ 80 MHz. Approx <strong>10 mW</strong>.</p>
-<ul>
-<li>TensorFlow Lite for Microcontrollers (Google)</li>
-<li>ST X-CUBE-AI (ST Microelectronics)</li>
-</ul>
-</section>
-<section id="fpga" class="slide level2">
-<h2>FPGA</h2>
-<figure>
-<img data-src="img/iCE40UltraPlus.png" style="width:50.0%" alt="" /><figcaption>Lattice ICE40 UltraPlus with Lattice sensAI</figcaption>
-</figure>
-<p>Human presence detection. VGG8 on 64x64 RGB image, 5 FPS: 7 mW.</p>
-<p>Audio ML approx <strong>1 mW</strong></p>
-</section>
-<section id="neural-network-co-processors" class="slide level2">
-<h2>Neural Network co-processors</h2>
-<figure>
-<img data-src="img/ST-Orlando-SoC.png" style="width:25.0%" alt="" /><figcaption>Project Orlando (ST Microelectronics), expected 2020</figcaption>
-</figure>
-<p>2.9 TOPS/W. AlexNet, 1000 classes, 10 FPS. 41 mWatt</p>
-<p>Audio models probably <strong>&lt; 1 mWatt</strong>.</p>
-<aside class="notes">
-<p>https://www.latticesemi.com/Blog/2019/05/17/18/25/sensAI</p>
-</aside>
-</section></section>
-<section><section id="on-edge-classification-of-noise" class="title-slide slide level1"><h1>On-edge Classification of Noise</h1></section>
-<section id="environmental-sound-classification" class="slide level2">
-<h2>Environmental Sound Classification</h2>
+<section id="example-task" class="slide level2">
+<h2>Example task</h2>
+<p>Noise Classification in Urban environments</p>
+<p>“Environmental Sound Classification”</p>
 <blockquote>
 <p>Given an audio signal of environmental sounds,</p>
 <p>determine which class it belongs to</p>
 </blockquote>
 <ul>
 <li>Widely researched. 1000 hits on Google Scholar</li>
-<li>Datasets. Urbansound8k (10 classes), ESC-50, AudioSet (632 classes)</li>
+<li>Open Datasets. Urbansound8k (10 classes), ESC-50, AudioSet (632 classes)</li>
 <li>2017: Human-level performance on ESC-50</li>
 </ul>
 <aside class="notes">
 <p>https://github.com/karoldvl/ESC-50</p>
 </aside>
+</section>
+<section id="supervised-learning" class="slide level2">
+<h2>Supervised Learning</h2>
+<figure>
+<img data-src="./img/supervised-principle.svg" style="width:70.0%" alt="" /><figcaption>In principle…</figcaption>
+</figure>
+<aside class="notes">
+<p>Supervised learning: using (large amounts of) <strong>labeled data</strong>, for training. Optimizes a particular <strong>metric</strong>. Estimated on a parts of the dataset.</p>
+<p>In principle, needs no more guidance. In practice, we need to peek inside the black box.</p>
+<p>AutoML. Field of creating that magical black-box.</p>
+</aside>
+</section>
+<section id="learning-process" class="slide level2">
+<h2>Learning process</h2>
+<p><img data-src="./img/learning-process.svg" style="width:80.0%" /></p>
+<aside class="notes">
+<p>Inputs.</p>
+<ul>
+<li>Labeled dataset. Many audio samples, each <strong>already labeled</strong> (by humans) with the associated class</li>
+<li>Model architecture. An untrained model for recognizing sounds (more generally).</li>
+<li>Goal specification. The metric we want to optimize for. Ex: average accuracy</li>
+</ul>
+<p>Outputs:</p>
+<ul>
+<li>A <strong>trained model</strong>. That can classify Environmental Sounds with high accuracy. Hopefully also sounds similar to, but not from the Urbansound8k dataset.</li>
+<li>Results. Metrics, plots of how well the model did.</li>
+</ul>
+<p>How to get dataset? See if there are publically available dataset. General rule. 1k samples per class. But, tricks exist for cases where there is less data available. “Low resource” datasets.</p>
+<p>What kind of model architecture to use? Find the most similar usecase to yours. Start simple!</p>
+<p>How to specify goal? Analyze your business/usecase. What aspect of model performance are critical. What kind of errors are more acceptable?</p>
+</aside>
+</section>
+<section id="audio-classification" class="slide level2">
+<h2>Audio Classification</h2>
+<blockquote>
+<p>Given an audio clip</p>
+<p>with some sounds</p>
+<p>determine which <em>class</em> it is</p>
+</blockquote>
+<p>Classification simplifications</p>
+<ul>
+<li>Single output. One class at a time</li>
+<li>Discrete. Exists or not</li>
+<li>Closed set. Must be known class</li>
+</ul>
+<aside class="notes">
+<p>Classification. Each input is mapped to a single discrete output. Only a single class sound per audio clip.</p>
+<p>Alt: multi-label “tagging”</p>
+<p>Closed-set. Sound has to be one of the N defined classes. Cannot handle out-of-domain inputs.</p>
+<p>Alt: open-set</p>
+<p>Ok, so how do we realize such a system?</p>
+</aside>
 <!--
+Other Audio ML tasks
 
-## Microcontroller
+## Audio Event Detection
 
-![](img/sensortile-annotated.jpg){width=100%}
+> Return: time something occurred.
+
+* Ex: "Bird singing started", "Bird singing stopped"
+* Classification-as-detection. Classifier on short time-frames
+* Monophonic: Returns most prominent event
+
+Aka: Onset detection
+
+::: notes
+
+- Avoid time-shift augmentation
+
+:::
+
+## Anomaly Detection
+
+TODO: define AD task
 
 -->
-<aside class="notes">
-<p>STM32L476</p>
-<p>ARM Cortex M4F Hardware floating-point unit (FPU) DSP SIMD instructions 80 MHz CPU clock 1024 kB of program memory (Flash) 128 kB of RAM.</p>
-<p>25 mWatt max</p>
-</aside>
 </section>
-<section id="urbansound8k" class="slide level2">
-<h2>Urbansound8k</h2>
-<p><img data-src="img/urbansound8k-examples.png" style="width:100.0%" /></p>
-<aside class="notes">
-<p>Classes from an urban sound taxonomy, based on noise complains in New York city</p>
-<p>Most sounds around 4 seconds. Some classes around 1 second</p>
-<p>Foreground/background</p>
-</aside>
-</section>
-<section id="existing-work" class="slide level2">
-<h2>Existing work</h2>
+<section id="data-collection" class="slide level2">
+<h2>Data collection</h2>
+<p>Key challenges</p>
 <ul>
-<li>Convolutional Neural Networks dominate</li>
-<li>Techniques come from image classification</li>
-<li>Mel-spectrogram input standard</li>
-<li>End2end models: getting close in accuracy</li>
-<li>“Edge ML” focused on mobile-phone class HW</li>
-<li>“Tiny ML” (sensors) just starting</li>
+<li>Ensuring representativeness</li>
+<li>Ensuring coverage</li>
+<li>Maintaining structure</li>
+<li>Capturing relevant metadata</li>
+<li>Maintaining privacy</li>
 </ul>
 <aside class="notes">
-<ul>
-<li>Efficient Keyword-Spotting</li>
-<li>Efficient (image) CNNs</li>
-<li>Efficient ESC-CNN</li>
-</ul>
-<p>ESC-CNN</p>
-<ul>
-<li>23 papers reviewed in detail</li>
-<li>10 referenced in thesis</li>
-<li>Only 4 consider computational efficiency</li>
-</ul>
+<p><code>FIXME: image of our Data document</code></p>
+<p>Personally identifyable information. GDPR Sensitive data Privacy</p>
 </aside>
 </section>
-<section id="model-requirements" class="slide level2">
-<h2>Model requirements</h2>
-<p>With 50% of STM32L476 capacity:</p>
+<section id="data-requirements" class="slide level2">
+<h2>Data Requirements</h2>
+<p>Depends on problem difficulty</p>
 <ul>
-<li>64 kB RAM</li>
-<li>512 kB FLASH memory</li>
-<li>4.5 M MACC/second</li>
+<li>Number of classes</li>
+<li>Variation inside class</li>
+<li>Distance between classes</li>
+<li>Other sounds, outside classes</li>
+</ul>
+<p>Targets</p>
+<ul>
+<li>Must: &gt;100 labeled instances per class</li>
+<li>Want: &gt;1000 labeled instances per class</li>
+</ul>
+<p>Urbansound8k: 10 classes, 11 hours of <strong>annotated</strong> audio</p>
+<aside class="notes">
+<p>Roest is <code>&lt;1</code> hour of audio. Binary classification Clear separation between class1 and class0 Quite little variation in the classes Controlled environment</p>
+</aside>
+</section>
+<section id="data-labeling" class="slide level2">
+<h2>Data labeling</h2>
+<p>Challenge: Keeping quality high, and costs low</p>
+<ul>
+<li>What is the <em>human level performance</em>?</li>
+<li>Annotator <em>self-agreement</em></li>
+<li>Inter-annotator <em>agreement</em></li>
+</ul>
+<p>How to label</p>
+<ul>
+<li>Outsource. Data labeling services, Mechanical Turk, ..</li>
+<li>Crowdsource. From the public. From your users?</li>
+<li>Inhouse. Dedicated resource? Part of DS team?</li>
+<li>Automated. Other datasources? Existing models?</li>
 </ul>
 <aside class="notes">
-<ul>
-<li>RAM: 1000x 64 MB</li>
-<li>PROGMEM: 1000x 512 MB</li>
-<li>CPU: 1000x 5 GFLOPS</li>
-<li>GPU: 1000’000X 5 TFLOPS</li>
-</ul>
+<p>Make sure at least validation and testsets are good Run chesks. Estimate quality</p>
+<p>Expertice required? Domain knowledge?</p>
 </aside>
 </section>
-<section id="existing-models" class="slide level2">
-<h2>Existing models</h2>
+<section id="annotation-tools" class="slide level2">
+<h2>Annotation tools</h2>
+<aside class="notes">
+<p><code>FIXME: image of our tool</code></p>
+<p>Audacity Audio Annotator …</p>
+</aside>
+</section>
+<section id="curated-dataset" class="slide level2">
+<h2>Curated dataset</h2>
 <figure>
-<img data-src="img/urbansound8k-existing-models-logmel.png" style="width:100.0%" alt="" /><figcaption>Green: Feasible region</figcaption>
+<img data-src="img/urbansound8k-examples.png" style="width:80.0%" alt="" /><figcaption>Labeled audio data</figcaption>
 </figure>
-<p>eGRU: running on ARM Cortex-M0 microcontroller, accuracy 61% with <strong>non-standard</strong> evaluation</p>
 <aside class="notes">
-<p>Assuming no overlap. Most models use very high overlap, 100X higher compute</p>
+<p><code>FIXME: image of our tool</code></p>
 </aside>
+<!--
+
+## Training setup
+
+::: notes
+
+For each annotated section
+Get the audio
+Compute features on it
+Mark it with the label
+
+Pretty standard supervised ML setup
+As in image classification etc
+
+:::
+
+-->
 </section>
 <section id="pipeline" class="slide level2">
 <h2>Pipeline</h2>
 <p><img data-src="img/classification-pipeline.png" data-max-height="100%" /></p>
+<aside class="notes">
+<p>TODO:</p>
+</aside>
+<!--
+FIXME: explain briefly Convolutional Neural Network
+-->
 </section>
-<section id="models" class="slide level2">
-<h2>Models</h2>
+<section id="model" class="slide level2">
+<h2>Model</h2>
 <!--
 Based on SB-CNN (Salamon+Bello, 2016)
 -->
@@ -246,147 +323,23 @@ Based on SB-CNN (Salamon+Bello, 2016)
 </ul>
 <p>CONV = entry point for trying different convolution operators</p>
 </aside>
+<!--
+## Evaluation
+
+Performance metrics
+
+-->
 </section></section>
-<section><section id="strategies-for-shrinking-convolutional-neural-network" class="title-slide slide level1"><h1>Strategies for shrinking Convolutional Neural Network</h1></section>
-<section id="reduce-input-dimensionality" class="slide level2">
-<h2>Reduce input dimensionality</h2>
-<p><img data-src="img/input-size.svg" style="width:70.0%" /></p>
-<ul>
-<li>Lower frequency range</li>
-<li>Lower frequency resolution</li>
-<li>Lower time duration in window</li>
-<li>Lower time resolution</li>
-</ul>
+<section><section id="soundsensing-platform" class="title-slide slide level1"><h1>Soundsensing Platform</h1><!--
+FIXME: 
+--></section>
+<section id="demo-video" class="slide level2">
+<h2>Demo video</h2>
+<iframe src="https://www.youtube.com/embed/KQHQxMG1CZo" controls width="1000" height="700"></iframe>
+</iframe>
 <aside class="notes">
-<p>Directly limits time and RAM use first few layers.</p>
-<p>Follow-on effects. A simpler input representation is (hopefully) easier to learn allowing for a simpler model</p>
-<p>TODO: make a picture illustrating this</p>
-</aside>
-</section>
-<section id="reduce-overlap" class="slide level2">
-<h2>Reduce overlap</h2>
-<p><img data-src="img/framing.png" style="width:80.0%" /></p>
-<p>Models in literature use 95% overlap or more. 20x penalty in inference time!</p>
-<p>Often low performance benefit. Use 0% (1x) or 50% (2x).</p>
-<!--
-## Regular 2D-convolution
-
-![](img/convolution-2d.png){width=100%}
-
-::: notes
-
-TODO: illustrate the cubical nature. Many channel
-
-:::
--->
-</section>
-<section id="depthwise-separable-convolution" class="slide level2">
-<h2>Depthwise-separable Convolution</h2>
-<p><img data-src="img/depthwise-separable-convolution.png" style="width:90.0%" /></p>
-<p>MobileNet, “Hello Edge”, AclNet. 3x3 kernel,64 filters: 7.5x speedup</p>
-<aside class="notes">
-<ul>
-<li>Much fewer operations</li>
-<li>Less expressive - but regularization effect can be beneficial</li>
-</ul>
-</aside>
-</section>
-<section id="spatially-separable-convolution" class="slide level2">
-<h2>Spatially-separable Convolution</h2>
-<p><img data-src="img/spatially-separable-convolution.png" style="width:90.0%" /></p>
-<p>EffNet, LD-CNN. 5x5 kernel: 2.5x speedup</p>
-</section>
-<section id="downsampling-using-max-pooling" class="slide level2">
-<h2>Downsampling using max-pooling</h2>
-<p><img data-src="img/maxpooling.png" style="width:100.0%" /></p>
-<p>Wasteful? Computing convolutions, then throwing away 3/4 of results!</p>
-</section>
-<section id="downsampling-using-strided-convolution" class="slide level2">
-<h2>Downsampling using strided convolution</h2>
-<p><img data-src="img/strided-convolution.png" style="width:100.0%" /></p>
-<p>Striding means fewer computations and “learned” downsampling</p>
-</section>
-<section id="model-comparison" class="slide level2">
-<h2>Model comparison</h2>
-<p><img data-src="img/models_accuracy.png" style="width:100.0%" /></p>
-<aside class="notes">
-<ul>
-<li>Baseline relative to SB-CNN and LD-CNN is down from 79% to 73% Expected because poorer input representation. Much lower overlap</li>
-</ul>
-</aside>
-</section>
-<section id="performance-vs-compute" class="slide level2">
-<h2>Performance vs compute</h2>
-<p><img data-src="img/models_efficiency.png" style="width:100.0%" /></p>
-<p>:::</p>
-<ul>
-<li>Performance of Strided-DS-24 similar to Baseline despite 12x the CPU use</li>
-<li>Suprising? Stride alone worse than Strided-DS-24</li>
-<li>Bottleneck and EffNet performed poorly</li>
-<li>Practical speedup not linear with MACC</li>
-</ul>
-<p>:::</p>
-<!--
-
--->
-</section>
-<section id="quantization" class="slide level2">
-<h2>Quantization</h2>
-<p>Inference can often use 8 bit integers instead of 32 bit floats</p>
-<ul>
-<li>1/4 the size for weights (FLASH) and activations (RAM)</li>
-<li>8bit <strong>SIMD</strong> on ARM Cortex M4F: 1/4 the inference time</li>
-<li>Supported in X-CUBE-AI 4.x (July 2019)</li>
-</ul>
-<!--
-
-## Stronger training process 
-
-- Data Augmentation. *Mixup*, *SpecAugment*
-- Transfer Learning on more data. *AudioSet*
-
--->
-<aside class="notes">
-<p>EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz</p>
-</aside>
-</section>
-<section id="conclusions" class="slide level2">
-<h2>Conclusions</h2>
-<ul>
-<li>Able to perform Environmental Sound Classification at <code>~ 10mW</code> power,</li>
-<li>Using <em>general purpose microcontroller</em>, ARM Cortex M4F</li>
-<li>Best performance: 70.9% mean accuracy, under 20% CPU load</li>
-<li>Highest reported Urbansound8k on microcontroller (over eGRU 62%)</li>
-<li>Best architecture: Depthwise-Separable convolutions with striding</li>
-<li>Quantization enables 4x bigger models (and higher perf)</li>
-<li>With dedicated Neural Network Hardware</li>
-</ul>
-</section></section>
-<section><section id="further-research" class="title-slide slide level1"><h1>Further Research</h1></section>
-<section id="waveform-input-to-model" class="slide level2">
-<h2>Waveform input to model</h2>
-<ul>
-<li>Preprocessing. Mel-spectrogram: <strong>60</strong> milliseconds</li>
-<li>CNN. Stride-DS-24: <strong>81</strong> milliseconds</li>
-<li>With quantization, spectrogram conversion is the bottleneck!</li>
-<li>Convolutions can be used to learn a Time-Frequency transformation.</li>
-</ul>
-<p>Can this be faster than the standard FFT? And still perform well?</p>
-<aside class="notes">
-<ul>
-<li>Especially interesting with CNN hardware acceleration.</li>
-</ul>
-</aside>
-</section>
-<section id="on-sensor-inference-challenges" class="slide level2">
-<h2>On-sensor inference challenges</h2>
-<ul>
-<li>Reducing power consumption. Adaptive sampling</li>
-<li>Efficient training data collection in WSN. Active Learning?</li>
-<li>Real-life performance evaluations. Out-of-domain samples</li>
-</ul>
-<aside class="notes">
-<p>TODO: Add few more projects here. From research document</p>
+<p>Recognizing Urban sounds</p>
+<p>Environmental Sound Classification</p>
 </aside>
 </section></section>
 <section><section id="wrapping-up" class="title-slide slide level1"><h1>Wrapping up</h1></section>
@@ -414,6 +367,10 @@ TODO: illustrate the cubical nature. Many channel
 <ul>
 <li><a href="https://github.com/jonnor/ESC-CNN-microcontroller">github.com/jonnor/ESC-CNN-microcontroller</a></li>
 </ul>
+<p>Soundsensing</p>
+<ul>
+<li><a href="https://soundsensing.no">soundsensing.no</a></li>
+</ul>
 </section>
 <section id="questions" class="slide level2">
 <h2>Questions</h2>
@@ -431,8 +388,13 @@ TODO: illustrate the cubical nature. Many channel
 </ul>
 <p>Email: <a href="mailto:jon@soundsensing.no" class="email">jon@soundsensing.no</a></p>
 </section></section>
+<section><section id="bonus" class="title-slide slide level1"><h1>BONUS</h1></section>
+<section id="more" class="slide level2">
+<h2>More</h2>
+<p>Next</p>
+</section></section>
 <section><section id="thesis-results" class="title-slide slide level1"><h1>Thesis results</h1></section>
-<section id="model-comparison-1" class="slide level2">
+<section id="model-comparison" class="slide level2">
 <h2>Model comparison</h2>
 <p><img data-src="img/models_accuracy.png" style="width:100.0%" /></p>
 <aside class="notes">
@@ -576,6 +538,270 @@ TODO: illustrate the cubical nature. Many channel
 </ul>
 <p>Image: https://www.regjeringen.no/no/tema/plan-bygg-og-eiendom/plan–og-bygningsloven/plan/kunnskapsgrunnlaget-i-planlegging/statistikk-i-plan/id2396747/</p>
 </aside>
+</section>
+<section id="wireless-sensor-networks" class="slide level2">
+<h2>Wireless Sensor Networks</h2>
+<ul>
+<li>Want: Wide and dense coverage</li>
+<li>Need: Sensors need to be low-cost</li>
+<li><strong>Opportunity</strong>: Wireless reduces costs</li>
+<li><strong>Challenge</strong>: Power consumption</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>No network cabling, no power cabling</li>
+<li>No site infrastructure needed</li>
+<li>Less invasive</li>
+<li>Fewer approvals needed</li>
+<li>Temporary installs feasible</li>
+<li>Mobile sensors possible</li>
+</ul>
+<p>Electrician is 750 NOK/hour</p>
+<p>Image: https://www.nti-audio.com/en/applications/noise-measurement/unattended-monitoring</p>
+</aside>
+</section></section>
+<section><section id="audio-machine-learning-on-low-power-sensors" class="title-slide slide level1"><h1>Audio Machine Learning on low-power sensors</h1></section>
+<section id="what-do-you-mean-by-low-power" class="slide level2">
+<h2>What do you mean by low-power?</h2>
+<p>Want: 1 year lifetime for palm-sized battery</p>
+<p>Need: <code>&lt;1mW</code> system power</p>
+</section>
+<section id="general-purpose-microcontroller" class="slide level2">
+<h2>General purpose microcontroller</h2>
+<p><img data-src="img/cortexM4.png" style="width:40.0%" /></p>
+<p>STM32L4 @ 80 MHz. Approx <strong>10 mW</strong>.</p>
+<ul>
+<li>TensorFlow Lite for Microcontrollers (Google)</li>
+<li>ST X-CUBE-AI (ST Microelectronics)</li>
+</ul>
+</section>
+<section id="fpga" class="slide level2">
+<h2>FPGA</h2>
+<figure>
+<img data-src="img/iCE40UltraPlus.png" style="width:50.0%" alt="" /><figcaption>Lattice ICE40 UltraPlus with Lattice sensAI</figcaption>
+</figure>
+<p>Human presence detection. VGG8 on 64x64 RGB image, 5 FPS: 7 mW.</p>
+<p>Audio ML approx <strong>1 mW</strong></p>
+</section>
+<section id="neural-network-co-processors" class="slide level2">
+<h2>Neural Network co-processors</h2>
+<figure>
+<img data-src="img/ST-Orlando-SoC.png" style="width:25.0%" alt="" /><figcaption>Project Orlando (ST Microelectronics), expected 2020</figcaption>
+</figure>
+<p>2.9 TOPS/W. AlexNet, 1000 classes, 10 FPS. 41 mWatt</p>
+<p>Audio models probably <strong>&lt; 1 mWatt</strong>.</p>
+<aside class="notes">
+<p>https://www.latticesemi.com/Blog/2019/05/17/18/25/sensAI</p>
+</aside>
+</section>
+<section id="urbansound8k" class="slide level2">
+<h2>Urbansound8k</h2>
+<p><img data-src="img/urbansound8k-examples.png" style="width:100.0%" /></p>
+<aside class="notes">
+<p>Classes from an urban sound taxonomy, based on noise complains in New York city</p>
+<p>Most sounds around 4 seconds. Some classes around 1 second</p>
+<p>Foreground/background</p>
+</aside>
+</section>
+<section id="environmental-sound-classification-on-edge" class="slide level2">
+<h2>Environmental Sound Classification on edge</h2>
+</section>
+<section id="existing-work" class="slide level2">
+<h2>Existing work</h2>
+<ul>
+<li>Convolutional Neural Networks dominate</li>
+<li>Techniques come from image classification</li>
+<li>Mel-spectrogram input standard</li>
+<li>End2end models: getting close in accuracy</li>
+<li>“Edge ML” focused on mobile-phone class HW</li>
+<li>“Tiny ML” (sensors) just starting</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Efficient Keyword-Spotting</li>
+<li>Efficient (image) CNNs</li>
+<li>Efficient ESC-CNN</li>
+</ul>
+<p>ESC-CNN</p>
+<ul>
+<li>23 papers reviewed in detail</li>
+<li>10 referenced in thesis</li>
+<li>Only 4 consider computational efficiency</li>
+</ul>
+</aside>
+</section>
+<section id="model-requirements" class="slide level2">
+<h2>Model requirements</h2>
+<p>With 50% of STM32L476 capacity:</p>
+<ul>
+<li>64 kB RAM</li>
+<li>512 kB FLASH memory</li>
+<li>4.5 M MACC/second</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>RAM: 1000x 64 MB</li>
+<li>PROGMEM: 1000x 512 MB</li>
+<li>CPU: 1000x 5 GFLOPS</li>
+<li>GPU: 1000’000X 5 TFLOPS</li>
+</ul>
+</aside>
+</section>
+<section id="existing-models" class="slide level2">
+<h2>Existing models</h2>
+<figure>
+<img data-src="img/urbansound8k-existing-models-logmel.png" style="width:100.0%" alt="" /><figcaption>Green: Feasible region</figcaption>
+</figure>
+<p>eGRU: running on ARM Cortex-M0 microcontroller, accuracy 61% with <strong>non-standard</strong> evaluation</p>
+<aside class="notes">
+<p>Assuming no overlap. Most models use very high overlap, 100X higher compute</p>
+</aside>
+</section></section>
+<section><section id="further-research" class="title-slide slide level1"><h1>Further Research</h1></section>
+<section id="waveform-input-to-model" class="slide level2">
+<h2>Waveform input to model</h2>
+<ul>
+<li>Preprocessing. Mel-spectrogram: <strong>60</strong> milliseconds</li>
+<li>CNN. Stride-DS-24: <strong>81</strong> milliseconds</li>
+<li>With quantization, spectrogram conversion is the bottleneck!</li>
+<li>Convolutions can be used to learn a Time-Frequency transformation.</li>
+</ul>
+<p>Can this be faster than the standard FFT? And still perform well?</p>
+<aside class="notes">
+<ul>
+<li>Especially interesting with CNN hardware acceleration.</li>
+</ul>
+</aside>
+</section>
+<section id="on-sensor-inference-challenges" class="slide level2">
+<h2>On-sensor inference challenges</h2>
+<ul>
+<li>Reducing power consumption. Adaptive sampling</li>
+<li>Efficient training data collection in WSN. Active Learning?</li>
+<li>Real-life performance evaluations. Out-of-domain samples</li>
+</ul>
+<aside class="notes">
+<p>TODO: Add few more projects here. From research document</p>
+</aside>
+</section></section>
+<section><section id="strategies-for-shrinking-convolutional-neural-network" class="title-slide slide level1"><h1>Strategies for shrinking Convolutional Neural Network</h1></section>
+<section id="reduce-input-dimensionality" class="slide level2">
+<h2>Reduce input dimensionality</h2>
+<p><img data-src="img/input-size.svg" style="width:70.0%" /></p>
+<ul>
+<li>Lower frequency range</li>
+<li>Lower frequency resolution</li>
+<li>Lower time duration in window</li>
+<li>Lower time resolution</li>
+</ul>
+<aside class="notes">
+<p>Directly limits time and RAM use first few layers.</p>
+<p>Follow-on effects. A simpler input representation is (hopefully) easier to learn allowing for a simpler model</p>
+<p>TODO: make a picture illustrating this</p>
+</aside>
+</section>
+<section id="reduce-overlap" class="slide level2">
+<h2>Reduce overlap</h2>
+<p><img data-src="img/framing.png" style="width:80.0%" /></p>
+<p>Models in literature use 95% overlap or more. 20x penalty in inference time!</p>
+<p>Often low performance benefit. Use 0% (1x) or 50% (2x).</p>
+<!--
+## Regular 2D-convolution
+
+![](img/convolution-2d.png){width=100%}
+
+::: notes
+
+TODO: illustrate the cubical nature. Many channel
+
+:::
+-->
+</section>
+<section id="depthwise-separable-convolution" class="slide level2">
+<h2>Depthwise-separable Convolution</h2>
+<p><img data-src="img/depthwise-separable-convolution.png" style="width:90.0%" /></p>
+<p>MobileNet, “Hello Edge”, AclNet. 3x3 kernel,64 filters: 7.5x speedup</p>
+<aside class="notes">
+<ul>
+<li>Much fewer operations</li>
+<li>Less expressive - but regularization effect can be beneficial</li>
+</ul>
+</aside>
+</section>
+<section id="spatially-separable-convolution" class="slide level2">
+<h2>Spatially-separable Convolution</h2>
+<p><img data-src="img/spatially-separable-convolution.png" style="width:90.0%" /></p>
+<p>EffNet, LD-CNN. 5x5 kernel: 2.5x speedup</p>
+</section>
+<section id="downsampling-using-max-pooling" class="slide level2">
+<h2>Downsampling using max-pooling</h2>
+<p><img data-src="img/maxpooling.png" style="width:100.0%" /></p>
+<p>Wasteful? Computing convolutions, then throwing away 3/4 of results!</p>
+</section>
+<section id="downsampling-using-strided-convolution" class="slide level2">
+<h2>Downsampling using strided convolution</h2>
+<p><img data-src="img/strided-convolution.png" style="width:100.0%" /></p>
+<p>Striding means fewer computations and “learned” downsampling</p>
+</section>
+<section id="model-comparison-1" class="slide level2">
+<h2>Model comparison</h2>
+<p><img data-src="img/models_accuracy.png" style="width:100.0%" /></p>
+<aside class="notes">
+<ul>
+<li>Baseline relative to SB-CNN and LD-CNN is down from 79% to 73% Expected because poorer input representation. Much lower overlap</li>
+</ul>
+</aside>
+</section>
+<section id="performance-vs-compute" class="slide level2">
+<h2>Performance vs compute</h2>
+<p><img data-src="img/models_efficiency.png" style="width:100.0%" /></p>
+<aside class="notes">
+<ul>
+<li>Performance of Strided-DS-24 similar to Baseline despite 12x the CPU use</li>
+<li>Suprising? Stride alone worse than Strided-DS-24</li>
+<li>Bottleneck and EffNet performed poorly</li>
+<li>Practical speedup not linear with MACC</li>
+</ul>
+</aside>
+<!--
+
+-->
+</section>
+<section id="quantization" class="slide level2">
+<h2>Quantization</h2>
+<p>Inference can often use 8 bit integers instead of 32 bit floats</p>
+<ul>
+<li>1/4 the size for weights (FLASH) and activations (RAM)</li>
+<li>8bit <strong>SIMD</strong> on ARM Cortex M4F: 1/4 the inference time</li>
+<li>Supported in X-CUBE-AI 4.x (July 2019)</li>
+</ul>
+<!--
+
+## Stronger training process 
+
+- Data Augmentation. *Mixup*, *SpecAugment*
+- Transfer Learning on more data. *AudioSet*
+
+-->
+<aside class="notes">
+<p>EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz</p>
+</aside>
+</section>
+<section id="sensor-network-architectures" class="slide level2">
+<h2>Sensor Network Architectures</h2>
+<p><img data-src="img/sensornetworks.png" style="width:70.0%" /></p>
+</section>
+<section id="conclusions" class="slide level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Able to perform Environmental Sound Classification at <code>~ 10mW</code> power,</li>
+<li>Using <em>general purpose microcontroller</em>, ARM Cortex M4F</li>
+<li>Best performance: 70.9% mean accuracy, under 20% CPU load</li>
+<li>Highest reported Urbansound8k on microcontroller (over eGRU 62%)</li>
+<li>Best architecture: Depthwise-Separable convolutions with striding</li>
+<li>Quantization enables 4x bigger models (and higher perf)</li>
+<li>With dedicated Neural Network Hardware</li>
+</ul>
 </section></section>
     </div>
   </div>
