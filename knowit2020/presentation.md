@@ -92,6 +92,24 @@ Examples
 * Medical. Detect heart murmurs
 * Process industry. Advance process once audible event happens (popcorn)
 
+## Neural Network co-processors
+
+![Project Orlando (ST Microelectronics), expected 2020](img/ST-Orlando-SoC.png){width=25%}
+
+Expected 10x power efficiency increases.
+
+::: notes
+
+2.9 TOPS/W. AlexNet, 1000 classes, 10 FPS. 41 mWatt
+
+Audio models probably **< 1 mWatt**. 
+
+
+https://www.latticesemi.com/Blog/2019/05/17/18/25/sensAI
+
+:::
+
+
 <!--
 
 ## Outline
@@ -417,6 +435,10 @@ Performance metrics
 
 -->
 
+## Evaluation
+
+![](img/results.png){width=100%}
+
 # Summary
 
 ## Standard models exist
@@ -708,7 +730,7 @@ Human presence detection. VGG8 on 64x64 RGB image, 5 FPS: 7 mW.
 
 Audio ML approx **1 mW**
 
-## Neural Network co-processors
+## Neural Network co-processors micro
 
 ![Project Orlando (ST Microelectronics), expected 2020](img/ST-Orlando-SoC.png){width=25%}
 
