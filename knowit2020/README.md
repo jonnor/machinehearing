@@ -223,7 +223,7 @@ Hiring 2 developers in 2020
 Open
 
 Have an application that needs Audio ML
-but think this sounds wayy to complicated.
+but think this sounds way to complicated.
 
 Come talk to us about our platform and services
 Possibility of pilot projects in Fall 2020

@@ -381,12 +381,13 @@ Performance metrics
 -->
 
 
-# Soundsensing Platform
+# Deploying
 
 <!--
 FIXME: 
 -->
 
+## Soundsensing Platform
 
 ## Demo video
 
@@ -407,11 +408,35 @@ Environmental Sound Classification
 
 ## Summary
 
-- Noise pollution is a growing problem
-- Wireless Sensor Networks can used to quantify
-- Noise Classification can provide more information
-- Want high density of sensors. Need to be low cost
-- On-sensor classification desirable for power/cost and privacy
+
+## Partner opportunities
+
+We are building a partner network
+
+- Partner role: Deliver solutions and integration on platform
+- Especially cases that require a lot of custom work
+- Something for Knowit?
+
+Email: <jon@soundsensing.no>
+
+## Employment opportunities
+
+Think that this sounds cool to work on?
+
+- Internships in Data Science now
+- Hiring 2 developers in 2020
+
+Email: <jon@soundsensing.no>
+
+## Investment opportunities
+
+Want to invest in a Machine Learning and Internet of Things startup?
+
+- Funding round open now 
+- 60% comitted
+- Some open slots still
+
+Email: <ole@soundsensing.no>
 
 
 ## More resources
@@ -441,10 +466,6 @@ Soundsensing
 Email: <jon@soundsensing.no>
 
 ## Come talk to me!
-
-- Noise Monitoring sensors. Pilot projects for 2020?
-- Environmental Sound, Wireless Sensor Networks for Audio. Research partnering?
-- "On-edge" / Embedded Device ML. Happy to advise!
 
 Email: <jon@soundsensing.no>
 
