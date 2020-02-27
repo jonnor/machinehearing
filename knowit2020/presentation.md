@@ -260,8 +260,6 @@ Key challenges
 * Capturing relevant metadata
 * Maintaining privacy
 
-Best practice: Design the process, document in a **protocol**
-
 ::: notes
 
 `FIXME: image of our Data document`
@@ -271,6 +269,12 @@ Sensitive data
 Privacy
 
 :::
+
+## Data management
+
+![Data management plans](img/plans.png){width=80%}
+
+Best practice: Design the process, document in a **protocol**
 
 ## Data Requirements
 
@@ -426,18 +430,25 @@ Try the standard audio pipeline, it often does OK.
 
 All available as open source solutions.
 
-## Data is challenging 
+## Data collection is not magic 
 
-To build a useful ML model, need
+- Structure collection upfront
+- Budget resources for collection and labeling
+- Integrate quality checking
+- Build it up gradually
 
-- Large amount of data
-- With high relevance
-- Careful strucuting
-- Lots of manual labor, typically
+Doable, but takes time!
 
+## Now what
 
+So have a model that performs Audio Classification **on our PC**.
+
+But we want to monitor a real-world phenomenon.
+
+How to deploy this?
 
 # Deploying
+
 
 ## Architectures
 
@@ -446,6 +457,10 @@ To build a useful ML model, need
 <!--
 FIXME: 
 -->
+
+## Soundsensing Platform
+
+![](img/soundsensing-platform.svg)
 
 ## Demo video
 
@@ -459,15 +474,10 @@ Environmental Sound Classification
 
 :::
 
+
 ## Noise Monitoring solution
 
 ![Pilot projects with customers Now - 2020](img/what-we-do.png)
-
-## Soundsensing Platform
-
-![](img/soundsensing-platform.svg)
-
-
 
 
 # Outro
@@ -524,10 +534,6 @@ Soundsensing
 ## Questions
 
 <h1 style="padding: 100px">?</h1>
-
-Email: <jon@soundsensing.no>
-
-## Come talk to me!
 
 Email: <jon@soundsensing.no>
 
