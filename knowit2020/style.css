@@ -42,6 +42,10 @@
     display: none;
 }
 
+#soundsensing-platform h2 {
+    display: none;
+}
+
 #confusion {
     padding: 0px;
 }

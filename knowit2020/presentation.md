@@ -63,6 +63,34 @@ The goals of this talk
 > 
 > what Soundsensing provides in this area
 
+# Background
+
+## Why Audio Classification
+
+- Rich source of information
+- Any physical motion creates sound
+- Sound spreads in a space
+- Enables *non invasive sensing*
+- Great compliment to image/video
+- Humans use our hearing usefully in many tasks
+- Machines can now reach similar performance
+
+## Applications
+
+Audio sub-fields
+
+- Speech Recognition. Keyword spotting.
+- Music Analysis. Genre classification.
+- **General** / other
+
+Examples
+
+* Eco-acoustics. Analyze bird migrations
+* Wildlife preservation. Detect poachers in protected areas
+* Manufacturing Quality Control. Testing electric car seat motors
+* Security: Highlighting CCTV feeds with verbal agression
+* Medical. Detect heart murmurs
+* Process industry. Advance process once audible event happens (popcorn)
 
 <!--
 
@@ -81,7 +109,7 @@ TODO: is it needed?
 FIXME: explain briefly Digital Sound
 -->
 
-# How to make an Audio ML solution
+# Making an Audio ML solution
 
 ## Overall process
 
@@ -97,9 +125,7 @@ FIXME: explain briefly Digital Sound
 
 ## Example task
 
-Noise Classification in Urban environments
-
-"Environmental Sound Classification"
+Noise Classification in Urban environments. AKA *"Environmental Sound Classification"*
 
 > Given an audio signal of environmental sounds,
 > 
@@ -234,6 +260,8 @@ Key challenges
 * Capturing relevant metadata
 * Maintaining privacy
 
+Best practice: Design the process, document in a **protocol**
+
 ::: notes
 
 `FIXME: image of our Data document`
@@ -283,7 +311,7 @@ How to label
 
 - Outsource. Data labeling services, Mechanical Turk, ..
 - Crowdsource. From the public. From your users?
-- Inhouse. Dedicated resource? Part of DS team? 
+- Inhouse. Dedicated resource? Part of DS team?
 - Automated. Other datasources? Existing models?
 
 ::: notes
@@ -296,6 +324,9 @@ Expertice required? Domain knowledge?
 :::
 
 ## Annotation tools
+
+![Labeling audio data](img/soundsensing-audioannotator.png){width=80%}
+
 
 ::: notes
 `FIXME: image of our tool`
@@ -348,7 +379,9 @@ TODO:
 FIXME: explain briefly Convolutional Neural Network
 -->
 
+## Convolutional Neural Network
 
+![Best-in-class for image recognition tasks](img/cnn.png){width=70%}
 
 ## Model
 
@@ -380,14 +413,39 @@ Performance metrics
 
 -->
 
+# Summary
+
+## Standard models exist
+
+Try the standard audio pipeline, it often does OK.
+
+- Fixed-length analysis windows
+- Use log-mel spectrograms as features
+- Convolutional Neural Network as classifier
+- Aggregate prediction from each window
+
+All available as open source solutions.
+
+## Data is challenging 
+
+To build a useful ML model, need
+
+- Large amount of data
+- With high relevance
+- Careful strucuting
+- Lots of manual labor, typically
+
+
 
 # Deploying
+
+## Architectures
+
+![](img/sensornetworks.png){width=70%}
 
 <!--
 FIXME: 
 -->
-
-## Soundsensing Platform
 
 ## Demo video
 
@@ -401,13 +459,18 @@ Environmental Sound Classification
 
 :::
 
+## Noise Monitoring solution
+
+![Pilot projects with customers Now - 2020](img/what-we-do.png)
+
+## Soundsensing Platform
+
+![](img/soundsensing-platform.svg)
 
 
 
-# Wrapping up
 
-## Summary
-
+# Outro
 
 ## Partner opportunities
 
@@ -415,7 +478,6 @@ We are building a partner network
 
 - Partner role: Deliver solutions and integration on platform
 - Especially cases that require a lot of custom work
-- Something for Knowit?
 
 Email: <jon@soundsensing.no>
 
@@ -474,9 +536,6 @@ Email: <jon@soundsensing.no>
 
 # BONUS
 
-## More
-
-Next
 
 # Thesis results
 
@@ -492,7 +551,6 @@ Expected because poorer input representation.
 Much lower overlap 
 
 :::
-
 
 
 ## List of results
@@ -532,77 +590,6 @@ Usefulness:
 :::
 
 
-# Experimental Details
-
-
-## All models
-
-![](img/models-list.png)
-
-::: notes
-
-* Baseline is outside requirements
-* Rest fits the theoretical constraints
-* Sometimes had to reduce number of base filters to 22 to fit in RAM
-
-:::
-
-
-# Methods
-
-Standard procedure for Urbansound8k
-
-- Classification problem
-- 4 second sound clips
-- 10 classes
-- 10-fold cross-validation, predefined
-- Metric: Accuracy
-
-## Training settings
-
-![](img/training-settings.png)
-
-## Training
-
-- NVidia RTX2060 GPU 6 GB
-- 10 models x 10 folds = 100 training jobs
-- 100 epochs
-- 3 jobs in parallel
-- 36 hours total
-
-::: notes 
-
-- ! GPU utilization only 15%
-- CPU utilization was near 100%
-- Larger models to utilize GPU better?
-- Parallel processing limited by RAM of biggest models
-- GPU-based augmentation might be faster
-
-:::
-
-## Evaluation
-
-For each fold of each model
-
-1. Select best model based on validation accuracy
-2. Calculate accuracy on test set
-
-For each model
-
-- Measure CPU time on device
-
-
-# Your model will trick you
-
-And the bugs can be hard to spot
-
-## FAIL: Integer truncation
-
-![](img/fail-truncation.png){width=100%}
-
-## FAIL. Dropout location
-
-![](img/fail-dropout.png){width=100%}
 
 
 # Background
@@ -664,6 +651,11 @@ Image: https://www.regjeringen.no/no/tema/plan-bygg-og-eiendom/plan--og-bygnings
 :::
 
 
+
+
+
+# Audio Machine Learning on low-power sensors 
+
 ## Wireless Sensor Networks
 
 - Want: Wide and dense coverage
@@ -684,9 +676,6 @@ Electrician is 750 NOK/hour
 
 Image: https://www.nti-audio.com/en/applications/noise-measurement/unattended-monitoring
 :::
-
-
-# Audio Machine Learning on low-power sensors 
 
 ## What do you mean by low-power?
 
@@ -798,7 +787,7 @@ Assuming no overlap. Most models use very high overlap, 100X higher compute
 :::
 
 
-# Further Research
+# Research Topics
 
 
 ## Waveform input to model
@@ -831,7 +820,7 @@ TODO: Add few more projects here. From research document
 :::
 
 
-# Strategies for shrinking Convolutional Neural Network
+# Shrinking a Convolutional Neural Network
 
 
 ## Reduce input dimensionality
@@ -963,18 +952,5 @@ EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz
 :::
 
 
-## Sensor Network Architectures
 
-![](img/sensornetworks.png){width=70%}
-
-
-## Conclusions
-
-- Able to perform Environmental Sound Classification at `~ 10mW` power,
-- Using *general purpose microcontroller*, ARM Cortex M4F
-- Best performance: 70.9% mean accuracy, under 20% CPU load
-- Highest reported Urbansound8k on microcontroller (over eGRU 62%)
-- Best architecture: Depthwise-Separable convolutions with striding
-- Quantization enables 4x bigger models (and higher perf)
-- With dedicated Neural Network Hardware
 

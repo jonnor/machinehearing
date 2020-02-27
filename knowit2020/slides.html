@@ -88,6 +88,37 @@
 <p>overall workflow of creating an Audio Classification solution</p>
 <p>what Soundsensing provides in this area</p>
 </blockquote>
+</section></section>
+<section><section id="background" class="title-slide slide level1"><h1>Background</h1></section>
+<section id="why-audio-classification" class="slide level2">
+<h2>Why Audio Classification</h2>
+<ul>
+<li>Rich source of information</li>
+<li>Any physical motion creates sound</li>
+<li>Sound spreads in a space</li>
+<li>Enables <em>non invasive sensing</em></li>
+<li>Great compliment to image/video</li>
+<li>Humans use our hearing usefully in many tasks</li>
+<li>Machines can now reach similar performance</li>
+</ul>
+</section>
+<section id="applications" class="slide level2">
+<h2>Applications</h2>
+<p>Audio sub-fields</p>
+<ul>
+<li>Speech Recognition. Keyword spotting.</li>
+<li>Music Analysis. Genre classification.</li>
+<li><strong>General</strong> / other</li>
+</ul>
+<p>Examples</p>
+<ul>
+<li>Eco-acoustics. Analyze bird migrations</li>
+<li>Wildlife preservation. Detect poachers in protected areas</li>
+<li>Manufacturing Quality Control. Testing electric car seat motors</li>
+<li>Security: Highlighting CCTV feeds with verbal agression</li>
+<li>Medical. Detect heart murmurs</li>
+<li>Process industry. Advance process once audible event happens (popcorn)</li>
+</ul>
 <!--
 
 ## Outline
@@ -104,7 +135,7 @@ TODO: is it needed?
 FIXME: explain briefly Digital Sound
 -->
 </section></section>
-<section><section id="how-to-make-an-audio-ml-solution" class="title-slide slide level1"><h1>How to make an Audio ML solution</h1></section>
+<section><section id="making-an-audio-ml-solution" class="title-slide slide level1"><h1>Making an Audio ML solution</h1></section>
 <section id="overall-process" class="slide level2">
 <h2>Overall process</h2>
 <ol type="1">
@@ -120,8 +151,7 @@ FIXME: explain briefly Digital Sound
 </section>
 <section id="example-task" class="slide level2">
 <h2>Example task</h2>
-<p>Noise Classification in Urban environments</p>
-<p>“Environmental Sound Classification”</p>
+<p>Noise Classification in Urban environments. AKA <em>“Environmental Sound Classification”</em></p>
 <blockquote>
 <p>Given an audio signal of environmental sounds,</p>
 <p>determine which class it belongs to</p>
@@ -221,6 +251,7 @@ TODO: define AD task
 <li>Capturing relevant metadata</li>
 <li>Maintaining privacy</li>
 </ul>
+<p>Best practice: Design the process, document in a <strong>protocol</strong></p>
 <aside class="notes">
 <p><code>FIXME: image of our Data document</code></p>
 <p>Personally identifyable information. GDPR Sensitive data Privacy</p>
@@ -267,6 +298,9 @@ TODO: define AD task
 </section>
 <section id="annotation-tools" class="slide level2">
 <h2>Annotation tools</h2>
+<figure>
+<img data-src="img/soundsensing-audioannotator.png" style="width:80.0%" alt="" /><figcaption>Labeling audio data</figcaption>
+</figure>
 <aside class="notes">
 <p><code>FIXME: image of our tool</code></p>
 <p>Audacity Audio Annotator …</p>
@@ -308,6 +342,12 @@ As in image classification etc
 FIXME: explain briefly Convolutional Neural Network
 -->
 </section>
+<section id="convolutional-neural-network" class="slide level2">
+<h2>Convolutional Neural Network</h2>
+<figure>
+<img data-src="img/cnn.png" style="width:70.0%" alt="" /><figcaption>Best-in-class for image recognition tasks</figcaption>
+</figure>
+</section>
 <section id="model" class="slide level2">
 <h2>Model</h2>
 <!--
@@ -329,12 +369,35 @@ Based on SB-CNN (Salamon+Bello, 2016)
 Performance metrics
 
 -->
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+</section>
+<section id="standard-models-exist" class="slide level2">
+<h2>Standard models exist</h2>
+<p>Try the standard audio pipeline, it often does OK.</p>
+<ul>
+<li>Fixed-length analysis windows</li>
+<li>Use log-mel spectrograms as features</li>
+<li>Convolutional Neural Network as classifier</li>
+<li>Aggregate prediction from each window</li>
+</ul>
+<p>All available as open source solutions.</p>
+</section>
+<section id="data-is-challenging" class="slide level2">
+<h2>Data is challenging</h2>
+<ul>
+<li>Data collection</li>
+<li></li>
+</ul>
 </section></section>
-<section><section id="deploying" class="title-slide slide level1"><h1>Deploying</h1><!--
+<section><section id="deploying" class="title-slide slide level1"><h1>Deploying</h1></section>
+<section id="architectures" class="slide level2">
+<h2>Architectures</h2>
+<p><img data-src="img/sensornetworks.png" style="width:70.0%" /></p>
+<!--
 FIXME: 
---></section>
-<section id="soundsensing-platform" class="slide level2">
-<h2>Soundsensing Platform</h2>
+-->
 </section>
 <section id="demo-video" class="slide level2">
 <h2>Demo video</h2>
@@ -344,18 +407,24 @@ FIXME:
 <p>Recognizing Urban sounds</p>
 <p>Environmental Sound Classification</p>
 </aside>
-</section></section>
-<section><section id="wrapping-up" class="title-slide slide level1"><h1>Wrapping up</h1></section>
-<section id="summary" class="slide level2">
-<h2>Summary</h2>
 </section>
+<section id="noise-monitoring-solution" class="slide level2">
+<h2>Noise Monitoring solution</h2>
+<figure>
+<img data-src="img/what-we-do.png" alt="" /><figcaption>Pilot projects with customers Now - 2020</figcaption>
+</figure>
+</section>
+<section id="soundsensing-platform" class="slide level2">
+<h2>Soundsensing Platform</h2>
+<p><img data-src="img/soundsensing-platform.svg" /></p>
+</section></section>
+<section><section id="outro" class="title-slide slide level1"><h1>Outro</h1></section>
 <section id="partner-opportunities" class="slide level2">
 <h2>Partner opportunities</h2>
 <p>We are building a partner network</p>
 <ul>
 <li>Partner role: Deliver solutions and integration on platform</li>
 <li>Especially cases that require a lot of custom work</li>
-<li>Something for Knowit?</li>
 </ul>
 <p>Email: <a href="mailto:jon@soundsensing.no" class="email">jon@soundsensing.no</a></p>
 </section>
@@ -408,11 +477,7 @@ FIXME:
 <h2>Come talk to me!</h2>
 <p>Email: <a href="mailto:jon@soundsensing.no" class="email">jon@soundsensing.no</a></p>
 </section></section>
-<section><section id="bonus" class="title-slide slide level1"><h1>BONUS</h1></section>
-<section id="more" class="slide level2">
-<h2>More</h2>
-<p>Next</p>
-</section></section>
+<section id="bonus" class="title-slide slide level1"><h1>BONUS</h1></section>
 <section><section id="thesis-results" class="title-slide slide level1"><h1>Thesis results</h1></section>
 <section id="model-comparison" class="slide level2">
 <h2>Model comparison</h2>
@@ -455,71 +520,7 @@ FIXME:
 </ul>
 </aside>
 </section></section>
-<section><section id="experimental-details" class="title-slide slide level1"><h1>Experimental Details</h1></section>
-<section id="all-models" class="slide level2">
-<h2>All models</h2>
-<p><img data-src="img/models-list.png" /></p>
-<aside class="notes">
-<ul>
-<li>Baseline is outside requirements</li>
-<li>Rest fits the theoretical constraints</li>
-<li>Sometimes had to reduce number of base filters to 22 to fit in RAM</li>
-</ul>
-</aside>
-</section></section>
-<section><section id="methods" class="title-slide slide level1"><h1>Methods</h1><p>Standard procedure for Urbansound8k</p>
-<ul>
-<li>Classification problem</li>
-<li>4 second sound clips</li>
-<li>10 classes</li>
-<li>10-fold cross-validation, predefined</li>
-<li>Metric: Accuracy</li>
-</ul></section>
-<section id="training-settings" class="slide level2">
-<h2>Training settings</h2>
-<p><img data-src="img/training-settings.png" /></p>
-</section>
-<section id="training" class="slide level2">
-<h2>Training</h2>
-<ul>
-<li>NVidia RTX2060 GPU 6 GB</li>
-<li>10 models x 10 folds = 100 training jobs</li>
-<li>100 epochs</li>
-<li>3 jobs in parallel</li>
-<li>36 hours total</li>
-</ul>
-<aside class="notes">
-<ul>
-<li>! GPU utilization only 15%</li>
-<li>CPU utilization was near 100%</li>
-<li>Larger models to utilize GPU better?</li>
-<li>Parallel processing limited by RAM of biggest models</li>
-<li>GPU-based augmentation might be faster</li>
-</ul>
-</aside>
-</section>
-<section id="evaluation" class="slide level2">
-<h2>Evaluation</h2>
-<p>For each fold of each model</p>
-<ol type="1">
-<li>Select best model based on validation accuracy</li>
-<li>Calculate accuracy on test set</li>
-</ol>
-<p>For each model</p>
-<ul>
-<li>Measure CPU time on device</li>
-</ul>
-</section></section>
-<section><section id="your-model-will-trick-you" class="title-slide slide level1"><h1>Your model will trick you</h1><p>And the bugs can be hard to spot</p></section>
-<section id="fail-integer-truncation" class="slide level2">
-<h2>FAIL: Integer truncation</h2>
-<p><img data-src="img/fail-truncation.png" style="width:100.0%" /></p>
-</section>
-<section id="fail.-dropout-location" class="slide level2">
-<h2>FAIL. Dropout location</h2>
-<p><img data-src="img/fail-dropout.png" style="width:100.0%" /></p>
-</section></section>
-<section><section id="background" class="title-slide slide level1"><h1>Background</h1></section>
+<section><section id="background-1" class="title-slide slide level1"><h1>Background</h1></section>
 <section id="mel-spectrogram" class="slide level2">
 <h2>Mel-spectrogram</h2>
 <p><img data-src="img/spectrograms.svg" /></p>
@@ -558,7 +559,8 @@ FIXME:
 </ul>
 <p>Image: https://www.regjeringen.no/no/tema/plan-bygg-og-eiendom/plan–og-bygningsloven/plan/kunnskapsgrunnlaget-i-planlegging/statistikk-i-plan/id2396747/</p>
 </aside>
-</section>
+</section></section>
+<section><section id="audio-machine-learning-on-low-power-sensors" class="title-slide slide level1"><h1>Audio Machine Learning on low-power sensors</h1></section>
 <section id="wireless-sensor-networks" class="slide level2">
 <h2>Wireless Sensor Networks</h2>
 <ul>
@@ -579,8 +581,7 @@ FIXME:
 <p>Electrician is 750 NOK/hour</p>
 <p>Image: https://www.nti-audio.com/en/applications/noise-measurement/unattended-monitoring</p>
 </aside>
-</section></section>
-<section><section id="audio-machine-learning-on-low-power-sensors" class="title-slide slide level1"><h1>Audio Machine Learning on low-power sensors</h1></section>
+</section>
 <section id="what-do-you-mean-by-low-power" class="slide level2">
 <h2>What do you mean by low-power?</h2>
 <p>Want: 1 year lifetime for palm-sized battery</p>
@@ -677,7 +678,7 @@ FIXME:
 <p>Assuming no overlap. Most models use very high overlap, 100X higher compute</p>
 </aside>
 </section></section>
-<section><section id="further-research" class="title-slide slide level1"><h1>Further Research</h1></section>
+<section><section id="research-topics" class="title-slide slide level1"><h1>Research Topics</h1></section>
 <section id="waveform-input-to-model" class="slide level2">
 <h2>Waveform input to model</h2>
 <ul>
@@ -704,7 +705,7 @@ FIXME:
 <p>TODO: Add few more projects here. From research document</p>
 </aside>
 </section></section>
-<section><section id="strategies-for-shrinking-convolutional-neural-network" class="title-slide slide level1"><h1>Strategies for shrinking Convolutional Neural Network</h1></section>
+<section><section id="shrinking-a-convolutional-neural-network" class="title-slide slide level1"><h1>Shrinking a Convolutional Neural Network</h1></section>
 <section id="reduce-input-dimensionality" class="slide level2">
 <h2>Reduce input dimensionality</h2>
 <p><img data-src="img/input-size.svg" style="width:70.0%" /></p>
@@ -806,22 +807,6 @@ TODO: illustrate the cubical nature. Many channel
 <aside class="notes">
 <p>EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz</p>
 </aside>
-</section>
-<section id="sensor-network-architectures" class="slide level2">
-<h2>Sensor Network Architectures</h2>
-<p><img data-src="img/sensornetworks.png" style="width:70.0%" /></p>
-</section>
-<section id="conclusions" class="slide level2">
-<h2>Conclusions</h2>
-<ul>
-<li>Able to perform Environmental Sound Classification at <code>~ 10mW</code> power,</li>
-<li>Using <em>general purpose microcontroller</em>, ARM Cortex M4F</li>
-<li>Best performance: 70.9% mean accuracy, under 20% CPU load</li>
-<li>Highest reported Urbansound8k on microcontroller (over eGRU 62%)</li>
-<li>Best architecture: Depthwise-Separable convolutions with striding</li>
-<li>Quantization enables 4x bigger models (and higher perf)</li>
-<li>With dedicated Neural Network Hardware</li>
-</ul>
 </section></section>
     </div>
   </div>

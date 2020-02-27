@@ -138,9 +138,6 @@ Running pilot projects with customers now.
 Image and Natural Language Processing pushes Audio forward
 CNNs. Sequence modelling (RNNs).
 
-## Calls to action
-
-- Come talk to us about applications of Audio ML
 
 
 # Outline
@@ -198,9 +195,6 @@ More resources
 ## Rich media
 
 
-Image. Annotation tool
-Image. Soundsensing Platform diagram
-
 Image. 
 
 Snippet. Data Collection protocol / Data Management
@@ -212,82 +206,6 @@ Make it easier/better
 - Data Augmentation
 - Pretrained models / transfer learning
 - 
-
-
-## CTAs
-
-Think that this sounds cool to work on?
-
-Internships in Data Science now
-Hiring 2 developers in 2020
-Open
-
-Have an application that needs Audio ML
-but think this sounds way to complicated.
-
-Come talk to us about our platform and services
-Possibility of pilot projects in Fall 2020
-
-
-Want to invest in an ML and IoT startup
-
-Fundraising now.
-Some openings still
-Have a pipeline of commercial pilots (worth 600k in 2020)
-
-
-
-
-## Offering
-
-Can use Soundsensing as:
-- infrastructure provider
-- end2end user solution 
-
-ML solution/infrastructure.
-What Soundsensing provides, integration points for customer/partner
-Layer cake
-
-Infrastructure
-
-- Data aquisition (Sensors)
-- Data transport
-- Data storage
-- Sensor fleet management
-
-
-DB-10 as one of many sensor possibilities
-
-
-Models
-
-- Audio Classification
-- Audio Event Detection
-- Anomaly Detection
-
-Interfaces
-
-- HTTP API
-- User interface
-Integration with 3rd party systems
-
-Application
-
-- Noise Monitoring
-- Condition Monitoring
-
-Target Markets
-
-- Acousticians
-- Construction
-- Office
-
-
-- Manufacturing
-- Real-estate
-- Process industry
-
-
 
 
 ## More
