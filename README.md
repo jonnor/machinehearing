@@ -1,5 +1,13 @@
 # Machine Hearing
 
+## Classifying sound using Machine Learning
+
+<a href="https://www.youtube.com/watch?v=1H63PewtDbo">
+<img src="https://github.com/jonnor/machinehearing/raw/master/knowit2020/video.png" height="200" alt="Youtube: Audio Classification using Machine Learning by Jon Nordby, EuroPython 2019">
+</a>
+
+At KnowIt Oslo, 2020. [Video recording](https://www.youtube.com/watch?v=1H63PewtDbo), [slides](https://jonnor.github.io/machinehearing/knowit2020/slides.html), [notes](./knowit2020)
+
 ## Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks
 
 <a href="https://github.com/jonnor/ESC-CNN-microcontroller">
@@ -10,7 +18,7 @@ Master thesis. Report and code available in the [Github repository](https://gith
 
 ## EuroPython2019: Audio Classification using Machine Learning
 
-<a href="https://youtu.be/2FmMESSD2CM?t=8470">
+<a href="https://www.youtube.com/watch?v=uCGROOUO_wY">
 <img src="https://github.com/jonnor/machinehearing/raw/master/europython2019/video.png" height="200" alt="Youtube: Audio Classification using Machine Learning by Jon Nordby, EuroPython 2019">
 </a>
 
