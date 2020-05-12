@@ -108,6 +108,12 @@ Rough notes on various topics.
 
 Useful resources to learn more.
 
+### Presentations
+
+- [Audio Event Detection w/Deep Learning](https://www.youtube.com/watch?v=9X66iwEQSyI).
+By Robert Coop, Ph.D, Head of AI and ML @ Stanley B&D.
+From Data Science Connect, 2028.
+
 
 ### Books
 
