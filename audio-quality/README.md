@@ -179,22 +179,21 @@ Note: Password protected, must be requested via email.
 
 ### Operating principle
 
-![Block diagram of VISQOL. Source: HinesVISQOL2015](Block-diagram-of-VISQOL-hines.jpg)
+![Block diagram of VISQOL. Source: HinesVISQOL2015](Block-diagram-of-ViSQOL-hines.jpg)
 
 ### VISQOL paper summary
 
 Based on similarity of spectrograms
 Designed to be particularly sensitive to VoIP degradation
+
 > Using a distance metric called the Neurogram Similarity Index Measure or NSIM
-Inspired by Structural Similarity Index (SSIM)
+> Inspired by Structural Similarity Index (SSIM)
 > In this work, spectrograms are treated as images to compare similarity.
 
 > Paper compares quality predictions with PESQ and POLQA for common problems in VoIP:
 > clock drift, associated time warping, and playout delays.
 > The results indicate that ViSQOL and POLQA significantly outperform PESQ,
 > with ViSQOL competing well with POLQA.
-
-! nice block diagrams of ViSQOL and PESQ, POLQA
 
 > (On speech enhancement algorithms)
 > However, these metrics have difficulty with modern communications networks.
