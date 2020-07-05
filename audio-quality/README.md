@@ -6,16 +6,17 @@ Such quality can be quantified through conducting experimental evaluations with 
 These are often called "listening tests" or "subjective evaluations".
 The output of such an evaluation is often in the form of an [Mean Opinion Score (MOS)](https://en.wikipedia.org/wiki/Mean_opinion_score).
 For some applications standardized tests exists, such as [MUSHRA](https://en.wikipedia.org/wiki/MUSHRA) for intermediate quality audio codecs.
-One can carry out such tests oneself, or they can be performed by dedicated laboratories such as [FORCE Senselab](https://forcetechnology.com/en/all-industry-facilities/senselab-listening-test-sensory-evaluation).
+One can carry out such tests oneself using tools like [webMUSHRA](https://github.com/audiolabs/webMUSHRA), or the tests can be performed as a service by professional laboratories such as [FORCE Senselab](https://forcetechnology.com/en/all-industry-facilities/senselab-listening-test-sensory-evaluation).
 For an extensive treaty on the topic see the book [Sensory Evaluation of Sound](https://www.routledge.com/Sensory-Evaluation-of-Sound-1st-Edition/Zacharov/p/book/9781498751360).
 
-# Algorithmic estimates of Audio Quality
+# Estimating Audio Quality with models
 
-It is also possible to estimate sound quality using algorithms that model the human perception.
-These can be used to compliment  or in some cases replace, subjective evaluations.
+It is also possible to estimate sound quality using computer programs,
+using algorithms that model the human perception.
+These can be used to compliment, or in some cases replace, subjective evaluations.
 Such methods are often referred to as "objective metrics".
 These have been developed since at least the early 1990, and have increased performance and complexity over time.
-Approache range from simple calculations using well-known influential factors, to near black-box learned methods using artificial neural networks. 
+Approaches range from simple calculations using well-known influential factors, to near black-box models learned using artificial neural networks. 
 
 This page gives an overview some of the metrics that are available.
 
@@ -23,23 +24,27 @@ This page gives an overview some of the metrics that are available.
 
 ## Taxonomy
 
-Metrics may be classified 
+A wide range of metrics exists.
 
-Purpose.
+### Use of reference
+The reference is the audio before being processed by the system under test.
+It may also be called "original", "unprocessed" or similar.
 
-Speech Intelligibility,
-Speech Quality,
-Audio Quality (including music)
+In some usecases or test setups the reference is easily available.
+For example when comparing audio codecs, the codec is usually ran on a set of reference material,
+and this reference can be used during evaluation.
+Metrics making use of the reference is normally called "full reference".
+When a reference is used, it is possible for to directly model the *changes* that the system makes to the audio.
+ 
+In others cases the reference is not available, like online estimation of telephone speech quality.
+In that case the metric of use must be "reference-free" or "no reference" type.
+It is sometimes also called a "non-intrusive" or "single-ended" method.
+The changes the system makes is not directly observable.
 
-- Input data.
-Reference or no.
-- System modelling.
-Signal-based or 
-- Measurement type.
-Objective, subjective
+<!-- TODO: illustrate reference and reference-free -->
 
-## Applications
-Here are some examples of application areas for Audio Quality Metrics
+### Applications
+Some metrics may target specific application areas, and others be of more general nature
 
 - Speech transmission. Telephony, Voice over IP (VoIP), Tele-conferencing
 - Wireless sound transmission. Bluetooth devices etc.
@@ -49,6 +54,22 @@ Here are some examples of application areas for Audio Quality Metrics
 - Speech Enchancement and Speech Denoising
 - Audio Source Separation algorithms
 - Speech and Music Synthesis
+
+### Outputs
+
+Some categories of outputs are in common usage
+
+- Speech Intelligibility. How well and how easily can speech be understood 
+- Speech Quality. How good does the speech sound
+- Audio Quality. How good does the audio sound. Implies wider range of audio than just speech, typically music
+
+The output can designed to an estimate of Mean Opinion Score (MOS) or other quality scale.
+Or it can be a dimensionless distance metric whos relationship to subjective ratings must be determined separately.
+
+### Audio channels
+
+Most metrics are monoaural, estimating the quality of a single channel of audio.
+A few metrics are specialized to cover binaural and spatial audio.
 
 ## Overview
 
@@ -69,11 +90,6 @@ Here are some examples of application areas for Audio Quality Metrics
 
 ## Methods
 
-### ITU P.563
-Single-ended method for objective speech quality assessment in narrow-band telephony applications
-
-https://www.itu.int/rec/T-REC-P.563/en
-
 
 ### PSQM
 Perceptual Speech Quality Measure. [wikipedia](https://en.wikipedia.org/wiki/Perceptual_Speech_Quality_Measure)
@@ -89,6 +105,8 @@ Cannot account for packet loss, delay variance (jitter) or non-sequential packet
 Perceptual Evaluation of Speech Quality. [wikipedia](https://en.wikipedia.org/wiki/PESQ)
 
 ITU-T standardized in 2001. https://www.itu.int/rec/T-REC-P.862
+
+![Block diagram of PESQ. Source: HinesVISQOL2015](Block-diagram-of-PESQ-hines.jpg)
 
 Superseeded by POLQA in 2011.
 
@@ -119,6 +137,8 @@ another Python package. Marked as Work In Progress
 > protected by copyrights and patents and available under license from OPTICOM as software for various platforms.
 
 Latest version is POLQA v3 (2018)
+
+![Block diagram of POLQA. Source: HinesVISQOL2015](Block-diagram-of-POLQA-hines.jpg)
 
 #### Implementations
 Available as PolqaOem64 by the standards group.
@@ -151,6 +171,8 @@ Note: Password protected, must be requested via email.
 
 ### Operating principle
 
+![Block diagram of VISQOL. Source: HinesVISQOL2015](Block-diagram-of-VISQOL-hines.jpg)
+
 ### VISQOL paper summary
 
 Based on similarity of spectrograms
@@ -177,7 +199,7 @@ Inspired by Structural Similarity Index (SSIM)
 
 ViSQOLAudio: An objective audio quality metric for low bitrate codecs
 https://asa.scitation.org/doi/full/10.1121/1.4921674?TRACK=RSS
-Hines
+https://research.google/pubs/pub43991/
 
 Moidification of ViSQOL, with Voice Activity Detection removed and wider range of frequency bands.
 Bark scale.
@@ -187,10 +209,6 @@ Bark scale.
 - compared against the subjective listener test results carried out with headphones
 to evaluate their suitability for measuring audio quality for low bit rate codecs
 
-
-### AudioMOS
-
-TODO: document AudioMOS
 
 ### SDR
 Signal to Distortion Ratio.
@@ -207,16 +225,16 @@ Slightly modified definition of SDR, proposed in [SDR – Half-baked or Well Don
 
 Corrected version of 'SDR' method from BSS_eval.
 
-mir_eval implements `bss_eval_sources`
-Open issue (since 2014...) to implement more.
-https://github.com/craffel/mir_eval/issues/68
-Also has critiques of bss_eval
-
 ### SSI
 Speech Intelligibility Index
 
 Only reliable for "simple degradations" (additive noise)
 
+### ANIQUE+
+
+ANIQUE+: A new American national standard for non-intrusive estimation of narrowband speech quality
+
+Claims to be significantly better than ITU-T P.563
 
 ### Fréchet Audio Distance
  Abbreviated FAD
@@ -299,6 +317,9 @@ Python 3 compatible.
 Available on PIP.
 Has tests against the MATLAB reference.
 
+### ITU P.563
+Single-ended method for objective speech quality assessment in narrow-band telephony applications
+https://www.itu.int/rec/T-REC-P.563/en
 
 
 ### PEASS
@@ -316,9 +337,19 @@ Licensed as GNU GPLv3
 ### fwSNRSeg
 Frequency-weighted segmental SNR
 
+Has been used for binaural speech intelligibility in [Estimation of binaural intelligibility using the frequency-weighted segmental SNR of stereo channel signals](https://ieeexplore.ieee.org/document/7415459).
+
 #### Implementations
 [pysepm](https://github.com/schmiph2/pysepm)
 Python package.
 Implements many Speech Quality and Speech Intelligibilty metrics.
 Including Log-likelihood Ratio.
 STOI and PESQ metrics by wrapping pystoi and pypesq
+
+### AMBIQUAL
+
+AMBIQUAL - a full reference objective quality metric for ambisonic spatial audio
+https://ieeexplore.ieee.org/document/8463408 
+
+
+<!--  TODO: import other papers of interest -->
