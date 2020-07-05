@@ -1,18 +1,36 @@
 
-# Audio quality
+# Audio Quality
 
 Any system that reproduces sound needs to do so with a certain quality.
-Many metrics have been defined that can measure various aspects of audio quality.
-This is an overview of these.
+Such quality can be quantified through conducting experimental evaluations with human evaluations.
+These are often called "listening tests" or "subjective evaluations".
+The output of such an evaluation is often in the form of an [Mean Opinion Score (MOS)](https://en.wikipedia.org/wiki/Mean_opinion_score).
+For some applications standardized tests exists, such as [MUSHRA](https://en.wikipedia.org/wiki/MUSHRA) for intermediate quality audio codecs.
+One can carry out such tests oneself, or they can be performed by dedicated laboratories such as [FORCE Senselab](https://forcetechnology.com/en/all-industry-facilities/senselab-listening-test-sensory-evaluation).
+For an extensive treaty on the topic see the book [Sensory Evaluation of Sound](https://www.routledge.com/Sensory-Evaluation-of-Sound-1st-Edition/Zacharov/p/book/9781498751360).
 
-<!-- TODO: Make a table of all the metrics. Link to relevant section -->
+# Algorithmic estimates of Audio Quality
+
+It is also possible to estimate sound quality using algorithms that model the human perception.
+These can be used to compliment  or in some cases replace, subjective evaluations.
+Such methods are often referred to as "objective metrics".
+These have been developed since at least the early 1990, and have increased performance and complexity over time.
+Approache range from simple calculations using well-known influential factors, to near black-box learned methods using artificial neural networks. 
+
+This page gives an overview some of the metrics that are available.
+
+<!-- TODO: an illustration illustrating how this works -->
 
 ## Taxonomy
 
-- Purpose.
+Metrics may be classified 
+
+Purpose.
+
 Speech Intelligibility,
 Speech Quality,
-Audio/music quality
+Audio Quality (including music)
+
 - Input data.
 Reference or no.
 - System modelling.
@@ -20,96 +38,126 @@ Signal-based or
 - Measurement type.
 Objective, subjective
 
-Is there an objective way to measure sound quality? RE music
-https://www.quora.com/Is-there-an-objective-way-to-measure-sound-quality-Audio-community-often-cite-uneven-frequency-in-highs-mids-and-lows-as-poor-audio-quality-but-how-is-that-perceptually-negative-to-someone-who-listens-to-music
+## Applications
+Here are some examples of application areas for Audio Quality Metrics
+
+- Speech transmission. Telephony, Voice over IP (VoIP), Tele-conferencing
+- Wireless sound transmission. Bluetooth devices etc.
+- Sound reproduction. Speakers and headphones, concert halls
+- Hearing aids, assistive technology.
+- Audio Codec development
+- Speech Enchancement and Speech Denoising
+- Audio Source Separation algorithms
+- Speech and Music Synthesis
+
+## Overview
+
+| Method   |      Purpose      |  Open Implementations  | Definition  |
+|----------|:-------------:|------:| ------:|
+|  PSQM |   Speech Quality  |   |  [ITU-T P.861](https://www.itu.int/rec/T-REC-P.861/en)  |
+|  STOI  |  Speech Intelligibility   |  [pystoi](https://github.com/mpariente/pystoi)  | [Paper](https://ieeexplore.ieee.org/document/5495701) |
+|  PESQ |  Speech Quality  |  |  [ITU-T P.862](https://www.itu.int/rec/T-REC-P.862/en) |
+|  PEAQ |  Audio Quality  | [GstPEAQ](https://github.com/HSU-ANT/gstpeaq)  |  [ITU-R BS.1387-1](http://www.itu.int/rec/R-REC-BS.1387/en)  |
+|  POLQA |   Speech Quality | |   [ITU-T P.863](https://www.itu.int/rec/T-REC-P.863/en)  |
+|  VISQOL |   Audio/Speech Quality  |  [visqol](https://github.com/google/visqol) |  [Paper](https://arxiv.org/abs/2004.09584) |
+|  Frechet Audio Distance |  Audio Quality |  [frechet_audio_distance](https://github.com/google-research/google-research/tree/master/frechet_audio_distance)   |   [Paper](https://arxiv.org/abs/1812.08466) |
+|  Just Noticable Differences |  Speech/Audio Quality |   [PerceptualAudio](https://github.com/pranaymanocha/PerceptualAudio)  |  [Paper](https://arxiv.org/abs/2001.04460)  |
 
 
-### LLR
+![Evolution of ITU-T recommendations for Audio Quality (source: polqa.info)]((http://www.polqa.info/images/polqa_diagramm_zoom.jpg)
 
-Evaluation of Objective Quality Measures for Speech Enhancement
-2008.
-https://ieeexplore.ieee.org/document/4389058
-https://ecs.utdallas.edu/loizou/speech/obj_paper_jan08.pdf
 
-Several objective speech quality measures were evaluated:
-segmental SNR (segSNR),
-weighted-slope spectral distance (WSS),
-PESQ,
-LPC (Linear Predictive Coding) based objective measures including the
-log-likelihood ratio (LLR),
-Itakura-Saito distance measure (IS),
-and cepstrum distance measures (CEP),
-and frequency-weighted segmental SNR (fwsegSNR)
+## Methods
 
-> Compared to the PESQ measure, the LLR and fwSNRseg
-> measures are computationally simpler to implement
-> and roughly the same correlation coefficient was obtained
+### ITU P.563
+Single-ended method for objective speech quality assessment in narrow-band telephony applications
 
-!alternative to PESQ?
-
-### fwSNRSeg
+https://www.itu.int/rec/T-REC-P.563/en
 
 
 ### PSQM
+Perceptual Speech Quality Measure. [wikipedia](https://en.wikipedia.org/wiki/Perceptual_Speech_Quality_Measure)
 
-ITU-T Recommendation P.861.
-1996.
-Superseeded by PESQ.
+Voice quality of voice-band (300 – 3400 Hz)  speech codecs.
+
+ITU-T Recommendation [P.861](http://www.itu.int/rec/T-REC-P.861/en) in 1996.
+Withdraw. Superseeded by PESQ in 2001.
+
+Cannot account for packet loss, delay variance (jitter) or non-sequential packets. 
 
 ### PESQ
-https://en.wikipedia.org/wiki/PESQ
+Perceptual Evaluation of Speech Quality. [wikipedia](https://en.wikipedia.org/wiki/PESQ)
 
-ITU standard.
-2001.
-https://www.itu.int/rec/T-REC-P.862
+ITU-T standardized in 2001. https://www.itu.int/rec/T-REC-P.862
 
-`pesq`. Reference implementation provided in C.
+Superseeded by POLQA in 2011.
+
+#### Implementations
+
+Standard provides a reference implementation in C.
+Only to be used for evaluations, probhibits commercial usage.
 
 https://github.com/ludlows/python-pesq
-Python module. Copied original C code.
+Python module. Copied original reference C code.
 
 https://github.com/vBaiCai/python-pesq
-another Python package. Marked as WIP
+another Python package. Marked as Work In Progress
 
-https://www.researchgate.net/post/Is_PESQ_score_a_good_measurement_for_performance_analysis_of_speech_enhancement_algorithms
+#### Limitations
 
-    PESQ was not intended to compare speech before and after noise reduction.
-    Its stated aims were to quantify degradation due to codecs and transmission channel errors.
-    It was originally tested on speech with environmental noise (i.e., clean original vs. noisy signal)
-    and was found to correlate well in that case.
-    However, PESQ was found not to correlate with subjective MOS on a number of other tasks (see the standard), 
-    and thus should not be blindly used unless tested first.
+> PESQ was not intended to compare speech before and after noise reduction.
+> Its stated aims were to quantify degradation due to codecs and transmission channel errors.
+> It was originally tested on speech with environmental noise (i.e., clean original vs. noisy signal)  and was found to correlate well in that case.
+ > However, PESQ was found not to correlate with subjective MOS on a number of other tasks (see the standard), 
+ > and thus should not be blindly used unless tested first.
+[Yaakov J Stein @ research.net](https://www.researchgate.net/post/Is_PESQ_score_a_good_measurement_for_performance_analysis_of_speech_enhancement_algorithms)
 
 ### POLQA
-http://www.polqa.info/
-
-Requires a license.
-May have usage restrictions?
+[Official website](http://www.polqa.info/)
 
 > The POLQA perceptual measurement algorithm is a joint development of OPTICOM, SwissQual and TNO,
 > protected by copyrights and patents and available under license from OPTICOM as software for various platforms.
 
 Latest version is POLQA v3 (2018)
 
-Available as PolqaOem64
+#### Implementations
+Available as PolqaOem64 by the standards group.
+Requires a license.
+
+#### Usage examples
 Used by WebRTC
 https://github.com/webrtc-uwp/webrtc/tree/master/modules/audio_processing/test/py_quality_assessment
 
 ### VISQOL
 Virtual Speech Quality Objective Listener
-Signal-based, full-reference, intrusive metric that models human speech quality perception
+
+Originally designed for Speech, but extended to Audio later (VISQOLAudio).
+Latest version, VISQOLv3 combines the two variations into one method with a mode switch.
+
+[VISQOLv3 website](https://github.com/google/visqol)
+
+### Implementations
+
+[google/visqol](https://github.com/google/visqol).
+Official open-source implementation VISQOLv3.
+Commandline tool written in C++.
+Cross-platform.
+
+An earlier MATLAB implementation of ViSQOLAudio available is at.
+http://www.mee.tcd.ie/~sigmedia/Resources/ViSQOLAudio
+https://sites.google.com/a/tcd.ie/sigmedia/visqolaudio
+
+Note: Password protected, must be requested via email.
+
+### Operating principle
+
+### VISQOL paper summary
 
 Based on similarity of spectrograms
 Designed to be particularly sensitive to VoIP degradation
 > Using a distance metric called the Neurogram Similarity Index Measure or NSIM
 Inspired by Structural Similarity Index (SSIM)
 > In this work, spectrograms are treated as images to compare similarity.
-
-ViSQOL: an objective speech quality model
-https://ai.google/research/pubs/pub43990/
-https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-015-0054-9
-EURASIP, 2015
-Hines
 
 > Paper compares quality predictions with PESQ and POLQA for common problems in VoIP:
 > clock drift, associated time warping, and playout delays.
@@ -125,7 +173,7 @@ Hines
 > Comparing signals in the spectral domain avoids this problem
 > and can produce results that agree with human judgement
 
-### VISQOLAudio
+### VISQOLAudio paper summary
 
 ViSQOLAudio: An objective audio quality metric for low bitrate codecs
 https://asa.scitation.org/doi/full/10.1121/1.4921674?TRACK=RSS
@@ -139,30 +187,88 @@ Bark scale.
 - compared against the subjective listener test results carried out with headphones
 to evaluate their suitability for measuring audio quality for low bit rate codecs
 
-MATLAB implementation of ViSQOLAudio available.
-! no license info
-! password protected, request via email
-http://www.mee.tcd.ie/~sigmedia/Resources/ViSQOLAudio
-https://sites.google.com/a/tcd.ie/sigmedia/visqolaudio
 
 ### AudioMOS
 
+TODO: document AudioMOS
+
+### SDR
+Signal to Distortion Ratio.
+
+From the MATLAB toolbox [BSS_eval](http://bass-db.gforge.inria.fr/bss_eval/)
+
+Designed to evaluate (blind) source separation algorithms.
+
+Authors now suggest to use PEASS instead.
+
 ### SI-SDR
-Corrected version of 'SI' method from BSS_eval.
+Scale-invariant SDR (SI-SDR).
+Slightly modified definition of SDR, proposed in [SDR – Half-baked or Well Done?](https://ieeexplore.ieee.org/document/8683855).
 
-https://ieeexplore.ieee.org/document/8683855
-
+Corrected version of 'SDR' method from BSS_eval.
 
 mir_eval implements `bss_eval_sources`
 Open issue (since 2014...) to implement more.
 https://github.com/craffel/mir_eval/issues/68
 Also has critiques of bss_eval
 
-### Speech Intelligibility Index
+### SSI
+Speech Intelligibility Index
+
 Only reliable for "simple degradations" (additive noise)
 
-### STOI.
+
+### Fréchet Audio Distance
+ Abbreviated FAD
+
+Paper: [Fréchet Audio Distance: A Metric for Evaluating Music Enhancement Algorithms](https://arxiv.org/abs/1812.08466).
+Published in December, 2018
+
+[Official implementation](https://github.com/google-research/google-research/tree/master/frechet_audio_distance)
+[Blogpost announcement](https://ai.googleblog.com/2019/10/audio-and-visual-quality-measurement.html)
+
+Proposed a learned metric for measuring the quality of audio generated by neural networks.
+Especially for music enhancement and music generation.
+
+Proposes to use a "standard" training set of studio-grade music recordings.
+Can in that way be used reference-free to evaluate new material.
+Designed for system evaluation: operates over whole evaluation set of recordings, not per recording.
+
+#### Operating principle
+
+- Audio converted to log- Mel spectrograms
+- Using 1 second windows with 0.5 second overlap
+- Calculates audio embeddings using a pretrained neural network (VGGish)
+- Estimates multivariate Gaussians on embeddings on entire evaluation and reference datasets
+- Computes the Fréchet distance between the Gaussians
+
+#### FAD paper notes
+
+Metric eveloped by introducing a wide variety of artificial distortions onto a large dataset of music. 
+Magnatagatune dataset. 600 hours of music samples at 16 kHz.
+
+Included distortions:
+Low pass, High pass, Reverberation, Pops, Gaussian Noise, Quantization,
+Speed up/slow down, Pitch down,
+Griffin-Lim (phase) distortions, Mel encoding
+
+Humans rated 69,000 5-second audio clips, 95 hours total. For fitting model.
+
+Evaluations was done on a 25 minute subset. 300 samples a 5 seconds
+FAD correlates more closely with human perception than SDR, cosine distance, or magnitude L2 distance.
+FAD had a correlation coefficient of 0.52, and others 0.39, -0.15 and -0.01 respectively.
+
+NOTE: weak baselines metrics used in comparison.
+Many audio quality metrics that are expected to do better than SDR.
+
+#### Limitations
+Based on magnitude mel-filtered spectrograms. Ignores phase
+
+
+### STOI
 Short-time Objective Intelligibility measure.
+
+Proposed in [A short-time objective intelligibility measure for time-frequency weighted noisy speech](https://ieeexplore.ieee.org/document/5495701)
 
 > Intelligibility measure which is highly correlated with the intelligibility of degraded speech signals,
 > e.g., due to additive noise, single/multi-channel noise reduction, binary masking and vocoded speech as in CI simulations.
@@ -172,23 +278,47 @@ Short-time Objective Intelligibility measure.
 > when you are interested in the effect of nonlinear processing to noisy speech,
 > e.g., noise reduction, binary masking algorithms, on speech intelligibility.
 
-Paper.
-https://ieeexplore.ieee.org/document/5495701
+#### Operating principle
 
 - Method is based on spectrograms.
-- 15, 1/3 octave bands. Bands from 150-4500 Hz.
+- 15, 1/3 octave bands. Covering from 150-4500 Hz.
 - 25 ms frames.
 - 400 ms windows.
 - Compares two spectrograms, using correlation cofficient. ? more details
 - Outputs a time-frequency score.
 - Overall score is then the average of these.
 
-Is an estimation of how humans would evaluate. 
+#### Implementations 
+
+Paper authors provide a MATLAB reference implementation
+http://www.ceestaal.nl/code/
 
 https://github.com/mpariente/pystoi
 Pure Python implementation.
 Python 3 compatible.
 Available on PIP.
-Has tests against the MATLAB reference implementation by
-authors of the paper proposing the method.
-http://www.ceestaal.nl/code/
+Has tests against the MATLAB reference.
+
+
+
+### PEASS
+Perceptual Evaluation methods for Audio Source Separation
+ [Website](http://bass-db.gforge.inria.fr/peass/)
+
+Provides both perceptually motivated objective measures, as well as some tools for subjective evalutions (MUSHRA).
+
+Paper: [Subjective and objective quality assessment of audio source separation](http://hal.inria.fr/inria-00567152/PDF/emiya2011.pdf)
+
+Implementation in MATLAB.
+http://bass-db.gforge.inria.fr/peass/PEASS-Software.html
+Licensed as GNU GPLv3
+
+### fwSNRSeg
+Frequency-weighted segmental SNR
+
+#### Implementations
+[pysepm](https://github.com/schmiph2/pysepm)
+Python package.
+Implements many Speech Quality and Speech Intelligibilty metrics.
+Including Log-likelihood Ratio.
+STOI and PESQ metrics by wrapping pystoi and pypesq
