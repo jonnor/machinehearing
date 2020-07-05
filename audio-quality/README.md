@@ -71,6 +71,14 @@ Or it can be a dimensionless distance metric whos relationship to subjective rat
 Most metrics are monoaural, estimating the quality of a single channel of audio.
 A few metrics are specialized to cover binaural and spatial audio.
 
+### Usability as loss function
+
+With deep-learning methods, the objective to optimize for is specified using a loss function.
+When building neural networks that should produce perceptually good audio,
+the ideal is to incorporate into the loss function.
+This normally requires the function to be differentiable.
+
+
 ## Overview
 
 | Method   |      Purpose      |  Open Implementations  | Definition  |
@@ -345,6 +353,10 @@ Python package.
 Implements many Speech Quality and Speech Intelligibilty metrics.
 Including Log-likelihood Ratio.
 STOI and PESQ metrics by wrapping pystoi and pypesq
+
+### Just Noticable Differences
+
+[Paper](https://arxiv.org/abs/2001.04460)
 
 ### AMBIQUAL
 
