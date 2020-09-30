@@ -357,6 +357,21 @@ STOI and PESQ metrics by wrapping pystoi and pypesq
 
 [Paper](https://arxiv.org/abs/2001.04460)
 
+### PEMO-Q
+PErception MOdel-based Quality estimation
+
+[PEMO-Q - A New Method for Objective Audio Quality Assessment Using a Model of Auditory Perception](https://www.researchgate.net/publication/220655956_PEMO-Q_-_A_New_Method_for_Objective_Audio_Quality_Assessment_Using_a_Model_of_Auditory_Perception)
+claims to be better than PEAQ.
+
+Expansion of the speech quality measure qC.
+
+### EAQUAL
+Evaluation Of Audio Quality
+
+Based on ITU-R recommendation BS.1387 (PEAQ), and very similar to it.
+
+https://github.com/godock/eaqual
+
 ### AMBIQUAL
 
 AMBIQUAL - a full reference objective quality metric for ambisonic spatial audio
