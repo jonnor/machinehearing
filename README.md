@@ -96,6 +96,7 @@ Rough notes on various topics.
 * [Applications](./applications.md). Practical applications of Machine Hearing
 * [Tasks](./tasks.md). Established problem formulations
 * [Audio Quality](./audio-quality). Metrics for measuring audio quality
+* [Explainable models for Audio](./explainable).
 * [Features](./features.md). Feature representations
 * [Preprocessing](./preprocessing.md). Preprocessing techniques
 * [DCASE2018](./dcase2018.md). Notes from DCASE2018 challenge and conference
