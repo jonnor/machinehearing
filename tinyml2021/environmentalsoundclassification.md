@@ -18,7 +18,7 @@ and these will likely be useful also for other audio or image tasks.
 
 The research was initially carried out as part of a master thesis at the Norwegian University of Life Sciences (NMBU).
 Since then we have continued to work on this topic at Soundsensing,
-and we will share some of the progress and challenges of bringing this kind of research to market.
+and we will share some of the progress and challenges in bringing this kind of research to market.
 
 ## Call-to-Action
 

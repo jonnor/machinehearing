@@ -1,4 +1,4 @@
-# Acoustic Condition Monitoring using Anomaly Detection on microcontroller
+# Anomaly Detection on microcontroller for Acoustic Condition Monitoring
 
 ## Talk proposal
 
