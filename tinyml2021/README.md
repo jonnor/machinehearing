@@ -28,9 +28,12 @@ In rough level of maturity/applicability
 
 - Environmental Noise Classification on microcontrollers (thesis/NMBU) 
 - Acoustic Event Detection of coffeebean cracking during roasting (Roest)
-- Monitoring of Impulse Noise for shooting ranges (PNB)
 - Acoustic Anomaly Detection on microcontroller for Condition Monitoring of machines (Martin/Malling) 
+
+- Monitoring of Impulse Noise for shooting ranges (PNB)
+No TinyML in use at the moment.
 - emlearn: An open-source inference engine for microcontrollers and embedded systems (emlearn)
+No Soundsensing relation at the moment.
 
 ## Mediums
 - Poster
@@ -98,4 +101,20 @@ Evaluation and measurement of real production systems
 Interpreters and code generator frameworks for tiny systems
 Optimizations for efficient execution
 Software memory optimizations
+
+## Bio
+
+Jon Nordby is a Machine Learning Engineer
+with 10 years of experience developing software for embedded systems
+and data processing of audio and images.
+He holds a Bachelor in Electronics Engineering from 2010,
+and a Master in Data Science from 2019.
+His specialization is machine learning for audio and sensor data.
+Since 2019 he is the CTO of Soundsensing,
+a leading provider of IoT sensor systems
+using sound as the primary data source.
+Their systems are used for Noise Monitoring
+and Condition Monitoring of machinery.
+
+
 
