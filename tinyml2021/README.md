@@ -107,14 +107,16 @@ Software memory optimizations
 Jon Nordby is a Machine Learning Engineer
 with 10 years of experience developing software for embedded systems
 and data processing of audio and images.
-He holds a Bachelor in Electronics Engineering from 2010,
-and a Master in Data Science from 2019.
+He holds a Bachelor's degree in Electronics Engineering from 2010,
+and a Master's degree in Data Science from 2019.
 His specialization is machine learning for audio and sensor data.
 Since 2019 he is the CTO of Soundsensing,
 a leading provider of IoT sensor systems
 using sound as the primary data source.
 Their systems are used for Noise Monitoring
 and Condition Monitoring of machinery.
+Jon is also the creator of emlearn,
+an open-source machine learning toolkit for microcontrollers and embedded devices.
 
 
 

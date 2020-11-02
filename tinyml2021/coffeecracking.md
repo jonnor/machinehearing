@@ -11,9 +11,9 @@ The system uses a MEMS microphone to pick up the sound of the roasting process,
 and a Machine Learning model to detect in real-time the sound of coffee beans popping ("cracking").
 The model runs on a custom developed board using an STM32 microcontroller
 and the X-CUBE-AI machine learning toolkit.
-Since August 2020 the product has been shipping for the Roest coffee machines.
+Roest coffee machines have been shipping with this TinyML-powered feature since August 2020.
 
-We will cover the development process from the start and to a validated TinyML-powered solution,
+We will cover the development process from the start and all the way to a validated solution,
 including system design, data collection, model development, and testing.
 
 Roest is a leading manufacturer of coffee-roasting machines.
@@ -40,9 +40,12 @@ Did you know that roasting coffee beans make them crack like popcorn?
 
 During the roasting process the coffebeans heat up and
 the water inside turns to steam.
-This can be released as , resulting in an audible "crack".
+This can be released abruptly through the hard shell,
+resulting in an audible "crack".
 
 Experienced coffee roasters often listen for these cracks.
-But this requires constant virgilance
+But this requires constant virgilance,
+making it hard to do other tasks at the same time.
 
 But how do coffee-makers select their coffee?
+Testing the coffe. Roasting chart.
