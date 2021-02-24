@@ -1,5 +1,5 @@
 
-# TinyML2020
+# TinyML Summit 2021
 
 https://tinyml.org/home/index.html
 

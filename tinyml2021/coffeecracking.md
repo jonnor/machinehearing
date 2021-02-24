@@ -1,28 +1,19 @@
-# Acoustic Event Detection of coffeebean cracking during roasting
+# Acoustic detection of coffeebean cracking during roasting
 
 ## Talk proposal
 
 The key to a great coffee is high quality coffee beans
 and a roasting process that brings out the desired flavor and aroma.
 
-In this talk you will hear about how Soundsensing and Roest have developed an
-automated system that ensures consistent roasting of coffee.
-The system uses a MEMS microphone to pick up the sound of the roasting process,
-and a Machine Learning model to detect in real-time the sound of coffee beans popping ("cracking").
-The model runs on a custom developed board using an STM32 microcontroller
-and the X-CUBE-AI machine learning toolkit.
+In this talk you will hear about how Soundsensing and Roest have developed an automated system that ensures consistent roasting of coffee. The system uses a MEMS microphone to pick up the sound of the roasting process, and a Machine Learning model to detect in real-time the sound of coffee beans popping ("cracking"). The model runs on a custom developed board using an STM32 microcontroller and the X-CUBE-AI machine learning toolkit.
 Roest coffee machines have been shipping with this TinyML-powered feature since August 2020.
 
-We will cover the development process from the start and all the way to a validated solution,
-including system design, data collection, model development, and testing.
+We will cover the development process from the start and all the way to a validated solution, including system design, data collection, model development, and testing.
 
 Roest is a leading manufacturer of coffee-roasting machines.
-Their sample roaster is used by high-end coffee makers all over the world,
-and is the first commercially available coffee roaster that uses acoustic sensing.
+Their sample roaster is used by high-end coffee makers all over the world, and is the first commercially available coffee roaster that uses acoustic sensing.
 
-Soundsensing is a leader in acoustic monitoring using Machine Learning.
-Their IoT sensors are used to monitor noise levels in workplaces and cities,
-and to monitor the condition of machines and processes in manufacturing and real-estate.
+Soundsensing is a leader in acoustic monitoring using Machine Learning. Their IoT sensors are used to monitor noise levels in workplaces and cities, and to monitor the condition of machines and processes in manufacturing and real-estate.
  
 ## Call-to-Action
 Have an sensing/monitoring problem that can be approached with sound?

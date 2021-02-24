@@ -1,0 +1,56 @@
+
+.slide-background:after {
+    background-image: url(./img/soundsensing-logo.png);
+    background-size: 300px 50px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    position: fixed;
+    bottom: 0.5em;
+    left: 2.0em;
+    opacity: 0.5;
+    width: 300px;
+    height: 50px;
+    content: "";
+}
+
+
+.reveal section img { 
+    border:none;
+    box-shadow:none;
+    background: rgba(255, 255, 255, 1.0);
+    margin: 0px;
+    padding: 10px;
+}
+
+#soundsensing h2 {
+    display: none;
+}
+
+#dashboard h2 {
+    display: none;
+} 
+
+#demo-video h2 {
+    display: none;
+}
+
+#architecture h2 {
+    display: none;
+}
+
+#pipeline h2 {
+    display: none;
+}
+
+#confusion {
+    padding: 0px;
+}
+
+#confusion p {
+    margin: 0px;
+}
+
+#confusion h2 {
+    display: none;
+}
+

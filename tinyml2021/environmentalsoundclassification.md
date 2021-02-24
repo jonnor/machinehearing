@@ -27,7 +27,6 @@ Be it in cities, residential areas, offices, or factory floors.
 Order the Soundsensing dB20 devkit,
 and join our pilot program for Noise Classification.
 
- 
 
 ## Has talk been given before
 Kind-of yes, kind of no. EuroPython 2019. But very little focus on optimization/microcontroller
