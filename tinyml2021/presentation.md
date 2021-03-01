@@ -1,6 +1,5 @@
 
 ---
-title: Environmental Sound Classification on microcontrollers
 author: Jon Nordby <jon@soundsensing.no>
 date: March 25, 2021
 css: style.css
@@ -10,6 +9,17 @@ margin: 0
 pagetitle: 'TinyML Summit 2021: Environmental Sound Classification on microcontrollers'
 ---
 
+<section class="titleslide level1" data-background="./img/soundsensing-sensor-metro.jpg" >
+
+<h1>Environmental Sound Classification on microcontrollers</h1>
+
+<p>
+Jon Nordby jon&#64;soundsensing.no
+March 25, 2021
+TinyML Summit 2021
+</p>
+
+</section>
 
 # Introduction
 

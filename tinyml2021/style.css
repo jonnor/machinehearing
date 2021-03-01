@@ -1,17 +1,37 @@
 
-.slide-background:after {
-    background-image: url(./img/soundsensing-logo.png);
-    background-size: 300px 50px;
+.level2.slide-background:after {
+    background-color: #FFFFFF;
+    background-image: url(./img/soundsensing-logo-pad-bottomleft.png);
+    background-size: 250px 65px;
     background-repeat: no-repeat;
     background-position: right bottom;
     position: fixed;
-    bottom: 0.5em;
-    left: 2.0em;
+    bottom: 0.0em;
+    left: 0.0em;
     opacity: 0.5;
-    width: 300px;
-    height: 50px;
+    width: 250px;
+    height: 65px;
     content: "";
 }
+
+.level1.slide-background:after {
+    background-color: #FFFFFF;
+    background-image: url(./img/tinyml-logo.jpg);
+    background-size: 125px 120px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    position: fixed;
+    bottom: 0.0em;
+    left: 0.0em;
+    opacity: 0.5;
+    width: 125px;
+    height: 120px;
+    content: "";
+}
+
+
+
+
 
 
 .reveal section img { 
