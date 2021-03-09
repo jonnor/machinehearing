@@ -9,21 +9,21 @@ margin: 0
 pagetitle: 'TinyML Summit 2021: Environmental Sound Classification on microcontrollers'
 ---
 
-<section class="titleslide level1" data-background="./img/soundsensing-sensor-metro.jpg" >
+<section class="titleslide level1" data-background="./img/soundsensing-sensor-metro.jpg" style="background: rgba(255, 255, 255, 0.3); padding-top: 1.7em;" >
 
-<h1>Environmental Sound Classification on microcontrollers</h1>
+<h1 style="">Environmental Sound Classification on microcontrollers</h1>
 
 <p>
-Jon Nordby jon&#64;soundsensing.no
-March 25, 2021
-TinyML Summit 2021
+Jon Nordby</br>
+jon&#64;soundsensing.no</br>
+tinyML Summit 2021</br>
 </p>
 
 </section>
 
 # Introduction
 
-##  Jon Nordby.
+## Jon Nordby
 
 - 2010. B.Eng in **Electronics**
 - **Software** developer. **Embedded** + **Web**
@@ -46,7 +46,10 @@ Try to do as much as possible **on sensor**.
 
 ## Soundsensing
 
-![](./img/soundsensing-withlogo.png){width=100%}
+![](./img/soundsensing-withlogo.png){width=50%}
+
+TODO: explain why Noise Pollution is a problem
+TODO: swap picture
 
 ::: notes
 
@@ -60,16 +63,20 @@ https://www.eea.europa.eu/themes/human/noise/noise-2
 Burden of Disease WHO
 http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf
 
-## Dashboard
+:::
 
-![Pilot projects with customers Now - 2020](img/what-we-do.png)
+## Dashboar
+
+![Pilot projects with customers Now - 2020](./img/what-we-do.png)
 
 TODO: simplify picture
+
+::: notes
 
 :::
 
 
-## TinyML for Wireless Audio Sensor Networks
+## Wireless Audio Sensor Networks
 
 ![](img/sensornetworks.png){width=70%}
 
@@ -86,11 +93,13 @@ TODO: highlight costs/advantages. Privacy, data/energy efficiency
 
 ![](img/urbansound8k-examples.png){width=100%}
 
+
+
+::: notes
+
 * Widely researched. 1000 hits on Google Scholar
 * Datasets. **Urbansound8k** (10 classes), ESC-50, AudioSet (632 classes)
 * 2017: Human-level performance on ESC-50
-
-::: notes
 
 Classes from an urban sound taxonomy,
 based on noise complains in New York city
@@ -104,17 +113,24 @@ https://github.com/karoldvl/ESC-50
 :::
 
 
+## Model Constraints { data-background-image="./img/chip.jpg" }
 
+<!--  <section class="level2" data-background="./img/chip.jpg"> 
 
-## Device constraints
+<h2 style="">Device constraints</h2>
+-->
 
-STM32L476. With 50% of capacity:
+<p>
+Example target: STM32L476 microcontroller.
+With 50% of capacity:
 
-* 64 kB RAM
-* 512 kB FLASH memory
-* 4.5 M MACC/second
+* 64 kB RAM</br>
+* 512 kB FLASH memory</br>
+* 4.5 M MACC/second</br>
+</p>
 
-TODO: add picture of microcontroller
+<!--  </section> -->
+
 
 ::: notes
 
@@ -136,7 +152,7 @@ DSP SIMD instructions
 
 
 
-## Existing models
+## Existing models { data-background-image="" }
 
 ![Green: Feasible region on device](img/urbansound8k-existing-models-logmel.png){width=100%}
 
@@ -263,7 +279,7 @@ TODO: add a picture
 EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz
 :::
 
-## ConvolutionWaveform input to model
+## Time-frequency with convolutions
 
 - Preprocessing. Mel-spectrogram: **60** milliseconds
 - CNN. Stride-DS-24: **81** milliseconds w/o quantization
@@ -293,9 +309,7 @@ TODO: add a picture. Learned filterbanks instead of STFT
 
 ## Details on results
 
-Thesis
-
-> Environmental Sound Classification
+> Thesis: Environmental Sound Classification
 > on Microcontrollers
 > using Convolutional Neural Networks
 
@@ -313,15 +327,18 @@ More potential work
 
 
 
+# {data-background="./img/soundsensing-sensor-metro.jpg" style="background: rgba(255, 255, 255, 0.3);"}
 
+<h1>Questions ?</h1>
 
-## Questions
+<p>
+Jon Nordby</br>
+jon&#64;soundsensing.no</br>
+tinyML Summit 2021</br>
+</p>
 
-<h1 style="padding: 100px">?</h1>
+<h2 style="">Environmental Sound Classification on microcontrollers</h2>
 
-Email: <jon@soundsensing.no>
-
-TODO: add TinyML picture
 
 # Bonus
 

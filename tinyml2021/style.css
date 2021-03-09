@@ -1,4 +1,6 @@
 
+/* FIXME: add Soundsensing logo back
+
 .level2.slide-background:after {
     background-color: #FFFFFF;
     background-image: url(./img/soundsensing-logo-pad-bottomleft.png);
@@ -13,6 +15,7 @@
     height: 65px;
     content: "";
 }
+*/
 
 .level1.slide-background:after {
     background-color: #FFFFFF;
@@ -23,15 +26,16 @@
     position: fixed;
     bottom: 0.0em;
     left: 0.0em;
-    opacity: 0.5;
+    opacity: 0.8;
     width: 125px;
     height: 120px;
     content: "";
 }
 
 
-
-
+#model-constraints {
+    background-color: rgba(255, 255, 255, .3);
+}
 
 
 .reveal section img { 
