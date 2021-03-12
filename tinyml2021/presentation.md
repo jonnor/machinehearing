@@ -9,7 +9,7 @@ margin: 0
 pagetitle: 'TinyML Summit 2021: Environmental Sound Classification on microcontrollers'
 ---
 
-<section class="titleslide level1" data-background="./img/soundsensing-sensor-metro.jpg" style="background: rgba(255, 255, 255, 0.3); padding-top: 1.7em;" >
+<section class="titleslide level1" data-background-image="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3); padding-top: 1.7em;" >
 
 <h1 style="">Environmental Sound Classification on microcontrollers</h1>
 
@@ -23,15 +23,16 @@ tinyML Summit 2021</br>
 
 # Introduction
 
-## Jon Nordby
+::: notes
+
+Jon Nordby</br>
+Head of Data Science</br> 
+Soundsensing AS
 
 - 2010. B.Eng in **Electronics**
 - **Software** developer. **Embedded** + **Web**
 - 2019. M. Sc in **Data Science**
 
-Now: CTO, Soundsensing
-
-::: notes
 
 TODO: add picture(s)
 
@@ -44,20 +45,58 @@ as well as Anomaly Detection.
 Try to do as much as possible **on sensor**.
 :::
 
-## Soundsensing
+## Environmental Noise Pollution
 
-![](./img/soundsensing-withlogo.png){width=50%}
+![](./img/noise-map-barcelona-day.png){width=50%}
 
-TODO: explain why Noise Pollution is a problem
-TODO: swap picture
+The environmental pollution that affects most people in Europe
+
+* 13 million suffering from sleep disturbance
+* 900'000 disability-adjusted life years (DALY) lost
+
 
 ::: notes
 
-In Europe
+https://ajuntament.barcelona.cat/mapes-dades-ambientals/soroll/en/
 
-* 13 million suffering from sleep disturbance (EEA)
-* 900'000 DALY lost (WHO)
+EEA
+https://www.eea.europa.eu/themes/human/noise/noise-2
 
+Burden of Disease WHO
+http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf
+
+TODO: add picture
+
+:::
+
+## Occupational Noise-induced Hearing Loss
+
+![](./img/Manufacturing-Noise-small.jpeg){width=50%}
+
+The most prevalent occupational disease in the world
+
+* 40 million affected by hearing loss from work
+* 4 million disability-adjusted life years (DALY) lost
+
+
+::: notes
+
+TODO: add picture, person holding
+
+The global burden of occupational noise-induced hearing loss
+Nelson, D. I., Nelson, R. Y., Concha-Barrientos, M., & Fingerhut, M. (2005).
+DOI 10.1002/ajim.20223
+
+:::
+
+## Noise Monitoring with Machine Learning
+
+
+![](./img/soundsensing-solution.svg.png){width=100%}
+
+::: notes
+
+EEA
 https://www.eea.europa.eu/themes/human/noise/noise-2
 
 Burden of Disease WHO
@@ -65,23 +104,10 @@ http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf
 
 :::
 
-## Dashboar
-
-![Pilot projects with customers Now - 2020](./img/what-we-do.png)
-
-TODO: simplify picture
-
-::: notes
-
-:::
-
 
 ## Wireless Audio Sensor Networks
 
-![](img/sensornetworks.png){width=70%}
-
-TODO: highlight tinyML case, bottom
-TODO: highlight costs/advantages. Privacy, data/energy efficiency
+![](img/sensornetworks.png){width=85%}
 
 ::: notes
 
@@ -89,13 +115,14 @@ TODO: highlight costs/advantages. Privacy, data/energy efficiency
 :::
 
 
-## Environmental Sound Classification
+::: notes
+
+Environmental Sound Classification
 
 ![](img/urbansound8k-examples.png){width=100%}
 
+Examples from open dataset *Urbansound8k*
 
-
-::: notes
 
 * Widely researched. 1000 hits on Google Scholar
 * Datasets. **Urbansound8k** (10 classes), ESC-50, AudioSet (632 classes)
@@ -152,11 +179,9 @@ DSP SIMD instructions
 
 
 
-## Existing models { data-background-image="" }
+## Small models Urbansound8K { data-background-image="" }
 
-![Green: Feasible region on device](img/urbansound8k-existing-models-logmel.png){width=100%}
-
-TODO: add in our best model results
+![Green: Feasible region on device. 2021 results not published.](img/urbansound8k-existing-models-logmel.png){width=100%}
 
 ::: notes
 
@@ -172,13 +197,13 @@ Assuming no overlap. Most models use very high overlap, 100X higher compute
 
 
 
-# Shrinking Convolutional Neural Networks for TinyML Audio
+# Shrinking </br> Convolutional Neural Networks</br> for TinyML Audio
 
-How to make the model fit on device?
+How to did we make the model fit on device?
 
 ## Pipeline
 
-![](img/classification-pipeline.png){max-height=100%}
+![](img/classification-pipeline.png){width=50%}
 
 Typical audio pipeline. Spectrogram conversion, CNN on overlapped windows.
 
@@ -224,6 +249,28 @@ TODO: illustrate the cubical nature. Many channel
 :::
 -->
 
+## Small model
+
+<!--
+Based on SB-CNN (Salamon+Bello, 2016)
+-->
+
+![](img/models.svg){width=70%}
+
+
+::: notes
+
+Baseline from SB-CNN
+
+Few modifications
+
+* Uses smaller input feature representation
+* Reduced downsample factor to accommodate
+
+CONV = entry point for trying different convolution operators
+
+:::
+
 ## Depthwise-separable Convolution
 
 
@@ -251,26 +298,49 @@ EffNet, LD-CNN. 5x5 kernel: 2.5x speedup
 
 Wasteful? Computing convolutions, then throwing away 3/4 of results!
 
+::: notes
+TODO: include striding in diagram
+:::
+
 ## Downsampling using strided convolution
 
 ![](img/strided-convolution.png){width=100%}
 
-Striding means fewer computations and "learned" downsampling
+"Learned" downsampling. Striding 2x2: Approx 4x speedup 
 
+::: notes
 TODO: merge into previous slide
-
+:::
 
 ## Quantization
 
-Use 8 bit integers instead of 32 bit floats
+![](img/quantization.png){width=80%}
 
-- 1/4 the size for weights (FLASH) and activations (RAM) 
-- 8bit **SIMD** on ARM Cortex M4F: 1/4 the inference time
+- Using int8 instead of float32.
+- 4x improvement in weights (FLASH) and activations (RAM) 
+- 4.6X improvement in runtime using CMSIS-NN *SIMD* 
 
-TODO: add a picture
+Ref "CMSIS-NN: Efficient Neural Network Kernels for ARM Cortex-M CPUs"
+
+## Latest developments
+
+* Binary network quantization 
+* Neural Architecture Search
+* Streaming inference
+* Learned filterbanks
+* Hardware acceleration
+* Learned pooling
+
+TinyML very actively researched, rapid improvements
 
 ::: notes
 
+Quantized NNs as the definitive solution for inference on low-power ARM MCUs?: work-in-progress
+CODES 2018
+Q = 1 native instructions can be used, yielding an energy and latency reduction of ~3.8× with respect to CMSIS-NN
+https://dl.acm.org/doi/abs/10.5555/3283568.3283580
+
+https://blog.tensorflow.org/2021/02/accelerated-inference-on-arm-microcontrollers-with-tensorflow-lite.html
 
 :::
 
@@ -279,55 +349,51 @@ TODO: add a picture
 EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz
 :::
 
-## Time-frequency with convolutions
+::: notes
+
+Time-frequency with convolutions
 
 - Preprocessing. Mel-spectrogram: **60** milliseconds
 - CNN. Stride-DS-24: **81** milliseconds w/o quantization
 - With quantization, spectrogram conversion is the bottleneck!
 - Convolutions can be used to learn a Time-Frequency transformation.
-
-TODO: add a picture. Learned filterbanks instead of STFT
-
-
-::: notes
 - Especially interesting with CNN hardware acceleration.
+- Will it be faster without NN hardware?? Not established
 
 :::
 
+# Outro
 
-# Summary
+## Noise Monitoring example
+
+![Automated documentation of noise footprint wrt regulations](./img/noise-monitoring-report.png){width=50%}
+
+* Based on Noise Event Detection & Classification
+* Tested successfully at shooting range
+* Expanding now to Construction and Industry noise
+
+::: notes
+
+TODO: add pictures of PNB, traffic, construction
+
+:::
+
+## Condition Monitoring example
+
+![](./img/soundsensing-condition-monitoring.svg.png){width=100%}
+
+Condition Monitoring of technical equipment using sound.</br>
+Developed based on experience from Noise Monitoring.
 
 ## Conclusions
 
-- Convolutional Neural Networks widely used for audio classification
-- Well known techniques to shrink down by 100x
-- Cam fit onto in TinyML devices (ARM Cortex M4F)
-- Able to perform Environmental Sound Classification at `~ 10mW` power,
-
-- Highest reported Urbansound8k on microcontroller (over eGRU 62%)
+1. Audio classification of Environmental Noise can be done directly on sensor
+2. Made possible with a range of efficient CNN techniques
+3. Integrated into Soundsensing IoT sensors 
+4. Used for Noise Monitoring & Condition Monitoring
 
 
-## Details on results
-
-> Thesis: Environmental Sound Classification
-> on Microcontrollers
-> using Convolutional Neural Networks
-
-![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){width=30%}
-
-::: notes
-
-More potential work
-
-- Neural Network co-processor
-- Streaming classification
-- Adaptive sampling
-
-:::
-
-
-
-# {data-background="./img/soundsensing-sensor-metro.jpg" style="background: rgba(255, 255, 255, 0.3);"}
+## {data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);"}
 
 <h1>Questions ?</h1>
 
@@ -337,7 +403,7 @@ jon&#64;soundsensing.no</br>
 tinyML Summit 2021</br>
 </p>
 
-<h2 style="">Environmental Sound Classification on microcontrollers</h2>
+<em>Environmental Sound Classification on microcontrollers</em>
 
 
 # Bonus
@@ -345,6 +411,14 @@ tinyML Summit 2021</br>
 Bonus slides after this point
 
 # Thesis results
+
+## All the info
+
+> Thesis: Environmental Sound Classification
+> on Microcontrollers
+> using Convolutional Neural Networks
+
+![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){width=30%}
 
 ## All models
 
@@ -358,27 +432,6 @@ Bonus slides after this point
 
 :::
 
-## Models
-
-<!--
-Based on SB-CNN (Salamon+Bello, 2016)
--->
-
-![](img/models.svg){width=70%}
-
-
-::: notes
-
-Baseline from SB-CNN
-
-Few modifications
-
-* Uses smaller input feature representation
-* Reduced downsample factor to accommodate
-
-CONV = entry point for trying different convolution operators
-
-:::
 
 
 ## Model comparison

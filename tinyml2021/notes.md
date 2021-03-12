@@ -4,36 +4,25 @@ TED style
 
 1. Main point
 TinyML is challenging but worth it
+We solve Noise Monitoring using TinyML
 
 Around 12-24 slides.
 
 
-# Done
-- Registered with Jotform
+# TODO
 
-# PDF export
+- Do a run though. Check timing, 12 minutes 
+- Add Soundsensing logo on level 2 slides
+- Fix Noise Monitoring example slide
+- Send to TinyML
+
+# PDF exporting
 
 With reveal.js, can add  ?print-pdf to URL
 Note: must go before the #part
 
-# TODO
-
-- Import slides from ?
-- Make slide size fit TinyML. Page size 13.34 × 7.5 inches
-Default with Beamer was 5.04 × 3.78 inch
-Default with Chrome save to PDF was 20.00 × 11.25 inch
-1.777 aspect ratio
-When using Chrome print, system dialog. Can use custom paper format.
-Worked to get 13.34 × 7.5 inches
-
-- Add TinyML logo to title slide. Which logo? Email sent
-
-- Make slides respect outline 
-- Send to organizers.
-Bette & Rosina
-Release form. DONE
-Mobile phone number. DONE
-Slides outline
+Using Chromium print, system dialog
+With custom paper format, set to 13.34 × 7.5 inches
 
 
 # Outline
