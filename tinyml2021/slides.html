@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jon Nordby jon@soundsensing.no">
+  <meta name="dcterms.date" content="2021-03-25">
+  <title>TinyML Summit 2021: Environmental Sound Classification on microcontrollers</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<section class="titleslide level1" data-background-image="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3); padding-top: 1.7em;">
+<h1 style>
+Environmental Sound Classification on microcontrollers
+</h1>
+<p>
+Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
+</p>
+</section>
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+<aside class="notes">
+<p>Jon Nordby</br> Head of Data Science</br> Soundsensing AS</p>
+<ul>
+<li><ol start="2010" type="1">
+<li>B.Eng in <strong>Electronics</strong></li>
+</ol></li>
+<li><strong>Software</strong> developer. <strong>Embedded</strong> + <strong>Web</strong></li>
+<li><ol start="2019" type="1">
+<li>M. Sc in <strong>Data Science</strong></li>
+</ol></li>
+</ul>
+<p>TODO: add picture(s)</p>
+<p>Provide <strong>Noise Monitoring</strong> and Audio <strong>Condition Monitoring</strong> solutions that are used in Real-Estate, Industry, and Smart Cities.</p>
+<p>Critical part of this is Machine Learning for Audio Classification, as well as Anomaly Detection.</p>
+<p>Try to do as much as possible <strong>on sensor</strong>.</p>
+</aside>
+</section>
+<section id="environmental-noise-pollution" class="slide level2">
+<h2>Environmental Noise Pollution</h2>
+<p><img data-src="./img/noise-map-barcelona-day.png" style="width:50.0%" /></p>
+<p>The environmental pollution that affects most people in Europe</p>
+<ul>
+<li>13 million suffering from sleep disturbance</li>
+<li>900’000 disability-adjusted life years (DALY) lost</li>
+</ul>
+<aside class="notes">
+<p>https://ajuntament.barcelona.cat/mapes-dades-ambientals/soroll/en/</p>
+<p>EEA https://www.eea.europa.eu/themes/human/noise/noise-2</p>
+<p>Burden of Disease WHO http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf</p>
+<p>TODO: add picture</p>
+</aside>
+</section>
+<section id="occupational-noise-induced-hearing-loss" class="slide level2">
+<h2>Occupational Noise-induced Hearing Loss</h2>
+<p><img data-src="./img/Manufacturing-Noise-small.jpeg" style="width:50.0%" /></p>
+<p>The most prevalent occupational disease in the world</p>
+<ul>
+<li>40 million affected by hearing loss from work</li>
+<li>4 million disability-adjusted life years (DALY) lost</li>
+</ul>
+<aside class="notes">
+<p>TODO: add picture, person holding</p>
+<p>The global burden of occupational noise-induced hearing loss Nelson, D. I., Nelson, R. Y., Concha-Barrientos, M., &amp; Fingerhut, M. (2005). DOI 10.1002/ajim.20223</p>
+</aside>
+</section>
+<section id="noise-monitoring-with-machine-learning" class="slide level2">
+<h2>Noise Monitoring with Machine Learning</h2>
+<p><img data-src="./img/soundsensing-solution.svg.png" style="width:100.0%" /></p>
+<aside class="notes">
+<p>EEA https://www.eea.europa.eu/themes/human/noise/noise-2</p>
+<p>Burden of Disease WHO http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf</p>
+</aside>
+</section>
+<section id="wireless-audio-sensor-networks" class="slide level2">
+<h2>Wireless Audio Sensor Networks</h2>
+<p><img data-src="img/sensornetworks.png" style="width:85.0%" /></p>
+<aside class="notes">
+
+</aside>
+<aside class="notes">
+<p>Environmental Sound Classification</p>
+<p><img data-src="img/urbansound8k-examples.png" style="width:100.0%" /></p>
+<p>Examples from open dataset <em>Urbansound8k</em></p>
+<ul>
+<li>Widely researched. 1000 hits on Google Scholar</li>
+<li>Datasets. <strong>Urbansound8k</strong> (10 classes), ESC-50, AudioSet (632 classes)</li>
+<li>2017: Human-level performance on ESC-50</li>
+</ul>
+<p>Classes from an urban sound taxonomy, based on noise complains in New York city</p>
+<p>Most sounds around 4 seconds. Some classes around 1 second</p>
+<p>Foreground/background</p>
+<p>https://github.com/karoldvl/ESC-50</p>
+</aside>
+</section>
+<section id="model-constraints" class="slide level2" data-background-image="./img/chip.jpg">
+<h2 data-background-image="./img/chip.jpg">Model Constraints</h2>
+<!--  <section class="level2" data-background="./img/chip.jpg"> 
+
+<h2 style="">Device constraints</h2>
+-->
+<p>
+<p>Example target: STM32L476 microcontroller. With 50% of capacity:</p>
+<ul>
+<li>64 kB RAM</br></li>
+<li>512 kB FLASH memory</br></li>
+<li>4.5 M MACC/second</br></li>
+</ul>
+</p>
+<!--  </section> -->
+<aside class="notes">
+<p>STM32L476</p>
+<p>ARM Cortex M4F Hardware floating-point unit (FPU) DSP SIMD instructions 80 MHz CPU clock 1024 kB of program memory (Flash) 128 kB of RAM.</p>
+<p>25 mWatt max</p>
+<ul>
+<li>TensorFlow Lite for Microcontrollers (Google)</li>
+<li>ST X-CUBE-AI (ST Microelectronics)</li>
+</ul>
+</aside>
+</section>
+<section id="small-models-urbansound8k" class="slide level2" data-background-image="">
+<h2 data-background-image="">Small models Urbansound8K</h2>
+<figure>
+<img data-src="img/urbansound8k-existing-models-logmel.png" style="width:100.0%" alt="Green: Feasible region on device. 2021 results not published." /><figcaption aria-hidden="true">Green: Feasible region on device. 2021 results not published.</figcaption>
+</figure>
+<aside class="notes">
+<p>eGRU: running on ARM Cortex-M0 microcontroller, accuracy 61% with <strong>non-standard</strong> evaluation</p>
+<p>Assuming no overlap. Most models use very high overlap, 100X higher compute</p>
+</aside>
+</section></section>
+<section>
+<section id="shrinking-convolutional-neural-networks-for-tinyml-audio" class="title-slide slide level1">
+<h1>Shrinking </br> Convolutional Neural Networks</br> for TinyML Audio</h1>
+<p>How to did we make the model fit on device?</p>
+</section>
+<section id="pipeline" class="slide level2">
+<h2>Pipeline</h2>
+<p><img data-src="img/classification-pipeline.png" style="width:50.0%" /></p>
+<p>Typical audio pipeline. Spectrogram conversion, CNN on overlapped windows.</p>
+</section>
+<section id="reduce-input-dimensionality" class="slide level2">
+<h2>Reduce input dimensionality</h2>
+<p><img data-src="img/input-size.svg" style="width:70.0%" /></p>
+<ul>
+<li>Lower sample rate</li>
+<li>Lower frequency range</li>
+<li>Lower frequency resolution</li>
+<li>Lower time duration in window</li>
+<li>Lower time resolution</li>
+</ul>
+<p>~10x reduction</p>
+<aside class="notes">
+<p>Directly limits time and RAM use first few layers.</p>
+<p>Follow-on effects. A simpler input representation is (hopefully) easier to learn allowing for a simpler model</p>
+</aside>
+</section>
+<section id="reduce-overlap" class="slide level2">
+<h2>Reduce overlap</h2>
+<p><img data-src="img/framing.png" style="width:80.0%" /></p>
+<p>Models in literature use 95% overlap or more. 20x penalty in inference time!</p>
+<p>Often small performance benefit. Use 0% (1x) or 50% (2x).</p>
+<!--
+## Regular 2D-convolution
+
+![](img/convolution-2d.png){width=100%}
+
+::: notes
+
+TODO: illustrate the cubical nature. Many channel
+
+:::
+-->
+</section>
+<section id="small-model" class="slide level2">
+<h2>Small model</h2>
+<!--
+Based on SB-CNN (Salamon+Bello, 2016)
+-->
+<p><img data-src="img/models.svg" style="width:70.0%" /></p>
+<aside class="notes">
+<p>Baseline from SB-CNN</p>
+<p>Few modifications</p>
+<ul>
+<li>Uses smaller input feature representation</li>
+<li>Reduced downsample factor to accommodate</li>
+</ul>
+<p>CONV = entry point for trying different convolution operators</p>
+</aside>
+</section>
+<section id="depthwise-separable-convolution" class="slide level2">
+<h2>Depthwise-separable Convolution</h2>
+<p><img data-src="img/depthwise-separable-convolution.png" style="width:90.0%" /></p>
+<p>MobileNet, “Hello Edge”, AclNet. 3x3 kernel,64 filters: 7.5x speedup</p>
+<aside class="notes">
+<ul>
+<li>Much fewer operations</li>
+<li>Less expressive - but regularization effect can be beneficial</li>
+</ul>
+</aside>
+</section>
+<section id="spatially-separable-convolution" class="slide level2">
+<h2>Spatially-separable Convolution</h2>
+<p><img data-src="img/spatially-separable-convolution.png" style="width:90.0%" /></p>
+<p>EffNet, LD-CNN. 5x5 kernel: 2.5x speedup</p>
+</section>
+<section id="downsampling-using-max-pooling" class="slide level2">
+<h2>Downsampling using max-pooling</h2>
+<p><img data-src="img/maxpooling.png" style="width:100.0%" /></p>
+<p>Wasteful? Computing convolutions, then throwing away 3/4 of results!</p>
+<aside class="notes">
+<p>TODO: include striding in diagram</p>
+</aside>
+</section>
+<section id="downsampling-using-strided-convolution" class="slide level2">
+<h2>Downsampling using strided convolution</h2>
+<p><img data-src="img/strided-convolution.png" style="width:100.0%" /></p>
+<p>“Learned” downsampling. Striding 2x2: Approx 4x speedup</p>
+<aside class="notes">
+<p>TODO: merge into previous slide</p>
+</aside>
+</section>
+<section id="quantization" class="slide level2">
+<h2>Quantization</h2>
+<p><img data-src="img/quantization.png" style="width:80.0%" /></p>
+<ul>
+<li>Using int8 instead of float32.</li>
+<li>4x improvement in weights (FLASH) and activations (RAM)</li>
+<li>4.6X improvement in runtime using CMSIS-NN <em>SIMD</em></li>
+</ul>
+<p>Ref “CMSIS-NN: Efficient Neural Network Kernels for ARM Cortex-M CPUs”</p>
+</section>
+<section id="latest-developments" class="slide level2">
+<h2>Latest developments</h2>
+<ul>
+<li>Binary network quantization</li>
+<li>Neural Architecture Search</li>
+<li>Streaming inference</li>
+<li>Learned filterbanks</li>
+<li>Hardware acceleration</li>
+<li>Learned pooling</li>
+</ul>
+<p>TinyML very actively researched, rapid improvements</p>
+<aside class="notes">
+<p>Quantized NNs as the definitive solution for inference on low-power ARM MCUs?: work-in-progress CODES 2018 Q = 1 native instructions can be used, yielding an energy and latency reduction of ~3.8× with respect to CMSIS-NN https://dl.acm.org/doi/abs/10.5555/3283568.3283580</p>
+<p>https://blog.tensorflow.org/2021/02/accelerated-inference-on-arm-microcontrollers-with-tensorflow-lite.html</p>
+</aside>
+<aside class="notes">
+<p>EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz</p>
+</aside>
+<aside class="notes">
+<p>Time-frequency with convolutions</p>
+<ul>
+<li>Preprocessing. Mel-spectrogram: <strong>60</strong> milliseconds</li>
+<li>CNN. Stride-DS-24: <strong>81</strong> milliseconds w/o quantization</li>
+<li>With quantization, spectrogram conversion is the bottleneck!</li>
+<li>Convolutions can be used to learn a Time-Frequency transformation.</li>
+<li>Especially interesting with CNN hardware acceleration.</li>
+<li>Will it be faster without NN hardware?? Not established</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="outro" class="title-slide slide level1">
+<h1>Outro</h1>
+
+</section>
+<section id="noise-monitoring-example" class="slide level2">
+<h2>Noise Monitoring example</h2>
+<figure>
+<img data-src="./img/noise-monitoring-report.png" style="width:50.0%" alt="Automated documentation of noise footprint wrt regulations" /><figcaption aria-hidden="true">Automated documentation of noise footprint wrt regulations</figcaption>
+</figure>
+<ul>
+<li>Based on Noise Event Detection &amp; Classification</li>
+<li>Tested successfully at shooting range</li>
+<li>Expanding now to Construction and Industry noise</li>
+</ul>
+<aside class="notes">
+<p>TODO: add pictures of PNB, traffic, construction</p>
+</aside>
+</section>
+<section id="condition-monitoring-example" class="slide level2">
+<h2>Condition Monitoring example</h2>
+<p><img data-src="./img/soundsensing-condition-monitoring.svg.png" style="width:100.0%" /></p>
+<p>Condition Monitoring of technical equipment using sound.</br> Developed based on experience from Noise Monitoring.</p>
+</section>
+<section id="conclusions" class="slide level2">
+<h2>Conclusions</h2>
+<ol type="1">
+<li>Audio classification of Environmental Noise can be done directly on sensor</li>
+<li>Made possible with a range of efficient CNN techniques</li>
+<li>Integrated into Soundsensing IoT sensors</li>
+<li>Used for Noise Monitoring &amp; Condition Monitoring</li>
+</ol>
+</section>
+<section id="section" class="slide level2" data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);">
+<h2 data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);"></h2>
+<h1>
+Questions ?
+</h1>
+<p>
+Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
+</p>
+<p><em>Environmental Sound Classification on microcontrollers</em></p>
+</section></section>
+<section id="bonus" class="title-slide slide level1">
+<h1>Bonus</h1>
+<p>Bonus slides after this point</p>
+</section>
+
+<section>
+<section id="thesis-results" class="title-slide slide level1">
+<h1>Thesis results</h1>
+
+</section>
+<section id="all-the-info" class="slide level2">
+<h2>All the info</h2>
+<blockquote>
+<p>Thesis: Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks</p>
+</blockquote>
+<figure>
+<img data-src="./img/thesis.png" style="width:30.0%" alt="Report &amp; Code: https://github.com/jonnor/ESC-CNN-microcontroller" /><figcaption aria-hidden="true">Report &amp; Code: https://github.com/jonnor/ESC-CNN-microcontroller</figcaption>
+</figure>
+</section>
+<section id="all-models" class="slide level2">
+<h2>All models</h2>
+<p><img data-src="img/models-list.png" /></p>
+<aside class="notes">
+<ul>
+<li>Baseline is outside requirements</li>
+<li>Rest fits the theoretical constraints</li>
+<li>Sometimes had to reduce number of base filters to 22 to fit in RAM</li>
+</ul>
+</aside>
+</section>
+<section id="model-comparison" class="slide level2">
+<h2>Model comparison</h2>
+<p><img data-src="img/models_accuracy.png" style="width:100.0%" /></p>
+<aside class="notes">
+<ul>
+<li>Baseline relative to SB-CNN and LD-CNN is down from 79% to 73% Expected because poorer input representation. Much lower overlap</li>
+</ul>
+</aside>
+</section>
+<section id="list-of-results" class="slide level2">
+<h2>List of results</h2>
+<p><img data-src="img/results.png" style="width:100.0%" /></p>
+</section>
+<section id="confusion" class="slide level2">
+<h2>Confusion</h2>
+<p><img data-src="img/confusion_test.png" style="width:70.0%" /></p>
+</section>
+<section id="grouped-classification" class="slide level2">
+<h2>Grouped classification</h2>
+<p><img data-src="img/grouped_confusion_test_foreground.png" style="width:60.0%" /></p>
+<p>Foreground-only</p>
+</section>
+<section id="unknown-class" class="slide level2">
+<h2>Unknown class</h2>
+<p><img data-src="img/unknown-class.png" style="width:100.0%" /></p>
+<aside class="notes">
+<p>Idea: If confidence of model is low, consider it as “unknown”</p>
+<ul>
+<li>Left: Histogram of correct/incorrect predictions</li>
+<li>Right: Precision/recall curves</li>
+<li>Precision improves at expense of recall</li>
+<li>90%+ precision possible at 40% recall</li>
+</ul>
+<p>Usefulness:</p>
+<ul>
+<li>Avoids making decisions on poor grounds</li>
+<li>“Unknown” samples good candidates for labeling-&gt;dataset. Active Learning</li>
+<li>Low recall not a problem? Data is abundant, 15 samples a 4 seconds per minute per sensor</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="thesis-methods" class="title-slide slide level1">
+<h1>Thesis Methods</h1>
+<p>Standard procedure for Urbansound8k</p>
+<ul>
+<li>Classification problem</li>
+<li>4 second sound clips</li>
+<li>10 classes</li>
+<li>10-fold cross-validation, predefined</li>
+<li>Metric: Accuracy</li>
+</ul>
+</section>
+<section id="training-settings" class="slide level2">
+<h2>Training settings</h2>
+<p><img data-src="img/training-settings.png" /></p>
+</section>
+<section id="training" class="slide level2">
+<h2>Training</h2>
+<ul>
+<li>NVidia RTX2060 GPU 6 GB</li>
+<li>10 models x 10 folds = 100 training jobs</li>
+<li>100 epochs</li>
+<li>3 jobs in parallel</li>
+<li>36 hours total</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>! GPU utilization only 15%</li>
+<li>CPU utilization was near 100%</li>
+<li>Larger models to utilize GPU better?</li>
+<li>Parallel processing limited by RAM of biggest models</li>
+<li>GPU-based augmentation might be faster</li>
+</ul>
+</aside>
+</section>
+<section id="evaluation" class="slide level2">
+<h2>Evaluation</h2>
+<p>For each fold of each model</p>
+<ol type="1">
+<li>Select best model based on validation accuracy</li>
+<li>Calculate accuracy on test set</li>
+</ol>
+<p>For each model</p>
+<ul>
+<li>Measure CPU time on device</li>
+</ul>
+</section>
+<section id="mel-spectrogram" class="slide level2">
+<h2>Mel-spectrogram</h2>
+<p><img data-src="img/spectrograms.svg" /></p>
+</section>
+<section id="more-resources" class="slide level2">
+<h2>More resources</h2>
+<p>Machine Hearing. ML on Audio</p>
+<ul>
+<li><a href="https://github.com/jonnor/machinehearing">github.com/jonnor/machinehearing</a></li>
+</ul>
+<p>Machine Learning for Embedded / IoT</p>
+<ul>
+<li><a href="https://github.com/jonnor/embeddedml">github.com/jonnor/embeddedml</a></li>
+</ul>
+<p>Thesis Report &amp; Code</p>
+<ul>
+<li><a href="https://github.com/jonnor/ESC-CNN-microcontroller">github.com/jonnor/ESC-CNN-microcontroller</a></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
