@@ -126,7 +126,7 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <ul>
 <li>64 kB RAM</br></li>
 <li>512 kB FLASH memory</br></li>
-<li>4.5 M MACC/second</br></li>
+<li>4.5 M operations/second</br></li>
 </ul>
 </p>
 <!--  </section> -->
@@ -170,7 +170,7 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <li>Lower time duration in window</li>
 <li>Lower time resolution</li>
 </ul>
-<p>~10x reduction</p>
+<p>~10x reduction i compute. And easier to learn!</p>
 <aside class="notes">
 <p>Directly limits time and RAM use first few layers.</p>
 <p>Follow-on effects. A simpler input representation is (hopefully) easier to learn allowing for a simpler model</p>
@@ -193,8 +193,8 @@ TODO: illustrate the cubical nature. Many channel
 :::
 -->
 </section>
-<section id="small-model" class="slide level2">
-<h2>Small model</h2>
+<section id="use-a-small-model" class="slide level2">
+<h2>Use a small model!</h2>
 <!--
 Based on SB-CNN (Salamon+Bello, 2016)
 -->
@@ -218,12 +218,11 @@ Based on SB-CNN (Salamon+Bello, 2016)
 <li>Much fewer operations</li>
 <li>Less expressive - but regularization effect can be beneficial</li>
 </ul>
-</aside>
-</section>
-<section id="spatially-separable-convolution" class="slide level2">
-<h2>Spatially-separable Convolution</h2>
+<p>Spatially-separable Convolution</p>
 <p><img data-src="img/spatially-separable-convolution.png" style="width:90.0%" /></p>
 <p>EffNet, LD-CNN. 5x5 kernel: 2.5x speedup</p>
+<p>Not as efficient</p>
+</aside>
 </section>
 <section id="downsampling-using-max-pooling" class="slide level2">
 <h2>Downsampling using max-pooling</h2>
@@ -316,13 +315,14 @@ Based on SB-CNN (Salamon+Bello, 2016)
 </section>
 <section id="section" class="slide level2" data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);">
 <h2 data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);"></h2>
+<p>We are open for partners and pilot projects</br> Get in touch!</br> contact@soundsensing.no</br> </br> </br></p>
 <h1>
 Questions ?
 </h1>
+<p><em>TinyML Summit 2021: Environmental Sound Classification on microcontrollers</em></p>
 <p>
-Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
+Jon Nordby </br>jon@soundsensing.no
 </p>
-<p><em>Environmental Sound Classification on microcontrollers</em></p>
 </section></section>
 <section id="bonus" class="title-slide slide level1">
 <h1>Bonus</h1>

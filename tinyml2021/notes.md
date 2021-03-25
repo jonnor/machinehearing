@@ -21,6 +21,11 @@ Note: must go before the #part
 Using Chromium print, system dialog
 With custom paper format, set to 13.34 × 7.5 inches
 
+Here are some examples from the Urbansound8k dataset.
+
+
+Ask
+
 
 # Outline
 
@@ -31,7 +36,7 @@ My name is Jon Nordby.
 
 I am Head of Data Science and Machine Learning
 at Soundsensing
-an IoT sensor company focused on sound
+We are an IoT sensor company focused on sound and Machine Learning.
 
 Today I will talk to you about
 clasifying Environment Sounds on microcontroller
@@ -45,7 +50,6 @@ It can be cars honking, music played from a club, speech from
 
 When environmental sounds are unwanted we call it environmental noise.
 
-Here are some examples from the Urbansound8k dataset.
 
 Environmental Noise pollution is a big, and growing problem.
 More and more we live in urban environments, with many noise sources around us.
@@ -75,7 +79,9 @@ for monitoring noise, understanding the underlying causes, and what is needed to
 We provide easy-to-use IoT sensors that can continiously measure the noise-level,
 as well as classify the dominant noise-source over time.
 
-For this we use TinyML
+This is presented in our online dashboard,
+and is also available in an API for integrating with other systems.
+
 
 ### Wireless Sensor Network
 
@@ -93,7 +99,7 @@ which is costly in terms of energy and data traffic in a cellular 4G system.
 It also would be very poor for privacy,
 as potentially sensitive audio such as speech
 would have to be transported through the network
-and potentially stored in a server.
+and could potentially be stored in a server.
 
 Alternative B would be to preprocess the data in the sensor, and classify this in the cloud.
 Would have to reducing the data enough to be privacy friendly and save considerable data traffic,
@@ -114,7 +120,7 @@ and we dedicate 50% of the resources to the machine learning, that means
 
 
 
-## Small mo
+## Small models
 
 In work that we did in 2019, we found that existing models
 were at 1-3 orders of magnitude too large to fit on device.
@@ -190,11 +196,21 @@ then convolve over the channel dimensions.
 
 5-10x speedups with very little performance impact.
 
-## Spatially-separable
-
-TODO: drop it
 
 ## Downscaling
+
+In a Convolutional Neural Network one downsamples the data as one gets deeper in layers,
+to operate on progressively higher level features.
+This is usually done by doing max pooling after each convolution,
+which means to pick the highest value within the input.
+However this is quite wasteful, as is disregards a lot of data computed by previous layer.
+
+An alternative is to drop the max pooling, and instead use a stride higher than one in the convolution.
+This reduces the amount of times the convolution is run.
+
+Can sometimes perform better than max-pooling, since the downsampling is included in the learned function! 
+
+TODO: merge into one slide
 
 ## Quantization
 
@@ -218,8 +234,11 @@ where they fire guns and conduct explosives training.
 They use our system to have documentation that they follow the regulations,
 and to verify any noise complains that come in.
 
-We are now expanding this to other applications,
+We are now expanding this solution to other applications,
 such as Construction, Industry and Transportation.
+
+If you are working in these areas and interested in testing it out,
+let us know.
 
 
 ## Condition Monitoring
@@ -228,8 +247,14 @@ We have also used the same techniques
 to develop an Anomaly Detection system using sound,
 which has been tested out on pumps.
 
+This means that the condition of technical equipment
+can be continiously monitored,
+freeing up time for the janitors and providing better detection of issues.
+
 We are currently looking to test this in larger
 scale and on more types of machinery.
+
+
 
 ## Conclusions
 

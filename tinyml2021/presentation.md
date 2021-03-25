@@ -153,7 +153,7 @@ With 50% of capacity:
 
 * 64 kB RAM</br>
 * 512 kB FLASH memory</br>
-* 4.5 M MACC/second</br>
+* 4.5 M operations/second</br>
 </p>
 
 <!--  </section> -->
@@ -217,7 +217,7 @@ Typical audio pipeline. Spectrogram conversion, CNN on overlapped windows.
 - Lower time duration in window
 - Lower time resolution
 
-~10x reduction
+~10x reduction i compute. And easier to learn!
 
 ::: notes
 
@@ -249,7 +249,7 @@ TODO: illustrate the cubical nature. Many channel
 :::
 -->
 
-## Small model
+## Use a small model!
 
 <!--
 Based on SB-CNN (Salamon+Bello, 2016)
@@ -283,13 +283,17 @@ MobileNet, "Hello Edge", AclNet. 3x3 kernel,64 filters: 7.5x speedup
 * Much fewer operations
 * Less expressive - but regularization effect can be beneficial
 
-:::
 
-## Spatially-separable Convolution
+
+Spatially-separable Convolution
 
 ![](img/spatially-separable-convolution.png){width=90%}
 
 EffNet, LD-CNN. 5x5 kernel: 2.5x speedup
+
+Not as efficient
+:::
+
 
 
 ## Downsampling using max-pooling
@@ -395,15 +399,21 @@ Developed based on experience from Noise Monitoring.
 
 ## {data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);"}
 
+
+We are open for partners and pilot projects</br>
+Get in touch!</br>
+contact@soundsensing.no</br>
+</br>
+</br>
+
 <h1>Questions ?</h1>
 
-<p>
-Jon Nordby</br>
-jon&#64;soundsensing.no</br>
-tinyML Summit 2021</br>
-</p>
+<em>TinyML Summit 2021: Environmental Sound Classification on microcontrollers</em>
 
-<em>Environmental Sound Classification on microcontrollers</em>
+<p>
+Jon Nordby
+</br>jon&#64;soundsensing.no
+</p>
 
 
 # Bonus
