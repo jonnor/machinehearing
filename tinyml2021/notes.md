@@ -11,10 +11,7 @@ Around 12-24 slides.
 
 # TODO
 
-- Do a run though. Check timing, 12 minutes 
-- Add Soundsensing logo on level 2 slides
-- Fix Noise Monitoring example slide
-- Send to TinyML
+- Tune
 
 # PDF exporting
 
@@ -28,36 +25,224 @@ With custom paper format, set to 13.34 × 7.5 inches
 # Outline
 
 ### Intro
-Me. Jon Nordby
-Soundsensing company
+Hi
 
-### Noise
-The problem
+My name is Jon Nordby.
+
+I am Head of Data Science and Machine Learning
+at Soundsensing
+an IoT sensor company focused on sound
+
+Today I will talk to you about
+clasifying Environment Sounds on microcontroller
+
+### Environmental Noise
+
+Environmental Sounds are sounds that we have around us in our environment,
+especially outdoors.
+
+It can be cars honking, music played from a club, speech from 
+
+When environmental sounds are unwanted we call it environmental noise.
+
+Here are some examples from the Urbansound8k dataset.
+
+Environmental Noise pollution is a big, and growing problem.
+More and more we live in urban environments, with many noise sources around us.
+
+WHO estimates that in Europe alone 13 million suffer from sleep distubance due to noise.
+Such noise causes the body to be stressed, and in constant alert mode.
+This increases risk of cardiovascuar disease, obesity etc.
+
+And almost 1 million disability adjusted life years are lost due to noise.
+This makes noise the environmental pollution that affects the most people in Europe.
+
+## Occupational Noise
+
+Another serious problem is hearing loss.
+
+It is estimated that 40 million people are affected by hearing loss from work.
+
+Affects workers across many industries,
+including construction, manufacturing and shipping.
+
 
 ### Noise Monitoring
-IoT sensors.
-Why TinyML
+
+Soundsensing helps to address these issues by providing better tools
+for monitoring noise, understanding the underlying causes, and what is needed to make improvements.
+
+We provide easy-to-use IoT sensors that can continiously measure the noise-level,
+as well as classify the dominant noise-source over time.
+
+For this we use TinyML
+
+### Wireless Sensor Network
+
+When providing a Noise Monitoring sensor system there are multiple systems architectures one can consider.
+
+Alternative A
+would be to record audio in the sensor and transmit to the cloud.
+This is a conceptually very simple solution,
+and one could use a standard neural network in the cloud to do audio classification
+without much computational constraints on the model.
+
+However this would require a lot of data transfer,
+which is costly in terms of energy and data traffic in a cellular 4G system.
+
+It also would be very poor for privacy,
+as potentially sensitive audio such as speech
+would have to be transported through the network
+and potentially stored in a server.
+
+Alternative B would be to preprocess the data in the sensor, and classify this in the cloud.
+Would have to reducing the data enough to be privacy friendly and save considerable data traffic,
+but not so much as to reduce classification performance,
+which can be a difficult trade-off.
+
+But the best solution both for Privacy and Data Traffic would be the TinyML solution.
+To do all the processing on the sensor, and only transmit data about the classes to server.
+
+However this means the entire model needs to fit the constraints of the sensor device.
+
+
+## Device constraints
+
+If we consider a typical low-power microcontroller such as an ARM Cortex M4F,
+and we dedicate 50% of the resources to the machine learning, that means
+- 64 kB RAM
+
+
+
+## Small mo
+
+In work that we did in 2019, we found that existing models
+were at 1-3 orders of magnitude too large to fit on device.
+
+And we showed that one can reach about
+10 percentage points from the unconstrainted State-of-the-Art models
+when running on such a device.
+
+We have since made several improvements to close the gap further,
+but these are not published.
+
+As far as I known this still is the best published performance on Urbansound8k
+
+... how did we do it
+
+TODO: link thesis
 
 ### Audio Classification
-Pipeline
 
-### Environmental Sound Classification
-Urbansound8k
+Here is a typical audio classification pipeline.
+The input audio is on the top.
+It is chopped into fixed-length windows.
+Then each audio window is converted to a spectrogram representation, usually Mel-spectrogram.
+Each spectrogram window is fed to a classifier, typically a Convolutional Neural Network.
+And if the sounds classes of interest is longer than the window length, one does some aggregation
+to combine predictions for multiple windows into prediction for a single clip.
 
-## CNNs for efficient audio classification
-Slides from SenseCamp
+### Reduce input dimensionality
 
-1,2,3,4 slides
+The first optimizalization one can do is in preprocessing.
+The key is to use a small input to the model as possible.
+So if one reduces the sample rate, the range and resolution of frequencies bands,
+the time duration and resolution of the window, one can make large gains.
 
-## Research results
-From thesis
+Also makes it easier to learn with for small datasets!
 
-Feasible areas
+TODO: note easier to learn
 
-## In real world
-PNB. Activity detection. Noise at population
+### 
 
-Trafficmix. Noise separated by source
+The windows 
+This gives the model a couple of different view of the same sound, which increases performance.
+Typical SOTA models use maximum overlap, over repeating over 20x times on same audio section.
+
+The performance benefit can however be quite minor. Try 1x, 2x, 4x first
+
+Not that this increases detection latency and resolution.
+Might not be limiting in some cases, like keyword spotting or event detection.
+
+
+## Use a small model
+
+For many audio tasks one can get really far with a small model.
+For example 2-4 convolutional layers followed by 2 dense layers
+does well on a range of tasks.
+
+One can start with a large model and then prune it,
+but our experience start with small model is easier and works well.
+
+TODO: reference Salamon Bello
+
+## Depthwise-separable Convolution
+
+The convolutions in the network take up most of the CPU budget,
+especially the early ones with large.
+
+A Conv2d with multiple channels actually does convolution
+over 3 dimensions. Width, height and channel.
+
+This can be separated into two operations,
+first convolution over spatial dimensions,
+then convolve over the channel dimensions. 
+
+5-10x speedups with very little performance impact.
+
+## Spatially-separable
+
+TODO: drop it
+
+## Downscaling
+
+## Quantization
+
+Quantizing down to 8 bit integers can be done almost without loss in performance.
+4x improvement in FLASH and RAM
+
+On Cortex M4F one can get around 4x improvement in CPU performance as well
+
+## Latest development
+
+This area is very actively researched.
+Many of these you will find dedicated talks about here at TinyML Summit.
+
+
+## Noise Monitoring
+
+Automatically creating a logbook of noisy training activities.
+
+One of our customers operate a training facility for police special forces,
+where they fire guns and conduct explosives training.
+They use our system to have documentation that they follow the regulations,
+and to verify any noise complains that come in.
+
+We are now expanding this to other applications,
+such as Construction, Industry and Transportation.
+
+
+## Condition Monitoring
+
+We have also used the same techniques
+to develop an Anomaly Detection system using sound,
+which has been tested out on pumps.
+
+We are currently looking to test this in larger
+scale and on more types of machinery.
+
+## Conclusions
+
+1. Can classify Environmental Sounds directly on sensor
+2. Made possible using efficient CNN techniques
+3. Integrated into Soundsensing IoT sensors
+4. Used for Noise Monitoring and Condition Monitoring
+
+## Questions
+
+Thank you!
+
+Are there any questions? 
 
 
 # Misc
