@@ -25,24 +25,13 @@ tinyML Summit 2021</br>
 
 ::: notes
 
-Jon Nordby</br>
-Head of Data Science</br> 
-Soundsensing AS
+Environmental Sounds are sounds that we have around us in our environment,
+especially outdoors.
 
-- 2010. B.Eng in **Electronics**
-- **Software** developer. **Embedded** + **Web**
-- 2019. M. Sc in **Data Science**
+It can be cars honking, music played from a club, speech from 
 
+When environmental sounds are unwanted we call it environmental noise.
 
-TODO: add picture(s)
-
-Provide **Noise Monitoring** and Audio **Condition Monitoring** solutions
-that are used in Real-Estate, Industry, and Smart Cities.
-
-Critical part of this is Machine Learning for Audio Classification,
-as well as Anomaly Detection.
-
-Try to do as much as possible **on sensor**.
 :::
 
 ## Environmental Noise Pollution
@@ -57,15 +46,16 @@ The environmental pollution that affects most people in Europe
 
 ::: notes
 
-https://ajuntament.barcelona.cat/mapes-dades-ambientals/soroll/en/
+Environmental Noise pollution is a big, and growing problem.
+More and more we live in urban environments, with many noise sources around us.
 
-EEA
-https://www.eea.europa.eu/themes/human/noise/noise-2
+WHO estimates that in Europe alone 13 million suffer from sleep distubance due to noise.
+Such noise causes the body to be stressed, and in constant alert mode.
+This increases risk of cardiovascuar disease, obesity etc.
 
-Burden of Disease WHO
-http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf
+And almost 1 million disability adjusted life years are lost due to noise.
+This makes noise the environmental pollution that affects the most people in Europe.
 
-TODO: add picture
 
 :::
 
@@ -81,11 +71,12 @@ The most prevalent occupational disease in the world
 
 ::: notes
 
-TODO: add picture, person holding
+Another serious problem is hearing loss.
 
-The global burden of occupational noise-induced hearing loss
-Nelson, D. I., Nelson, R. Y., Concha-Barrientos, M., & Fingerhut, M. (2005).
-DOI 10.1002/ajim.20223
+It is estimated that 40 million people are affected by hearing loss from work.
+
+Affects workers across many industries,
+including construction, manufacturing and shipping.
 
 :::
 
@@ -96,11 +87,14 @@ DOI 10.1002/ajim.20223
 
 ::: notes
 
-EEA
-https://www.eea.europa.eu/themes/human/noise/noise-2
+Soundsensing helps to address these issues by providing better tools
+for monitoring noise, understanding the underlying causes, and what is needed to make improvements.
 
-Burden of Disease WHO
-http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf
+We provide easy-to-use IoT sensors that can continiously measure the noise-level,
+as well as classify the dominant noise-source over time.
+
+This is presented in our online dashboard,
+and is also available in an API for integrating with other systems.
 
 :::
 
@@ -109,33 +103,32 @@ http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf
 
 ![](img/sensornetworks.png){width=85%}
 
-::: notes
-
-
-:::
-
 
 ::: notes
 
-Environmental Sound Classification
+Alternative A
+would be to record audio in the sensor and transmit to the cloud.
+This is a conceptually very simple solution,
+and one could use a standard neural network in the cloud to do audio classification
+without much computational constraints on the model.
 
-![](img/urbansound8k-examples.png){width=100%}
+However this would require a lot of data transfer,
+which is costly in terms of energy and data traffic in a cellular 4G system.
 
-Examples from open dataset *Urbansound8k*
+It also would be very poor for privacy,
+as potentially sensitive audio such as speech
+would have to be transported through the network
+and could potentially be stored in a server.
 
+Alternative B would be to preprocess the data in the sensor, and classify this in the cloud.
+Would have to reducing the data enough to be privacy friendly and save considerable data traffic,
+but not so much as to reduce classification performance,
+which can be a difficult trade-off.
 
-* Widely researched. 1000 hits on Google Scholar
-* Datasets. **Urbansound8k** (10 classes), ESC-50, AudioSet (632 classes)
-* 2017: Human-level performance on ESC-50
+But the best solution both for Privacy and Data Traffic would be the TinyML solution.
+To do all the processing on the sensor, and only transmit data about the classes to server.
 
-Classes from an urban sound taxonomy,
-based on noise complains in New York city
-
-Most sounds around 4 seconds. Some classes around 1 second
-
-Foreground/background
-
-https://github.com/karoldvl/ESC-50
+However this means the entire model needs to fit the constraints of the sensor device.
 
 :::
 
@@ -161,19 +154,8 @@ With 50% of capacity:
 
 ::: notes
 
-STM32L476
-
-ARM Cortex M4F
-Hardware floating-point unit (FPU)
-DSP SIMD instructions
-80 MHz CPU clock 
-1024 kB of program memory (Flash)
-128 kB of RAM.
-
-25 mWatt max
-
-- TensorFlow Lite for Microcontrollers (Google)
-- ST X-CUBE-AI (ST Microelectronics)
+If we consider a typical low-power microcontroller such as an ARM Cortex M4F,
+and we dedicate 50% of the resources to the machine learning, that means
 
 :::
 
@@ -185,16 +167,19 @@ DSP SIMD instructions
 
 ::: notes
 
-eGRU: running on ARM Cortex-M0 microcontroller, accuracy 61% with **non-standard** evaluation
+In work that we did in 2019, we found that existing models
+were at 1-3 orders of magnitude too large to fit on device.
 
-Assuming no overlap. Most models use very high overlap, 100X higher compute
+And we showed that one can reach about
+10 percentage points from the unconstrainted State-of-the-Art models
+when running on such a device.
+
+We have since made several improvements to close the gap further,
+but these are not published.
+
+As far as I known this still is the best published performance on Urbansound8k
 
 :::
-
-
-
-
-
 
 
 # Shrinking </br> Convolutional Neural Networks</br> for TinyML Audio
@@ -206,6 +191,19 @@ How to did we make the model fit on device?
 ![](img/classification-pipeline.png){width=50%}
 
 Typical audio pipeline. Spectrogram conversion, CNN on overlapped windows.
+
+
+::: notes
+
+Here is a typical audio classification pipeline.
+The input audio is on the top.
+It is chopped into fixed-length windows.
+Then each audio window is converted to a spectrogram representation, usually Mel-spectrogram.
+Each spectrogram window is fed to a classifier, typically a Convolutional Neural Network.
+And if the sounds classes of interest is longer than the window length, one does some aggregation
+to combine predictions for multiple windows into prediction for a single clip.
+
+:::
 
 ## Reduce input dimensionality
 
@@ -221,11 +219,12 @@ Typical audio pipeline. Spectrogram conversion, CNN on overlapped windows.
 
 ::: notes
 
-Directly limits time and RAM use first few layers.
+The first optimizalization one can do is in preprocessing.
+The key is to use a small input to the model as possible.
+So if one reduces the sample rate, the range and resolution of frequencies bands,
+the time duration and resolution of the window, one can make large gains.
 
-Follow-on effects.
-A simpler input representation is (hopefully) easier to learn
-allowing for a simpler model
+Also makes it easier to learn with for small datasets!
 
 :::
 
@@ -237,17 +236,18 @@ Models in literature use 95% overlap or more. 20x penalty in inference time!
 
 Often small performance benefit. Use 0% (1x) or 50% (2x).
 
-<!--
-## Regular 2D-convolution
-
-![](img/convolution-2d.png){width=100%}
-
 ::: notes
 
-TODO: illustrate the cubical nature. Many channel
+Windows are computed with overlap
+This gives the model a couple of different view of the same sound, which increases performance.
+Typical SOTA models use maximum overlap, over repeating over 20x times on same audio section.
+
+The performance benefit can however be quite minor. Try 1x, 2x, 4x first
+
+Not that this increases detection latency and resolution.
+Might not be limiting in some cases, like keyword spotting or event detection.
 
 :::
--->
 
 ## Use a small model!
 
@@ -260,14 +260,12 @@ Based on SB-CNN (Salamon+Bello, 2016)
 
 ::: notes
 
-Baseline from SB-CNN
+For many audio tasks one can get really far with a small model.
+For example 2-4 convolutional layers followed by 2 dense layers
+does well on a range of tasks.
 
-Few modifications
-
-* Uses smaller input feature representation
-* Reduced downsample factor to accommodate
-
-CONV = entry point for trying different convolution operators
+One can start with a large model and then prune it,
+but our experience start with small model is easier and works well.
 
 :::
 
@@ -280,18 +278,16 @@ MobileNet, "Hello Edge", AclNet. 3x3 kernel,64 filters: 7.5x speedup
  
 ::: notes
 
-* Much fewer operations
-* Less expressive - but regularization effect can be beneficial
+The convolutions in the network take up most of the CPU budget.
 
+A Conv2d with multiple channels actually does convolution in 3 dimensions.
+Width, height and channel.
 
+This can be separated into two operations:
+first convolution over spatial dimensions,
+then convolve over the channel dimensions. 
 
-Spatially-separable Convolution
-
-![](img/spatially-separable-convolution.png){width=90%}
-
-EffNet, LD-CNN. 5x5 kernel: 2.5x speedup
-
-Not as efficient
+5-10x speedups with very little performance impact
 :::
 
 
@@ -303,7 +299,14 @@ Not as efficient
 Wasteful? Computing convolutions, then throwing away 3/4 of results!
 
 ::: notes
-TODO: include striding in diagram
+
+In a Convolutional Neural Network one downsamples the data as one gets deeper in layers,
+to operate on progressively higher level features.
+This is usually done by doing max pooling after each convolution,
+which means to pick the highest value within the input.
+However this is quite wasteful, as is disregards a lot of data computed by previous layer.
+
+
 :::
 
 ## Downsampling using strided convolution
@@ -313,7 +316,14 @@ TODO: include striding in diagram
 "Learned" downsampling. Striding 2x2: Approx 4x speedup 
 
 ::: notes
-TODO: merge into previous slide
+
+An alternative is to drop the max pooling,
+Instead use a stride higher than one in the convolution.
+This reduces the amount of times the convolution is run.
+
+Can sometimes perform better than max-pooling
+Since the downsampling is included in the learned function! 
+
 :::
 
 ## Quantization
@@ -325,6 +335,15 @@ TODO: merge into previous slide
 - 4.6X improvement in runtime using CMSIS-NN *SIMD* 
 
 Ref "CMSIS-NN: Efficient Neural Network Kernels for ARM Cortex-M CPUs"
+
+::: notes
+
+Quantizing down to 8 bit integers can be done almost without loss in performance.
+4x improvement in FLASH and RAM
+
+On Cortex M4F one can get around 4x improvement in CPU performance as well
+
+:::
 
 ## Latest developments
 
@@ -339,32 +358,12 @@ TinyML very actively researched, rapid improvements
 
 ::: notes
 
-Quantized NNs as the definitive solution for inference on low-power ARM MCUs?: work-in-progress
-CODES 2018
-Q = 1 native instructions can be used, yielding an energy and latency reduction of ~3.8× with respect to CMSIS-NN
-https://dl.acm.org/doi/abs/10.5555/3283568.3283580
+This area is very actively researched.
+Many of these you will find dedicated talks about here at TinyML Summit.
 
-https://blog.tensorflow.org/2021/02/accelerated-inference-on-arm-microcontrollers-with-tensorflow-lite.html
 
 :::
 
-::: notes
-
-EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz
-:::
-
-::: notes
-
-Time-frequency with convolutions
-
-- Preprocessing. Mel-spectrogram: **60** milliseconds
-- CNN. Stride-DS-24: **81** milliseconds w/o quantization
-- With quantization, spectrogram conversion is the bottleneck!
-- Convolutions can be used to learn a Time-Frequency transformation.
-- Especially interesting with CNN hardware acceleration.
-- Will it be faster without NN hardware?? Not established
-
-:::
 
 # Outro
 
@@ -378,7 +377,18 @@ Time-frequency with convolutions
 
 ::: notes
 
-TODO: add pictures of PNB, traffic, construction
+Automatically creating a logbook of noisy training activities.
+
+One of our customers operate a training facility for police special forces,
+where they fire guns and conduct explosives training.
+They use our system to have documentation that they follow the regulations,
+and to verify any noise complains that come in.
+
+We are now expanding this solution to other applications,
+such as Construction, Industry and Transportation.
+
+If you are working in these areas and interested in testing it out,
+let us know.
 
 :::
 
@@ -388,6 +398,21 @@ TODO: add pictures of PNB, traffic, construction
 
 Condition Monitoring of technical equipment using sound.</br>
 Developed based on experience from Noise Monitoring.
+
+::: notes
+
+We have also used the same techniques
+to develop an Anomaly Detection system using sound,
+which has been tested out on pumps.
+
+This means that the condition of technical equipment
+can be continiously monitored,
+freeing up time for the janitors and providing better detection of issues.
+
+We are currently looking to test this in larger
+scale and on more types of machinery.
+
+:::
 
 ## Conclusions
 

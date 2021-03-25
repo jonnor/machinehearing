@@ -51,15 +51,6 @@ It can be cars honking, music played from a club, speech from
 When environmental sounds are unwanted we call it environmental noise.
 
 
-Environmental Noise pollution is a big, and growing problem.
-More and more we live in urban environments, with many noise sources around us.
-
-WHO estimates that in Europe alone 13 million suffer from sleep distubance due to noise.
-Such noise causes the body to be stressed, and in constant alert mode.
-This increases risk of cardiovascuar disease, obesity etc.
-
-And almost 1 million disability adjusted life years are lost due to noise.
-This makes noise the environmental pollution that affects the most people in Europe.
 
 ## Occupational Noise
 
@@ -134,8 +125,6 @@ but these are not published.
 
 As far as I known this still is the best published performance on Urbansound8k
 
-... how did we do it
-
 TODO: link thesis
 
 ### Audio Classification
@@ -157,11 +146,11 @@ the time duration and resolution of the window, one can make large gains.
 
 Also makes it easier to learn with for small datasets!
 
-TODO: note easier to learn
 
 ### 
 
-The windows 
+Windows are computed
+
 This gives the model a couple of different view of the same sound, which increases performance.
 Typical SOTA models use maximum overlap, over repeating over 20x times on same audio section.
 

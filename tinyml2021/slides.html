@@ -42,20 +42,9 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <section id="introduction" class="title-slide slide level1">
 <h1>Introduction</h1>
 <aside class="notes">
-<p>Jon Nordby</br> Head of Data Science</br> Soundsensing AS</p>
-<ul>
-<li><ol start="2010" type="1">
-<li>B.Eng in <strong>Electronics</strong></li>
-</ol></li>
-<li><strong>Software</strong> developer. <strong>Embedded</strong> + <strong>Web</strong></li>
-<li><ol start="2019" type="1">
-<li>M. Sc in <strong>Data Science</strong></li>
-</ol></li>
-</ul>
-<p>TODO: add picture(s)</p>
-<p>Provide <strong>Noise Monitoring</strong> and Audio <strong>Condition Monitoring</strong> solutions that are used in Real-Estate, Industry, and Smart Cities.</p>
-<p>Critical part of this is Machine Learning for Audio Classification, as well as Anomaly Detection.</p>
-<p>Try to do as much as possible <strong>on sensor</strong>.</p>
+<p>Environmental Sounds are sounds that we have around us in our environment, especially outdoors.</p>
+<p>It can be cars honking, music played from a club, speech from</p>
+<p>When environmental sounds are unwanted we call it environmental noise.</p>
 </aside>
 </section>
 <section id="environmental-noise-pollution" class="slide level2">
@@ -67,10 +56,9 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <li>900’000 disability-adjusted life years (DALY) lost</li>
 </ul>
 <aside class="notes">
-<p>https://ajuntament.barcelona.cat/mapes-dades-ambientals/soroll/en/</p>
-<p>EEA https://www.eea.europa.eu/themes/human/noise/noise-2</p>
-<p>Burden of Disease WHO http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf</p>
-<p>TODO: add picture</p>
+<p>Environmental Noise pollution is a big, and growing problem. More and more we live in urban environments, with many noise sources around us.</p>
+<p>WHO estimates that in Europe alone 13 million suffer from sleep distubance due to noise. Such noise causes the body to be stressed, and in constant alert mode. This increases risk of cardiovascuar disease, obesity etc.</p>
+<p>And almost 1 million disability adjusted life years are lost due to noise. This makes noise the environmental pollution that affects the most people in Europe.</p>
 </aside>
 </section>
 <section id="occupational-noise-induced-hearing-loss" class="slide level2">
@@ -82,37 +70,30 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <li>4 million disability-adjusted life years (DALY) lost</li>
 </ul>
 <aside class="notes">
-<p>TODO: add picture, person holding</p>
-<p>The global burden of occupational noise-induced hearing loss Nelson, D. I., Nelson, R. Y., Concha-Barrientos, M., &amp; Fingerhut, M. (2005). DOI 10.1002/ajim.20223</p>
+<p>Another serious problem is hearing loss.</p>
+<p>It is estimated that 40 million people are affected by hearing loss from work.</p>
+<p>Affects workers across many industries, including construction, manufacturing and shipping.</p>
 </aside>
 </section>
 <section id="noise-monitoring-with-machine-learning" class="slide level2">
 <h2>Noise Monitoring with Machine Learning</h2>
 <p><img data-src="./img/soundsensing-solution.svg.png" style="width:100.0%" /></p>
 <aside class="notes">
-<p>EEA https://www.eea.europa.eu/themes/human/noise/noise-2</p>
-<p>Burden of Disease WHO http://www.euro.who.int/__data/assets/pdf_file/0008/136466/e94888.pdf</p>
+<p>Soundsensing helps to address these issues by providing better tools for monitoring noise, understanding the underlying causes, and what is needed to make improvements.</p>
+<p>We provide easy-to-use IoT sensors that can continiously measure the noise-level, as well as classify the dominant noise-source over time.</p>
+<p>This is presented in our online dashboard, and is also available in an API for integrating with other systems.</p>
 </aside>
 </section>
 <section id="wireless-audio-sensor-networks" class="slide level2">
 <h2>Wireless Audio Sensor Networks</h2>
 <p><img data-src="img/sensornetworks.png" style="width:85.0%" /></p>
 <aside class="notes">
-
-</aside>
-<aside class="notes">
-<p>Environmental Sound Classification</p>
-<p><img data-src="img/urbansound8k-examples.png" style="width:100.0%" /></p>
-<p>Examples from open dataset <em>Urbansound8k</em></p>
-<ul>
-<li>Widely researched. 1000 hits on Google Scholar</li>
-<li>Datasets. <strong>Urbansound8k</strong> (10 classes), ESC-50, AudioSet (632 classes)</li>
-<li>2017: Human-level performance on ESC-50</li>
-</ul>
-<p>Classes from an urban sound taxonomy, based on noise complains in New York city</p>
-<p>Most sounds around 4 seconds. Some classes around 1 second</p>
-<p>Foreground/background</p>
-<p>https://github.com/karoldvl/ESC-50</p>
+<p>Alternative A would be to record audio in the sensor and transmit to the cloud. This is a conceptually very simple solution, and one could use a standard neural network in the cloud to do audio classification without much computational constraints on the model.</p>
+<p>However this would require a lot of data transfer, which is costly in terms of energy and data traffic in a cellular 4G system.</p>
+<p>It also would be very poor for privacy, as potentially sensitive audio such as speech would have to be transported through the network and could potentially be stored in a server.</p>
+<p>Alternative B would be to preprocess the data in the sensor, and classify this in the cloud. Would have to reducing the data enough to be privacy friendly and save considerable data traffic, but not so much as to reduce classification performance, which can be a difficult trade-off.</p>
+<p>But the best solution both for Privacy and Data Traffic would be the TinyML solution. To do all the processing on the sensor, and only transmit data about the classes to server.</p>
+<p>However this means the entire model needs to fit the constraints of the sensor device.</p>
 </aside>
 </section>
 <section id="model-constraints" class="slide level2" data-background-image="./img/chip.jpg">
@@ -131,13 +112,7 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 </p>
 <!--  </section> -->
 <aside class="notes">
-<p>STM32L476</p>
-<p>ARM Cortex M4F Hardware floating-point unit (FPU) DSP SIMD instructions 80 MHz CPU clock 1024 kB of program memory (Flash) 128 kB of RAM.</p>
-<p>25 mWatt max</p>
-<ul>
-<li>TensorFlow Lite for Microcontrollers (Google)</li>
-<li>ST X-CUBE-AI (ST Microelectronics)</li>
-</ul>
+<p>If we consider a typical low-power microcontroller such as an ARM Cortex M4F, and we dedicate 50% of the resources to the machine learning, that means</p>
 </aside>
 </section>
 <section id="small-models-urbansound8k" class="slide level2" data-background-image="">
@@ -146,8 +121,10 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <img data-src="img/urbansound8k-existing-models-logmel.png" style="width:100.0%" alt="Green: Feasible region on device. 2021 results not published." /><figcaption aria-hidden="true">Green: Feasible region on device. 2021 results not published.</figcaption>
 </figure>
 <aside class="notes">
-<p>eGRU: running on ARM Cortex-M0 microcontroller, accuracy 61% with <strong>non-standard</strong> evaluation</p>
-<p>Assuming no overlap. Most models use very high overlap, 100X higher compute</p>
+<p>In work that we did in 2019, we found that existing models were at 1-3 orders of magnitude too large to fit on device.</p>
+<p>And we showed that one can reach about 10 percentage points from the unconstrainted State-of-the-Art models when running on such a device.</p>
+<p>We have since made several improvements to close the gap further, but these are not published.</p>
+<p>As far as I known this still is the best published performance on Urbansound8k</p>
 </aside>
 </section></section>
 <section>
@@ -159,6 +136,9 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <h2>Pipeline</h2>
 <p><img data-src="img/classification-pipeline.png" style="width:50.0%" /></p>
 <p>Typical audio pipeline. Spectrogram conversion, CNN on overlapped windows.</p>
+<aside class="notes">
+<p>Here is a typical audio classification pipeline. The input audio is on the top. It is chopped into fixed-length windows. Then each audio window is converted to a spectrogram representation, usually Mel-spectrogram. Each spectrogram window is fed to a classifier, typically a Convolutional Neural Network. And if the sounds classes of interest is longer than the window length, one does some aggregation to combine predictions for multiple windows into prediction for a single clip.</p>
+</aside>
 </section>
 <section id="reduce-input-dimensionality" class="slide level2">
 <h2>Reduce input dimensionality</h2>
@@ -172,8 +152,8 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 </ul>
 <p>~10x reduction i compute. And easier to learn!</p>
 <aside class="notes">
-<p>Directly limits time and RAM use first few layers.</p>
-<p>Follow-on effects. A simpler input representation is (hopefully) easier to learn allowing for a simpler model</p>
+<p>The first optimizalization one can do is in preprocessing. The key is to use a small input to the model as possible. So if one reduces the sample rate, the range and resolution of frequencies bands, the time duration and resolution of the window, one can make large gains.</p>
+<p>Also makes it easier to learn with for small datasets!</p>
 </aside>
 </section>
 <section id="reduce-overlap" class="slide level2">
@@ -181,17 +161,11 @@ Jon Nordby</br> jon@soundsensing.no</br> tinyML Summit 2021</br>
 <p><img data-src="img/framing.png" style="width:80.0%" /></p>
 <p>Models in literature use 95% overlap or more. 20x penalty in inference time!</p>
 <p>Often small performance benefit. Use 0% (1x) or 50% (2x).</p>
-<!--
-## Regular 2D-convolution
-
-![](img/convolution-2d.png){width=100%}
-
-::: notes
-
-TODO: illustrate the cubical nature. Many channel
-
-:::
--->
+<aside class="notes">
+<p>Windows are computed with overlap This gives the model a couple of different view of the same sound, which increases performance. Typical SOTA models use maximum overlap, over repeating over 20x times on same audio section.</p>
+<p>The performance benefit can however be quite minor. Try 1x, 2x, 4x first</p>
+<p>Not that this increases detection latency and resolution. Might not be limiting in some cases, like keyword spotting or event detection.</p>
+</aside>
 </section>
 <section id="use-a-small-model" class="slide level2">
 <h2>Use a small model!</h2>
@@ -200,13 +174,8 @@ Based on SB-CNN (Salamon+Bello, 2016)
 -->
 <p><img data-src="img/models.svg" style="width:70.0%" /></p>
 <aside class="notes">
-<p>Baseline from SB-CNN</p>
-<p>Few modifications</p>
-<ul>
-<li>Uses smaller input feature representation</li>
-<li>Reduced downsample factor to accommodate</li>
-</ul>
-<p>CONV = entry point for trying different convolution operators</p>
+<p>For many audio tasks one can get really far with a small model. For example 2-4 convolutional layers followed by 2 dense layers does well on a range of tasks.</p>
+<p>One can start with a large model and then prune it, but our experience start with small model is easier and works well.</p>
 </aside>
 </section>
 <section id="depthwise-separable-convolution" class="slide level2">
@@ -214,14 +183,10 @@ Based on SB-CNN (Salamon+Bello, 2016)
 <p><img data-src="img/depthwise-separable-convolution.png" style="width:90.0%" /></p>
 <p>MobileNet, “Hello Edge”, AclNet. 3x3 kernel,64 filters: 7.5x speedup</p>
 <aside class="notes">
-<ul>
-<li>Much fewer operations</li>
-<li>Less expressive - but regularization effect can be beneficial</li>
-</ul>
-<p>Spatially-separable Convolution</p>
-<p><img data-src="img/spatially-separable-convolution.png" style="width:90.0%" /></p>
-<p>EffNet, LD-CNN. 5x5 kernel: 2.5x speedup</p>
-<p>Not as efficient</p>
+<p>The convolutions in the network take up most of the CPU budget.</p>
+<p>A Conv2d with multiple channels actually does convolution in 3 dimensions. Width, height and channel.</p>
+<p>This can be separated into two operations: first convolution over spatial dimensions, then convolve over the channel dimensions.</p>
+<p>5-10x speedups with very little performance impact</p>
 </aside>
 </section>
 <section id="downsampling-using-max-pooling" class="slide level2">
@@ -229,7 +194,7 @@ Based on SB-CNN (Salamon+Bello, 2016)
 <p><img data-src="img/maxpooling.png" style="width:100.0%" /></p>
 <p>Wasteful? Computing convolutions, then throwing away 3/4 of results!</p>
 <aside class="notes">
-<p>TODO: include striding in diagram</p>
+<p>In a Convolutional Neural Network one downsamples the data as one gets deeper in layers, to operate on progressively higher level features. This is usually done by doing max pooling after each convolution, which means to pick the highest value within the input. However this is quite wasteful, as is disregards a lot of data computed by previous layer.</p>
 </aside>
 </section>
 <section id="downsampling-using-strided-convolution" class="slide level2">
@@ -237,7 +202,8 @@ Based on SB-CNN (Salamon+Bello, 2016)
 <p><img data-src="img/strided-convolution.png" style="width:100.0%" /></p>
 <p>“Learned” downsampling. Striding 2x2: Approx 4x speedup</p>
 <aside class="notes">
-<p>TODO: merge into previous slide</p>
+<p>An alternative is to drop the max pooling, Instead use a stride higher than one in the convolution. This reduces the amount of times the convolution is run.</p>
+<p>Can sometimes perform better than max-pooling Since the downsampling is included in the learned function!</p>
 </aside>
 </section>
 <section id="quantization" class="slide level2">
@@ -249,6 +215,10 @@ Based on SB-CNN (Salamon+Bello, 2016)
 <li>4.6X improvement in runtime using CMSIS-NN <em>SIMD</em></li>
 </ul>
 <p>Ref “CMSIS-NN: Efficient Neural Network Kernels for ARM Cortex-M CPUs”</p>
+<aside class="notes">
+<p>Quantizing down to 8 bit integers can be done almost without loss in performance. 4x improvement in FLASH and RAM</p>
+<p>On Cortex M4F one can get around 4x improvement in CPU performance as well</p>
+</aside>
 </section>
 <section id="latest-developments" class="slide level2">
 <h2>Latest developments</h2>
@@ -262,22 +232,7 @@ Based on SB-CNN (Salamon+Bello, 2016)
 </ul>
 <p>TinyML very actively researched, rapid improvements</p>
 <aside class="notes">
-<p>Quantized NNs as the definitive solution for inference on low-power ARM MCUs?: work-in-progress CODES 2018 Q = 1 native instructions can be used, yielding an energy and latency reduction of ~3.8× with respect to CMSIS-NN https://dl.acm.org/doi/abs/10.5555/3283568.3283580</p>
-<p>https://blog.tensorflow.org/2021/02/accelerated-inference-on-arm-microcontrollers-with-tensorflow-lite.html</p>
-</aside>
-<aside class="notes">
-<p>EnvNet-v2 got 78.3% on Urbansound8k with 16 kHz</p>
-</aside>
-<aside class="notes">
-<p>Time-frequency with convolutions</p>
-<ul>
-<li>Preprocessing. Mel-spectrogram: <strong>60</strong> milliseconds</li>
-<li>CNN. Stride-DS-24: <strong>81</strong> milliseconds w/o quantization</li>
-<li>With quantization, spectrogram conversion is the bottleneck!</li>
-<li>Convolutions can be used to learn a Time-Frequency transformation.</li>
-<li>Especially interesting with CNN hardware acceleration.</li>
-<li>Will it be faster without NN hardware?? Not established</li>
-</ul>
+<p>This area is very actively researched. Many of these you will find dedicated talks about here at TinyML Summit.</p>
 </aside>
 </section></section>
 <section>
@@ -296,13 +251,21 @@ Based on SB-CNN (Salamon+Bello, 2016)
 <li>Expanding now to Construction and Industry noise</li>
 </ul>
 <aside class="notes">
-<p>TODO: add pictures of PNB, traffic, construction</p>
+<p>Automatically creating a logbook of noisy training activities.</p>
+<p>One of our customers operate a training facility for police special forces, where they fire guns and conduct explosives training. They use our system to have documentation that they follow the regulations, and to verify any noise complains that come in.</p>
+<p>We are now expanding this solution to other applications, such as Construction, Industry and Transportation.</p>
+<p>If you are working in these areas and interested in testing it out, let us know.</p>
 </aside>
 </section>
 <section id="condition-monitoring-example" class="slide level2">
 <h2>Condition Monitoring example</h2>
 <p><img data-src="./img/soundsensing-condition-monitoring.svg.png" style="width:100.0%" /></p>
 <p>Condition Monitoring of technical equipment using sound.</br> Developed based on experience from Noise Monitoring.</p>
+<aside class="notes">
+<p>We have also used the same techniques to develop an Anomaly Detection system using sound, which has been tested out on pumps.</p>
+<p>This means that the condition of technical equipment can be continiously monitored, freeing up time for the janitors and providing better detection of issues.</p>
+<p>We are currently looking to test this in larger scale and on more types of machinery.</p>
+</aside>
 </section>
 <section id="conclusions" class="slide level2">
 <h2>Conclusions</h2>
