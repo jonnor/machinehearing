@@ -4,7 +4,7 @@
 
 <!-- TODO: switch to Youtube video when available -->
 <a href="https://jonnor.github.io/machinehearing/tinyml2021/slides.html">
-<img src="https://github.com/jonnor/machinehearing/raw/master/tinyml2021/cover.png" height="200" alt="Environmental Sound Classification on microcontrollers">
+<img src="https://github.com/jonnor/machinehearing/raw/master/tinyml2021/cover.jpg" height="200" alt="Environmental Sound Classification on microcontrollers">
 </a>
 
 March 25, 2021. [slides](https://jonnor.github.io/machinehearing/tinyml2021/slides.html), [notes](./tinyml2021).
