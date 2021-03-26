@@ -1,9 +1,17 @@
 # Machine Hearing
 
+## TinyML Summit 2021: Environmental Sound Classification on microcontrollers  
+
+March 25, 2021.
+
+[slides](https://jonnor.github.io/machinehearing/tinyml2021/slides.html), [notes](./tinyml2021)
+
+Video recording coming later on the [TinyML Youtube channel](https://www.youtube.com/c/tinyML/videos).
+
 ## Classifying sound using Machine Learning
 
 <a href="https://www.youtube.com/watch?v=1H63PewtDbo">
-<img src="https://github.com/jonnor/machinehearing/raw/master/knowit2020/video.png" height="200" alt="Youtube: Audio Classification using Machine Learning by Jon Nordby, EuroPython 2019">
+<img src="https://github.com/jonnor/machinehearing/raw/master/knowit2020/video.png" height="200" alt="Youtube: Classifying sound using Machine Learning">
 </a>
 
 At KnowIt Oslo, 2020. [Video recording](https://www.youtube.com/watch?v=1H63PewtDbo), [slides](https://jonnor.github.io/machinehearing/knowit2020/slides.html), [notes](./knowit2020)
