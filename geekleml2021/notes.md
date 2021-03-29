@@ -55,6 +55,47 @@ Use Soundsensing IoT sensors and Audio ML platform
 
 
 
+# Demo
+
+Ideal demo
+
+- Concrete usecase
+- Simple phenomenon
+- Relatable, familiar
+- Can use detected events to illustrate/uncover differences
+Different event rates say something about other (potentially hidden) process variables.
+Ie popcorn. Different brand of popcorn. Different conditions, ie humidity. Amount of beans
+Change in events say when something has started or stopped.
+- Can show detecting working in real-time
+- Can share the data
+- Data is easily accessible
+- Labeled data exists already
+Bird call?
+- Fun and geeky
+
+
+Tracking beer brewing via sound
+
+Rate of fermentation over time
+mol/sec
+
+https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FNadia-Musco%2Fpublication%2F282402373%2Ffigure%2Ffig1%2FAS%3A613907060240428%401523378257552%2FIn-vitro-cumulative-gas-production-Panel-A-and-fermentation-rate-Panel-B-over-time.png&imgrefurl=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FIn-vitro-cumulative-gas-production-Panel-A-and-fermentation-rate-Panel-B-over-time_fig1_282402373&tbnid=Gsp5YMmGHkG1bM&vet=12ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygFegUIARCuAQ..i&docid=WvHXcTxPacLZDM&w=709&h=975&itg=1&q=rate%20of%20fermentation%20over%20time&hl=en&ved=2ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygFegUIARCuAQ
+
+https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FFederico-Infascelli%2Fpublication%2F41394048%2Ffigure%2Ffig1%2FAS%3A669993146519561%401536750222607%2FTrend-of-fermentation-rate-over-time.png&imgrefurl=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FTrend-of-fermentation-rate-over-time_fig1_41394048&tbnid=R7LwBqk0XIpDCM&vet=12ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygAegUIARCkAQ..i&docid=Z_pUBmtVx2iewM&w=850&h=397&q=rate%20of%20fermentation%20over%20time&hl=en&ved=2ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygAegUIARCkAQ
+
+
+https://www.google.com/search?q=rate+of+fermentation+over+time&tbm=isch&ved=2ahUKEwjU3r32jdTvAhXSxSoKHaDrCxEQ2-cCegQIABAA&oq=rate+of+fermentation+over+time&gs_lcp=CgNpbWcQAzoCCAA6BAgAEENQkUVYqVFgnlJoAHAAeACAAViIAe8FkgECMTCYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=4QxhYJTqLNKLqwGg16-IAQ&bih=985&biw=1918&hl=en#imgrc=EKf6aNkBtPCGPM
+
+# TODO
+
+- Collect initial audio data
+- Run through standard classifiers, see how they do
+- Run through spectrogram
+- Run through soundlevels
+- Label some 10-100 events per track, evaluate performance
+
+
+
 # Outline
 
 - Definition
@@ -118,6 +159,7 @@ Refer to EuroPython talk.
 What people do not need to understand
 
 - ? Weakly labeled data 
+- Making efficient networks
 
 Undecided
 
@@ -244,6 +286,12 @@ Fermentation
 Brewing
 Air lock 
 
+Brewers speak of
+bubbles per minute 
+
+
+Event length around 200 ms
+
 Watch an Airlock Bubbling During Mead Fermentation - Entertainment for Brewers
 https://www.youtube.com/watch?v=p0jtxp5nWms
 5 minutes
@@ -265,6 +313,19 @@ https://www.youtube.com/watch?v=by0e-EkAsOE
 https://www.youtube.com/watch?v=q2srYoC3FOo
 2 hours 20
 
+Every 20 minutes there is another event
+
+
+Professional acoustic monitoring of brewing.
+Using piezo element. Tzero
+https://www.fierceelectronics.com/sensors/high-tech-meets-taproom-acoustic-fermentation-sensor
+https://www.tzerobrew.com/monitor
+
+DIY bubble logger. IR photometer based
+https://www.sparkfun.com/tutorials/131
+
+DIY hygrometer
+https://www.hackster.io/135387/homebrew-fermentation-monitor-9df83e
 
 ## Post-processing
 
