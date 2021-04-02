@@ -86,6 +86,22 @@ https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.researchgate.net%2Fprofil
 
 https://www.google.com/search?q=rate+of+fermentation+over+time&tbm=isch&ved=2ahUKEwjU3r32jdTvAhXSxSoKHaDrCxEQ2-cCegQIABAA&oq=rate+of+fermentation+over+time&gs_lcp=CgNpbWcQAzoCCAA6BAgAEENQkUVYqVFgnlJoAHAAeACAAViIAe8FkgECMTCYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=4QxhYJTqLNKLqwGg16-IAQ&bih=985&biw=1918&hl=en#imgrc=EKf6aNkBtPCGPM
 
+Shaped like a Weibull / gamma / lognormal
+
+
+Plaato app
+Scale goes up to 800-1000 BPM
+13 per second
+75 ms between each
+
+Typical peak might be at 100-200 BPM
+
+https://www.google.com/search?q=plaato+analytics&tbm=isch&ved=2ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQ2-cCegQIABAA&oq=plaato+analytics&gs_lcp=CgNpbWcQAzoCCAA6BAgAEBg6BggAEAoQGFDZ_hBY-pYRYJuYEWgAcAB4AIABVogB_QmSAQIxOZgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=Y_RmYI7-BYToqgHXrr3IBQ&bih=988&biw=1918#imgrc=5we7VCNxCQR3JM
+
+https://www.google.com/search?q=plaato+analytics&tbm=isch&ved=2ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQ2-cCegQIABAA&oq=plaato+analytics&gs_lcp=CgNpbWcQAzoCCAA6BAgAEBg6BggAEAoQGFDZ_hBY-pYRYJuYEWgAcAB4AIABVogB_QmSAQIxOZgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=Y_RmYI7-BYToqgHXrr3IBQ&bih=988&biw=1918#imgrc=4CEvO8RRbM5mhM
+
+https://www.google.com/imgres?imgurl=http%3A%2F%2Fhumebrew.com%2Fcontent%2Fimages%2F2019%2F01%2Fplaato-airlock-fermentation-complete-wide.jpg&imgrefurl=http%3A%2F%2Fhumebrew.com%2Fplaato-digital-airlock-review%2F&tbnid=C7-7ouo_2PyD3M&vet=12ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQMygAegUIARCmAQ..i&docid=e0eGkBDjLTLBBM&w=1440&h=720&q=plaato%20plot&ved=2ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQMygAegUIARCmAQ#imgrc=C7-7ouo_2PyD3M&imgdii=ceckMDLsUqc0nM
+
 # TODO
 
 - Collect initial audio data
@@ -93,6 +109,41 @@ https://www.google.com/search?q=rate+of+fermentation+over+time&tbm=isch&ved=2ahU
 - Run through spectrogram
 - Run through soundlevels
 - Label some 10-100 events per track, evaluate performance
+
+Compute spectrograms
+Generate labels using clustering.
+Using GMM-HMM
+Put Youtube files in csv
+
+## Exploratory Data Analysis
+
+Always inspect at the data
+Listen to audio, look at spectrogram
+Audacity open-source software
+
+Characteristics of the sound
+Make notes
+
+Event length.
+Distance between events
+Variation
+Changes over time
+Differences between recordings
+Background noise
+Other events that could be easily confused
+
+
+### Labeling data
+Manually using Audacity
+
+
+### Synthesize data
+Using scaper
+Vary SNR
+
+## TODO
+
+
 
 
 
