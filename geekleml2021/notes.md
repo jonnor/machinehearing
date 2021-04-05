@@ -51,134 +51,50 @@ Interested in working on Audio and ML?
 - Apply at Soundsensing
 
 Looking for monitoring solutions using Audio?
-Use Soundsensing IoT sensors and Audio ML platform
-
-
-
-# Demo
-
-Ideal demo
-
-- Concrete usecase
-- Simple phenomenon
-- Relatable, familiar
-- Can use detected events to illustrate/uncover differences
-Different event rates say something about other (potentially hidden) process variables.
-Ie popcorn. Different brand of popcorn. Different conditions, ie humidity. Amount of beans
-Change in events say when something has started or stopped.
-- Can show detecting working in real-time
-- Can share the data
-- Data is easily accessible
-- Labeled data exists already
-Bird call?
-- Fun and geeky
-
-
-Tracking beer brewing via sound
-
-Rate of fermentation over time
-mol/sec
-
-https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FNadia-Musco%2Fpublication%2F282402373%2Ffigure%2Ffig1%2FAS%3A613907060240428%401523378257552%2FIn-vitro-cumulative-gas-production-Panel-A-and-fermentation-rate-Panel-B-over-time.png&imgrefurl=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FIn-vitro-cumulative-gas-production-Panel-A-and-fermentation-rate-Panel-B-over-time_fig1_282402373&tbnid=Gsp5YMmGHkG1bM&vet=12ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygFegUIARCuAQ..i&docid=WvHXcTxPacLZDM&w=709&h=975&itg=1&q=rate%20of%20fermentation%20over%20time&hl=en&ved=2ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygFegUIARCuAQ
-
-https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FFederico-Infascelli%2Fpublication%2F41394048%2Ffigure%2Ffig1%2FAS%3A669993146519561%401536750222607%2FTrend-of-fermentation-rate-over-time.png&imgrefurl=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FTrend-of-fermentation-rate-over-time_fig1_41394048&tbnid=R7LwBqk0XIpDCM&vet=12ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygAegUIARCkAQ..i&docid=Z_pUBmtVx2iewM&w=850&h=397&q=rate%20of%20fermentation%20over%20time&hl=en&ved=2ahUKEwi2uYb8jdTvAhXGtCoKHeNZDfwQMygAegUIARCkAQ
-
-
-https://www.google.com/search?q=rate+of+fermentation+over+time&tbm=isch&ved=2ahUKEwjU3r32jdTvAhXSxSoKHaDrCxEQ2-cCegQIABAA&oq=rate+of+fermentation+over+time&gs_lcp=CgNpbWcQAzoCCAA6BAgAEENQkUVYqVFgnlJoAHAAeACAAViIAe8FkgECMTCYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=4QxhYJTqLNKLqwGg16-IAQ&bih=985&biw=1918&hl=en#imgrc=EKf6aNkBtPCGPM
-
-Shaped like a Weibull / gamma / lognormal
-
-
-Plaato app
-Scale goes up to 800-1000 BPM
-13 per second
-75 ms between each
-
-Typical peak might be at 100-200 BPM
-
-https://www.google.com/search?q=plaato+analytics&tbm=isch&ved=2ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQ2-cCegQIABAA&oq=plaato+analytics&gs_lcp=CgNpbWcQAzoCCAA6BAgAEBg6BggAEAoQGFDZ_hBY-pYRYJuYEWgAcAB4AIABVogB_QmSAQIxOZgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=Y_RmYI7-BYToqgHXrr3IBQ&bih=988&biw=1918#imgrc=5we7VCNxCQR3JM
-
-https://www.google.com/search?q=plaato+analytics&tbm=isch&ved=2ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQ2-cCegQIABAA&oq=plaato+analytics&gs_lcp=CgNpbWcQAzoCCAA6BAgAEBg6BggAEAoQGFDZ_hBY-pYRYJuYEWgAcAB4AIABVogB_QmSAQIxOZgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=Y_RmYI7-BYToqgHXrr3IBQ&bih=988&biw=1918#imgrc=4CEvO8RRbM5mhM
-
-https://www.google.com/imgres?imgurl=http%3A%2F%2Fhumebrew.com%2Fcontent%2Fimages%2F2019%2F01%2Fplaato-airlock-fermentation-complete-wide.jpg&imgrefurl=http%3A%2F%2Fhumebrew.com%2Fplaato-digital-airlock-review%2F&tbnid=C7-7ouo_2PyD3M&vet=12ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQMygAegUIARCmAQ..i&docid=e0eGkBDjLTLBBM&w=1440&h=720&q=plaato%20plot&ved=2ahUKEwjOu7S0r9_vAhUEtCoKHVdXD1kQMygAegUIARCmAQ#imgrc=C7-7ouo_2PyD3M&imgdii=ceckMDLsUqc0nM
-
-# TODO
-
-- Collect initial audio data
-- Run through standard classifiers, see how they do
-- Run through spectrogram
-- Run through soundlevels
-- Label some 10-100 events per track, evaluate performance
-
-Compute spectrograms
-Generate labels using clustering.
-Using GMM-HMM
-Put Youtube files in csv
-
-## Exploratory Data Analysis
-
-Always inspect at the data
-Listen to audio, look at spectrogram
-Audacity open-source software
-
-Characteristics of the sound
-Make notes
-
-Event length.
-Distance between events
-Variation
-Changes over time
-Differences between recordings
-Background noise
-Other events that could be easily confused
-
-
-### Labeling data
-Manually using Audacity
-
-
-### Synthesize data
-Using scaper
-Vary SNR
-
-## TODO
-
-
-
+- Use Soundsensing IoT sensors and Audio ML platform
 
 
 # Outline
 
-- Definition
-- Motivating applications
-- Audio pipeline
-- Data and labels
-- Training
-- Evaluate performance
-- Running real-time 
-
 Style.
 Show the output/demo first.
-Then walk through how to make it?
+Then walk through how to make it
 Complete code in a Github, ideally
 
-# Applications
+- Introduction
+- About Soundsensing
+- Audio Event Detection. Task definition
+- Application example. Tracking Beer Fermentation
+- Data gathering. Hunting Youtube. youtube-dl
+- Exploratory Data Analysis. Spectrograms. Audacity, librosa
+- Labeling data. Audacity
+- Audio ML pipeline. System diagram
+- Pre-processing? Analysis windows. (spectrograms, already covered)
+- Training & evaluation. CNN, RNN. Keras
+- Post-processing?
+- Results
+- Streaming inference. Running in real-time
+- 
 
-Aka Sound Event Detection
-Present/not.
 
-Similar to.
-Audio classification
-Keyword spotting
+# TODO
 
-## Data requirements
+Presentation
 
-Go for at least 100 events
-1 per second, 2 minutes
+- Finish outline
+- Setup slides skeleton
+- Make notes for all outline
+- Record demo-video 
 
-Baseline simple. Soundlevel/freq, RF
-Baseline advanced. Pretrained audio CNN
-Custom. Own CNN/RNN on spectrogram
+
+Demo code
+
+- Run label gen on 3 files
+- Verify/clean the labels in Audacity
+- Setup pipeline with baseline classifier. MFCC,LogisticRegression
+- Add neural network to pipeline. mel-spectrogram with CNN/RNN
+- Setup code to run on live input. Test with
+
 
 # Planning
 What people need to understand
@@ -236,18 +152,211 @@ Challenges
 
 - Out-of-distribution data
 Device. Environment. 
+Data augmentation
 
-## Requirements for AED
+# Outline
 
-- Resolution of output. 
-- Detection delay
+
+## Audio Event Detection
+
+Aka Sound Event Detection
+Present/not.
+
+Similar to.
+Audio classification
+Keyword spotting
+
+Audio Classification with Machine Learning (Jon Nordby, EuroPython 2019)
+https://www.youtube.com/watch?v=uCGROOUO_wY
+
+## Events vs not-events
+
+Events need to have a well-defined duration
+Start-end. Onset/offset
+Or at least a clear start
+
+If events are overlapping a lot, might not make sense as events anymore
+Isolated claps (event) versus clapping (ongoing, class)
+
+For events one can count the number of occurrences
+Classification might instead count number of seconds instead
+
+## Beer fermentation tracking
+
+IMAGE: graph over time
+
+bubbles per minute 
+
+
+Event length around 200 ms
+
+
+
+## Approach
+AED as classification of short independent time-windows
+Uniform probability of event occuring.
+
+Not considering sequences, or states, in the detector
+Ie in speech recognition certain sequences of phonemes are more probable
+
+Single audio stream. Monophonic.
+Single event class. Binary classification
+
+Requires that each event is clearly audible and understandable - without context
+Low-to-no overlap between events.
+
+## Data requirements
+
+Need a minimum of 100 events
+1 per second, just 2 minutes
+1000 events better.
+Much more stable performance metrics
+10'000
+
+Want realistic data. Capturing 
+
+- natural variation in the event sound
+- natural variation in recording devices
+- natural variation in recording environment
+
+Especially if there are other event-like noises
+
+## Data collection
+
+Searched on Youtube.
+
+- Preferably couple of minutes long, minimum 15 seconds 
+- No talking
+- Mostly stationary camera
+- No audio editing/effects
+- One or more airlocks bubbling
+- Bubbling can be heard by ear
+
+Making note of
+
+- Bubbling rate
+- Clarity of bubble sound
+- Other noise around
+
+Maybe 1000 videos reviewed.
+End up with around 100 potentialy useful
+Took many hours
+
+Up to 100 recording devices and 100 environments. Maybe 2000 events
+Some recordings very long, several hours. Maybe 5000 events
+
+## Exploratory Data Analysis
+
+Always inspect at the data
+Listen to audio, look at spectrogram
+Audacity open-source software
+
+Characteristics of the sound
+Write down notes about it
+
+- Event length
+- Distance between events
+- Variation in the event sound
+- Changes over time
+- Differences between recordings
+- Background noises
+- Other events that could be easily confused
+
+
+### Labeling data
+
+Manually using Audacity
+
+How to Label Audio for Deep Learning in 4 Simple Steps
+https://towardsdatascience.com/how-to-label-audio-for-deep-learning-in-4-simple-steps-6a2c33b343e6
+Shows how to use Audacity to label.
+Including switching to spectrograms,
+annotating a frequency range,
+exporting the labels to files,
+and importing the label files in Python.
+
+
+Semi-automatically with GMM-HMM
+First running it, generating label files
+Then reviewing and editing the labels in Audacity
+
+Gaussian Mixture Model, Hidden Markov Model
+from hmmlearn
+https://github.com/hmmlearn/hmmlearn
+Using Mel-Frequency-Cepstral-Coefficiants as features
+Lossy compression on top of a mel-spectrogram
+
+
+
+
+## Audio ML pipeline
+
+
+## Analysis windows
+
+
+
+## Evaluation
+
+Multiple levels
+
+Window-wise
 - False Positive Rate / False Negative Rate
 - Precision / recall
 
-Things to consider
+- Event-wise
+
+- Blops per Minute
+Errors within +- 20?
+
+
+Other desirable properties
+- Resolution of output. 
+- Reporting delay
 - Length of events. Min,max,median. Should fit into one window
 
-## Examples
+
+## Models
+
+Baseline simple. Soundlevel/freq, RF
+Baseline advanced. Pretrained audio CNN
+Custom. Own CNN/RNN on spectrogram
+
+
+
+
+
+## Post-processing
+
+Counting. Threshold above X
+Event rate. Count / time
+
+
+
+## Streaming inference
+
+Operator does not care about each and every blop
+BPM changes slowly and (normally) quite evently
+
+Want ability to check a that fermentation is progressing OK.
+Will maybe check couple of times per day 
+Can have many minutes, perhaps up to 1 hour lag
+Brewfather limits updates to once per 15 minutes
+
+But can be useful when setting up, to verifify detection
+And makes for nicer demo :)
+
+Key: Chopping up incoming stream into (overlapping) audio windows
+
+
+### Synthesize data
+
+Using scaper
+Vary SNR
+
+
+
+## Other examples
 
 - Popcorn popping. Or coffeebeans
 - Gunshot detection
@@ -259,29 +368,9 @@ Things to consider
 - Car passing
 - Plop from alcohol fermentation lock
 
-## Events vs not-events
-Need to have a well-defined duration
-Start-end. Onset/offset
-Or at least a clear start
 
-If events are overlapping a lot, might not make sense as events anymore
-One hand clap versus clapping
 
-For events one can count the number of occurrences
-Classification might instead count number of seconds instead
-
-## Approach
-AED as classification of short independent time-windows
-Uniform probability of event occuring.
-
-Not considering sequences, or states, in the detector
-Ie in speech recognition certain sequences of phonemes are more probable
-
-Monophonic.
-Binary classification
-
-Requires that each event is clearly audible and understandable - without context
-Low-to-no overlap
+# Bonus
 
 ## Characteristics of Audio Events
 
@@ -311,575 +400,31 @@ Alarms
 Transitions. Into state. Out of state.
 
 
-### Popcorn-popping
 
-https://www.youtube.com/watch?v=6aAuwZfJTkc
-actually happens so close that might not be well approximated as individual events
-Get a "cling" from things hitting
 
-10 hours of popcorn popping
-https://www.youtube.com/watch?v=--pvwC3yO3Q
-inside a micro
-popping in bag.
-Thuds
-
-https://www.youtube.com/watch?v=Y0xh95oTjG4
-open frying pan
-popcorns put in over time
-makes cling sound
-relatively slow event rate
-sounds of kernels hitting eachother
-flying out of pan and hitting stove
-
-
-### 
-Fermentation
-Brewing
-Air lock 
-
-Brewers speak of
-bubbles per minute 
-
-
-Event length around 200 ms
-
-Watch an Airlock Bubbling During Mead Fermentation - Entertainment for Brewers
-https://www.youtube.com/watch?v=p0jtxp5nWms
-5 minutes
-Quite regular events
-Not so loud events
-Quite high ambient noise
-
-
-ASMR | Homebrewing Airlock Symphony
-https://www.youtube.com/watch?v=MN0Mg1uyznU
-16 minutes
-3-5 different airlocks. Sound different
-One has highest event rate
-Low ambient noise
-
-https://www.youtube.com/watch?v=by0e-EkAsOE
-60 minutes
-
-https://www.youtube.com/watch?v=q2srYoC3FOo
-2 hours 20
-
-Every 20 minutes there is another event
-
-ASMR bubbling airlock
-https://www.youtube.com/watch?v=b31j5PvXQhY
-7 minutes
-
-multiple bubbles in one go. burping. Plops not so clear
-
-Two minutes of air lock bubbling
-https://www.youtube.com/watch?v=3iGoz00AMew
-
-Airlock with glyserine
-2 minutes
-Not so loud
-Compressor noise
-
-Bubbling Airlock
-https://www.youtube.com/watch?v=WznxXBRUVb0
-
-Very high rate
-30 seconds
-
-Airlock bubbling ASMR
-https://www.youtube.com/watch?v=vrM-lZ5H54Y
-
-12 minutes
-High rate
-Bit of burping. But quite consistent sound
-
-Homebrew Ale Airlock Bubbling. So Satisfying!
-https://www.youtube.com/watch?v=j7md-wkL1U0
-1 minute
-1 per second
-Quite clear, glassy sound.
-Variation due to camera position
-
-Bubbling airlock on a hefeweizen
-https://www.youtube.com/watch?v=aVUnxUfeBMA
-10 seconds
-
-Airlock Bubbling
-https://www.youtube.com/watch?v=8iuJLfs4uP8
-low volume
-10 seconds
-
-Bubbling airlock
-https://www.youtube.com/watch?v=F8Oq1gyTIRY
-bit burpy
-lots of camera movement
-
-Airlock Bubbling - Short Mead
-https://www.youtube.com/watch?v=-FJ8UWZmwZQ
-noise higher than bubble sound
-30 seconds
-
-Airlock Bubbling for 9 minutes
-https://www.youtube.com/watch?v=7gdJ134JKa4
-9 minutes
-very burpy
-
-Airlock Bubbling for 5 minutes
-https://www.youtube.com/watch?v=rBvycO-O_8s
-5 minutes
-very burpy
-
-St Peters Air Lock Bubbling
-https://www.youtube.com/watch?v=eu6nphXTbTM
-Big round type airlock
-About 1 per second
-quite clear
-21 seconds
-operator noise
-
-Bubbling airlock
-https://www.youtube.com/watch?v=jmR-onzH5tY
-noise much higher than bubbling
-20 seconds
-
-Airlock bubbles - fermentation
-https://www.youtube.com/watch?v=kbxwuXZqTs0
-25 seconds
-round type
-quite clear
-some operator noise
-
-Air lock bubbling
-https://www.youtube.com/watch?v=UZuC7DwVT8A
-much more noise than bubbles
-20 seconds
-
-crazy Airlock bubbles
-https://www.youtube.com/watch?v=SxwBGPdNSzQ
-20 seconds
-many per secon
-still quite clear
-
-Robust porter airlock bubbling
-https://www.youtube.com/watch?v=U8IifcAWvo4
-1 per 2 seconds
-15 seconds
-
-Bubbling beer fermenter airlock
-https://www.youtube.com/watch?v=K0QJJLIBef4
-very poor audio quality
-static
-
-Airlock Bubbles
-https://www.youtube.com/watch?v=e5hFI1Z2gGI
-clear bubbles
-per 2 seconds
-10 seconds
-
-Bubbling airlock
-https://www.youtube.com/watch?v=UaUlVaap3dY
-16 seconds
-1 per 2 second
-TV background
-
-Mead airlock bubbles
-https://www.youtube.com/watch?v=x7Tmty772FQ
-20 seconds
-varying noise
-
-Bubbles In the Airlock
-https://www.youtube.com/watch?v=xdXpCw9qdDo
-20 seconds
-quite clear
-1 per second
-
-Bubbling Fermenter Airlock
-https://www.youtube.com/watch?v=_vi1q6QfkG4
-low volume
-8 seconds
-
-Yeast FM - 1min of Airlock Bubbles from Mead Making
-https://www.youtube.com/watch?v=ZFlMHcYdto4
-artifical sound
-using gating to remove non-bubble periods
-
-beer bubbling (home brew)
-https://www.youtube.com/watch?v=6VQTGuOY4Uk
-
-quite clear
-1 per 2 sec
-some operator noise
-
-Air lock, red wine
-https://www.youtube.com/watch?v=vwLZuKaEAEE
-21 seconds
-
-Airlock Bubbles
-https://www.youtube.com/watch?v=-E3T2OmjTLs
-15 seconds
-quite clear
-
-Primary Fermentation Air Lock
-https://www.youtube.com/watch?v=ZPmEByu-4xQ
-very high rate. 4 per second
-very clear
-1 minute
-
-Alcoholic Ginger Beer fermentation fourth night - getting bubbles
-https://www.youtube.com/watch?v=k9OXne3iGpM
-
-1 hour 30
-Almost no plops
-
-Ginger beer fermentation day 6. Finally getting some action
-https://www.youtube.com/watch?v=Z7aNQXE0nUo
-
-5 hours
-Quite quiet plops
-1 plop per 30 seconds
-
-30 seconds of a bubbling airlock
-https://www.youtube.com/watch?v=1KIecmSnD5g
-30 seconds
-quite clear
-high rate
-
-First Homebrew Hop Nog 2010 Fermenting Bubbles
-https://www.youtube.com/watch?v=AWSX4uQopXA
-round type
-ok clear
-34 seconds
-1 per 2 seconds
-
-Fermentation Airlock Bubbling (beer or wine homebrewing)
-https://www.youtube.com/watch?v=DV_9tfFyY00
-clear. 
-rate 1 per 2 sec
-misc background noise
-
-
-The sound of Mead bubbling away
-https://www.youtube.com/watch?v=m_Y8-TmyyGg
-Two bubblers
-Low rate. very similar. 1 per 4 sec
-1 minute
-
-Airlock bubbling/Airlock en funcionamiento
-https://www.youtube.com/watch?v=mRpjUjNK0z0
-quite high rate
-very clear
-15 seconds
-
-Apfelwein fermentation
-https://www.youtube.com/watch?v=AjJC_i3g0Mg
-two at same time
-clear glass sounds
-medium rate. 1 per 2 seconds each
-30 seconds
-
-Airlock during fermentation
-https://www.youtube.com/watch?v=WHlSNkq29k4
-medium activity
-clear
-1 minute
-
-Brewing alcoholic ginger beer. One week on, live
-https://www.youtube.com/watch?v=eKTNsWHXkVU
-
-4 hours
-1 plop per second almost
- 
-https://www.youtube.com/watch?v=f3bLQLT48Yc
-
-57 secodns
-2 per second. Quite clear
-
-Demijohn Airlock Bubbles 12 mins
-https://www.youtube.com/watch?v=0_wDLNikm2M
-
-12 minutes
-1 per second
-ok clear
-high whitenoise
-
-S-Style Beer/Wine Air Lock Bubbling
-https://www.youtube.com/watch?v=po2u_qI7-us
-20 seconds
-
-the rate of bubble in the mead
-https://www.youtube.com/watch?v=xS35DfrhRG0
-One per 5 seconds
-40 seconds
-
-Beer fermentation air lock, airlock fermentación de cerveza
-https://www.youtube.com/watch?v=CXn5vgiV914
-20 secs
-
-First attempt at Moonshine! Fermentation process has begun
-https://www.youtube.com/watch?v=LiofYnl4UeI
-30 seconds
-
-Carboy airlock grape wine
-https://www.youtube.com/watch?v=mFaxJJUHtB8
-42 seconds
-
-high event rate
-quite clear
-
-Bubble, bubble
-https://www.youtube.com/watch?v=t0pOz-gviZs
-25 seconds
-ok clear
-misc environmental noise
-
-https://www.youtube.com/watch?v=mKuWlZwWsDM
-30 seconds
-pausing then large rush. Burping
-
-Strawberry wine- day 7-secondary ferment begins
-https://www.youtube.com/watch?v=Qvyf8h8dr4I
-30 seconds
-quite clear
-quite high event rate
-
-Airlock bubbler
-https://www.youtube.com/watch?v=FVAH4w_6RGs
-30 seconds
-very high event rate
-still quite clear
-lots of tricky ambient noise
-
-Elderflower Airlock
-https://www.youtube.com/watch?v=51ytpDZj8v4
-very clear
-medium rate
-1 minute
-
-Beautiful sound of home brew wine
-https://www.youtube.com/watch?v=ewOPI-gpoto
-2 bubblers
-Right next to eachother
-lots of camera motion back and forth
-
-S-Style Beer/Wine Air Lock Bubbling
-https://www.youtube.com/watch?v=po2u_qI7-us
-low rate
-quite clear
-
-Primary fermenter airlock bubbling
-https://www.youtube.com/watch?v=G5mAKVP-KX8
-30 seconds
-some odd noises
-ok bubble sound
-medium acitvity
-
-Homebrew is bubbling away
-https://www.youtube.com/watch?v=IzFpqaElTrg
-burping a bit
-clear sound
-1 minute
-
-Airlock bubbler/Home brewing
-https://www.youtube.com/watch?v=gQFo3Lg2MAc
-2 minutes
-Clear, even
-Medium rate
-some kitchen noise in background
-
-
-Bubbling In the Airlock
-https://www.youtube.com/watch?v=Y-2R3cRRzTI
-20 seconds
-high rate
-quite clear
-
-1 Piece Airlock bubbling Krausen view through clear window in bucket lid
-https://www.youtube.com/watch?v=pUkmG2sPBD4
-30 seconds
-ok clear
-some handling noise
-
-The effect of a light fermentation on an airlock
-https://www.youtube.com/watch?v=fufqSDnqFto
-gurgling
-some handling noise
-quite uneven
-
-Mead (Honey Wine) Fermenter Bubbling
-https://www.youtube.com/watch?v=pMxXWyKu0HM
-2-3 bublers
-bit low volume
-
-Home brew airlock
-https://www.youtube.com/watch?v=pApS0S2PA9I
-2 bubblers
-noises in background
-
-
-Active beer fermentation
-https://www.youtube.com/watch?v=tw16K7mNAmE
-1 minute
-high rate
-airlock not visible
-
-Fermenting - Airlock activity
-https://www.youtube.com/watch?v=NRXuJqZp61w
-very high rate
-hard to hear
-
-beer bubbling
-https://www.youtube.com/watch?v=dE9FjwMeWLs
-high rate
-burping
-
-Cherry Fever Stout fermenting
-https://www.youtube.com/watch?v=PvBE0mZmBHY
-high rate
-quite clear
-
-Airlock Rhythm
-https://www.youtube.com/watch?v=0DXxOutOilU
-3 piece
-very clear
-steady rythm
-1 per second
-noise in background
-
-Fermentation Airlock
-https://www.youtube.com/watch?v=VQTucCuRfrk
-burping
-
-Bubbles
-https://www.youtube.com/watch?v=Lqw3VX3FcwI
-medium rate
-30 seconds
-
-Bubbles
-https://www.youtube.com/watch?v=bp6CT68rqoY
-high rate
-quite clear
-20 sec
-
-## Existing approaches
-
-Active Airlock
-https://www.youtube.com/watch?v=570zQJRhllI
-high rate. burping
-ok sound
-30 seconds
-
-Professional acoustic monitoring of brewing.
-Using piezo element. Tzero
-https://www.fierceelectronics.com/sensors/high-tech-meets-taproom-acoustic-fermentation-sensor
-https://www.tzerobrew.com/monitor
-
-DIY bubble logger. IR photometer based
-https://www.sparkfun.com/tutorials/131
-
-DIY hygrometer
-https://www.hackster.io/135387/homebrew-fermentation-monitor-9df83e
-
-Airlock bubble counter with android
-Using IP camera and movement detection
-https://www.youtube.com/watch?v=4kj9-iAY01k
-
-Bubble detector while fermenting beer
-https://www.youtube.com/watch?v=AT7ffcUMcEg
-Arduino with IR, using colored fluid in airlock
-
-An attempt at counting bubbles from an airlock with sound
-https://www.jimsbeerkit.co.uk/forum/viewtopic.php?t=79000
-https://www.anfractuosity.com/projects/bubbleometer/
-https://github.com/anfractuosity/bubbleometer
-July 2017. No updates since
-
-https://www.brewbubbles.com/
-DIY optical kit
-
-Bubble logger
-used sound
-https://www.homebrewtalk.com/threads/bubbler-logger-a-fermentation-logger-measusing-co2-sound-bubbles-to-calculate-sg.665988/
-SBL4TILT - "Sound Bubble Logger and Temperature controller for TILT" (ESP32 - TILT repeater, BPM logger and temperature controller
-https://www.homebrewtalk.com/threads/sbl4tilt-sound-bubble-logger-and-temperature-controller-for-tilt-esp32-tilt-repeater-bpm-logger-and-temperature-controller.683670/
-https://github.com/kbaggen/Sound-Bubble-Logger-and-Temperature-controller-for-TILT
-Based on ESP32
-Uses sound level.
-Microphone is placed down into airlock
-Can send data to Brewfather / Brewersfriend 
-
-BrewFather
-popular with hobbyists
-supports IoT sensor devices
-Can enable custom endpoint in Settings
-Get a unique URL
-Then can send JSON
-JSON payload format documented here
-https://docs.brewfather.app/integrations/custom-stream
-Bubbles Per Minutes is supported
-
-
-BrewSpy
-https://play.google.com/store/apps/details?id=com.yiannnos.myspindel
-BrewSpy receives data from your iSpindel , Tilt Hydrometer , PLAATO airlock and PLAATO
-Free
-Charges for push notification
-
-
-
-
-## Request for data
-
-1 minute
-Metadata
-- Number of bubbles counted. BPM
-- How clearly can bubbles be heard. 1-5
-- Type of airlock. S-curve/2-piece, 3-piece
-- Hours since start
-- Kind of brew
-- Would you be interested in a phone or web app that tracks fermentation rate?
-- Why / why not
-- Any tips or other inputs
-- Do you want to get updates about project by email (max every few months)
-
-
-Record in the location where you typically have your brew sitting.
-Record using phone/tablet or .
-Record from a distance between 10 cm to 1 meter from airlock.
-
-Looking for realistic sound from typical brewing conditions,
-not hi fidelity audio.
-
-Avoid .
-Try to avoid too much handling noise when operating the phone/camera.
-
-Upload video to Youtube. Can be Public or Unlisted
-Submit data via Google Form
-Need some CAPTA / trolling checking 
-
-Multiple submissions welcomed!
-Each submission should be recorded at least 1 hour apart.
-Chances of 
-
-Giving away Plaato Airlock.
-
-## Communities
-
-https://www.reddit.com/r/brewing/
-20k members
-
-https://www.reddit.com/r/Homebrewing
-1M members
-
-https://www.reddit.com/r/TheBrewery/
-70k members
-
-## Post-processing
-
-Counting. Threshold above X
-Event rate. Count / time
 
 
 # Other
+
+## Event Detection with Weakly Labeled data
+
+TEASER
+
+What if there was a way to learn Audio Event Detectors
+without needing to annotated labels for each and every event?
+
+Weekly labeled Audio Event Detection.
+Feed in longer clips that either have the event(s) or not - without information about how many or where
+
+Active area of research. DCASE
+Speech recognition systems. Can give phone level output with sentence-level annotations 
+
+Multiple Instance Learning
+Principle model architecture with neural networks
+Each (overlapped) analysis window in a clip goes through same neural network.
+Outputs are pooled across time to make prediction of event present-or-not.
+Common pooling operation: max, or softmax
+More advanced. Attention pooling, or Autopool (softmax generalization)
 
 
 ## Error analysis
@@ -888,7 +433,9 @@ False Negatives / False Positives. Rank by probability
 Can be generalized to multi-class. For example using pairwise-confusions. Expected-Actual
 
 
-Bias/variance diagnostics
+
+### Bias/variance diagnostics
+
 High Variance problem: Training error much lower than test error
 High Bias problem: Both training and test error high
 Different strategies to fix the two cases
@@ -910,7 +457,6 @@ Machine Learning System Design | Error Analysis
 https://www.coursera.org/lecture/machine-learning/error-analysis-x62iE
 
 Microsoft Error Analysis toolkit.
-
 https://erroranalysis.ai/
 
 

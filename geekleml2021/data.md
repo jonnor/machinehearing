@@ -1,4 +1,13 @@
 
+## Youtube videos
+
+Active Airlock
+https://www.youtube.com/watch?v=570zQJRhllI
+high rate. burping
+ok sound
+30 seconds
+
+
 Watch an Airlock Bubbling During Mead Fermentation - Entertainment for Brewers
 https://www.youtube.com/watch?v=p0jtxp5nWms
 5 minutes
@@ -278,7 +287,6 @@ https://www.youtube.com/watch?v=LiofYnl4UeI
 Carboy airlock grape wine
 https://www.youtube.com/watch?v=mFaxJJUHtB8
 42 seconds
-
 high event rate
 quite clear
 
@@ -415,3 +423,57 @@ https://www.youtube.com/watch?v=bp6CT68rqoY
 high rate
 quite clear
 20 sec
+
+
+## Labeling
+
+Know that there should be a quite regular pattern.
+Distance between events should be near the same. With few outliers
+And values in range.. 0.5 to 30 seconds 
+And event length should be very regular.
+From the event distance, and lengths, one can estimate expected number of events per time period
+Can compare event count vs this. Desirable to have near 100
+Can be used for hyper-parameter search
+
+
+
+## Request for data
+
+Intructions
+
+Looking for realistic sound from typical brewing conditions,
+not hi-fidelity audio.
+
+Make a 1 minute of audio of your airlock during fermentation.
+It can be anywhere in the process, from just getting started, to very active CO2 generation, to fading down.
+Record in the location where you typically have your brew sitting.
+Record using a standard phone/tablet or digital camera.
+Record from a distance between 10 cm to 1 meter from airlock.
+
+Try to avoid too much handling noise when operating the phone/camera.
+
+Upload the video to Youtube. Can be Public or Unlisted.
+Submit the data via this Google Form.
+
+
+Metadata
+
+- Number of bubbles counted. BPM
+- Can the bubbling be clearly can bubbles be heard.
+5 point Likert style scale
+- Type of airlock. S-curve/2-piece, 3-piece
+- Hours since start of brew
+- Kind of brew
+- Would you be interested in a phone or web app that tracks fermentation rate?
+- Why / why not
+- Any tips or other inputs
+- Do you want to get updates about project by email (max every few months)
+
+
+Need some CAPTA / trolling checking 
+
+Multiple submissions welcomed!
+Each submission should be recorded at least 1 hour apart.
+Chances of 
+
+Giving away Plaato Airlock.
