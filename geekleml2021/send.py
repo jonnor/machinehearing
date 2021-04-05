@@ -1,8 +1,13 @@
 
+import time
 import os
 
 import requests
+import structlog
 
+log = structlog.get_logger()
+
+import beerbubble
 
 def brewfather_send(url, device, bpm, **kwargs):
     """
@@ -17,7 +22,8 @@ def brewfather_send(url, device, bpm, **kwargs):
         data[k] = v
 
     r = requests.post(url, json=data)
-    assert r.status_code == 200, r.status_code
+    #assert r.status_code == 200, r.status_code
+    return r
 
 def main():
 
@@ -25,8 +31,32 @@ def main():
     device = os.environ.get("BREWFATHER_DEVICE")
     interval = int(os.environ.get("BREWFATHER_INTERVAL", "15"))
 
-    brewfather_send(url, device, bpm=100)
-    print("Sent")
+    start = int(os.environ.get("BREWFATHER_START", "0"))
+
+    f = beerbubble.synthesize_fermentation_rate()
+
+    intervals = f.resample(f'{interval}min').mean().interpolate()
+    
+
+    for idx, i in intervals.iterrows():
+
+        bpm = i.frequency
+        error = None
+        status = None
+        try:
+            pass
+            #brewfather_send(url, device, bpm=100)
+            r = brewfather_send(url, device, bpm=100)
+            status = r.status_code
+        except Exception as e:
+            error = e
+            pass        
+
+        log.info("bpm-sent", time=idx, bpm=bpm, status=status, error=error)
+
+        time.sleep(interval*60)
+
+        #print("Sent")
 
 if __name__ == '__main__':
     main()
