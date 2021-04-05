@@ -73,19 +73,18 @@ Complete code in a Github, ideally
 - Training & evaluation. CNN, RNN. Keras
 - Post-processing?
 - Results
-- Streaming inference. Running in real-time
-- 
+- Streaming inference. Running in real-time 
 
 
 # TODO
 
 Presentation
 
-- Finish outline
 - Setup slides skeleton
-- Make notes for all outline
-- Record demo-video 
-
+- Find/make pictures
+- Finish slides
+- Make git repo for demo code
+- Record presentation video 
 
 Demo code
 
@@ -93,7 +92,7 @@ Demo code
 - Verify/clean the labels in Audacity
 - Setup pipeline with baseline classifier. MFCC,LogisticRegression
 - Add neural network to pipeline. mel-spectrogram with CNN/RNN
-- Setup code to run on live input. Test with
+- Setup code to run on live input. Test with Monitor playing videos
 
 
 # Planning
@@ -181,37 +180,74 @@ Isolated claps (event) versus clapping (ongoing, class)
 For events one can count the number of occurrences
 Classification might instead count number of seconds instead
 
-## Beer fermentation tracking
-
-IMAGE: graph over time
-
-bubbles per minute 
 
 
-Event length around 200 ms
+## Brewing alcohol
+
+When brewing alcoholic beverages
+such as beer, cider or wine
+one puts together a compoud with yeast and (the wort)
+into a vessel
+
+IMAGE: fermentation vessel with airlock
+
+After some hours or days the fermentation starts
+CO2 is produced by the yeast eating the sugars
+The Co2 escapes the tank through the airlock
+and this makes an audible "plop" 
+
+AUDIO/VIDEO: airlock plopping
+
+## Fermentation tracking
+
+Several things can go wrong
+
+- fermentation fails to start
+- fermentation is too active. Blowout
+- fermentation stops abruptly
+
+So brewers try to check in .
+
+The fermentation activity can also be an estimator for the alcohol produced.
+Though measuring the specific gravity is better for this
+
+Beer and wine makers track this in terms of Bubbles Per Minute (BPM) 
+
+IMAGE: fermentation activity graph over time
+
+Of course there are existing devices dedicated to this task. 
+Such as a Plaato Airlock.
+But for fun and learning we will do this using sound.
+
+Our goal.
+Make a system that can track fermentation activity,
+by using Machine Learning to count the "plops".
+This is an Audio Event Detection problem
+
+## Overall System
+
+IMAGE: system architecture
+
+- Brew with a typical airlock
+In an environment without too much noise
+- Sensor with microphone and Internet connectivity
+Like a Raspberry PI, runs Python.
+Could alternatively be smartphone, Soundsensing, ESP32. Needs couple more deployment steps
+- Database for keeping track of the BPM data.
+Brewfather
+- Device for observing the data
+Typically smartphone
 
 
-
-## Approach
-AED as classification of short independent time-windows
-Uniform probability of event occuring.
-
-Not considering sequences, or states, in the detector
-Ie in speech recognition certain sequences of phonemes are more probable
-
-Single audio stream. Monophonic.
-Single event class. Binary classification
-
-Requires that each event is clearly audible and understandable - without context
-Low-to-no overlap between events.
 
 ## Data requirements
 
-Need a minimum of 100 events
+Should have a minimum of 100 events.
 1 per second, just 2 minutes
+
 1000 events better.
 Much more stable performance metrics
-10'000
+10'000 probably overkill
 
 Want realistic data. Capturing 
 
@@ -240,10 +276,16 @@ Making note of
 
 Maybe 1000 videos reviewed.
 End up with around 100 potentialy useful
-Took many hours
+Many hours of work
 
 Up to 100 recording devices and 100 environments. Maybe 2000 events
 Some recordings very long, several hours. Maybe 5000 events
+
+Using youtube-dl to download
+youtube-dl --extract-audio $URL
+
+https://youtube-dl.org/
+https://github.com/ytdl-org/youtube-dl/
 
 ## Exploratory Data Analysis
 
@@ -262,12 +304,21 @@ Write down notes about it
 - Background noises
 - Other events that could be easily confused
 
+Event length around 200 ms
+
+
+IMAGE: spectrograms in Audacity
+
+VIDEO? many events from different clips. 1 second each
+
 
 ### Labeling data
 
 Manually using Audacity
 
-How to Label Audio for Deep Learning in 4 Simple Steps
+"How to Label Audio for Deep Learning in 4 Simple Steps"
+Miguel Pinto
+TowardsDataScience.com
 https://towardsdatascience.com/how-to-label-audio-for-deep-learning-in-4-simple-steps-6a2c33b343e6
 Shows how to use Audacity to label.
 Including switching to spectrograms,
@@ -275,6 +326,7 @@ annotating a frequency range,
 exporting the labels to files,
 and importing the label files in Python.
 
+IMAGE: Audacity with labels
 
 Semi-automatically with GMM-HMM
 First running it, generating label files
@@ -286,14 +338,27 @@ https://github.com/hmmlearn/hmmlearn
 Using Mel-Frequency-Cepstral-Coefficiants as features
 Lossy compression on top of a mel-spectrogram
 
-
-
+IMAGE: 
 
 ## Audio ML pipeline
 
+AED as classification of short independent time-windows.
+Uniform probability of event occuring.
+
+Not considering sequences, or states, in the detector
+Ie in speech recognition certain sequences of phonemes are more probable
+
+Single audio stream. Monophonic.
+Single event class. Binary classification
+
+Requires that each event is clearly audible and understandable - without context
+Low-to-no overlap between events.
 
 ## Analysis windows
 
+Bit longer than the event length
+
+Overlap maybe at 10%
 
 
 ## Evaluation
@@ -304,11 +369,15 @@ Window-wise
 - False Positive Rate / False Negative Rate
 - Precision / recall
 
+Might be overly strict. Due to overlap, can afford to miss a couple of windows 
+
 - Event-wise
 
 - Blops per Minute
-Errors within +- 20?
+Errors within +- 10%?
 
+Should be able to miss a couple of events without loosing track of the BPM
+But short clips of just some seconds will have some spread probably
 
 Other desirable properties
 - Resolution of output. 
@@ -318,19 +387,29 @@ Other desirable properties
 
 ## Models
 
-Baseline simple. Soundlevel/freq, RF
-Baseline advanced. Pretrained audio CNN
-Custom. Own CNN/RNN on spectrogram
-
-
-
+Baseline simple. Logistic Regression on MFCC
+Advanced. Own CNN/RNN on spectrogram
 
 
 ## Post-processing
 
-Counting. Threshold above X
+Counting.
+Threshold the probability above X
+
+Median filtering.
+Reject time-difference values outside of IQR.
+
 Event rate. Count / time
 
+Maybe give a range.
+Confidence Interval of the mean
+Student-T extimation
+
+## Detection results
+
+IMAGE: precision/recall or TPR/FPR curve
+
+Correctness in
 
 
 ## Streaming inference
@@ -343,68 +422,64 @@ Will maybe check couple of times per day
 Can have many minutes, perhaps up to 1 hour lag
 Brewfather limits updates to once per 15 minutes
 
-But can be useful when setting up, to verifify detection
+But can be useful when setting up, to verify detection
 And makes for nicer demo :)
 
 Key: Chopping up incoming stream into (overlapping) audio windows
 
 
-### Synthesize data
 
-Using scaper
-Vary SNR
+## What will you make?
 
+Some other ideas for Audio Event Detection
 
-
-## Other examples
-
-- Popcorn popping. Or coffeebeans
-- Gunshot detection
+- Popcorn popping
 - Bird call
 - Cough
 - Umm/aaa speech patterns
-- Drum hit
-- Alarm goes off
+- Drum hits
 - Car passing
-- Plop from alcohol fermentation lock
 
+::: notes
+
+Not-events.
+Alarm goes off.
+Likely to persist (for a while)
+
+:::
+
+
+## Continious Monitoring using Audio ML
+
+If you want deploy Continious Monitoring using Audio,
+consider using Soundsensing sensors and data-platform.
+
+- Built-in cellular connectivity.
+- Rugged design for industrial and outdoor usecases.
+- Can run Machine Learning both on-device or in-cloud
+- Supports Audio Event Detection, Audio Classification, Audio Anomaly Detection
+
+
+## Questions
 
 
 # Bonus
 
-## Characteristics of Audio Events
+## Synthesize data
 
-- Duration
-- Tonal/atonal
-- Temporal patterns
-- Percussive
-- Frequency content
-- Temporal envelope
-- Foreground vs background
-- Signal to Noise Ratio
+TEASER
 
-Some events are short
-Gunshot
-Bark
+What to do if wanting to estimate performance on tricky scenarios?
 
-Some are bit longer
-Cat mjau
+What to do if one does not have sufficient data?
 
-Some events are percussive / atonal.
-Cough,  etc
+Especially to handle different background noises
 
-Some have temporal patterns
-Some are more tonal
-Alarms
+Using scaper
+https://github.com/justinsalamon/scaper
 
-Transitions. Into state. Out of state.
-
-
-
-
-
-
-# Other
+Mix in diffent kinds of background noise.
+Vary Signal to Noise ratio
 
 ## Event Detection with Weakly Labeled data
 
@@ -425,6 +500,41 @@ Each (overlapped) analysis window in a clip goes through same neural network.
 Outputs are pooled across time to make prediction of event present-or-not.
 Common pooling operation: max, or softmax
 More advanced. Attention pooling, or Autopool (softmax generalization)
+
+
+
+
+## Characteristics of Audio Events
+
+- Duration
+- Tonal/atonal
+- Temporal patterns
+- Percussive
+- Frequency content
+- Temporal envelope
+- Foreground vs background
+- Signal to Noise Ratio
+
+Some events are short
+Gunshot
+Bark
+
+Some are bit longer
+Cat mjau
+
+Some events are percussive / atonal.
+Cough, etc
+
+Some have temporal patterns
+Some are more tonal
+Alarms
+
+Transitions. Into state. Out of state.
+
+
+# Other
+
+
 
 
 ## Error analysis

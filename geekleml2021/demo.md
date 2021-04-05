@@ -21,17 +21,6 @@ Chosen:
 Tracking beer brewing via sound.
 Fermentation rate, Blops per Minute
 
-## Examples
-
-- Popcorn popping. Or coffeebeans
-- Gunshot detection
-- Bird call
-- Cough
-- Umm/aaa speech patterns
-- Drum hit
-- Alarm goes off
-- Car passing
-- Plop from alcohol fermentation lock
 
 ## Communities
 
