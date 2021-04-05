@@ -15,7 +15,10 @@ pagetitle: 'Audio Event Detection with Machine Learning'
 
 <p>
 Jon Nordby</br>
+Head of Data Science & Machine Learning</br>
+Soundsensing AS</br>
 jon&#64;soundsensing.no</br>
+</br>
 Python for ML and AI, Global Summit 2021, by Geekle</br>
 </p>
 
@@ -25,419 +28,443 @@ Python for ML and AI, Global Summit 2021, by Geekle</br>
 
 ::: notes
 
-Environmental Sounds are sounds that we have around us in our environment,
-especially outdoors.
-
-It can be cars honking, music played from a club, speech from 
-
-When environmental sounds are unwanted we call it environmental noise.
+Jon Nordby
+Head of Machine Learning and Data Science at Soundsensing
+An IoT sensor company that specializes in Audio Machine Learning
 
 :::
 
-## Environmental Noise Pollution
-
-![](./img/noise-map-barcelona-day.png){width=50%}
-
-The environmental pollution that affects most people in Europe
-
-* 13 million suffering from sleep disturbance
-* 900'000 disability-adjusted life years (DALY) lost
-
-
-::: notes
-
-Environmental Noise pollution is a big, and growing problem.
-More and more we live in urban environments, with many noise sources around us.
-
-WHO estimates that in Europe alone 13 million suffer from sleep distubance due to noise.
-Such noise causes the body to be stressed, and in constant alert mode.
-This increases risk of cardiovascuar disease, obesity etc.
-
-And almost 1 million disability adjusted life years are lost due to noise.
-This makes noise the environmental pollution that affects the most people in Europe.
-
-
-:::
-
-## Occupational Noise-induced Hearing Loss
-
-![](./img/Manufacturing-Noise-small.jpeg){width=50%}
-
-The most prevalent occupational disease in the world
-
-* 40 million affected by hearing loss from work
-* 4 million disability-adjusted life years (DALY) lost
-
-
-::: notes
-
-Another serious problem is hearing loss.
-
-It is estimated that 40 million people are affected by hearing loss from work.
-
-Affects workers across many industries,
-including construction, manufacturing and shipping.
-
-:::
-
-## Noise Monitoring with Machine Learning
-
+## About Soundsensing
 
 ![](./img/soundsensing-solution.svg.png){width=100%}
 
 ::: notes
 
-Soundsensing helps to address these issues by providing better tools
-for monitoring noise, understanding the underlying causes, and what is needed to make improvements.
+We provide easy-to-use IoT sensors that can continiously measure sound,
+and use Machine Learning to extract interesting information.
 
-We provide easy-to-use IoT sensors that can continiously measure the noise-level,
-as well as classify the dominant noise-source over time.
-
-This is presented in our online dashboard,
+The information presented in our online dashboard,
 and is also available in an API for integrating with other systems.
 
+Our products are used for Noise Monitoring
+and Condition Monitoring of equipment.
+
 :::
 
+## Audio Event Detection
 
-## Wireless Audio Sensor Networks
 
-![](img/sensornetworks.png){width=85%}
+
+Also known as: Acoustic Event Detection (AED) and Sound Event Detection (SED)
+
+
+Audio Classification with Machine Learning (Jon Nordby, EuroPython 2019)
+https://www.youtube.com/watch?v=uCGROOUO_wY
 
 
 ::: notes
 
-Alternative A
-would be to record audio in the sensor and transmit to the cloud.
-This is a conceptually very simple solution,
-and one could use a standard neural network in the cloud to do audio classification
-without much computational constraints on the model.
+TODO: image/table. Examples of events and non-events
 
-However this would require a lot of data transfer,
-which is costly in terms of energy and data traffic in a cellular 4G system.
+Related to Audio Classification
 
-It also would be very poor for privacy,
-as potentially sensitive audio such as speech
-would have to be transported through the network
-and could potentially be stored in a server.
+Events need to have a well-defined duration
+Start-end. Onset/offset
+Or at least a clear start
 
-Alternative B would be to preprocess the data in the sensor, and classify this in the cloud.
-Would have to reducing the data enough to be privacy friendly and save considerable data traffic,
-but not so much as to reduce classification performance,
-which can be a difficult trade-off.
+If events are overlapping a lot, might not make sense as events anymore
+Isolated claps (event) versus clapping (ongoing, class)
 
-But the best solution both for Privacy and Data Traffic would be the TinyML solution.
-To do all the processing on the sensor, and only transmit data about the classes to server.
-
-However this means the entire model needs to fit the constraints of the sensor device.
+For events one can count the number of occurrences
+Classification might instead count number of seconds instead
 
 :::
 
 
-## Model Constraints { data-background-image="./img/chip.jpg" }
+## Brewing alcohol
 
-<!--  <section class="level2" data-background="./img/chip.jpg"> 
+![](./img/Manufacturing-Noise-small.jpeg){width=50%}
 
-<h2 style="">Device constraints</h2>
--->
+IMAGE: fermentation vessel with airlock
 
-<p>
-Example target: STM32L476 microcontroller.
-With 50% of capacity:
+AUDIO/VIDEO: airlock plopping
 
-* 64 kB RAM</br>
-* 512 kB FLASH memory</br>
-* 4.5 M operations/second</br>
-</p>
+::: notes
 
-<!--  </section> -->
+When brewing alcoholic beverages
+such as beer, cider or wine
+one puts together a compoud with yeast and (the wort)
+into a vessel
+
+After some hours or days the fermentation starts
+CO2 is produced by the yeast eating the sugars
+The Co2 escapes the tank through the airlock
+and this makes an audible "plop" 
+
+:::
+
+## Fermentation tracking
+
+Fermentation activity can be tracked as Bubbles Per Minute (BPM).
+
+IMAGE: fermentation activity graph over time
+
+Goal:
+Make a system that can track fermentation activity (BPM),
+by using Machine Learning to count the airlock "plops".
 
 
 ::: notes
 
-If we consider a typical low-power microcontroller such as an ARM Cortex M4F,
-and we dedicate 50% of the resources to the machine learning, that means
+Several things can go wrong with the fermentation
+
+- fails to start
+- is too active. Blowout
+- stops abruptly
+
+Affected by temperature, external and in the brew.
+And of the changes over time in suger and yeast concentrations.
+
+So brewers try to check in a couple of times per day how things are going.
+
+
+Of course there are existing devices dedicated to this task. 
+Such as a Plaato Airlock.
+But for fun and learning we will do this using sound.
+
+This is an Audio Event Detection problem
+
+
+The fermentation activity can also be an estimator for the alcohol produced.
+Though measuring the specific gravity is better for this.
 
 :::
 
+## Supervised Machine Learning
+
+Based on examples.
+Input (Audio).
+Expected output (bubble yes/no) 
+
+TODO: find an image
 
 
-## Small models Urbansound8K { data-background-image="" }
+# Data Collection
 
-![Green: Feasible region on device. 2021 results not published.](img/urbansound8k-existing-models-logmel.png){width=100%}
+## Data requirements
+
+Need *enough* data. Instances per class
+
+- 100. Minimal
+- 1000. Good
+- 10000+ Very good 
+
+Need *realistic* data. Capturing natural variation in
+
+- the event sound
+- recording devices used
+- recording environment
 
 ::: notes
 
-In work that we did in 2019, we found that existing models
-were at 1-3 orders of magnitude too large to fit on device.
+TODO: make a table?
 
-And we showed that one can reach about
-10 percentage points from the unconstrainted State-of-the-Art models
-when running on such a device.
+100 events. Couple of minutes of data
+1000 events. Approx 1 hour
+10000 events. Tens of hours
 
-We have since made several improvements to close the gap further,
-but these are not published.
+Especially if there are other event-like noises
 
-As far as I known this still is the best published performance on Urbansound8k
+:::
+
+## Data collection via Youtube
+
+Criteria for inclusion:
+
+- Preferably couple of minutes long, minimum 15 seconds 
+- No talking
+- Mostly stationary camera
+- No audio editing/effects
+- One or more airlocks bubbling
+- Bubbling can be heard by ear
+
+Approx 1000 videos reviewed, 100 usable
+
+::: notes
+
+Making note of
+
+- Bubbling rate
+- Clarity of bubble sound
+- Other noise around
+
+Maybe 1000 videos reviewed.
+End up with around 100 potentialy useful
+Many hours of work
+
+Up to 100 recording devices and 100 environments. Maybe 2000 events
+Some recordings very long, several hours. Maybe 5000 events
+
+Using youtube-dl to download
+youtube-dl --extract-audio $URL
+
+https://youtube-dl.org/
+https://github.com/ytdl-org/youtube-dl/
 
 :::
 
 
-# Shrinking </br> Convolutional Neural Networks</br> for TinyML Audio
+## Exploratory Data Analysis
 
-How to did we make the model fit on device?
+IMAGE: spectrograms in Audacity
 
-## Pipeline
+VIDEO? many events from different clips. 1 second each
 
-![](img/classification-pipeline.png){width=50%}
+Note characteristics of the sound
 
-Typical audio pipeline. Spectrogram conversion, CNN on overlapped windows.
+- Event length
+- Distance between events
+- Variation in the event sound
+- Changes over time
+- Differences between recordings
+- Background noises
+- Other events that could be easily confused
 
 
 ::: notes
 
-Here is a typical audio classification pipeline.
-The input audio is on the top.
-It is chopped into fixed-length windows.
-Then each audio window is converted to a spectrogram representation, usually Mel-spectrogram.
-Each spectrogram window is fed to a classifier, typically a Convolutional Neural Network.
-And if the sounds classes of interest is longer than the window length, one does some aggregation
-to combine predictions for multiple windows into prediction for a single clip.
+Always inspect and explore the data!
+
+Listen to audio, look at spectrogram.
+
+Audacity, open-source software for audio editing
 
 :::
 
-## Reduce input dimensionality
 
-![](img/input-size.svg){width=70%}
+## Labeling data manually using Audacity
 
-- Lower sample rate
-- Lower frequency range
-- Lower frequency resolution
-- Lower time duration in window
-- Lower time resolution
+IMAGE: Audacity with labels
 
-~10x reduction i compute. And easier to learn!
+
+"How to Label Audio for Deep Learning in 4 Simple Steps"
+Miguel Pinto, TowardsDataScience.com
+https://towardsdatascience.com/how-to-label-audio-for-deep-learning-in-4-simple-steps-6a2c33b343e6
+
+::: notes
+Audacity open source audio editor
+Supports "label tracks"
+
+Shows how to use Audacity to label.
+Including switching to spectrograms,
+annotating a frequency range,
+exporting the labels to files,
+and importing the label files in Python.
+
+:::
+
+## Semi-automatic labelling
+
+Using a Gaussian Mixture, Hidden Markov Model (GMM-HMM)
+
+IMAGE: detected labels. Maybe Audacity track at bottom
+TODO: code example? Or mention hmmlearn
 
 ::: notes
 
-The first optimizalization one can do is in preprocessing.
-The key is to use a small input to the model as possible.
-So if one reduces the sample rate, the range and resolution of frequencies bands,
-the time duration and resolution of the window, one can make large gains.
+First running it, generating label files
+Then reviewing and editing the labels in Audacity
 
-Also makes it easier to learn with for small datasets!
+from hmmlearn
+https://github.com/hmmlearn/hmmlearn
+Using Mel-Frequency-Cepstral-Coefficiants as features
+Lossy compression on top of a mel-spectrogram
 
 :::
 
-## Reduce overlap
 
-![](img/framing.png){width=80%}
+# Machine Learning system
 
-Models in literature use 95% overlap or more. 20x penalty in inference time!
+## Audio ML pipeline
 
-Often small performance benefit. Use 0% (1x) or 50% (2x).
+AED as classification of short independent time-windows.
 
 ::: notes
 
-Windows are computed with overlap
-This gives the model a couple of different view of the same sound, which increases performance.
-Typical SOTA models use maximum overlap, over repeating over 20x times on same audio section.
+Single audio stream. Monophonic.
+Single event class. Binary classification
 
-The performance benefit can however be quite minor. Try 1x, 2x, 4x first
+Uniform probability of event occuring.
+Not considering sequences, or states, in the detector
+Ie in speech recognition certain sequences of phonemes are more probable
 
-Not that this increases detection latency and resolution.
-Might not be limiting in some cases, like keyword spotting or event detection.
+Requires that each event is clearly audible and understandable - without context
+Low-to-no overlap between events.
 
 :::
 
-## Use a small model!
+## Analysis windows
 
-<!--
-Based on SB-CNN (Salamon+Bello, 2016)
--->
+Bit longer than the event length
 
-![](img/models.svg){width=70%}
-
+Overlap maybe at 10%
 
 ::: notes
 
-For many audio tasks one can get really far with a small model.
-For example 2-4 convolutional layers followed by 2 dense layers
-does well on a range of tasks.
-
-One can start with a large model and then prune it,
-but our experience start with small model is easier and works well.
 
 :::
 
-## Depthwise-separable Convolution
 
+## Evaluation
 
-![](img/depthwise-separable-convolution.png){width=90%}
+Multiple levels
 
-MobileNet, "Hello Edge", AclNet. 3x3 kernel,64 filters: 7.5x speedup
- 
-::: notes
+Window-wise
+- False Positive Rate / False Negative Rate
+- Precision / recall
 
-The convolutions in the network take up most of the CPU budget.
+Might be overly strict. Due to overlap, can afford to miss a couple of windows 
 
-A Conv2d with multiple channels actually does convolution in 3 dimensions.
-Width, height and channel.
+- Event-wise
 
-This can be separated into two operations:
-first convolution over spatial dimensions,
-then convolve over the channel dimensions. 
-
-5-10x speedups with very little performance impact
-:::
-
-
-
-## Downsampling using max-pooling
-
-![](img/maxpooling.png){width=100%}
-
-Wasteful? Computing convolutions, then throwing away 3/4 of results!
+- Blops per Minute
+Errors within +- 10%?
 
 ::: notes
 
-In a Convolutional Neural Network one downsamples the data as one gets deeper in layers,
-to operate on progressively higher level features.
-This is usually done by doing max pooling after each convolution,
-which means to pick the highest value within the input.
-However this is quite wasteful, as is disregards a lot of data computed by previous layer.
-
+Should be able to miss a couple of events without loosing track of the BPM
+But short clips of just some seconds will have some spread probably
 
 :::
 
-## Downsampling using strided convolution
+## Models
 
-![](img/strided-convolution.png){width=100%}
-
-"Learned" downsampling. Striding 2x2: Approx 4x speedup 
+Baseline simple. Logistic Regression on MFCC
+Advanced. CNN/RNN on spectrogram
 
 ::: notes
 
-An alternative is to drop the max pooling,
-Instead use a stride higher than one in the convolution.
-This reduces the amount of times the convolution is run.
+Once the pipeline is setup, with 
+A large amount of different kind of models can work well
 
-Can sometimes perform better than max-pooling
-Since the downsampling is included in the learned function! 
+Trick: Normalization. Window-based. Median or max.
+
+Trick: Include delta features
 
 :::
 
-## Quantization
+## Post-processing
 
-![](img/quantization.png){width=80%}
+Counting.
+Threshold the probability above X
 
-- Using int8 instead of float32.
-- 4x improvement in weights (FLASH) and activations (RAM) 
-- 4.6X improvement in runtime using CMSIS-NN *SIMD* 
+Median filtering.
+Reject time-difference values outside of IQR.
 
-Ref "CMSIS-NN: Efficient Neural Network Kernels for ARM Cortex-M CPUs"
+Event rate. Count / time
+
+Maybe give a range.
+Confidence Interval of the mean
+Student-T extimation
+
+# Results
+
+## Detection performance
+
+IMAGE: precision/recall or TPR/FPR curve
+
+Results on BPM
+
+
+## Tracking over time
+
+Integration with Brewfather
+
+TODO: image of graph in Brewfather
 
 ::: notes
 
-Quantizing down to 8 bit integers can be done almost without loss in performance.
-4x improvement in FLASH and RAM
-
-On Cortex M4F one can get around 4x improvement in CPU performance as well
-
 :::
 
-## Latest developments
 
-* Binary network quantization 
-* Neural Architecture Search
-* Streaming inference
-* Learned filterbanks
-* Hardware acceleration
-* Learned pooling
+## Streaming inference
 
-TinyML very actively researched, rapid improvements
+Key: Chopping up incoming stream into (overlapping) audio windows
+
+TODO: code example?
+
+TODO: video demo?
 
 ::: notes
 
-This area is very actively researched.
-Many of these you will find dedicated talks about here at TinyML Summit.
+Brewer does not really care about each and every blop
+BPM changes slowly and (normally) quite evenly, and does not have to be reported often
+Brewfather limits updates to once per 15 minutes
 
+But real-time streaming detection can be useful to verify detection when setting up. 
+And makes for nicer demo :)
 
 :::
-
 
 # Outro
 
-## Noise Monitoring example
+## What will you make?
 
-![Automated documentation of noise footprint wrt regulations](./img/noise-monitoring-report.png){width=50%}
+Now that you know the basics of Audio Event Detection with Machine Learning in Python.
 
-* Based on Noise Event Detection & Classification
-* Tested successfully at shooting range
-* Expanding now to Construction and Industry noise
-
-::: notes
-
-Automatically creating a logbook of noisy training activities.
-
-One of our customers operate a training facility for police special forces,
-where they fire guns and conduct explosives training.
-They use our system to have documentation that they follow the regulations,
-and to verify any noise complains that come in.
-
-We are now expanding this solution to other applications,
-such as Construction, Industry and Transportation.
-
-If you are working in these areas and interested in testing it out,
-let us know.
-
-:::
-
-## Condition Monitoring example
-
-![](./img/soundsensing-condition-monitoring.svg.png){width=100%}
-
-Condition Monitoring of technical equipment using sound.</br>
-Developed based on experience from Noise Monitoring.
+- Popcorn popping
+- Bird call
+- Cough
+- Umm/aaa speech patterns
+- Drum hits
+- Car passing
 
 ::: notes
 
-We have also used the same techniques
-to develop an Anomaly Detection system using sound,
-which has been tested out on pumps.
-
-This means that the condition of technical equipment
-can be continiously monitored,
-freeing up time for the janitors and providing better detection of issues.
-
-We are currently looking to test this in larger
-scale and on more types of machinery.
+Not-events.
+Alarm goes off.
+Likely to persist (for a while)
 
 :::
 
-## Conclusions
 
-1. Audio classification of Environmental Noise can be done directly on sensor
-2. Made possible with a range of efficient CNN techniques
-3. Integrated into Soundsensing IoT sensors 
-4. Used for Noise Monitoring & Condition Monitoring
+## Continious Monitoring using Audio ML
+
+Want to deploy Continious Monitoring with Audio?</br>
+Consider using the Soundsensing sensors and data-platform.
+
+</br>Want to work on Audio Machine Learning in Python?</br>
+Join our team at Soundsensing.
+
+</br>
+<em>Get in Touch! contact&#64;soundsensing.no</em>
+
+::: notes
+
+- Built-in cellular connectivity.
+- Rugged design for industrial and outdoor usecases.
+- Can run Machine Learning both on-device or in-cloud
+- Supports Audio Event Detection, Audio Classification, Audio Anomaly Detection
+
+:::
 
 
 ## {data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);"}
 
 
-We are open for partners and pilot projects</br>
-Get in touch!</br>
-contact@soundsensing.no</br>
-</br>
-</br>
-
 <h1>Questions ?</h1>
 
-<em>TinyML Summit 2021: Environmental Sound Classification on microcontrollers</em>
+</br>
+<em>
+Audio Event Detection with Machine Learning</br>
+Python for ML and AI, Global Summit 2021, by Geekle
+</em>
 
+</br>
 <p>
 Jon Nordby
 </br>jon&#64;soundsensing.no
+</br>Head of Data Science & Machine Learning
 </p>
 
 
@@ -445,142 +472,111 @@ Jon Nordby
 
 Bonus slides after this point
 
-# Thesis results
+## More resources
 
-## All the info
+Machine Hearing. ML on Audio
 
-> Thesis: Environmental Sound Classification
-> on Microcontrollers
-> using Convolutional Neural Networks
-
-![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){width=30%}
-
-## All models
-
-![](img/models-list.png)
-
-::: notes
-
-* Baseline is outside requirements
-* Rest fits the theoretical constraints
-* Sometimes had to reduce number of base filters to 22 to fit in RAM
-
-:::
+[github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 
 
+## Synthesize data
 
-## Model comparison
+How to get more data</br>without gathering in the wild?
 
-![](img/models_accuracy.png){width=100%}
+- Mix in diffent kinds of background noise.
+- Vary Signal to Noise ratio etc
+- Useful to estimate performance on tricky, not-yet-seen data
+- Can be used to compensate for small amount of training data
+- *scaper* Python library: [github.com/justinsalamon/scaper](https://github.com/justinsalamon/scaper)
 
 ::: notes
 
-- Baseline relative to SB-CNN and LD-CNN is down from 79% to 73%
-Expected because poorer input representation.
-Much lower overlap 
+Challenge in Acoustic Event Detection in uncontrolled environment.
+Handling the largs amounts of different background noises that could occur.
 
 :::
 
+## Event Detection with Weakly Labeled data
 
+Can one learn Audio Event Detection
+</br>without annotating the times for each event?
+</br>
+</br>Yes!
 
-## List of results
-
-![](img/results.png){width=100%}
-
-
-## Confusion
-
-![](img/confusion_test.png){width=70%}
-
-## Grouped classification
-
-![](img/grouped_confusion_test_foreground.png){width=60%}
-
-Foreground-only
-
-## Unknown class
-
-![](img/unknown-class.png){width=100%}
+- Referred to as *weekly labeled* Audio Event Detection
+- Can be tackled with *Multiple Instance Learning*
+- Inputs: Audio clips consisting of 0-N events
+- Labels: True if any events in clip, else false
+- Multiple analysis windows per 1 label
+- Using temporal pooling in Neural Network
 
 ::: notes
 
-Idea: If confidence of model is low, consider it as "unknown"
+Active area of research. DCASE
+Speech recognition systems. Can give phone level output with sentence-level annotations 
 
-* Left: Histogram of correct/incorrect predictions
-* Right: Precision/recall curves
-* Precision improves at expense of recall
-* 90%+ precision possible at 40% recall
-
-Usefulness:
-
-* Avoids making decisions on poor grounds
-* "Unknown" samples good candidates for labeling->dataset. Active Learning 
-* Low recall not a problem? Data is abundant, 15 samples a 4 seconds per minute per sensor
+Multiple Instance Learning
+Principle model architecture with neural networks
+Each (overlapped) analysis window in a clip goes through same neural network.
+Outputs are pooled across time to make prediction of event present-or-not.
+Common pooling operation: max, or softmax
+More advanced. Attention pooling, or Autopool (softmax generalization)
 
 :::
 
 
+## Characteristics of Audio Events
 
-# Thesis Methods
+- Duration
+- Tonal/atonal
+- Temporal patterns
+- Percussive
+- Frequency content
+- Temporal envelope
+- Foreground vs background
+- Signal to Noise Ratio
 
-Standard procedure for Urbansound8k
+::: notes
 
-- Classification problem
-- 4 second sound clips
-- 10 classes
-- 10-fold cross-validation, predefined
-- Metric: Accuracy
+Some events are short
+Gunshot
+Bark
 
-## Training settings
+Some are bit longer
+Cat mjau
 
-![](img/training-settings.png)
+Some events are percussive / atonal.
+Cough, etc
 
-## Training
+Some have temporal patterns
+Some are more tonal
+Alarms
 
-- NVidia RTX2060 GPU 6 GB
-- 10 models x 10 folds = 100 training jobs
-- 100 epochs
-- 3 jobs in parallel
-- 36 hours total
-
-::: notes 
-
-- ! GPU utilization only 15%
-- CPU utilization was near 100%
-- Larger models to utilize GPU better?
-- Parallel processing limited by RAM of biggest models
-- GPU-based augmentation might be faster
+Transitions. Into state. Out of state.
 
 :::
-
-## Evaluation
-
-For each fold of each model
-
-1. Select best model based on validation accuracy
-2. Calculate accuracy on test set
-
-For each model
-
-- Measure CPU time on device
 
 ## Mel-spectrogram
 
 ![](img/spectrograms.svg)
 
 
-## More resources
 
-Machine Hearing. ML on Audio
 
-- [github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 
-Machine Learning for Embedded / IoT
+## Environmental Sound Classification on Microcontrollers
 
-- [github.com/jonnor/embeddedml](https://github.com/jonnor/embeddedml)
+> Environmental Sound Classification
+> on Microcontrollers
+> using Convolutional Neural Networks
 
-Thesis Report & Code
+Master thesis, Jon Nordby, 2019.
 
-- [github.com/jonnor/ESC-CNN-microcontroller](https://github.com/jonnor/ESC-CNN-microcontroller)
+![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){width=30%}
+
+
+
+
+
 
 
