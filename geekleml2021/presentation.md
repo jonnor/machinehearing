@@ -107,11 +107,11 @@ and this makes an audible "plop"
 
 Fermentation activity can be tracked as Bubbles Per Minute (BPM).
 
-IMAGE: fermentation activity graph over time
+![](./img/fermentation-rate-over-time.png){width=80%}
 
 Goal:
 Make a system that can track fermentation activity (BPM),
-by using Machine Learning to count the airlock "plops".
+</br>by using Machine Learning to count the airlock "plops".
 
 
 ::: notes
