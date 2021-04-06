@@ -45,8 +45,7 @@ def main():
         status = None
         try:
             pass
-            #brewfather_send(url, device, bpm=100)
-            r = brewfather_send(url, device, bpm=100)
+            r = brewfather_send(url, device, bpm=bpm)
             status = r.status_code
         except Exception as e:
             error = e
