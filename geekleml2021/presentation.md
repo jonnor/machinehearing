@@ -244,16 +244,24 @@ Audacity, open-source software for audio editing
 
 ## Labeling data manually using Audacity
 
-IMAGE: Audacity with labels
+![](./img/audacity.png){width=80%}
 
+```python
+import pandas
 
-"How to Label Audio for Deep Learning in 4 Simple Steps"
-Miguel Pinto, TowardsDataScience.com
-https://towardsdatascience.com/how-to-label-audio-for-deep-learning-in-4-simple-steps-6a2c33b343e6
+labels = pandas.read_csv(path, sep='\t', header=None,
+                        names=['start', 'end', 'annotation'],
+                        dtype=dict(start=float,end=float,annotation=str))
+```
+
 
 ::: notes
 Audacity open source audio editor
 Supports "label tracks"
+
+"How to Label Audio for Deep Learning in 4 Simple Steps"
+Miguel Pinto, TowardsDataScience.com
+https://towardsdatascience.com/how-to-label-audio-for-deep-learning-in-4-simple-steps-6a2c33b343e6
 
 Shows how to use Audacity to label.
 Including switching to spectrograms,
