@@ -1,13 +1,30 @@
 
+
+https://www.youtube.com/watch?v=Eg_IngypecY
+
+## Introduction comment
+
+Hi and welcome everyone to the talk
+Audio Event Detection using Machine Learning.
+
+There is some example code in the project at
+TODO github link
+
+I will not be able to answer questions during the presentation,
+but just post questions here as we go along.
+I will try to get to them at the end.
+
+
 # TODO
 
 Presentation
 
 - Find/make pictures
 - Finish slides
-- Make git repo for demo code
 - Practice presentation
-- Record presentation video 
+- Record presentation video
+
+- Test sound/video playback in Reveal.js
 
 Demo code
 
@@ -17,8 +34,14 @@ Demo code
 - Add neural network to pipeline. mel-spectrogram with CNN/RNN
 - BONUS. Setup code to run on live input. Test with Monitor playing videos
 
+Presentation
 
-Style.
+- Do tech check. Use Chrome to get audio
+
+
+
+# Style
+
 Show the output/demo first.
 Then walk through how to make it
 Complete code in a Github, ideally

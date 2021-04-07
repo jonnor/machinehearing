@@ -1,21 +1,20 @@
 
-# Machine Learning
+# Audio Event Detection using Machine Learning
 
-## Meta
-40 minute slot
-35 minutes presentation
-Pre-recorded talk.
-Live Q&A
+Project with accompanying code etc can be found at:
+[https://github.com/jonnor/brewing-audio-event-detection](https://github.com/jonnor/brewing-audio-event-detection)
 
-13:45 — 14:25 CEST
-https://python.geekle.us/agenda#!/tab/292052184-1
+Presentation will be given live on April 08, 2021.
+
+- Live stream: https://www.youtube.com/watch?v=Eg_IngypecY
+- Event information: https://python.geekle.us/agenda
 
 ## Abstract
 
 Audio Events, or Acoustic Events, are individual distinct sounds.
 Audio Event Detection (AED) is the task of detecting such sounds, returning precise times that each kind (class) of sound occurs.
-This can be anything from detecting coffee-beans cracking while roasting, to gunshots on a shooting range, to noise made by construction works
-- all these are real applications the presenter has developed.
+This can be anything from detecting coffee-beans cracking while roasting,
+to gunshots on a shooting range, to noise made by construction works - all these are real applications the presenter has developed.
 This practical talk will show how you can build such a system in Python, using machine learning models applied to audio.
 The general approaches shown can also be applied to other sensor data such as vibrations, pressure etc.
 
