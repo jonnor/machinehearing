@@ -182,6 +182,8 @@ Though measuring the specific gravity is better for this.
 :::
 
 
+# Machine Learning needs Data!
+
 ## Supervised Machine Learning
 
 ![](./img/aed-supervised-learning.png){width=80%}
@@ -192,11 +194,7 @@ Based on examples.
 Input (Audio).
 Expected output (bubble yes/no) 
 
-
 :::
-
-
-# Data Collection
 
 ## Data requirements
 
@@ -261,13 +259,13 @@ https://github.com/ytdl-org/youtube-dl/
 :::
 
 
-## Exploratory Data Analysis
+## Check the data
 
-IMAGE: spectrograms in Audacity
+<video data-autoplay src="eda-audacity.mkv" controls style="height: 800px"></video>
 
-VIDEO? many events from different clips. 1 second each
+## Understand the data
 
-Note characteristics of the sound
+Note down characteristics of the sound
 
 - Event length
 - Distance between events
@@ -276,7 +274,6 @@ Note characteristics of the sound
 - Differences between recordings
 - Background noises
 - Other events that could be easily confused
-
 
 ::: notes
 
@@ -353,9 +350,9 @@ Lossy compression on top of a mel-spectrogram
 
 # Machine Learning system
 
-## Audio ML pipeline
+## Audio ML pipeline overview
 
-AED as classification of short independent time-windows.
+![](./img/detection-pipeline.svg.png){width=60%}
 
 ::: notes
 
@@ -373,9 +370,13 @@ Low-to-no overlap between events.
 
 ## Analysis windows
 
-Bit longer than the event length
+![](./img/overlapped-windows.png){width=50%}
 
-Overlap maybe at 10%
+Window length bit longer than the event length.
+
+Overlapping gives classifier multiple chances at seeing each event.
+
+Reducing overlap increases resolution! Overlap for AES: 10%
 
 ::: notes
 
@@ -383,27 +384,7 @@ Overlap maybe at 10%
 :::
 
 
-## Evaluation
 
-Multiple levels
-
-Window-wise
-- False Positive Rate / False Negative Rate
-- Precision / recall
-
-Might be overly strict. Due to overlap, can afford to miss a couple of windows 
-
-- Event-wise
-
-- Blops per Minute
-Errors within +- 10%?
-
-::: notes
-
-Should be able to miss a couple of events without loosing track of the BPM
-But short clips of just some seconds will have some spread probably
-
-:::
 
 ## Models
 
@@ -419,6 +400,10 @@ Trick: Normalization. Window-based. Median or max.
 
 Trick: Include delta features
 
+FIXME: slides about feature extraction. Mel-spectrogram (MFCC)
+
+FIXME: image of a CNN, explainer. LeNet from master
+
 :::
 
 ## Post-processing
@@ -431,18 +416,60 @@ Reject time-difference values outside of IQR.
 
 Event rate. Count / time
 
+
+
+::: notes
+
 Maybe give a range.
 Confidence Interval of the mean
 Student-T extimation
 
-# Results
+FIXME: histogram of distances
+TODO: python code snippet
 
-## Detection performance
+:::
+
+
+## Evaluation
+
+![](./img/evaluation-curves.png){width=80%}
+
+
+::: notes
+
+Multiple levels
+
+Window-wise
+- False Positive Rate / False Negative Rate
+- Precision / recall
+
+Might be overly strict. Due to overlap, can afford to miss a couple of windows 
+
+- Event-wise
+
+- Blops per Minute
+Errors within +- 10%?
+
+
+Should be able to miss a couple of events without loosing track of the BPM
+But short clips of just some seconds will have some spread probably
+
+TODO: include evaluation of BPM. Per
+
+FIXME: include slide on dataset splitting. Grouped split in scikit-learn
+
+:::
+
+
+<!--
+Results
+
+Detection performance
 
 FIXME: IMAGE: precision/recall or TPR/FPR curve
 
 FIXME: Results on BPM
-
+-->
 
 ## Tracking over time using Brewfather
 
@@ -459,8 +486,7 @@ r = requests.post(url, json=data)
 
 ::: notes
 
-MAYBE. Edit picture to make less tall
-TODO: reduce padding between picture and code samples 
+LATER. Edit picture to make less tall
 
 :::
 
@@ -503,7 +529,7 @@ Brewfather limits updates to once per 15 minutes
 But real-time streaming detection can be useful to verify detection when setting up. 
 And makes for nicer demo :)
 
-MAYBE: video demo? can just be console output
+LATER: video demo? can just be console output
 
 :::
 
@@ -520,7 +546,7 @@ Github: [jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 </br>
 Slack: [Sound of AI community](https://valeriovelardo.com/the-sound-of-ai-community/) 
 
-## What will you make?
+## What do you want make?
 
 Now that you know the basics of Audio Event Detection with Machine Learning in Python.
 
@@ -584,7 +610,7 @@ Jon Nordby
 
 Bonus slides after this point
 
-
+<!-- TODO: Maybe include some of this in main talk -->
 
 ## Synthesize data
 
@@ -666,8 +692,6 @@ Transitions. Into state. Out of state.
 ## Mel-spectrogram
 
 ![](img/spectrograms.svg)
-
-
 
 
 
