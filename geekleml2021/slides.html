@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jon Nordby jon@soundsensing.no">
+  <meta name="dcterms.date" content="2021-03-25">
+  <title>Audio Event Detection with Machine Learning</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<section class="titleslide level1" data-background-image="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3); padding-top: 1.7em;">
+<h1 style>
+Audio Event Detection with Machine Learning
+</h1>
+<p>
+Jon Nordby</br> Head of Data Science &amp; Machine Learning</br> Soundsensing AS</br> jon@soundsensing.no</br> </br> Python for ML and AI, Global Summit 2021, by Geekle</br>
+</p>
+</section>
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+<aside class="notes">
+<p>Jon Nordby Head of Machine Learning and Data Science at Soundsensing An IoT sensor company that specializes in Audio Machine Learning</p>
+<p>TODO: add a slide about me, from EuroPython</p>
+</aside>
+</section>
+<section id="about-soundsensing" class="slide level2">
+<h2>About Soundsensing</h2>
+<p><img data-src="./img/soundsensing-solution.svg.png" style="width:100.0%" /></p>
+<aside class="notes">
+<p>We provide easy-to-use IoT sensors that can continiously measure sound, and use Machine Learning to extract interesting information.</p>
+<p>The information presented in our online dashboard, and is also available in an API for integrating with other systems.</p>
+<p>Our products are used for Noise Monitoring and Condition Monitoring of equipment.</p>
+</aside>
+</section>
+<section id="audio-event-detection" class="slide level2">
+<h2>Audio Event Detection</h2>
+<p><img data-src="./img/audio-classification-tagging-detection.png" style="width:100.0%" /></p>
+<blockquote>
+<p>Given input audio </br> return the timestamps (start, end) </br> for each event class</p>
+</blockquote>
+<p>Also known as: Acoustic Event Detection (AED) and Sound Event Detection (SED)</p>
+<aside class="notes">
+<p>Related to Audio Classification</p>
+<p>Audio Classification with Machine Learning (Jon Nordby, EuroPython 2019) https://www.youtube.com/watch?v=uCGROOUO_wY</p>
+<p>Start-end. Onset/offset Or at least a clear start</p>
+<p>If events are overlapping a lot, might not make sense as events anymore Isolated claps (event) versus clapping (ongoing, class)</p>
+<p>For events one can count the number of occurrences Classification might instead count number of seconds instead</p>
+</aside>
+</section>
+<section id="events-and-non-events" class="slide level2">
+<h2>Events and non-events</h2>
+<p>Events need to have a well-defined duration.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Event (time limited)</th>
+<th>Class (continious)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Car passing</td>
+<td>Car traffic</td>
+</tr>
+<tr class="even">
+<td>Honk</td>
+<td>Car traffic</td>
+</tr>
+<tr class="odd">
+<td>Word</td>
+<td>Speech</td>
+</tr>
+<tr class="even">
+<td>Gunshot</td>
+<td>Shooting</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="application" class="title-slide slide level1">
+<h1>Application</h1>
+<p>Fermentation tracking when making alcoholic beverages. Beer, Cider, Wine, etc.</p>
+</section>
+<section id="alcohol-is-produced-via-fermentation" class="slide level2">
+<h2>Alcohol is produced via fermentation</h2>
+<p><img data-src="./img/beer-brewing-crop.jpg" style="width:30.0%" /></p>
+<aside class="notes">
+<p>When brewing alcoholic beverages such as beer, cider or wine one puts together a compoud with yeast and (the wort) into a vessel</p>
+</aside>
+</section>
+<section id="airlock-activity" class="slide level2">
+<h2>Airlock activity</h2>
+<video data-autoplay src="videos/!-j7md-wkL1U0.mp4" controls style="height: 800px">
+</video>
+<!--
+<iframe src="https://www.youtube.com/watch?v=j7md-wkL1U0" controls width="1500" height="1000"/></iframe>
+-->
+<aside class="notes">
+<p>After some hours or days the fermentation starts CO2 is produced by the yeast eating the sugars The Co2 escapes the tank through the airlock and this makes an audible “plop”</p>
+</aside>
+</section>
+<section id="fermentation-tracking" class="slide level2">
+<h2>Fermentation tracking</h2>
+<p>Fermentation activity can be tracked as Bubbles Per Minute (BPM).</p>
+<p><img data-src="./img/fermentation-rate-over-time.png" style="width:80.0%" /></p>
+<aside class="notes">
+<p>Several things can go wrong with the fermentation</p>
+<ul>
+<li>fails to start</li>
+<li>is too active. Blowout</li>
+<li>stops abruptly</li>
+</ul>
+<p>Affected by temperature, external and in the brew. And of the changes over time in suger and yeast concentrations.</p>
+<p>So brewers try to check in a couple of times per day how things are going.</p>
+<p>Of course there are existing devices dedicated to this task. Such as a Plaato Airlock. But for fun and learning we will do this using sound.</p>
+<p>This is an Audio Event Detection problem</p>
+<p>The fermentation activity can also be an estimator for the alcohol produced. Though measuring the specific gravity is better for this.</p>
+</aside>
+</section>
+<section id="our-goal" class="slide level2">
+<h2>Our goal</h2>
+<p>Make a system that can track fermentation activity, </br>outputting Bubbles per Minute (BPM), </br>by capturing airlock sound using a microphone, </br>using Machine Learning to count each “plops”</p>
+<aside class="notes">
+<p>Of course there are existing devices dedicated to this task. Such as a Plaato Airlock. But for fun and learning we will do this using sound.</p>
+<p>This is an Audio Event Detection problem</p>
+<p>The fermentation activity can also be an estimator for the alcohol produced. Though measuring the specific gravity is better for this.</p>
+</aside>
+</section></section>
+<section>
+<section id="machine-learning-needs-data" class="title-slide slide level1">
+<h1>Machine Learning needs Data!</h1>
+
+</section>
+<section id="supervised-machine-learning" class="slide level2">
+<h2>Supervised Machine Learning</h2>
+<p><img data-src="./img/aed-supervised-learning.png" style="width:80.0%" /></p>
+<aside class="notes">
+<p>Based on examples. Input (Audio). Expected output (bubble yes/no)</p>
+</aside>
+</section>
+<section id="data-requirements" class="slide level2">
+<h2>Data requirements</h2>
+<p>Need <em>enough</em> data.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Instances per class</th>
+<th>Suitability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>100</td>
+<td>Minimal</td>
+</tr>
+<tr class="even">
+<td>1000</td>
+<td>Good</td>
+</tr>
+<tr class="odd">
+<td>10000+</td>
+<td>Very good</td>
+</tr>
+</tbody>
+</table>
+<p>Need <em>realistic</em> data. Capturing natural variation in</p>
+<ul>
+<li>the event sound</li>
+<li>recording devices used</li>
+<li>recording environment</li>
+</ul>
+<aside class="notes">
+<p>100 events. Couple of minutes of data 1000 events. Approx 1 hour 10000 events. Tens of hours</p>
+<p>Especially if there are other event-like noises</p>
+</aside>
+</section>
+<section id="data-collection-via-youtube" class="slide level2">
+<h2>Data collection via Youtube</h2>
+<p>Criteria for inclusion:</p>
+<ul>
+<li>Preferably couple of minutes long, minimum 15 seconds</li>
+<li>No talking</li>
+<li>Mostly stationary camera</li>
+<li>No audio editing/effects</li>
+<li>One or more airlocks bubbling</li>
+<li>Bubbling can be heard by ear</li>
+</ul>
+<p>Approx 1000 videos reviewed, 100 usable</p>
+<aside class="notes">
+<p>Making note of</p>
+<ul>
+<li>Bubbling rate</li>
+<li>Clarity of bubble sound</li>
+<li>Other noise around</li>
+</ul>
+<p>Maybe 1000 videos reviewed. End up with around 100 potentialy useful Many hours of work</p>
+<p>Up to 100 recording devices and 100 environments. Maybe 2000 events Some recordings very long, several hours. Maybe 5000 events</p>
+<p>Using youtube-dl to download youtube-dl –extract-audio $URL</p>
+<p>https://youtube-dl.org/ https://github.com/ytdl-org/youtube-dl/</p>
+</aside>
+</section>
+<section id="check-the-data" class="slide level2">
+<h2>Check the data</h2>
+<video data-autoplay src="videos/eda-audacity.mkv" controls style="height: 800px">
+</video>
+</section>
+<section id="understand-the-data" class="slide level2">
+<h2>Understand the data</h2>
+<p>Note down characteristics of the sound</p>
+<ul>
+<li>Event length</li>
+<li>Distance between events</li>
+<li>Variation in the event sound</li>
+<li>Changes over time</li>
+<li>Differences between recordings</li>
+<li>Background noises</li>
+<li>Other events that could be easily confused</li>
+</ul>
+<aside class="notes">
+<p>Always inspect and explore the data!</p>
+<p>Listen to audio, look at spectrogram.</p>
+<p>Audacity, open-source software for audio editing</p>
+</aside>
+</section>
+<section id="labeling-data-manually-using-audacity" class="slide level2">
+<h2>Labeling data manually using Audacity</h2>
+<p><img data-src="./img/audacity.png" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> pandas.read_csv(path, sep<span class="op">=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                        names<span class="op">=</span>[<span class="st">&#39;start&#39;</span>, <span class="st">&#39;end&#39;</span>, <span class="st">&#39;annotation&#39;</span>],</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                        dtype<span class="op">=</span><span class="bu">dict</span>(start<span class="op">=</span><span class="bu">float</span>,end<span class="op">=</span><span class="bu">float</span>,annotation<span class="op">=</span><span class="bu">str</span>))</span></code></pre></div>
+<aside class="notes">
+<p>Audacity open source audio editor Supports “label tracks”</p>
+<p>“How to Label Audio for Deep Learning in 4 Simple Steps” Miguel Pinto, TowardsDataScience.com https://towardsdatascience.com/how-to-label-audio-for-deep-learning-in-4-simple-steps-6a2c33b343e6</p>
+<p>Shows how to use Audacity to label. Including switching to spectrograms, annotating a frequency range, exporting the labels to files, and importing the label files in Python.</p>
+</aside>
+</section>
+<section id="semi-automatic-labelling" class="slide level2">
+<h2>Semi-automatic labelling</h2>
+<p>Using a Gaussian Mixture, Hidden Markov Model (GMM-HMM)</p>
+<p><img data-src="./img/labeling-gmm-hmm.png" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hmmlearn.hmm, librosa, sklearn.preprocessing</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> librosa.feature.mfcc(audio, n_mfcc<span class="op">=</span><span class="dv">13</span>, ...)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> hmmlearn.hmm.GMMHMM(n_components<span class="op">=</span><span class="dv">2</span>, ...)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sklearn.preprocessing.StandardScaler().fit_transform(data)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>model.fit(X)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>probabilities <span class="op">=</span> model.score_samples(X)[<span class="dv">1</span>][:,<span class="dv">1</span>]</span></code></pre></div>
+<aside class="notes">
+<p>MAYBE: illustrate with simpler features. soundlevel and prev soundlevel</p>
+<p>First running it, generating label files Then reviewing and editing the labels in Audacity</p>
+<p>from hmmlearn https://github.com/hmmlearn/hmmlearn Using Mel-Frequency-Cepstral-Coefficiants as features Lossy compression on top of a mel-spectrogram</p>
+</aside>
+</section></section>
+<section>
+<section id="machine-learning-system" class="title-slide slide level1">
+<h1>Machine Learning system</h1>
+
+</section>
+<section id="audio-ml-pipeline-overview" class="slide level2">
+<h2>Audio ML pipeline overview</h2>
+<p><img data-src="./img/detection-pipeline.svg.png" style="width:60.0%" /></p>
+<aside class="notes">
+<p>Single audio stream. Monophonic. Single event class. Binary classification</p>
+<p>Uniform probability of event occuring. Not considering sequences, or states, in the detector Ie in speech recognition certain sequences of phonemes are more probable</p>
+<p>Requires that each event is clearly audible and understandable - without context Low-to-no overlap between events.</p>
+</aside>
+</section>
+<section id="analysis-windows" class="slide level2">
+<h2>Analysis windows</h2>
+<p><img data-src="./img/overlapped-windows.png" style="width:50.0%" /></p>
+<p>Window length bit longer than the event length.</p>
+<p>Overlapping gives classifier multiple chances at seeing each event.</p>
+<p>Reducing overlap increases resolution! Overlap for AES: 10%</p>
+<aside class="notes">
+
+</aside>
+</section>
+<section id="models" class="slide level2">
+<h2>Models</h2>
+<ul>
+<li>Simple. Logistic Regression on MFCC</li>
+<li>Advanced. CNN/RNN on spectrogram</li>
+</ul>
+<aside class="notes">
+<p>Once the pipeline is setup, with A large amount of different kind of models can work well</p>
+<p>Trick: Normalization. Window-based. Median or max.</p>
+<p>Trick: Include delta features</p>
+<p>FIXME: slides about feature extraction. Mel-spectrogram (MFCC)</p>
+<p>FIXME: image of a CNN, explainer. LeNet from master</p>
+</aside>
+</section>
+<section id="event-tracker" class="slide level2">
+<h2>Event Tracker</h2>
+<ul>
+<li>Threshold the probability from classifier</li>
+<li>Keep track of whether we are currently in an event or not</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> inside_event <span class="kw">and</span> probability <span class="op">&gt;=</span> on_threshold:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        inside_event <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;EVENT on&#39;</span>, t, probability)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> inside_event <span class="kw">and</span> probability <span class="op">&lt;=</span> off_threshold:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        inside_event <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;EVENT off&#39;</span>, t, probability)</span></code></pre></div>
+</section>
+<section id="statistics-estimator" class="slide level2">
+<h2>Statistics Estimator</h2>
+<p>To compute the Bubbles Per Minute.</p>
+<p><img data-src="./img/histogram.png" style="width:80.0%" /></p>
+<p>Median is more robust against outliers from predictions error.</p>
+<aside class="notes">
+<p>Counting. Threshold the probability above X</p>
+<p>Median filtering. Reject time-difference values outside of IQR.</p>
+<p>Event rate. Count / time</p>
+<p>Maybe give a range. Confidence Interval of the mean Student-T extimation</p>
+<p>FIXME: histogram of distances TODO: python code snippet</p>
+</aside>
+</section>
+<section id="evaluation" class="slide level2">
+<h2>Evaluation</h2>
+<p><img data-src="./img/evaluation-curves.png" style="width:80.0%" /></p>
+<aside class="notes">
+<p>Multiple levels</p>
+<p>Window-wise - False Positive Rate / False Negative Rate - Precision / recall</p>
+<p>Might be overly strict. Due to overlap, can afford to miss a couple of windows</p>
+<ul>
+<li><p>Event-wise</p></li>
+<li><p>Blops per Minute Errors within +- 10%?</p></li>
+</ul>
+<p>Should be able to miss a couple of events without loosing track of the BPM But short clips of just some seconds will have some spread probably</p>
+<p>TODO: include evaluation of BPM. Per</p>
+<p>FIXME: include slide on dataset splitting. Grouped split in scikit-learn</p>
+</aside>
+<!--
+Results
+
+Detection performance
+
+LATER: results on windows
+precision/recall or TPR/FPR curve
+
+LATER: Results on BPM
+-->
+</section>
+<section id="tracking-over-time-using-brewfather" class="slide level2">
+<h2>Tracking over time using Brewfather</h2>
+<p><img data-src="./img/brewfather-fermenting-crop.png" style="width:50.0%" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># API documentation: https://docs.brewfather.app/integrations/custom-stream</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&#39;http://log.brewfather.net/stream?id=9MmXXXXXXXXX&#39;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="bu">dict</span>(name<span class="op">=</span><span class="st">&#39;brewaed-0001&#39;</span>, bpm<span class="op">=</span>CALCULATED<span class="op">-</span>BPM)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.post(url, json<span class="op">=</span>data)</span></code></pre></div>
+<aside class="notes">
+<p>LATER. Edit picture to make less tall</p>
+</aside>
+</section>
+<section id="streaming-inference" class="slide level2">
+<h2>Streaming inference</h2>
+<p>Key: Chopping up incoming stream into (overlapping) audio windows</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sounddevice, queue</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup audio stream from microphone</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>audio_queue <span class="op">=</span> queue.Queue()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> audio_callback(indata, frames, time, status):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    audio_queue.put(indata.copy())</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>stream <span class="op">=</span> sounddevice.InputStream(callback<span class="op">=</span>audio_callback, ...)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># In classification loop</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> audio_queue.get()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shift old audio over, add new data</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    audio_buffer <span class="op">=</span> numpy.roll(audio_buffer, <span class="bu">len</span>(data), axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    audio_buffer[<span class="bu">len</span>(audio_buffer)<span class="op">-</span><span class="bu">len</span>(data):<span class="bu">len</span>(audio_buffer)] <span class="op">=</span> data</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    new_samples <span class="op">+=</span> <span class="bu">len</span>(data)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check if we have received enough new data to do new prediction</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> new_samples <span class="op">&gt;=</span> hop_length:</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> model.predict(audio_buffer)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> p <span class="op">&lt;</span> threshold:</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&#39;EVENT DETECTED time=</span><span class="sc">{</span>datetime<span class="sc">.</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<aside class="notes">
+<p>Brewer does not really care about each and every blop BPM changes slowly and (normally) quite evenly, and does not have to be reported often Brewfather limits updates to once per 15 minutes</p>
+<p>But real-time streaming detection can be useful to verify detection when setting up. And makes for nicer demo :)</p>
+<p>LATER: video demo? can just be console output</p>
+</aside>
+</section></section>
+<section>
+<section id="outro" class="title-slide slide level1">
+<h1>Outro</h1>
+
+</section>
+<section id="more-resources" class="slide level2">
+<h2>More resources</h2>
+<p></br> Github: <a href="https://github.com/jonnor/machinehearing">jonnor/machinehearing</a></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=uCGROOUO_">Audio Classification with Machine Learning</a> (EuroPython 2019)</li>
+<li>Environmental Noise Classification on Microcontrollers (TinyML 2021)</li>
+</ul>
+<p></br> Slack: <a href="https://valeriovelardo.com/the-sound-of-ai-community/">Sound of AI community</a></p>
+</section>
+<section id="what-do-you-want-make" class="slide level2">
+<h2>What do you want make?</h2>
+<p>Now that you know the basics of Audio Event Detection with Machine Learning in Python.</p>
+<ul>
+<li>Popcorn popping</li>
+<li>Bird call</li>
+<li>Cough</li>
+<li>Umm/aaa speech patterns</li>
+<li>Drum hits</li>
+<li>Car passing</li>
+</ul>
+<aside class="notes">
+<p>Not-events. Alarm goes off. Likely to persist (for a while)</p>
+</aside>
+</section>
+<section id="continious-monitoring-using-audio-ml" class="slide level2">
+<h2>Continious Monitoring using Audio ML</h2>
+<p>Want to deploy Continious Monitoring with Audio?</br> Consider using the Soundsensing sensors and data-platform.</p>
+<p></br>Want to work on Audio Machine Learning in Python?</br> Join our team at Soundsensing.</p>
+<p></br> <em>Get in Touch! contact@soundsensing.no</em></p>
+<aside class="notes">
+<ul>
+<li>Built-in cellular connectivity.</li>
+<li>Rugged design for industrial and outdoor usecases.</li>
+<li>Can run Machine Learning both on-device or in-cloud</li>
+<li>Supports Audio Event Detection, Audio Classification, Audio Anomaly Detection</li>
+</ul>
+</aside>
+</section>
+<section id="section" class="slide level2" data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);">
+<h2 data-background="./img/soundsensing-withlogo.jpg" style="background: rgba(255, 255, 255, 0.3);"></h2>
+<h1>
+Questions ?
+</h1>
+<p></br> <em> Audio Event Detection with Machine Learning</br> Python for ML and AI, Global Summit 2021, by Geekle </em></p>
+</br>
+<p>
+Jon Nordby </br>jon@soundsensing.no </br>Head of Data Science &amp; Machine Learning
+</p>
+</section></section>
+<section>
+<section id="bonus" class="title-slide slide level1">
+<h1>Bonus</h1>
+<p>Bonus slides after this point</p>
+<!-- TODO: Maybe include some of this in main talk -->
+</section>
+<section id="synthesize-data" class="slide level2">
+<h2>Synthesize data</h2>
+<p>How to get more data</br>without gathering in the wild?</p>
+<ul>
+<li>Mix in diffent kinds of background noise.</li>
+<li>Vary Signal to Noise ratio etc</li>
+<li>Useful to estimate performance on tricky, not-yet-seen data</li>
+<li>Can be used to compensate for small amount of training data</li>
+<li><em>scaper</em> Python library: <a href="https://github.com/justinsalamon/scaper">github.com/justinsalamon/scaper</a></li>
+</ul>
+<aside class="notes">
+<p>Challenge in Acoustic Event Detection in uncontrolled environment. Handling the largs amounts of different background noises that could occur.</p>
+</aside>
+</section>
+<section id="event-detection-with-weakly-labeled-data" class="slide level2">
+<h2>Event Detection with Weakly Labeled data</h2>
+<p>Can one learn Audio Event Detection </br>without annotating the times for each event? </br> </br>Yes!</p>
+<ul>
+<li>Referred to as <em>weekly labeled</em> Audio Event Detection</li>
+<li>Can be tackled with <em>Multiple Instance Learning</em></li>
+<li>Inputs: Audio clips consisting of 0-N events</li>
+<li>Labels: True if any events in clip, else false</li>
+<li>Multiple analysis windows per 1 label</li>
+<li>Using temporal pooling in Neural Network</li>
+</ul>
+<aside class="notes">
+<p>Active area of research. DCASE Speech recognition systems. Can give phone level output with sentence-level annotations</p>
+<p>Multiple Instance Learning Principle model architecture with neural networks Each (overlapped) analysis window in a clip goes through same neural network. Outputs are pooled across time to make prediction of event present-or-not. Common pooling operation: max, or softmax More advanced. Attention pooling, or Autopool (softmax generalization)</p>
+</aside>
+</section>
+<section id="characteristics-of-audio-events" class="slide level2">
+<h2>Characteristics of Audio Events</h2>
+<ul>
+<li>Duration</li>
+<li>Tonal/atonal</li>
+<li>Temporal patterns</li>
+<li>Percussive</li>
+<li>Frequency content</li>
+<li>Temporal envelope</li>
+<li>Foreground vs background</li>
+<li>Signal to Noise Ratio</li>
+</ul>
+<aside class="notes">
+<p>Some events are short Gunshot Bark</p>
+<p>Some are bit longer Cat mjau</p>
+<p>Some events are percussive / atonal. Cough, etc</p>
+<p>Some have temporal patterns Some are more tonal Alarms</p>
+<p>Transitions. Into state. Out of state.</p>
+</aside>
+</section>
+<section id="mel-spectrogram" class="slide level2">
+<h2>Mel-spectrogram</h2>
+<p><img data-src="img/spectrograms.svg" /></p>
+</section>
+<section id="environmental-sound-classification-on-microcontrollers" class="slide level2">
+<h2>Environmental Sound Classification on Microcontrollers</h2>
+<blockquote>
+<p>Environmental Sound Classification on Microcontrollers using Convolutional Neural Networks</p>
+</blockquote>
+<p>Master thesis, Jon Nordby, 2019.</p>
+<figure>
+<img data-src="./img/thesis.png" style="width:30.0%" alt="Report &amp; Code: https://github.com/jonnor/ESC-CNN-microcontroller" /><figcaption aria-hidden="true">Report &amp; Code: https://github.com/jonnor/ESC-CNN-microcontroller</figcaption>
+</figure>
+</section></section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

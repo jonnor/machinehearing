@@ -114,7 +114,7 @@ into a vessel
 
 ## Airlock activity
 
-<video data-autoplay src="!-j7md-wkL1U0.mp4" controls style="height: 800px"></video>
+<video data-autoplay src="videos/!-j7md-wkL1U0.mp4" controls style="height: 800px"></video>
 
 <!--
 <iframe src="https://www.youtube.com/watch?v=j7md-wkL1U0" controls width="1500" height="1000"/></iframe>
@@ -261,7 +261,7 @@ https://github.com/ytdl-org/youtube-dl/
 
 ## Check the data
 
-<video data-autoplay src="eda-audacity.mkv" controls style="height: 800px"></video>
+<video data-autoplay src="videos/eda-audacity.mkv" controls style="height: 800px"></video>
 
 ## Understand the data
 
@@ -384,12 +384,10 @@ Reducing overlap increases resolution! Overlap for AES: 10%
 :::
 
 
-
-
 ## Models
 
-Baseline simple. Logistic Regression on MFCC
-Advanced. CNN/RNN on spectrogram
+- Simple. Logistic Regression on MFCC
+- Advanced. CNN/RNN on spectrogram
 
 ::: notes
 
@@ -406,7 +404,30 @@ FIXME: image of a CNN, explainer. LeNet from master
 
 :::
 
-## Post-processing
+## Event Tracker
+
+- Threshold the probability from classifier
+- Keep track of whether we are currently in an event or not
+
+```python
+    if not inside_event and probability >= on_threshold:
+        inside_event = True
+        print('EVENT on', t, probability)
+    if inside_event and probability <= off_threshold:
+        inside_event = False
+        print('EVENT off', t, probability)
+```
+
+
+## Statistics Estimator
+
+To compute the Bubbles Per Minute.
+
+![](./img/histogram.png){width=80%}
+
+Median is more robust against outliers from predictions error.
+
+::: notes
 
 Counting.
 Threshold the probability above X
@@ -415,10 +436,6 @@ Median filtering.
 Reject time-difference values outside of IQR.
 
 Event rate. Count / time
-
-
-
-::: notes
 
 Maybe give a range.
 Confidence Interval of the mean
@@ -433,7 +450,6 @@ TODO: python code snippet
 ## Evaluation
 
 ![](./img/evaluation-curves.png){width=80%}
-
 
 ::: notes
 
@@ -466,9 +482,10 @@ Results
 
 Detection performance
 
-FIXME: IMAGE: precision/recall or TPR/FPR curve
+LATER: results on windows
+precision/recall or TPR/FPR curve
 
-FIXME: Results on BPM
+LATER: Results on BPM
 -->
 
 ## Tracking over time using Brewfather

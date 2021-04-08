@@ -6,44 +6,24 @@ https://www.youtube.com/watch?v=Eg_IngypecY
 
 ## Introduction comment
 
-Hi and welcome everyone to the talk
-Audio Event Detection using Machine Learning.
+Thanks for attending the talk "Audio Event Detection using Machine Learning"!
 
-There is some example code in the project at
-TODO github link
+The Github project with work-in-progress code is at
+https://github.com/jonnor/brewing-audio-event-detection
 
-I will not be able to answer questions during the presentation,
-but just post questions here as we go along.
-I will try to get to them at the end.
+The slides can be found at
+https://github.com/jonnor/machinehearing/tree/master/geekleml2021
 
 
 # TODO
 
-Morning
+- Post on social media. Twitter.
 
-- Add video and audio
-- Do tech check. Use Chrome to get audio
-- Post on social media. Twitter. Sound of AI slack
-
+Sound of AI slack
 
 Presentation
 
-- Find/make pictures
-- Finish slides
-- Practice presentation x3
-
-- Test sound/video playback in Reveal.js
-
-Demo code
-
-- Setup pipeline with baseline classifier. MFCC,LogisticRegression
-- Add neural network to pipeline. mel-spectrogram with CNN/RNN
-- BONUS. Setup code to run on live input. Test with Monitor playing videos
-
-Presentation
-
-
-
+- Finish last 4 slides
 
 
 # Style
