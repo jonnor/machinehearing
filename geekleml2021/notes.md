@@ -1,29 +1,11 @@
 
-
-https://www.youtube.com/watch?v=Eg_IngypecY
-
-## 
-
-## Introduction comment
-
-Thanks for attending the talk "Audio Event Detection using Machine Learning"!
-
-The Github project with work-in-progress code is at
-https://github.com/jonnor/brewing-audio-event-detection
-
-The slides can be found at
-https://github.com/jonnor/machinehearing/tree/master/geekleml2021
-
-
 # TODO
 
-- Post on social media. Twitter.
-
-Sound of AI slack
-
-Presentation
-
 - Finish last 4 slides
+- Get in a proper demo
+- Do 1-2 practice runs of presentation
+- Record video presentation
+- Publish on YouTube
 
 
 # Style
@@ -31,11 +13,6 @@ Presentation
 Show the output/demo first.
 Then walk through how to make it
 Complete code in a Github, ideally
-
-# Disposition
-
-20 minutes.
-Approximately 20 slides, 1 minute per slide.
 
 
 # Outline
@@ -55,29 +32,10 @@ Approximately 20 slides, 1 minute per slide.
 - Results
 - Streaming inference. Running in real-time 
 
-# Meta
-Up to speaker how many times to do live.
-Want as much live as possible.
-
-Aiming for 30 speakers.
-Two days. 18 sessions per day
-Two tracks. Junior or senior.
-Will repeat once per timezone
-At least 2 timezones.
-Maybe 3 timezones.
-
-Flexible with respect to
-Up to 40 minutes. Classical length.
-Plus Q&A session. 3 speakers in Q&A session. 40 minutes blocks.
-Questions in the chat.
-Moderator will choose questions.
-Speaker will be on video.
-
-
-
 
 # Planning
-What people need to understand
+
+## What people need to understand
 
 - Audio events
 What is an audio event.
@@ -89,30 +47,28 @@ Analysis windows
 Features over time
 Spectrogram
 
+- Post-processing.
+Counting. Threshold above X
+Event-rate
+
 - How to evaluate performance
 Window-wise vs event-wise
 sed_eval: https://tut-arg.github.io/sed_eval/
 tolerances
 
+## Assumptions
 What we will (mostly) assume that people know
 
 - Basic digital audio
 - Basic Machine Learning. Supervised classification
 - Typical Neural Networks. CNN/RNN ?
 
-Refer to EuroPython talk.
 
-
+## Out of scope
 What people do not need to understand
 
 - ? Weakly labeled data 
 - Making efficient networks
-
-Undecided
-
-- Post-processing.
-Counting. Threshold above X
-Event-rate
 
 Tips & tricks
 
@@ -120,8 +76,6 @@ Tips & tricks
 Manually examining mistakes that your algorithm is making
 
 - Labeling strategies
-Unsupervised learning. HMM GMM
-Weakly labeled data
 Semi-supervised
 Alignment tools
 
@@ -135,18 +89,15 @@ Device. Environment.
 Data augmentation
 
 
+# Misc
 
+### Error analysis
 
-# Other
+False Negatives / False Positives.
+Rank by probability. Inspect
 
-
-
-
-## Error analysis
-
-False Negatives / False Positives. Rank by probability
-Can be generalized to multi-class. For example using pairwise-confusions. Expected-Actual
-
+Can be generalized to multi-class.
+For example using pairwise-confusions. Expected-Actual
 
 
 ### Bias/variance diagnostics
