@@ -1,25 +1,39 @@
 
+.div sourceCode {
+    margin: 0;
+}
+
+
+.reveal pre code {
+    max-height: 800px;
+    overflow: hidden;
+    overflow-wrap: normal;
+}
+
 
 .level2.slide-background:after {
     background-image: url(./img/soundsensing-logo-transparent.png);
-    background-size: 358px 65px;
+    background-size: 215px 39px;
     background-repeat: no-repeat;
     background-position: right bottom;
     position: fixed;
     bottom: 0.5em;
     left: 3.0em;
     opacity: 0.9;
-    width: 358px;
-    height: 65px;
+    width: 215px;
+    height: 39px;
     content: "";
     z-index: -100;
 }
-/* FIXME: add Soundsensing logo back
 
+/* 
 background-color: #FFFFFF;
-    
-
 */
+
+
+
+/* 
+Event logo
 
 .level1.slide-background:after {
     background-color: #FFFFFF;
@@ -35,6 +49,8 @@ background-color: #FFFFFF;
     height: 120px;
     content: "";
 }
+*/
+
 
 
 #model-constraints {

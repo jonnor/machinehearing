@@ -32,6 +32,8 @@ Jon Nordby
 Head of Machine Learning and Data Science at Soundsensing
 An IoT sensor company that specializes in Audio Machine Learning
 
+TODO: add a slide about me, from EuroPython
+
 :::
 
 ## About Soundsensing
@@ -53,22 +55,23 @@ and Condition Monitoring of equipment.
 
 ## Audio Event Detection
 
+![](./img/audio-classification-tagging-detection.png){width=100%}
 
+> Given input audio </br>
+> return the timestamps (start, end) </br>
+> for each event class
 
 Also known as: Acoustic Event Detection (AED) and Sound Event Detection (SED)
 
+
+::: notes
+
+Related to Audio Classification
 
 Audio Classification with Machine Learning (Jon Nordby, EuroPython 2019)
 https://www.youtube.com/watch?v=uCGROOUO_wY
 
 
-::: notes
-
-TODO: image/table. Examples of events and non-events
-
-Related to Audio Classification
-
-Events need to have a well-defined duration
 Start-end. Onset/offset
 Or at least a clear start
 
@@ -80,14 +83,25 @@ Classification might instead count number of seconds instead
 
 :::
 
+## Events and non-events
 
-## Brewing alcohol
+Events need to have a well-defined duration.
 
-![](./img/Manufacturing-Noise-small.jpeg){width=50%}
+| Event (time limited)    | Class (continious) |
+| ----------- | ----------- |
+| Car passing      |  Car traffic       |
+| Honk      |  Car traffic       |
+| Word   |  Speech   |
+| Gunshot   |  Shooting   |
 
-IMAGE: fermentation vessel with airlock
+# Application
 
-AUDIO/VIDEO: airlock plopping
+Fermentation tracking when making alcoholic beverages.
+Beer, Cider, Wine, etc. 
+
+## Alcohol is produced via fermentation
+
+![](./img/beer-brewing-crop.jpg){width=30%}
 
 ::: notes
 
@@ -96,10 +110,23 @@ such as beer, cider or wine
 one puts together a compoud with yeast and (the wort)
 into a vessel
 
+:::
+
+## Airlock activity
+
+<video data-autoplay src="!-j7md-wkL1U0.mp4" controls style="height: 800px"></video>
+
+<!--
+<iframe src="https://www.youtube.com/watch?v=j7md-wkL1U0" controls width="1500" height="1000"/></iframe>
+-->
+
+::: notes
+
 After some hours or days the fermentation starts
 CO2 is produced by the yeast eating the sugars
 The Co2 escapes the tank through the airlock
 and this makes an audible "plop" 
+
 
 :::
 
@@ -108,11 +135,6 @@ and this makes an audible "plop"
 Fermentation activity can be tracked as Bubbles Per Minute (BPM).
 
 ![](./img/fermentation-rate-over-time.png){width=80%}
-
-Goal:
-Make a system that can track fermentation activity (BPM),
-</br>by using Machine Learning to count the airlock "plops".
-
 
 ::: notes
 
@@ -134,30 +156,57 @@ But for fun and learning we will do this using sound.
 
 This is an Audio Event Detection problem
 
+The fermentation activity can also be an estimator for the alcohol produced.
+Though measuring the specific gravity is better for this.
+
+:::
+
+## Our goal
+
+Make a system that can track fermentation activity,
+</br>outputting Bubbles per Minute (BPM),
+</br>by capturing airlock sound using a microphone,
+</br>using Machine Learning to count each "plops"
+
+::: notes
+
+Of course there are existing devices dedicated to this task. 
+Such as a Plaato Airlock.
+But for fun and learning we will do this using sound.
+
+This is an Audio Event Detection problem
 
 The fermentation activity can also be an estimator for the alcohol produced.
 Though measuring the specific gravity is better for this.
 
 :::
 
+
 ## Supervised Machine Learning
+
+![](./img/aed-supervised-learning.png){width=80%}
+
+::: notes
 
 Based on examples.
 Input (Audio).
 Expected output (bubble yes/no) 
 
-TODO: find an image
+
+:::
 
 
 # Data Collection
 
 ## Data requirements
 
-Need *enough* data. Instances per class
+Need *enough* data. 
 
-- 100. Minimal
-- 1000. Good
-- 10000+ Very good 
+| Instances per class   | Suitability |
+| ----------- | ----------- |
+| 100    |  Minimal       |
+| 1000      |  Good      |
+| 10000+   |  Very good  |
 
 Need *realistic* data. Capturing natural variation in
 
@@ -166,8 +215,6 @@ Need *realistic* data. Capturing natural variation in
 - recording environment
 
 ::: notes
-
-TODO: make a table?
 
 100 events. Couple of minutes of data
 1000 events. Approx 1 hour
@@ -275,10 +322,23 @@ and importing the label files in Python.
 
 Using a Gaussian Mixture, Hidden Markov Model (GMM-HMM)
 
-IMAGE: detected labels. Maybe Audacity track at bottom
-TODO: code example? Or mention hmmlearn
+![](./img/labeling-gmm-hmm.png){width=80%}
+
+```python
+import hmmlearn.hmm, librosa, sklearn.preprocessing
+
+features = librosa.feature.mfcc(audio, n_mfcc=13, ...)
+model = hmmlearn.hmm.GMMHMM(n_components=2, ...)
+X = sklearn.preprocessing.StandardScaler().fit_transform(data)
+model.fit(X)
+probabilities = model.score_samples(X)[1][:,1]
+```
 
 ::: notes
+
+MAYBE: illustrate with simpler features.
+soundlevel and prev soundlevel
+
 
 First running it, generating label files
 Then reviewing and editing the labels in Audacity
@@ -379,18 +439,28 @@ Student-T extimation
 
 ## Detection performance
 
-IMAGE: precision/recall or TPR/FPR curve
+FIXME: IMAGE: precision/recall or TPR/FPR curve
 
-Results on BPM
+FIXME: Results on BPM
 
 
-## Tracking over time
+## Tracking over time using Brewfather
 
-Integration with Brewfather
+![](./img/brewfather-fermenting-crop.png){width=50%}
 
-TODO: image of graph in Brewfather
+```python
+# API documentation: https://docs.brewfather.app/integrations/custom-stream
+import requests
+
+url = 'http://log.brewfather.net/stream?id=9MmXXXXXXXXX'
+data = dict(name='brewaed-0001', bpm=CALCULATED-BPM)
+r = requests.post(url, json=data)
+```
 
 ::: notes
+
+MAYBE. Edit picture to make less tall
+TODO: reduce padding between picture and code samples 
 
 :::
 
@@ -399,9 +469,30 @@ TODO: image of graph in Brewfather
 
 Key: Chopping up incoming stream into (overlapping) audio windows
 
-TODO: code example?
+```python
+import sounddevice, queue
 
-TODO: video demo?
+# Setup audio stream from microphone
+audio_queue = queue.Queue()
+
+def audio_callback(indata, frames, time, status):
+    audio_queue.put(indata.copy())
+
+stream = sounddevice.InputStream(callback=audio_callback, ...)
+...
+
+# In classification loop
+    data = audio_queue.get()
+    # shift old audio over, add new data
+    audio_buffer = numpy.roll(audio_buffer, len(data), axis=0)
+    audio_buffer[len(audio_buffer)-len(data):len(audio_buffer)] = data
+    new_samples += len(data)
+    # check if we have received enough new data to do new prediction
+    if new_samples >= hop_length:
+        p = model.predict(audio_buffer)
+        if p < threshold:
+            print(f'EVENT DETECTED time={datetime.datetime.now()}')
+```
 
 ::: notes
 
@@ -412,9 +503,22 @@ Brewfather limits updates to once per 15 minutes
 But real-time streaming detection can be useful to verify detection when setting up. 
 And makes for nicer demo :)
 
+MAYBE: video demo? can just be console output
+
 :::
 
 # Outro
+
+## More resources
+
+</br>
+Github: [jonnor/machinehearing](https://github.com/jonnor/machinehearing)
+
+* [Audio Classification with Machine Learning](https://www.youtube.com/watch?v=uCGROOUO_) (EuroPython 2019)
+* Environmental Noise Classification on Microcontrollers (TinyML 2021)
+
+</br>
+Slack: [Sound of AI community](https://valeriovelardo.com/the-sound-of-ai-community/) 
 
 ## What will you make?
 
@@ -480,11 +584,6 @@ Jon Nordby
 
 Bonus slides after this point
 
-## More resources
-
-Machine Hearing. ML on Audio
-
-[github.com/jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 
 
 ## Synthesize data

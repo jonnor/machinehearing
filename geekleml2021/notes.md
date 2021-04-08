@@ -2,6 +2,8 @@
 
 https://www.youtube.com/watch?v=Eg_IngypecY
 
+## 
+
 ## Introduction comment
 
 Hi and welcome everyone to the talk
@@ -17,26 +19,30 @@ I will try to get to them at the end.
 
 # TODO
 
+Morning
+
+- Add video and audio
+- Do tech check. Use Chrome to get audio
+- Post on social media. Twitter. Sound of AI slack
+
+
 Presentation
 
 - Find/make pictures
 - Finish slides
-- Practice presentation
-- Record presentation video
+- Practice presentation x3
 
 - Test sound/video playback in Reveal.js
 
 Demo code
 
-- Run label gen on 3 files
-- Verify/clean the labels in Audacity
 - Setup pipeline with baseline classifier. MFCC,LogisticRegression
 - Add neural network to pipeline. mel-spectrogram with CNN/RNN
 - BONUS. Setup code to run on live input. Test with Monitor playing videos
 
 Presentation
 
-- Do tech check. Use Chrome to get audio
+
 
 
 
