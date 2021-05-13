@@ -1,19 +1,45 @@
 # Acoustic detection of coffeebean cracking during roasting
 
-## Talk proposal
+## Type
+Application
 
-The key to a great coffee is high quality coffee beans
-and a roasting process that brings out the desired flavor and aroma.
+## Abstract
 
-In this talk you will hear about how Soundsensing and Roest have developed an automated system that ensures consistent roasting of coffee. The system uses a MEMS microphone to pick up the sound of the roasting process, and a Machine Learning model to detect in real-time the sound of coffee beans popping ("cracking"). The model runs on a custom developed board using an STM32 microcontroller and the X-CUBE-AI machine learning toolkit.
-Roest coffee machines have been shipping with this TinyML-powered feature since August 2020.
+Great coffee requires not just high quality coffee beans,
+but also a roasting process that consistently brings out the desired flavor and aroma.
+During the roasting the coffee beans will pop like popcorn ("cracking"),
+and the sound of these cracks is a good indicator of the development stage of the coffee. 
+By using MEMS microphones and on-edge analysis using machine learning (TinyML),
+the Roest coffee roasters can use sound to automatically keep track of the roasting process.
+This technology has been developed in a collaboration between Roest and Soundsensing,
+and is shipping on Roest sample roaster since August 2020.
+In this talk you will hear about this fun and practical application of TinyML,
+and some of the challenges and solutions we found when deploying on-edge
+machine learning in professional grade electronics products.
 
-We will cover the development process from the start and all the way to a validated solution, including system design, data collection, model development, and testing.
+
+## Bio
+Jon is a Machine Learning Engineer that specializes in audio and IoT applications.
+He has a Master in Data Science and a Bachelor in Electronics Engineering,
+and has worked as a software engineer in electronics and web projects for 10 years.
+Since 2019 he is the Head of Machine Learning and Data Science at Soundsensing,
+a provider of IoT sensors for sound with built Machine Learning capabilities.
+
+## Press-release style
 
 Roest is a leading manufacturer of coffee-roasting machines.
-Their sample roaster is used by high-end coffee makers all over the world, and is the first commercially available coffee roaster that uses acoustic sensing.
+Their award-winning sample roaster is used by high-end coffee makers all over the world,
+and is the first commercially available coffee roaster that uses acoustic sensing.
 
-Soundsensing is a leader in acoustic monitoring using Machine Learning. Their IoT sensors are used to monitor noise levels in workplaces and cities, and to monitor the condition of machines and processes in manufacturing and real-estate.
+Soundsensing is a leader in acoustic monitoring using Machine Learning.
+Their IoT sensors are used to monitor noise levels in workplaces and cities,
+and to monitor the condition of machines and processes in manufacturing and real-estate.
+
+The model runs on a custom developed board using an STM32 microcontroller and the X-CUBE-AI machine learning toolkit.
+Roest coffee machines have been shipping with this TinyML-powered feature since August 2020.
+
+
+
  
 ## Call-to-Action
 Have an sensing/monitoring problem that can be approached with sound?
@@ -40,3 +66,8 @@ making it hard to do other tasks at the same time.
 
 But how do coffee-makers select their coffee?
 Testing the coffe. Roasting chart.
+
+Development process.
+From the start and all the way to a validated solution,
+system design, data collection, model development, and testing.
+
