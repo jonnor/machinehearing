@@ -1,0 +1,84 @@
+
+
+.level2.slide-background:after {
+    background-image: url(./img/soundsensing-logo-transparent.png);
+    background-size: 358px 65px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    position: fixed;
+    bottom: 0.5em;
+    left: 3.0em;
+    opacity: 0.9;
+    width: 358px;
+    height: 65px;
+    content: "";
+    z-index: -100;
+}
+/* FIXME: add Soundsensing logo back
+
+background-color: #FFFFFF;
+    
+
+*/
+
+.level1.slide-background:after {
+    background-color: #FFFFFF;
+    background-image: url(./img/tinyml-logo.jpg);
+    background-size: 125px 120px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    position: fixed;
+    bottom: 0.0em;
+    left: 0.0em;
+    opacity: 0.8;
+    width: 125px;
+    height: 120px;
+    content: "";
+}
+
+
+#model-constraints {
+    background-color: rgba(255, 255, 255, .3);
+}
+
+
+.reveal section img { 
+    border:none;
+    box-shadow:none;
+    background: rgba(255, 255, 255, 1.0);
+    margin: 0px;
+    padding: 10px;
+}
+
+#soundsensing h2 {
+    display: none;
+}
+
+#dashboard h2 {
+    display: none;
+} 
+
+#demo-video h2 {
+    display: none;
+}
+
+#architecture h2 {
+    display: none;
+}
+
+#pipeline h2 {
+    display: none;
+}
+
+#confusion {
+    padding: 0px;
+}
+
+#confusion p {
+    margin: 0px;
+}
+
+#confusion h2 {
+    display: none;
+}
+
