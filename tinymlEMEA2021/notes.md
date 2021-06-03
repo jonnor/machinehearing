@@ -1,17 +1,22 @@
 
+# Theo
+Moderator for the session
+
+
 # TODO
 
-- Make cover photo
+- Make cover photo. Use on intro/outro
 Coffee, roaster, MachineLearning, sound
-- Create dummy slides for outline 
-- Do soundcheck
+- Write script for what to say on each slide
+- Find pictures for each slide
+- Rehearse and time presentation. 3x
 
 # Planning
 
 ## Format
-5 minutes lighting talk.
-5 slides a 1 minute.
-Or up to 10 slides a 30 seconds
+4 minutes lighting talk.
+4 slides a 1 minute.
+Or up to 8 slides a 30 seconds
 
 High pace, high energy.
 Simple and focused message
@@ -21,7 +26,7 @@ No questions slot
 
 - Introduction. Talk title, Name
 - Roest. What they do
-- Soundsensing. What we do
+- Soundsensing. What we do. 
 - Coffee roasting. Importance
 - First crack. What is it, why track it
 - Acoustic detection
@@ -38,6 +43,34 @@ including on-edge processing and TinyML
 Together have developed and delivered a working solution for a practical problem,
 using TinyML.
 
+"this is example of something one can today with modern ML on Audio"
+
+## Soundsensing offering
+
+Experts on Audio Machine Learning 
+for continious monitoring
+
+Hardware
+
+- Sound Event Detection
+- Audio Classification
+- Anomaly Detection
+
+Turn-key solutions for Noise Monitoring
+
+Condition Monitoring of Machines. Noise Monitoring
+
+## How we did it
+
+Technology stack
+
+Microphone. VM3000 digital MEMS by Vesper
+Microcontroller. STM32L476 by STMicroelectronics
+Inference engine. X-CUBE-AI by STMicroelectronics
+Machine Learning. Keras+Tensorflow with Soundsensing SDK
+Firmware. Custom, using Soundsensing SDK
+Hardware. Custom board by Soundsensing
+
 
 ## Call-to-Actions
 
@@ -53,9 +86,57 @@ contact@soundsensing.no
 
 ## Maybe
 
+Can be used to monitor quality.
+Can be used for automation. Saving time.
+
+More consistent results. 
+Variation in beans composition, moisture
+
 Sampling rod. Glass window.
 Roasting profile.
 Timing.
+
+https://www.roestcoffee.com/first-crack
+
+##  Tilbakemeldinger fra Roest
+
+Why acoustic first crack?
+
+first crack
+essensielt
+en person
+1 minutt etter first crack. Reduser power
+
+100k maskiner out there. Operators listen manually for first crack.
+Requires being present and alert all the time.
+By, so that operator can do other things.
+Prepare coffee
+Evaluate coffee
+Operate more machines.
+
+Sample roasters are used in the coffee production value chain to ensure quality.
+When coffee beans are sold/purcaseds
+
+Sample 100 gram coffee
+At the farm
+At the outgoing distributors
+At incoming distributors
+Repacking
+
+When you or your local coffee show buy quality coffee beans from reputable brands
+Beans from the same batch has been sampled, roasted, cupped and scored multiple times 
+Sample roaster
+
+https://www.roestcoffee.com/first-crack
+
+variasjon
+
+Roest som selskap.
+Ekstemt verdifult
+Tester 10 maskiner
+Internal quality assurance
+
+ST. Mikro
 
 
 
