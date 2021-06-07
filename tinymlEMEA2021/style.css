@@ -15,27 +15,9 @@
     z-index: -100;
 }
 /* FIXME: add Soundsensing logo back
-
-background-color: #FFFFFF;
-    
+  
 
 */
-
-.level1.slide-background:after {
-    background-color: #FFFFFF;
-    background-image: url(./img/tinyml-logo.jpg);
-    background-size: 125px 120px;
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    position: fixed;
-    bottom: 0.0em;
-    left: 0.0em;
-    opacity: 0.8;
-    width: 125px;
-    height: 120px;
-    content: "";
-}
-
 
 #model-constraints {
     background-color: rgba(255, 255, 255, .3);

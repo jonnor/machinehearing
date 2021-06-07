@@ -7,6 +7,9 @@ Moderator for the session
 
 - Make cover photo. Use on intro/outro
 Coffee, roaster, MachineLearning, sound
+
+- Make overlays have margins on each side. Box style
+
 - Write script for what to say on each slide
 - Find pictures for each slide
 - Rehearse and time presentation. 3x
@@ -47,18 +50,31 @@ using TinyML.
 
 ## Soundsensing offering
 
-Experts on Audio Machine Learning 
-for continious monitoring
+Experts on Audio Machine Learning
+specializing in continious monitoring and on-edge Machine Learning
 
-Hardware
+Hardware + Software
+
+Privacy by design
+ 
+On-edge
+Hybrid edge/cloud
+
+Supporting
 
 - Sound Event Detection
 - Audio Classification
 - Anomaly Detection
 
-Turn-key solutions for Noise Monitoring
+Noise Monitoring for industrial, office and smart-city
+Condition Monitoring of Technical machinery
 
-Condition Monitoring of Machines. Noise Monitoring
+## Roasting coffee
+
+Critical to terminate the roasting process at the same time
+One can do this 
+
+
 
 ## How we did it
 
