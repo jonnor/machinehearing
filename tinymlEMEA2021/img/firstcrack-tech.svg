@@ -2770,23 +2770,23 @@ Sq2srqdev/mb4ptHB2hApAsFX3/ZGJKV1TXT7bd/RERGHp88Rr/X4zg6x+HJ6LlY5cW6bFZW10hv
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="290.0589"
-       y="222.14714"
+       y="258.92218"
        id="text1981"><tspan
          sodipodi:role="line"
          x="290.0589"
-         y="222.14714"
+         y="258.92218"
          style="stroke-width:0.264583px"
          id="tspan1983">Models for Sound Event Detection</tspan><tspan
          sodipodi:role="line"
          x="290.0589"
-         y="232.73044"
+         y="269.50549"
          style="stroke-width:0.264583px"
-         id="tspan2101">Audio preprocessing</tspan><tspan
+         id="tspan2105">Customized firmware</tspan><tspan
          sodipodi:role="line"
          x="290.0589"
-         y="243.31374"
+         y="280.08878"
          style="stroke-width:0.264583px"
-         id="tspan2105">Custom PCB hardware</tspan></text>
+         id="tspan2111">Custom PCB hardware</tspan></text>
     <image
        width="182.1002"
        height="33.020466"
@@ -3584,6 +3584,6 @@ YII=
 "
        id="image2097"
        x="289.04752"
-       y="251.30011" />
+       y="208.60724" />
   </g>
 </svg>

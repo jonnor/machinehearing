@@ -5,14 +5,13 @@ Moderator for the session
 
 # TODO
 
-- Make cover photo. Use on intro/outro
-Coffee, roaster, MachineLearning, sound
+- Send presentation to Bette
+- Write script for what to say on each slide
+- Rehearse and time presentation. 3x
 
+Maybe
 - Make overlays have margins on each side. Box style
 
-- Write script for what to say on each slide
-- Find pictures for each slide
-- Rehearse and time presentation. 3x
 
 # Planning
 
@@ -69,10 +68,12 @@ Supporting
 Noise Monitoring for industrial, office and smart-city
 Condition Monitoring of Technical machinery
 
+Audio Machine Learning models
+
 ## Roasting coffee
 
 Critical to terminate the roasting process at the same time
-One can do this 
+One can do this
 
 
 

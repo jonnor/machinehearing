@@ -26,7 +26,7 @@ tinyML EMEA 2021</br>
 
 ## Roest
 
-![](./img/roest-sample-roaster-2x-tightcrop.jpg){width=70%}
+![](./img/roest-sample-roaster-2x-tightcrop.jpg){width=75%}
 
 ::: notes
 
@@ -34,7 +34,8 @@ Lets anyone roast with digital precision
 
 :::
 
-## Soundsensing
+
+## {data-background="./img/soundsensing-technology.jpg" style="background: rgba(255, 255, 255, 0.0);"}
 
 ::: notes
 
@@ -58,7 +59,7 @@ and the beans pop like popcorn, making an audible sound
 
 ## Doing it manually
 
-![](./img/roest-2-prøvebrenner-kaffegeek.jpg){width=80%}
+![](./img/roest-2-prøvebrenner-kaffegeek.jpg){width=75%}
 
 ::: notes
 
@@ -70,7 +71,7 @@ Variability between operators, over time
 
 ## Automatic First Crack Detection
 
-![](./img/firstcrack-tech.jpg){width=80%}
+![](./img/firstcrack-tech.jpg){width=90%}
 
 ::: notes
 
@@ -79,7 +80,7 @@ Variability between operators, over time
 
 ## Demo video
 
-<video class="r-stretch" data-autoplay src="./img/soundsensing-roest-simple-scappy1.mp4"></video>
+<video controls class="r-stretch" data-autoplay src="./img/soundsensing-roest-simple-scappy1.mp4"></video>
 
 ::: notes
 
@@ -96,27 +97,21 @@ Excellent results, consistently, automatically
 
 :::
 
+## Summary
 
-## {data-background="./img/roest-soundsensing-cover.svg.jpg" style="background: rgba(255, 255, 255, 0.75);"}
+Benefits of fully automated roasting
 
+* Operator can do other things while machine runs
+* Improved consistency
+* Works well regardless of operator skill level
 
-<h2>Want the worlds best coffee roaster?</h2>
+Summary
 
-<b>
-</br>
-<a href = "mailto:sales@roestcoffee.com">sales@roestcoffee.com</a>
-</br>
-</br>
-</b>
+* Acoustic detection of first crack
+* Shipping on Roest coffee roasters since 2020
+* Using TinyML solution developed by Soundsensing
 
 ::: notes
-
-For your office, home, or local cafe
-
-If you want the worlds most advanced coffe-roaster,
-Contact Roest!
-
-![](./img/roest-2-prøvebrenner-kaffegeek.jpg)
 
 :::
 
@@ -124,7 +119,8 @@ Contact Roest!
 ## {data-background="./img/roest-soundsensing-cover.svg.jpg" style="background: rgba(255, 255, 255, 0.75);"}
 
 
-<h2>Want to sense things using sound and machine learning?</h2>
+<h2>Want to sense activities or monitor machinery</br>
+using sound and machine learning?</h2>
 
 <b>
 </br>
@@ -168,4 +164,28 @@ Thesis Report & Code
 
 - [github.com/jonnor/ESC-CNN-microcontroller](https://github.com/jonnor/ESC-CNN-microcontroller)
 
+
+
+## {data-background="./img/roest-soundsensing-cover.svg.jpg" style="background: rgba(255, 255, 255, 0.75);"}
+
+
+<h2>Want the worlds best coffee roaster?</h2>
+
+<b>
+</br>
+<a href = "mailto:sales@roestcoffee.com">sales@roestcoffee.com</a>
+</br>
+</br>
+</b>
+
+::: notes
+
+For your office, home, or local cafe
+
+If you want the worlds most advanced coffe-roaster,
+Contact Roest!
+
+![](./img/roest-2-prøvebrenner-kaffegeek.jpg)
+
+:::
 
