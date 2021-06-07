@@ -71,7 +71,7 @@ Variability between operators, over time
 
 ## Automatic First Crack Detection
 
-![](./img/firstcrack-tech.jpg){width=90%}
+![](./img/firstcrack-tech.jpg){width=85%}
 
 ::: notes
 

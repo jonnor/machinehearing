@@ -1,5 +1,6 @@
 
 
+/*
 .level2.slide-background:after {
     background-image: url(./img/soundsensing-logo-transparent.png);
     background-size: 358px 65px;
@@ -14,6 +15,7 @@
     content: "";
     z-index: -100;
 }
+*/
 
 .reveal section img { 
     border:none;
