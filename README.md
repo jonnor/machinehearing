@@ -1,5 +1,24 @@
 # Machine Hearing
 
+Machine Hearing, or Machine Listening,
+is the use of Machine Learning and audio sensors to derive meaningful information from sound.
+This include listening for and diagnosing problems in machinery,
+understanding events and activities that cause noise,
+and estimation of how humans perceive certain sounds.
+
+Here you can find some notes on the topic compiled by [Jon Nordby](http://jonnor.com).
+
+![Soundsensing logo](./img/soundsensing-banner.png)
+
+This research is sponsored by [Soundsensing](https://soundsensing.no),
+a provider of IoT audio sensors with built-in Machine Learning, used for Noise Monitoring and Condition Monitoring.
+The sensors are ideal for continious monitoring of audible noises and events, and can perform tasks such as
+Audio Classification, Audio Event Detection and Acoustic Anomaly Detection.
+Their sensors can transmit compressed and privacy-preserving spectrograms, allowing Machine Learning to be done in the cloud using familiar tools like Python.
+Or models can be deployed onto the sensor itself, for a highly efficient on-edge ML solution.
+
+# Recent work
+
 ## TinyML Summit 2021: Environmental Sound Classification on microcontrollers  
 
 <!-- TODO: switch to Youtube video when available -->
