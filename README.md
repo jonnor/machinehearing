@@ -21,14 +21,12 @@ Or models can be deployed onto the sensor itself, for a highly efficient on-edge
 
 ## TinyML Summit 2021: Environmental Sound Classification on microcontrollers  
 
-<!-- TODO: switch to Youtube video when available -->
-<a href="https://jonnor.github.io/machinehearing/tinyml2021/slides.html">
+<a href="https://www.youtube.com/watch?v=cARhrotq5HA&t=0s">
 <img src="https://github.com/jonnor/machinehearing/raw/master/tinyml2021/cover.jpg" height="200" alt="Environmental Sound Classification on microcontrollers">
 </a>
 
-March 25, 2021. [slides](https://jonnor.github.io/machinehearing/tinyml2021/slides.html), [notes](./tinyml2021).
+March 25, 2021. [Video recording](https://www.youtube.com/watch?v=cARhrotq5HA&t=0s), [slides](https://jonnor.github.io/machinehearing/tinyml2021/slides.html), [notes](./tinyml2021).
 
-Video recording coming later on the [TinyML Youtube channel](https://www.youtube.com/c/tinyML/videos).
 
 ## Classifying sound using Machine Learning
 
@@ -159,7 +157,8 @@ Companion website: https://www.audiocontentanalysis.org/
 
 * CSC 83060: Speech and Audio Understanding. http://mr-pc.org/t/csc83060/
 Brooklyn College (CUNY).
-
+* [Deep Learning (for Audio) with Python](https://www.youtube.com/playlist?list=PL-wATfeyAMNrtbkCNsLcpoAyBBRJZVlnf) by Valerio Velardo
+* [PyTorch for Audio + Music Processing](https://www.youtube.com/playlist?list=PL-wATfeyAMNoirN4idjev6aRu8ISZYVWm)  by Valerio Velardo
 
 ## Software
 
@@ -168,11 +167,13 @@ Feature extraction
 * [librosa](http://librosa.github.io). The go-to Python module.
 * [essentia](https://essentia.upf.edu). C++ library, with Python bindings. Lots of Music Analysis extractors. Used by FreeSound and Acousticbrainz.
 * [kapre](https://github.com/keunwoochoi/kapre). On-demand GPU computation of melspectrograms, for Keras
-* [torchaudio](). 
+* [torchaudio](https://pytorch.org/audio/stable/index.html). Audio processing in PyTorch 
 
 Data Augmentation
 
 * [muda: Python library for augmenting annotated audio data](https://github.com/bmcfee/muda)
+* [audiomentations](https://github.com/iver56/audiomentations). 
+* [scaper](https://github.com/justinsalamon/scaper). Soundscape synthesis tool with automatic label handling. 
 
 # Lecture notes
 
@@ -190,7 +191,9 @@ January 2017, Hiroshi Shimodaira and Steve Renals.
 * Kaggle FreeSound
 * DCASE2014
 * DCASE2018
-* DCASE2019 
+* DCASE2019
+* DCASE2020
+* DCASE2021 
 
 ## Datasets
 
@@ -201,6 +204,7 @@ January 2017, Hiroshi Shimodaira and Steve Renals.
 ## Online Communities
 
 * https://mircommunity.slack.com/ - Music Information Retrieval
+* [The Sound of AI](https://valeriovelardo.com/the-sound-of-ai-community/), Slack Community
 
 ### Lists
 
