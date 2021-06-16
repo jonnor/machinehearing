@@ -19,6 +19,17 @@ Or models can be deployed onto the sensor itself, for a highly efficient on-edge
 
 # Recent work
 
+## TinyML EMEA 2021: Perfect coffee roasting with TinyML sound sensing  
+
+<a href="https://jonnor.github.io/machinehearing/tinymlEMEA2021/slides.html">
+<img src="https://github.com/jonnor/machinehearing/raw/master/tinymlEMEA2021/cover.jpg" height="200" alt="Perfect coffee roasting with TinyML sound sensing">
+</a>
+
+June 7, 2021.
+Presented at [tinyML EMEA Technical Forum 2021](https://www.tinyml.org/event/emea-2021/).
+Video recording coming, [slides](https://jonnor.github.io/machinehearing/tinymlEMEA2021/slides.html), [notes](./tinymlEMEA2021).
+
+
 ## TinyML Summit 2021: Environmental Sound Classification on microcontrollers  
 
 <a href="https://www.youtube.com/watch?v=cARhrotq5HA&t=0s">

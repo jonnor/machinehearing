@@ -37,41 +37,67 @@ Perfect coffee roasting</br> with TinyML sound sensing
 <b>Jon Nordby</br> jon@soundsensing.no</br> tinyML EMEA 2021</br> </b>
 </p>
 </section>
-<!-- A project that Soundsensing did for the company Roest. -->
+<aside class="notes">
+A project that Soundsensing did for the company Roest.
+</aside>
 </section>
 <section id="roest" class="slide level2">
 <h2>Roest</h2>
 <p><img data-src="./img/roest-sample-roaster-2x-tightcrop.jpg" style="width:75.0%" /></p>
 <aside class="notes">
-<p>Lets anyone roast with digital precision</p>
+<p>Roest is a Norwegian company producing machines for roasting coffee</p>
+<p>Their s100 sample roaster is the most modern sample roaster on the market, and has won several design awards</p>
+<p>A sample roaster is used for sampling and testing coffee,</p>
+<p>which professionals in the coffee business do continiously in order to bring you great coffee</p>
 </aside>
 </section>
 <section id="section" class="slide level2" data-background="./img/soundsensing-technology.jpg" style="background: rgba(255, 255, 255, 0.0);">
 <h2 data-background="./img/soundsensing-technology.jpg" style="background: rgba(255, 255, 255, 0.0);"></h2>
 <aside class="notes">
-
+<p>Soundsensing is a leading provider of sensor solutions that combine audio and machine Learning</p>
+<p>Our technology is a combination of machine learning models, hardware and a cloud-based data platform</p>
+<p>From this technology we build solutions for</p>
+<p>Noise Monitoring for construction, office and industrial use</p>
+<p>Condition Monitoring, of technical equipment and processes</p>
+<p>We are experts in using sound to understand the world.</p>
+<p>And also for coffee, sound is important</p>
 </aside>
 </section>
 <section id="roasting-coffee" class="slide level2">
 <h2>Roasting coffee</h2>
 <p><img data-src="./img/roasting-curve-annotated.png" style="width:70.0%" /></p>
 <aside class="notes">
-<p>Needs to be very conscise.</p>
-<p>Important is to stop the roasting at the right time The best way is to wait for the 1st crack period to start This is when the water in and the beans pop like popcorn, making an audible sound</p>
+<p>Coffee roasting is the process of taking green and raw beans</p>
+<p>and heating them up over time to develop the proper coffee aroma</p>
+<p>After roasting the beans can be ground, and used to make coffee</p>
+<p>The key to a good roast is to stop the process at the right time</p>
+<p>The method used by the very best roasters is to listen for the 1st crack</p>
+<p>This is when the water in the beans turn to steam and the beans pop like popcorn</p>
+<p>making an audible sound</p>
 </aside>
 </section>
 <section id="doing-it-manually" class="slide level2">
 <h2>Doing it manually</h2>
 <p><img data-src="./img/roest-2-prøvebrenner-kaffegeek.jpg" style="width:75.0%" /></p>
 <aside class="notes">
-<p>Possible for skilled operator Requires constant attention. 3 minute period Variability between operators, over time</p>
+<p>Listening to the 1st crack is done by many professional roasters</p>
+<p>It requires constant attention over a 3 minute period</p>
+<p>This makes it quite tedious to do</p>
+<p>Different operators may also mark the 1st crack time a bit differently,</p>
+<p>leading to inconsistencies</p>
+<p>With Soundsensing we can automate this machine listening task</p>
 </aside>
 </section>
 <section id="automatic-first-crack-detection" class="slide level2">
 <h2>Automatic First Crack Detection</h2>
 <p><img data-src="./img/firstcrack-tech.jpg" style="width:85.0%" /></p>
 <aside class="notes">
-
+<p>For the Roest machine we developed a on-edge solution running on a board inside the machine</p>
+<p>It using a MEMS microphone and an ST microcontroller, and Soundsensing firmware</p>
+<p>We trained a Sound Event Detection to recognize the “cracks” of the coffee beans</p>
+<p>We used Tensorflow to train</p>
+<p>and converted it to run on the microcontroller using ST X-CUBE-AI</p>
+<p>Let us see how it works in practice!</p>
 </aside>
 </section>
 <section id="demo-video" class="slide level2">
@@ -79,9 +105,13 @@ Perfect coffee roasting</br> with TinyML sound sensing
 <video controls class="r-stretch" data-autoplay src="./img/soundsensing-roest-simple-scappy1.mp4">
 </video>
 <aside class="notes">
-<p>Benefits of automation</p>
-<p>Much less skill required Increased consistency Operator can do other things while machine runs Easy to operate multiple machines</p>
-<p>Excellent results, consistently, automatically</p>
+<p>The operator starts the automated roasting process by adding beans</p>
+<p>After around 5 minutes the beans start cracking</p>
+<p>The cracking is detected and a counted shown at the bottom of the screen</p>
+<p>The count of cracks is logged over time in the dashboard</p>
+<p>After a preset time from the detected 1st crack start</p>
+<p>the machine automatically stops the process</p>
+<p>and the beans are ready</p>
 </aside>
 </section>
 <section id="summary" class="slide level2">
@@ -89,7 +119,7 @@ Perfect coffee roasting</br> with TinyML sound sensing
 <p>Benefits of fully automated roasting</p>
 <ul>
 <li>Operator can do other things while machine runs</li>
-<li>Improved consistency</li>
+<li>Improved consistency over time and operators</li>
 <li>Works well regardless of operator skill level</li>
 </ul>
 <p>Summary</p>
@@ -114,7 +144,8 @@ Jon Nordby </br>jon@soundsensing.no
 </p>
 <p></b></p>
 <aside class="notes">
-<p>Have an sensing/monitoring problem that can be approached with sound? In process-, manufacturing or other industries. Contact Soundsensing!</p>
+<p>This is only one example of what one can do with sound, machine learning and TinyML</p>
+<p>Do you have an sensing/monitoring problem that can be approached with sound? In process-, manufacturing or other industries. Get in touch with Soundsensing!</p>
 </aside>
 </section>
 <section>

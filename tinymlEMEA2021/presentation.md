@@ -22,7 +22,11 @@ tinyML EMEA 2021</br>
 
 </section>
 
-<!-- A project that Soundsensing did for the company Roest. -->
+
+<aside class="notes">
+
+A project that Soundsensing did for the company Roest.
+</aside>
 
 ## Roest
 
@@ -30,7 +34,13 @@ tinyML EMEA 2021</br>
 
 ::: notes
 
-Lets anyone roast with digital precision
+Roest is a Norwegian company producing machines for roasting coffee
+
+Their s100 sample roaster is the most modern sample roaster on the market, and has won several design awards
+
+A sample roaster is used for sampling and testing coffee,
+
+which professionals in the coffee business do continiously in order to bring you great coffee
 
 :::
 
@@ -39,6 +49,19 @@ Lets anyone roast with digital precision
 
 ::: notes
 
+Soundsensing is a leading provider of sensor solutions that combine audio and machine Learning
+
+Our technology is a combination of machine learning models, hardware and a cloud-based data platform 
+
+From this technology we build solutions for
+
+Noise Monitoring for construction, office and industrial use
+
+Condition Monitoring, of technical equipment and processes
+
+We are experts in using sound to understand the world.
+
+And also for coffee, sound is important
 
 :::
 
@@ -48,12 +71,19 @@ Lets anyone roast with digital precision
 
 ::: notes
 
-Needs to be very conscise.
+Coffee roasting is the process of taking green and raw beans
 
-Important is to stop the roasting at the right time
-The best way is to wait for the 1st crack period to start
-This is when the water in
-and the beans pop like popcorn, making an audible sound
+and heating them up over time to develop the proper coffee aroma
+
+After roasting the beans can be ground, and used to make coffee
+
+The key to a good roast is to stop the process at the right time
+
+The method used by the very best roasters is to listen for the 1st crack
+
+This is when the water in the beans turn to steam and the beans pop like popcorn
+
+making an audible sound
 
 :::
 
@@ -63,9 +93,17 @@ and the beans pop like popcorn, making an audible sound
 
 ::: notes
 
-Possible for skilled operator
-Requires constant attention. 3 minute period
-Variability between operators, over time
+Listening to the 1st crack is done by many professional roasters
+
+It requires constant attention over a 3 minute period
+
+This makes it quite tedious to do
+
+Different operators may also mark the 1st crack time a bit differently,
+
+leading to inconsistencies
+
+With Soundsensing we can automate this machine listening task
 
 :::
 
@@ -75,6 +113,17 @@ Variability between operators, over time
 
 ::: notes
 
+For the Roest machine we developed a on-edge solution running on a board inside the machine
+
+It using a MEMS microphone and an ST microcontroller, and Soundsensing firmware
+
+We trained a Sound Event Detection to recognize the "cracks" of the coffee beans
+
+We used Tensorflow to train
+
+and converted it to run on the microcontroller using ST X-CUBE-AI 
+
+Let us see how it works in practice!
 
 :::
 
@@ -84,16 +133,19 @@ Variability between operators, over time
 
 ::: notes
 
+The operator starts the automated roasting process by adding beans
 
+After around 5 minutes the beans start cracking
 
-Benefits of automation
+The cracking is detected and a counted shown at the bottom of the screen
 
-Much less skill required
-Increased consistency
-Operator can do other things while machine runs
-Easy to operate multiple machines
+The count of cracks is logged over time in the dashboard
 
-Excellent results, consistently, automatically
+After a preset time from the detected 1st crack start
+
+the machine automatically stops the process
+
+and the beans are ready
 
 :::
 
@@ -102,7 +154,7 @@ Excellent results, consistently, automatically
 Benefits of fully automated roasting
 
 * Operator can do other things while machine runs
-* Improved consistency
+* Improved consistency over time and operators
 * Works well regardless of operator skill level
 
 Summary
@@ -138,9 +190,12 @@ Jon Nordby
 
 ::: notes
 
-Have an sensing/monitoring problem that can be approached with sound?
+This is only one example of what one can do with
+sound, machine learning and TinyML
+
+Do you have an sensing/monitoring problem that can be approached with sound?
 In process-, manufacturing or other industries.
-Contact Soundsensing!
+Get in touch with Soundsensing!
 
 :::
 
