@@ -21,12 +21,108 @@ Approx 10-12 slides
 ## Outline
 
 - Introduction
-Name, position
-Co-authors.
+
+Welcome to this presentation
+of our paper
+Automatic Detection Of Noise Events at Shooting Range Using Machine Learning
+
+My name is Jon Nordby
+and I am presenting on behalf of my co-authors
 Fabian Nemazi
 Dag Rieber
 
-Soundsensing collaboration with Politiets Nasjonale Beredskapsenter (PNB)
+This work was in a collaboration between
+Soundsensing and Politiets Nasjonale Beredskapsenter
+PNB for short
+
+- PNB
+
+PNB is a combined training facility and operative base for the police special forces in Norway
+It is located in close proximity to Oslo center and the surrounding urban area, to ensure quick response times
+
+Outdoor shooting ranges for firearm training
+Training facility for explosives
+
+The nearest residential area is around 1.2 kilometers away from the site,
+both to the west and to the north
+
+A large amount of resources and effort has been put to ensuring that noise impact is minimal
+including allowed firing directions at shooting range,
+the construction of large earthwalls and noise barriers,
+
+The facility also has a helicopter landing pad,
+but helicopted noise was not included in our project
+as it was considered well monitored through the aviation logbooks
+
+## Regulations
+
+
+## Project goals
+
+
+
+## Data collection
+
+Data was collected while the site was still being constructed
+
+Testing of noisemap calculation
+Following protocol from Norwegian guidelines M-128
+1 event per 30 seconds, with series of 10 events
+In worst case weather-conditions for noise propagation,
+and the most noisy weapon configurations, locations, directions
+
+Placed one recording unit at central location,
+and one per training area
+
+Recordings showed that the central unit picked up
+all events with good clarity
+So all analysis was done with data only from that device
+
+## Synthetization of dataset
+
+To make the dataset more realistic,
+including higher density of , occational overlapping events,
+a dataset was synthesized by
+mixing the original noise events
+with different backgrounds
+
+We set the loudness of the noise events
+to be same or lower as the originals,
+to ensure the task was hard enough to reflect challenging conditions
+
+Salamon, et.al
+Scaper: A library for soundscapesynthesis and augmentation,
+IEEE Workshop on Applications of Signal Processing to Audioand Acoustics (WASPAA), 2017
+
+Gontier et.al
+An efficient audio coding schemefor quantitative and qualitative large scale acoustic monitoring using the sensor grid approach
+MDPI Sensors, 2017
+
+## RandomForest model
+
+Our simple baseline model was a Random Forest on hand-engineered features from soundlevels
+
+## CNN model
+
+
+## Results
+
+
+- Outcomes
+
+PICTURE. Logbook
+
+- Further work
+
+Label noise
+
+Determining the origin of impulsive noise events
+using wireless sound sensors
+Fabian Nemazi, 2021
+
+
+## Blaa
+
 
 - Acknowledgements
 
@@ -44,51 +140,3 @@ Erik Sjølund and Ole Johan Aspestrand Bjerke.
 Soundsensing, Noise Monitoring
 PNB. Training facility. 1 km to neighbours
 Police National Emergency Response Center
-
-PICTURE. PNB
-
-- Data collection
-
-PICTURE. Recording locations
-
-Testing whether one central sensor would be enough,
-or whether need to have one sensor per area
-
-- Synthetization of dataset
-
-Salamon, et.al
-Scaper: A library for soundscapesynthesis and augmentation,
-IEEE Workshop on Applications of Signal Processing to Audioand Acoustics (WASPAA), 2017
-
-Gontier et.al
-An efficient audio coding schemefor quantitative and qualitative large scale acoustic monitoring using the sensor grid approach
-MDPI Sensors, 2017
-
-- RandomForest model
-
-Split into short time-frames
-
-PICTURE. Audio curve with annotated areas
-
-- CNN model
-
-- Results
-
-It obtained an event-wise F1 score of 80.5%,
-with a precision of 95.5% and recall of 69.6% (insertion error rate of 4.5% anddeletion error rate of 30.4%).
-
-
-
-PICTURE. Precision-Recall curve, table
-
-- Outcomes
-
-PICTURE. Logbook
-
-- Further work
-
-Label noise
-
-Determining the origin of impulsive noise events
-using wireless sound sensors
-Fabian Nemazi, 2021

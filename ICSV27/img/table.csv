@@ -1,0 +1,4 @@
+Model,F1,AP
+Convolutional Neural Network,76.4,85.1
+Logistic Regression,54.3,66.8
+Random Forest,49.0,68.2
