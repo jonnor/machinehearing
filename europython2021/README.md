@@ -1,6 +1,9 @@
 
 # Sound Event Detection with Machine Learning
 
+To be presented at EuroPython July 2021.
+https://ep2021.europython.eu/talks/9cE22Ve-sound-event-detection-with-machine-learning/
+
 Project with accompanying code etc can be found at:
 [https://github.com/jonnor/brewing-audio-event-detection](https://github.com/jonnor/brewing-audio-event-detection)
 

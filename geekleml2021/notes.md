@@ -1,12 +1,4 @@
 
-# TODO
-
-- Finish last 4 slides
-- Get in a proper demo
-- Do 1-2 practice runs of presentation
-- Record video presentation
-- Publish on YouTube
-
 
 # Style
 
