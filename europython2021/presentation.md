@@ -24,12 +24,23 @@ EuroPython 2021</br>
 
 </section>
 
+::: notes
+
+Hi and good morning everyone
+
+Jon Nordby
+Head of Machine Learning and Data Science at Soundsensing
+
+Today we will be talking about
+Sound Event Detection using Machine Learning
+
+:::
+
+
 # Introduction
 
 ::: notes
 
-Jon Nordby
-Head of Machine Learning and Data Science at Soundsensing
 
 :::
 
@@ -38,6 +49,8 @@ Head of Machine Learning and Data Science at Soundsensing
 ![](./img/soundsensing-solution.svg.png){width=100%}
 
 ::: notes
+
+Soundsensing is a company that focuses on audio and machine learning.
 
 We provide easy-to-use IoT sensors that can continiously measure sound,
 and use Machine Learning to extract interesting information.
@@ -58,6 +71,9 @@ and Condition Monitoring of equipment.
 > return the timestamps (start, end) </br>
 > for each event class
 
+
+::: notes
+
 One of many common tasks in Audio Machine Learning
 
 Other examples of tasks are Audio Classification, and Audio Tagging
@@ -68,10 +84,6 @@ Event Detection gives a series of time-stamps as output
 
 Also known as: Acoustic Event Detection or Audio Event Detection (AED)
 
-::: notes
-
-Related to Audio Classification
-
 Audio Classification with Machine Learning (Jon Nordby, EuroPython 2019)
 https://www.youtube.com/watch?v=uCGROOUO_wY
 
@@ -79,7 +91,7 @@ https://www.youtube.com/watch?v=uCGROOUO_wY
 
 ## Events and non-events
 
-Events need to have a well-defined duration or onset.
+Events are sounds with a clearly-defined duration or onset.
 
 | Event (time limited)    | Class (continious) |
 | ----------- | ----------- |
@@ -90,11 +102,14 @@ Events need to have a well-defined duration or onset.
 
 ::: notes
 
+What are events?
+
 Start-end. Onset/offset
 Or at least a clear start
 
-If events are overlapping a lot, might not make sense as events anymore
 Isolated claps (event) versus clapping (ongoing, class)
+
+If events are overlapping a lot, might not make sense as events anymore
 
 For events one can count the number of occurrences
 Classification might instead count number of seconds instead
@@ -138,6 +153,8 @@ There are many things that can go wrong.
 - way to intense: foaming, blowout
 - abrupt stop
 
+So as a brewer, one has to monitor the process.
+
 At the top of the vessel you see an airlock.
 This is a device that will let the CO2 gas out,
 while not allowing oxygen, bugs or other contaminants in.
@@ -174,8 +191,8 @@ detect each individual "plop"
 Example of an event.
 Clear time-defined sound that we want to count.
 
-If you cound the activity.
-Then you can estimate how much fermentation activity is going on.
+If you count the plop or bubbling activity
+then you can estimate how much fermentation is going on.
 Can also be used to estimate alcohol content, though it is not very precise for that.
 It can tell at least whether fermentation has started or not,
 and roughly how the brew is progressing.
@@ -190,18 +207,14 @@ Fermentation activity can be tracked as Bubbles Per Minute (BPM).
 
 ::: notes
 
-Several things can go wrong with the fermentation
-
 Typical curves look like this.
 Starts out with nothing, then ramps up.
 And as the yeast eats up the sugars, fermentation will gradually go down.
 
-Many variations in the curves possible depending on your brew
-
-This example is not from beer brewing but industrial alcohol production
+Many variations in the curves possible depending on your brew, some examples shown here.
 
 Affected by temperature, external and in the brew.
-And of the changes over time in suger and yeast concentrations.
+And of the changes over time in sugar and yeast concentrations.
 
 :::
 
@@ -228,7 +241,7 @@ This is an Sound Event Detection problem
 
 When one says "Machine Learning"
 many people think think mainly about ML algorithms and code
-But just as important, or in many cases more important, is the data
+But just as important, or in many cases more important, is the **data**
 
 Without appropriate data for your task,
 you will not get a good ML model,
@@ -242,26 +255,23 @@ or ML powered system!
 
 ::: notes
 
-The technique we are going to use is Supervised learning,
-which is most common 
+The technique we are going to use is Supervised learning, which is the most common for learning
+a classifier or detector like this. 
 
-This kind of learning is based on examples,
+Supervised learning is based on labeled examples,
 of Input (Audio) AND Expected output (bubble yes/no) 
 
-Often the audio data is relatively easy to get,
-but the labels are often much harder to obtain, and can be expensive to produce.
-
 In sound event detection there are multiple ways of labeling your data.
-If you have strongly labeled data (shown at the top),
-then you have marked in time, the start and end of each event instance.
-Very detailed. Takes a considerable amount of time to make.
+We will work here with strongly labeled data (shown at the top),
+where the start and end of each event instance is marked.
+Very detailed. Takes a considerable amount of time to make, but easy for a system to learn from.
 
 So the labeled data will go into the training system,
 and output a Sound Event Detector.
 This detector can be ran on new audio, and will output detected events,
 in our case the plops.
 
-TODO:
+TODO: mark only the relevant case in image
 
 :::
 
@@ -278,7 +288,7 @@ One can also use unlabled data for learning.
 But even then you will usually need some labels, to evaluate performance.
 -->
 
-## Data requirements
+## Data requirements: Quantity
 
 Need *enough* data. 
 
@@ -288,6 +298,29 @@ Need *enough* data.
 | 1000      |  Good      |
 | 10000+   |  Very good  |
 
+::: notes
+
+What are the requirements for the data?
+
+One requirement is that we have enough data.
+This varies a lot, depending on complexity of the problem. But here are some rough guidelines.
+
+100 events. Couple of minutes.
+When you split out a test set from this, might only have 30 instances there. 
+Can be used as a start.
+But will be hard to work with, because you will have a lot of variation in statistics.
+
+1000 events. Approx 1 hour.
+Can have a couple of hundred events in the test sets.
+Reasonable for low to medium complexity tasks.
+
+10000 events. Tens of hours.
+Best case. Then one has robust statistics.
+
+:::
+
+## Data requirements: Quality
+
 Need *realistic* data. Capturing natural variation in
 
 - the event sound
@@ -295,28 +328,6 @@ Need *realistic* data. Capturing natural variation in
 - recording environment
 
 ::: notes
-
-What are the requirements for the data?
-
-One requirement is that we have enough data.
-This varies a lot, depending on complexity of the problem.
-
-100 events.
-Couple of minutes of data
-When you split out a test set from this, might only have 30 instances there. 
-Say you want to achieve 1% error rate.
-This will not be possible to accurately estimate with only 30 samples
-Might be OK to start with.
-But hard to work with, because you will have a lot of variation in statistics.
-
-1000 events.
-Approx 1 hour
-
-Can have a couple of hundred events in the test sets
-
-10000 events.
-Tens of hours
-Best case. Then one has robust statistics.
 
 But the other important thing is to have *realistic* data
 
@@ -327,8 +338,6 @@ The recording devices also have variation, changes the captured sound
 
 Also have different environments
 Need to separate the events of interest, from the background noise
-Might not be able to have a controlled sound environment,
-that is free from other sounds.
 There might be other people and activities in the room,
 or sounds coming in from other rooms or outside.
 Such variation need to be represented in our dataset,
@@ -344,9 +353,9 @@ so that we know that our model will handle them well
 
 ::: notes
 
-Data collection via Youtube
+Data collected via Youtube
 
-Just show 2-3 examples
+!! Only show 2-3 examples
 
 2 group
 Much lower in the frequency
@@ -391,13 +400,13 @@ Always inspect and explore the data!
 
 Listen to audio, look at spectrogram.
 
-Audacity, open-source software for audio editing
-
 Length. Around 200 milliseconds
 Distance. Varies based on activity 
 Variations. Another type of airlock design, 3-part. Makes much less sound
 Time changes. Very high
 Rec differences.
+
+TODO, make into a table for this case
 
 :::
 
@@ -423,11 +432,15 @@ Select an area in time
 Hit Ctrl B to add a label
 T for true. Event of interst
 N for no. Other events
-Can also mark other sounds.
+Can also mark other sounds, events/activities that are ongoing
 Can be useful for error analysis
 
 Can be exported as a text file
 Can be read easily with Pandas, as shown in this example code
+
+:::
+
+<!--
 
 "How to Label Audio for Deep Learning in 4 Simple Steps"
 Miguel Pinto, TowardsDataScience.com
@@ -439,8 +452,7 @@ annotating a frequency range,
 exporting the labels to files,
 and importing the label files in Python.
 
-:::
-
+-->
 
 # Machine Learning system
 
@@ -458,11 +470,16 @@ we can go over to the model part
 ::: notes
 
 Split the audio into fixed-length windows.
-Compute some features. For example a spectrogram
-Each spectrogram window will go into a classifier
-Outputs a probability between 0.0 and 1.0
-Event tracker converts the probability into a discrete list of event starts/stops
-Count these over time to estimate the Bubbles per Minute
+
+Compute some features. For example a spectrogram.
+
+Each spectrogram window will go into a classifier.
+
+Outputs a probability between 0.0 and 1.0.
+
+Event tracker converts the probability into a discrete list of event starts/stops.
+
+Count these over time to estimate the Bubbles per Minute.
 
 :::
 
@@ -478,29 +495,65 @@ Requires that each event is clearly audible and understandable - without context
 Low-to-no overlap between events.
 -->
 
+## Spectrogram
 
+![](./img/frog_spectrogram.png){width=50%}
 
+```python
+import librosa
 
-## Models
+audio, sr = librosa.load(path)
+spec = librosa.feature.melspectrogram(y=audio, sr=sr)
+spec_db = librosa.power_to_db(spec, ref=np.max)
 
-- Simple. Logistic Regression on MFCC
-- Advanced. CNN/RNN on spectrogram
+lr.display.specshow(ps_db, x_axis='time', y_axis='mel')
+```
 
 ::: notes
+
+Also in Pytorch Audio, Tensorflow et.c.
+
+:::
+
+
+## CNN classifier model
+
+![](./img/cnn.jpg){width=60%}
+
+```python
+from tensorflow import keras
+from keras.layers import Convolution2D, MaxPooling2D
+
+model = keras.Sequential([
+        Convolution2D(filters, kernel,
+                      input_shape=(bands, frames, channels)),
+        MaxPooling2D(pool_size=pool),
+....
+])
+
+```
+
+::: notes
+
+If you are unfamiliar with deep learning,
+can also try a simple Logistic Regression on MFCC,
+with scikit-learn.
+Might do OK for many tasks!
 
 Once the pipeline is setup, with 
 A large amount of different kind of models can work well
 
+:::
+
+<!--
+
+-->
+
+<!--
 Trick: Normalization. Window-based. Median or max.
 
 Trick: Include delta features
-
-FIXME: slides about feature extraction. Mel-spectrogram (MFCC)
-
-FIXME: image of a CNN, explainer. LeNet from master
-
-:::
-
+-->
 
 
 ## Evaluation
@@ -517,18 +570,21 @@ Window-wise
 
 Might be overly strict. Due to overlap, can afford to miss a couple of windows 
 
-- Event-wise
+Should be able to miss a couple of events without loosing track of the BPM
+
+:::
+
+<!--
+- Event-wise evaluation
+using sed-eval
+
+TODO: include evaluation of BPM. Per
 
 - Blops per Minute
 Errors within +- 10%?
 
-
-Should be able to miss a couple of events without loosing track of the BPM
-But short clips of just some seconds will have some spread probably
-
-TODO: include evaluation of BPM. Per
-
-FIXME: include slide on dataset splitting. Grouped split in scikit-learn
+LATER: include slide on dataset splitting.
+Grouped split in scikit-learn
 
 :::
 
@@ -545,6 +601,8 @@ LATER: Results on BPM
 
 ## Event Tracker
 
+Converting to discrete list of events
+
 - Threshold the probability from classifier
 - Keep track of whether we are currently in an event or not
 
@@ -559,17 +617,21 @@ LATER: Results on BPM
 
 ::: notes
 
-Using separate on/off threshold allows to stable
+Using separate on/off threshold avoids
+noise/oscillation due to minor changes around the threshold value.
+Called hysteresis
 
 :::
 
 ## Statistics Estimator
 
-To compute the Bubbles Per Minute.
+To compute the Bubbles Per Minute
 
-![](./img/histogram.png){width=80%}
+![](./img/histogram.png){width=30%}
 
-Median is more robust against outliers from predictions error.
+- Using the typical time-between-events
+- Assumes regularity
+- Median more robust against outliers
 
 ::: notes
 
@@ -580,15 +642,13 @@ Missed events, additional events.
 Since we have a very periodic and slowly changing process,
 can instead use the distance between events.
 
-Plot a histogram.
-Can have outliers. If missing event.
+Can have outliers. If missing event, or false triggering.
 Take the median value and report as the BPM. 
-
-TODO: update with real picture
 
 :::
 
 <!---
+TODO: update with real picture
 
 Median filtering.
 Reject time-difference values outside of IQR.
@@ -625,15 +685,18 @@ LATER. Edit picture to make less tall
 
 ## More resources
 
+</br>
+Github project: [jonnor/brewing-audio-event-detection](https://github.com/jonnor/brewing-audio-event-detection)
+
+</br>
+General Audio ML: [jonnor/machinehearing](https://github.com/jonnor/machinehearing)
+
 * [Sound Event Detection: A tutorial](https://arxiv.org/abs/2107.05463). Virtanen et al.
 * [Audio Classification with Machine Learning](https://www.youtube.com/watch?v=uCGROOUO_) (EuroPython 2019)
 * [Environmental Noise Classification on Microcontrollers](https://www.youtube.com/watch?v=ks5kq1R0aws) (TinyML 2021)
 
 </br>
-Github: [jonnor/machinehearing](https://github.com/jonnor/machinehearing)
-
-</br>
-Slack: [Sound of AI community](https://valeriovelardo.com/the-sound-of-ai-community/) 
+Slack: [Sound of AI community](https://valeriovelardo.com/the-sound-of-ai-community/)
 
 ## What do you want make?
 
@@ -660,6 +723,8 @@ Likely to persist (for a while)
 Want to deploy Continious Monitoring with Audio?</br>
 Consider using the Soundsensing sensors and data-platform.
 
+![](./img/soundsensing-solution.svg.png){width=80%}
+
 </br>
 <em>Get in Touch! contact&#64;soundsensing.no</em>
 
@@ -670,21 +735,24 @@ Consider using the Soundsensing sensors and data-platform.
 - Can run Machine Learning both on-device or in-cloud
 - Supports Sound Event Detection, Audio Classification, Acoustic Anomaly Detection
 
-TODO: product picture
-
 :::
 
 ## Join Soundsensing
 
 </br>Want to work on Audio Machine Learning in Python?</br>
-Join our team at Soundsensing.
+We have many opportunities.
+
+- Full-time positions
+- Part-time / freelance work
+- Engineering thesis
+- Internships
+- Research or industry partnerships
 
 </br>
 <em>Get in Touch! contact&#64;soundsensing.no</em>
 
 ::: notes
 
-TODO: mention internships, student projects and thesis work
 
 :::
 
@@ -926,10 +994,6 @@ Reducing overlap increases resolution! Overlap for AES: 10%
 
 
 :::
-
-## Mel-spectrogram
-
-![](img/spectrograms.svg)
 
 
 

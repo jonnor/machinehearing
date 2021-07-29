@@ -19,15 +19,12 @@ Should be more like 20.
 
 # TODO
 
-- MFCC+LogisticRegression
-- Add slide on spectrogram
-- Add CNN neural network slide
-
-- Improve CTAs for Soundsensing at end.
-
-- Add EuroPython logo to first/last slide
+- Add product pic for Soundsensing CTA
+- Add internship etc for CTA
+- Add slide for MFCC+LogisticRegression
 
 - Check speaker notes in presentation mode
+- Add EuroPython logo to first/last slide
 
 - Do a full run-through of presentation
 - Record a video. With OBS
@@ -56,6 +53,7 @@ Check speaker video, https://www.youtube.com/watch?v=UgQFlw66O4o
 ## Action
 
 - 15 minutes before, join Matrix backstage
+- Post link to Github project and slides in Matrix
 - Tech will give Streamyard invite link
 - !! USE CHROME
 - Display Name. Jon
