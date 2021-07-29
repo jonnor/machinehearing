@@ -30,9 +30,6 @@ EuroPython 2021</br>
 
 Jon Nordby
 Head of Machine Learning and Data Science at Soundsensing
-An IoT sensor company that specializes in Audio Machine Learning
-
-TODO: add a slide about me, from EuroPython
 
 :::
 
@@ -61,8 +58,15 @@ and Condition Monitoring of equipment.
 > return the timestamps (start, end) </br>
 > for each event class
 
-Also known as: Acoustic Event Detection or Audio Event Detection (AED)
+One of many common tasks in Audio Machine Learning
 
+Other examples of tasks are Audio Classification, and Audio Tagging
+
+In Classification there is only a single class label as output. No timing information 
+In Tagging one allows multiple classes. But also no timing information.
+Event Detection gives a series of time-stamps as output
+
+Also known as: Acoustic Event Detection or Audio Event Detection (AED)
 
 ::: notes
 
@@ -103,6 +107,12 @@ Classification might instead count number of seconds instead
 Fermentation tracking when making alcoholic beverages.
 Beer, Cider, Wine, etc. 
 
+::: notes
+
+Tried to pick a bit fun task as an example
+
+:::
+
 ## Alcohol is produced via fermentation
 
 ![](./img/beer-brewing-crop.jpg){width=30%}
@@ -113,6 +123,26 @@ When brewing alcoholic beverages
 such as beer, cider or wine
 one puts together a compoud with yeast, source of sugars, water (the wort)
 into a vessel
+
+The vessel is put in a location with an appropriate temperature,
+and after some time the fermentation process will start.
+
+During fermentation the yeast will eat the sugar,
+which will produce alcohol, and as a byproduct also CO2 gas
+
+This process is critical for a good result,
+both to actually produce any alchohol but also to get a good taste.
+
+There are many things that can go wrong.
+- can fail to start
+- way to intense: foaming, blowout
+- abrupt stop
+
+At the top of the vessel you see an airlock.
+This is a device that will let the CO2 gas out,
+while not allowing oxygen, bugs or other contaminants in.
+
+And this device we will have a bit closer look at now.
 
 :::
 
@@ -126,10 +156,29 @@ into a vessel
 
 ::: notes
 
-After some hours or days the fermentation starts
-CO2 is produced by the yeast eating the sugars
-The CO2 escapes the tank through the airlock
-and this makes an audible "plop" 
+In this video clip the fermentation process has started, with medium activity
+
+CO2 is being pushed through the airlock, and escapes out at the top
+
+As you can hear this makes a characteristic sound,
+a "plop" for each bubble of gas that escapes 
+
+This example has a very nice and clear sound. 
+It is not always so nice.
+
+This is something we can track using Machine Learning.
+We can have a microphone that picks up the sound,
+pass it through some software and use a machine learning model to
+detect each individual "plop"
+
+Example of an event.
+Clear time-defined sound that we want to count.
+
+If you cound the activity.
+Then you can estimate how much fermentation activity is going on.
+Can also be used to estimate alcohol content, though it is not very precise for that.
+It can tell at least whether fermentation has started or not,
+and roughly how the brew is progressing.
 
 :::
 
@@ -143,19 +192,16 @@ Fermentation activity can be tracked as Bubbles Per Minute (BPM).
 
 Several things can go wrong with the fermentation
 
-- fails to start
-- is too active. Blowout
-- stops abruptly
+Typical curves look like this.
+Starts out with nothing, then ramps up.
+And as the yeast eats up the sugars, fermentation will gradually go down.
+
+Many variations in the curves possible depending on your brew
+
+This example is not from beer brewing but industrial alcohol production
 
 Affected by temperature, external and in the brew.
 And of the changes over time in suger and yeast concentrations.
-
-So brewers try to check in a couple of times per day how things are going.
-
-Of course there are existing devices dedicated to this task. 
-Such as a Plaato Airlock.
-But for fun and learning we will do this using sound.
-This is an Sound Event Detection problem
 
 :::
 
@@ -168,13 +214,27 @@ Make a system that can track fermentation activity,
 
 ::: notes
 
-The fermentation activity can also be an estimator for the alcohol produced.
-Though measuring the specific gravity is better for this.
+Of course there are existing devices dedicated to this task. 
+Such as a Plaato Airlock.
+But for fun and learning we will do this using sound.
+This is an Sound Event Detection problem
 
 :::
 
 
 # Machine Learning needs Data!
+
+::: notes
+
+When one says "Machine Learning"
+many people think think mainly about ML algorithms and code
+But just as important, or in many cases more important, is the data
+
+Without appropriate data for your task,
+you will not get a good ML model,
+or ML powered system!
+
+:::
 
 ## Supervised Machine Learning
 
@@ -182,11 +242,41 @@ Though measuring the specific gravity is better for this.
 
 ::: notes
 
-Based on examples.
-Input (Audio).
-Expected output (bubble yes/no) 
+The technique we are going to use is Supervised learning,
+which is most common 
+
+This kind of learning is based on examples,
+of Input (Audio) AND Expected output (bubble yes/no) 
+
+Often the audio data is relatively easy to get,
+but the labels are often much harder to obtain, and can be expensive to produce.
+
+In sound event detection there are multiple ways of labeling your data.
+If you have strongly labeled data (shown at the top),
+then you have marked in time, the start and end of each event instance.
+Very detailed. Takes a considerable amount of time to make.
+
+So the labeled data will go into the training system,
+and output a Sound Event Detector.
+This detector can be ran on new audio, and will output detected events,
+in our case the plops.
+
+TODO:
 
 :::
+
+<!--
+As an alternative you can have weakly labeled data.
+This is when you have a longer audio clip, maybe 10 seconds or more,
+and you have noted which kinds of events are present in the clip,
+but not marked where they are, or how many events the are.
+This is less time-consuming to make.
+But means that there is much less information available for the machine learning algorithm,
+so this is more challenging task.
+
+One can also use unlabled data for learning.
+But even then you will usually need some labels, to evaluate performance.
+-->
 
 ## Data requirements
 
@@ -206,47 +296,44 @@ Need *realistic* data. Capturing natural variation in
 
 ::: notes
 
-100 events. Couple of minutes of data
-1000 events. Approx 1 hour
-10000 events. Tens of hours
+What are the requirements for the data?
 
-Especially if there are other event-like noises
+One requirement is that we have enough data.
+This varies a lot, depending on complexity of the problem.
 
-:::
+100 events.
+Couple of minutes of data
+When you split out a test set from this, might only have 30 instances there. 
+Say you want to achieve 1% error rate.
+This will not be possible to accurately estimate with only 30 samples
+Might be OK to start with.
+But hard to work with, because you will have a lot of variation in statistics.
 
-## Data collection via Youtube
+1000 events.
+Approx 1 hour
 
-Criteria for inclusion:
+Can have a couple of hundred events in the test sets
 
-- Preferably couple of minutes long, minimum 15 seconds 
-- No talking
-- Mostly stationary camera
-- No audio editing/effects
-- One or more airlocks bubbling
-- Bubbling can be heard by ear
+10000 events.
+Tens of hours
+Best case. Then one has robust statistics.
 
-Approx 1000 videos reviewed, 100 usable
+But the other important thing is to have *realistic* data
 
-::: notes
+Variations in event sound.
+Different airlock designs and vessels cause different sound 
+Different brews, and phases of fermentation process cause differences
+The recording devices also have variation, changes the captured sound
 
-Making note of
-
-- Bubbling rate
-- Clarity of bubble sound
-- Other noise around
-
-Maybe 1000 videos reviewed.
-End up with around 100 potentialy useful
-Many hours of work
-
-Up to 100 recording devices and 100 environments. Maybe 2000 events
-Some recordings very long, several hours. Maybe 5000 events
-
-Using youtube-dl to download
-youtube-dl --extract-audio $URL
-
-https://youtube-dl.org/
-https://github.com/ytdl-org/youtube-dl/
+Also have different environments
+Need to separate the events of interest, from the background noise
+Might not be able to have a controlled sound environment,
+that is free from other sounds.
+There might be other people and activities in the room,
+or sounds coming in from other rooms or outside.
+Such variation need to be represented in our dataset,
+so that we know that our model will handle them well
+- and not confuse other sounds for "plops"
 
 :::
 
@@ -254,6 +341,37 @@ https://github.com/ytdl-org/youtube-dl/
 ## Check the data
 
 <video data-autoplay src="videos/eda-audacity.mkv" controls style="height: 800px"></video>
+
+::: notes
+
+Data collection via Youtube
+
+Just show 2-3 examples
+
+2 group
+Much lower in the frequency
+
+3 group
+Even more noise.
+Machine in the background
+Starting to be hard to hear
+
+4 
+again different sound
+car in the background
+
+5 
+two plops at the same time
+events that overlap can be very challening
+especially if very similar, can be practically impossible
+
+6
+first a plop
+then a sound that in spectrogram looks quite similar
+but actually is something different
+can be very easily confused
+
+:::
 
 ## Understand the data
 
@@ -275,6 +393,12 @@ Listen to audio, look at spectrogram.
 
 Audacity, open-source software for audio editing
 
+Length. Around 200 milliseconds
+Distance. Varies based on activity 
+Variations. Another type of airlock design, 3-part. Makes much less sound
+Time changes. Very high
+Rec differences.
+
 :::
 
 
@@ -295,6 +419,16 @@ labels = pandas.read_csv(path, sep='\t', header=None,
 Audacity open source audio editor
 Supports "label tracks"
 
+Select an area in time
+Hit Ctrl B to add a label
+T for true. Event of interst
+N for no. Other events
+Can also mark other sounds.
+Can be useful for error analysis
+
+Can be exported as a text file
+Can be read easily with Pandas, as shown in this example code
+
 "How to Label Audio for Deep Learning in 4 Simple Steps"
 Miguel Pinto, TowardsDataScience.com
 https://towardsdatascience.com/how-to-label-audio-for-deep-learning-in-4-simple-steps-6a2c33b343e6
@@ -307,40 +441,15 @@ and importing the label files in Python.
 
 :::
 
-## Semi-automatic labelling
 
-Using a Gaussian Mixture, Hidden Markov Model (GMM-HMM)
-
-![](./img/labeling-gmm-hmm.png){width=80%}
-
-```python
-import hmmlearn.hmm, librosa, sklearn.preprocessing
-
-features = librosa.feature.mfcc(audio, n_mfcc=13, ...)
-model = hmmlearn.hmm.GMMHMM(n_components=2, ...)
-X = sklearn.preprocessing.StandardScaler().fit_transform(data)
-model.fit(X)
-probabilities = model.score_samples(X)[1][:,1]
-```
+# Machine Learning system
 
 ::: notes
 
-MAYBE: illustrate with simpler features.
-soundlevel and prev soundlevel
-
-
-First running it, generating label files
-Then reviewing and editing the labels in Audacity
-
-from hmmlearn
-https://github.com/hmmlearn/hmmlearn
-Using Mel-Frequency-Cepstral-Coefficiants as features
-Lossy compression on top of a mel-spectrogram
+Now that we have data, labeled and checked
+we can go over to the model part
 
 :::
-
-
-# Machine Learning system
 
 ## Audio ML pipeline overview
 
@@ -348,6 +457,16 @@ Lossy compression on top of a mel-spectrogram
 
 ::: notes
 
+Split the audio into fixed-length windows.
+Compute some features. For example a spectrogram
+Each spectrogram window will go into a classifier
+Outputs a probability between 0.0 and 1.0
+Event tracker converts the probability into a discrete list of event starts/stops
+Count these over time to estimate the Bubbles per Minute
+
+:::
+
+<!--
 Single audio stream. Monophonic.
 Single event class. Binary classification
 
@@ -357,23 +476,9 @@ Ie in speech recognition certain sequences of phonemes are more probable
 
 Requires that each event is clearly audible and understandable - without context
 Low-to-no overlap between events.
-
-:::
-
-## Analysis windows
-
-![](./img/overlapped-windows.png){width=50%}
-
-Window length bit longer than the event length.
-
-Overlapping gives classifier multiple chances at seeing each event.
-
-Reducing overlap increases resolution! Overlap for AES: 10%
-
-::: notes
+-->
 
 
-:::
 
 
 ## Models
@@ -452,6 +557,12 @@ LATER: Results on BPM
         print('EVENT off', t, probability)
 ```
 
+::: notes
+
+Using separate on/off threshold allows to stable
+
+:::
+
 ## Statistics Estimator
 
 To compute the Bubbles Per Minute.
@@ -462,23 +573,31 @@ Median is more robust against outliers from predictions error.
 
 ::: notes
 
-Counting.
-Threshold the probability above X
+Could just count events over 1 minute and report as-is.
+However our model will make some mistakes. 
+Missed events, additional events.
+
+Since we have a very periodic and slowly changing process,
+can instead use the distance between events.
+
+Plot a histogram.
+Can have outliers. If missing event.
+Take the median value and report as the BPM. 
+
+TODO: update with real picture
+
+:::
+
+<!---
 
 Median filtering.
 Reject time-difference values outside of IQR.
-
-Event rate. Count / time
 
 Maybe give a range.
 Confidence Interval of the mean
 Student-T extimation
 
-FIXME: histogram of distances
-TODO: python code snippet
-
-:::
-
+-->
 
 
 ## Tracking over time using Brewfather
@@ -501,62 +620,17 @@ LATER. Edit picture to make less tall
 :::
 
 
-## Streaming inference
-
-Key: Chopping up incoming stream into (overlapping) audio windows
-
-```python
-import sounddevice, queue
-
-# Setup audio stream from microphone
-audio_queue = queue.Queue()
-
-def audio_callback(indata, frames, time, status):
-    audio_queue.put(indata.copy())
-
-stream = sounddevice.InputStream(callback=audio_callback, ...)
-...
-
-# In classification loop
-    data = audio_queue.get()
-    # shift old audio over, add new data
-    audio_buffer = numpy.roll(audio_buffer, len(data), axis=0)
-    audio_buffer[len(audio_buffer)-len(data):len(audio_buffer)] = data
-    new_samples += len(data)
-    # check if we have received enough new data to do new prediction
-    if new_samples >= hop_length:
-        p = model.predict(audio_buffer)
-        if p < threshold:
-            print(f'EVENT DETECTED time={datetime.datetime.now()}')
-```
-
-::: notes
-
-Brewer does not really care about each and every blop
-BPM changes slowly and (normally) quite evenly, and does not have to be reported often
-Brewfather limits updates to once per 15 minutes
-
-Detection time.
-Delay between sound event happening and detection being performed and reported
-How quickly someone needs to see/use result
-Some applications may short detection time
-
-But real-time streaming detection can be useful to verify detection when setting up. 
-And makes for nicer demo :)
-
-LATER: video demo? can just be console output, while input audio is playing
-
-:::
 
 # Outro
 
 ## More resources
 
-</br>
-Github: [jonnor/machinehearing](https://github.com/jonnor/machinehearing)
-
+* [Sound Event Detection: A tutorial](https://arxiv.org/abs/2107.05463). Virtanen et al.
 * [Audio Classification with Machine Learning](https://www.youtube.com/watch?v=uCGROOUO_) (EuroPython 2019)
 * [Environmental Noise Classification on Microcontrollers](https://www.youtube.com/watch?v=ks5kq1R0aws) (TinyML 2021)
+
+</br>
+Github: [jonnor/machinehearing](https://github.com/jonnor/machinehearing)
 
 </br>
 Slack: [Sound of AI community](https://valeriovelardo.com/the-sound-of-ai-community/) 
@@ -610,7 +684,7 @@ Join our team at Soundsensing.
 
 ::: notes
 
-TODO: team picture
+TODO: mention internships, student projects and thesis work
 
 :::
 
@@ -640,6 +714,42 @@ Bonus slides after this point
 
 <!-- TODO: Maybe include some of this in main talk -->
 
+
+## Semi-automatic labelling
+
+Using a Gaussian Mixture, Hidden Markov Model (GMM-HMM)
+
+![](./img/labeling-gmm-hmm.png){width=80%}
+
+```python
+import hmmlearn.hmm, librosa, sklearn.preprocessing
+
+features = librosa.feature.mfcc(audio, n_mfcc=13, ...)
+model = hmmlearn.hmm.GMMHMM(n_components=2, ...)
+X = sklearn.preprocessing.StandardScaler().fit_transform(data)
+model.fit(X)
+probabilities = model.score_samples(X)[1][:,1]
+```
+
+::: notes
+
+Unsupervised learning. Does not need any labels.
+Compute statistics, try to cluster into 2 groups.
+Event and background
+Can work quite well when the events are quite clear.
+
+Workflow.
+First running it, generating label files
+Then reviewing and editing the labels in Audacity
+
+from hmmlearn
+https://github.com/hmmlearn/hmmlearn
+Using Mel-Frequency-Cepstral-Coefficiants as features
+Lossy compression on top of a mel-spectrogram
+
+:::
+
+
 ## Synthesize data
 
 How to get more data</br>without gathering "in the wild"?
@@ -655,6 +765,53 @@ How to get more data</br>without gathering "in the wild"?
 Challenge in Acoustic Event Detection in uncontrolled environment.
 
 Handling the largs amounts of different background noises that could occur.
+
+:::
+
+## Streaming inference
+
+Key: Chopping up incoming stream into (overlapping) audio windows
+
+```python
+import sounddevice, queue
+
+# Setup audio stream from microphone
+audio_queue = queue.Queue()
+
+def audio_callback(indata, frames, time, status):
+    audio_queue.put(indata.copy())
+
+stream = sounddevice.InputStream(callback=audio_callback, ...)
+...
+
+# In classification loop
+    data = audio_queue.get()
+    # shift old audio over, add new data
+    audio_buffer = numpy.roll(audio_buffer, len(data), axis=0)
+    audio_buffer[len(audio_buffer)-len(data):len(audio_buffer)] = data
+    new_samples += len(data)
+    # check if we have received enough new data to do new prediction
+    if new_samples >= hop_length:
+        p = model.predict(audio_buffer)
+        if p < threshold:
+            print(f'EVENT DETECTED time={datetime.datetime.now()}')
+```
+
+::: notes
+
+Brewer does not really care about each and every blop
+BPM changes slowly and (normally) quite evenly, and does not have to be reported often
+Brewfather limits updates to once per 15 minutes
+
+Detection time.
+Delay between sound event happening and detection being performed and reported
+How quickly someone needs to see/use result
+Some applications may short detection time
+
+But real-time streaming detection can be useful to verify detection when setting up. 
+And makes for nicer demo :)
+
+LATER: video demo? can just be console output, while input audio is playing
 
 :::
 
@@ -688,6 +845,41 @@ More advanced. Attention pooling, or Autopool (softmax generalization)
 
 :::
 
+## Data collection via Youtube
+
+Criteria for inclusion:
+
+- Preferably couple of minutes long, minimum 15 seconds 
+- No talking to the camera
+- Mostly stationary camera
+- No audio editing/effects
+- One or more airlocks bubbling
+- Bubbling can be heard by ear
+
+Approx 1000 videos reviewed, 100 usable
+
+::: notes
+
+Making note of
+
+- Bubbling rate
+- Clarity of bubble sound
+- Other noise around
+
+Maybe 1000 videos reviewed.
+End up with around 100 potentialy useful
+Many hours of work
+
+Up to 100 recording devices and 100 environments. Maybe 2000 events
+Some recordings very long, several hours. Maybe 5000 events
+
+Using youtube-dl to download
+youtube-dl --extract-audio $URL
+
+https://youtube-dl.org/
+https://github.com/ytdl-org/youtube-dl/
+
+:::
 
 ## Characteristics of Audio Events
 
@@ -720,24 +912,24 @@ Transitions. Into state. Out of state.
 
 :::
 
+## Analysis windows
+
+![](./img/overlapped-windows.png){width=50%}
+
+Window length bit longer than the event length.
+
+Overlapping gives classifier multiple chances at seeing each event.
+
+Reducing overlap increases resolution! Overlap for AES: 10%
+
+::: notes
+
+
+:::
+
 ## Mel-spectrogram
 
 ![](img/spectrograms.svg)
-
-
-## Learning resources
-
-> Environmental Sound Classification
-> on Microcontrollers
-> using Convolutional Neural Networks
-
-Master thesis, Jon Nordby, 2019.
-
-![Report & Code: https://github.com/jonnor/ESC-CNN-microcontroller](./img/thesis.png){width=30%}
-
-
-
-
 
 
 
