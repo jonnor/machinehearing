@@ -19,15 +19,7 @@ Should be more like 20.
 
 # TODO
 
-- Add product pic for Soundsensing CTA
-- Add internship etc for CTA
-- Add slide for MFCC+LogisticRegression
-
-- Check speaker notes in presentation mode
-- Add EuroPython logo to first/last slide
-
 - Do a full run-through of presentation
-- Record a video. With OBS
 
 - Upload/link slides on webpage
 - Update bio and picture on webpage

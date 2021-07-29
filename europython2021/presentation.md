@@ -145,9 +145,6 @@ and after some time the fermentation process will start.
 During fermentation the yeast will eat the sugar,
 which will produce alcohol, and as a byproduct also CO2 gas
 
-This process is critical for a good result,
-both to actually produce any alchohol but also to get a good taste.
-
 There are many things that can go wrong.
 - can fail to start
 - way to intense: foaming, blowout
@@ -158,8 +155,6 @@ So as a brewer, one has to monitor the process.
 At the top of the vessel you see an airlock.
 This is a device that will let the CO2 gas out,
 while not allowing oxygen, bugs or other contaminants in.
-
-And this device we will have a bit closer look at now.
 
 :::
 
