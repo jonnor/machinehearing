@@ -19,6 +19,19 @@ Or models can be deployed onto the sensor itself, for a highly efficient on-edge
 
 # Recent work
 
+## EuroPython 2021: Sound Event Detection with Machine Learning
+
+<a href="https://youtu.be/JrhsFfCOL-s">
+<img src="https://github.com/jonnor/machinehearing/raw/master/europython2021/cover.jpg" height="200" alt="Youtube: Sound Event Detection with Machine Learning (EuroPython 2021)">
+</a>
+
+July 26, 2021.
+Presented at [EuroPython 2021](https://ep2021.europython.eu).
+[Video recording](https://youtu.be/JrhsFfCOL-s), [slides](https://jonnor.github.io/machinehearing/europython2021/slides.html), [notes](./europython2021).
+
+<!-- TODO, add ICSV27 presentation -->
+
+
 ## TinyML EMEA 2021: Perfect coffee roasting with TinyML sound sensing  
 
 <a href="https://jonnor.github.io/machinehearing/tinymlEMEA2021/slides.html">
