@@ -34,7 +34,7 @@ Presented at [EuroPython 2021](https://ep2021.europython.eu).
 
 ## TinyML EMEA 2021: Perfect coffee roasting with TinyML sound sensing  
 
-<a href="https://jonnor.github.io/machinehearing/tinymlEMEA2021/slides.html">
+<a href="https://youtu.be/muZY1eCke40">
 <img src="https://github.com/jonnor/machinehearing/raw/master/tinymlEMEA2021/cover.jpg" height="200" alt="Perfect coffee roasting with TinyML sound sensing">
 </a>
 
