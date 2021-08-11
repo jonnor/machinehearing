@@ -39,6 +39,15 @@ Topics
     Data Engineering or MLOps
 
 
+
+    Under 200 words. Maybe 1000 characters
+
+    Sales pitches: We are a community of creators and users of open-source scientific computing tools.
+
+You can reference your closed-source product or platform, but the audience will find the talk more interesting if they can try your techniques with the open source PyData stack.
+
+
+
 # Brief Summary
 
 
@@ -57,7 +66,10 @@ unsupervised methods in audio
 
 ### Similarity/search
 
-using audio embeddings
+Searching and visualizing sound using audio embeddings
+
+
+cusing audio embeddings
 simple classifiers on strong embeddings.
 one-shot, few-short learning
 embedding visualization
@@ -72,6 +84,46 @@ https://github.com/kokimame/tensoba
 Distance functions
 cosine
 normalized euclidean
+
+Storing (audio) embeddings
+Not really specific to audio at all
+FAISS
+https://github.com/ankane/pgvector 
+
+https://milvus.io/
+
+Any way to do in Postgresql without needing an extension?
+PL/pSQL for dot_product_norm_d
+https://stackoverflow.com/a/66716763/1967571
+
+Cube extension has support for 100 dim arrays, incl Euclidean distance and indexing
+With normalization, can be equivalent to cosine distance
+https://stackoverflow.com/a/44809811/1967571
+Cube is supported on Heroku
+
+https://github.com/turbo/pg-costop
+in pure postgresql
+but no indexing...
+
+https://hacker-news.news/post/21461755
+In my experience, the cube extension is unusable for >10M x 128D vectors without PCA. I'm using Faiss now with ~500M vectors, and it works great!
+
+https://towardsdatascience.com/locality-sensitive-hashing-for-music-search-f2f1940ace23
+
+https://github.com/jirutka/smlar
+
+(approximate) nearest neighbour
+https://github.com/netrasys/pgANN
+uses cube extension
+Limited to 100 dimensions
+
+https://github.com/spotify/annoy
+mmap
+
+https://github.com/pixelogik/NearPy
+storage in Redis
+Index using locality sensitive hashes (LSH)
+
 
 learning specific similarities.
 Siamese on top of audio embeddings
