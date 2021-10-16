@@ -18,6 +18,12 @@ http://www.spacustica.pt/euronoise2021/eng/Paper_presentation.html
 
 # TODO
 
+- Fill out all the slides
+- Prepare what to say on each slide
+
+# Done
+
+- Import slides from ICSV27
 - Add Soundsensing logo to footer
 
 # Outline
@@ -48,6 +54,15 @@ acoustical considerations
 Noise mitigation efforts
 Regulations
 
+- Overall problem
+
+If we observe noise at the resdential area,
+how can we know whether this originates from training activity PNB,
+or comes from aother (impulsive) noise source in the area?
+ 
+Such as construction noise, kids playing call etc
+
+IMAGE: A,B,X with sound propagation
 
 - Existing solution
 
@@ -90,6 +105,14 @@ Details about source labeling found in ICSV27 paper
 IMAGE: labeled instances
 
 IMAGE: time series of soundlevels at different sensors?
+
+
+- Model
+
+
+- Results
+
+
 
 - Conclusions
 
