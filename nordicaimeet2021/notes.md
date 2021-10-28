@@ -1,10 +1,180 @@
 
 
+# TODO
+- Pick up poster
+- Pick up roll-up and sensors
+Maybe tablet
+Tablet stand?
+- Make presentation
+- Make demo slides
+
+
+## Audience
+Likely mostly researchers and students
+within Machine Learning an Artificial Intelligence
+
+Expecting a pretty technical audience.
+Interested in methods, development, challenges
+Some also in the practical aspects of applying ML
+
+## Goals
+
+* Attract skilled team members.
+* Attract research partners. Softfunding opportunities 
+* Attract pilot project partners.
+
+Focus more on Condition Monitoring compared to Noise Monitoring.
+
+## Interactions
+
+Have something for people to remember you by.
+
+Business cards.
+Should be same for everyone in company
+
+Flyers.
+Company information. "work with Soundsensing"
+Product information. "buy Soundsensing"
+
+## Presentation
+
+### Schedule
+1700-1830
+
+### Format
+15 minutes, including 5 minutes Q&A
+10 slides
+
+Repeat the same at both Nordic AI Meet (Oslo) and NORA Annual Conference (Bergen)
+
+## Story-arc
+Soundsensing
+- audio machine learning
+- from monitoring of noise to condition monitoring of machines and processes
+
+
+## Call to Action
+
+- Do pilot project together with us!
+Primarily targetting technical rooms in commercial real-estate.
+Owners, facility managers
+
+Open for other possibilities.
+Manufacturing, process industry, heavy machinery etc
+
+Link to signup. Send email if interested
+
+- Come work with us
+Research collaborations, master thesis, internships
+May be looking for 1 Machine Learning Engineer for 2022
+
+
+10 slides
+
+- About Soundsensing
+- Noise Monitoring
+- Roest project
+
+- CTAs
+
+## Poster
+
+Focused on what we have achieved.
+Quite high technical level.
+
+Is now at
+https://nordicaimeet.virtualpostersession.org/
+
+### Printing
+
+
+https://www.copycat.no/produktkategorier/ekspress/
+A1 ekspress 560 NOK
+
+Rådhusgata 17
+Tlf. 22 33 77 00
+sentrum@copycat.no
+Man-fre 8-16*
+
+
+## Demo
+
+Presentation?
+Stand?
+
+1700-1900
+
+Show data.
+Show outputs.
+Show usecases.
+
+Should be rich in information, showing details etc.
+Does not need to be interactive
+
+Materials
+
+- Demo video master thesis
+
+
+- Audio classification web interface.
+Prepare various audio clips
+
+- Noise activity detection
+Noise activity report.
+Using PNB as a case
+Illustrated using construction work as a case?
+
+- Fabian thesis.
+Presentation has some OK images
+
+- Web application / grafana
+Can make some screenshots from there
+
+- Hardware
+Also deserves a few slides
+
+
+Could maybe be autorotating slides?
+
+https://pointerclicker.com/how-to-make-slides-transition-automatically-in-google-slides/
+https://ask.libreoffice.org/t/loop-an-impress-presentation/66
+
+Need a projector or TV screen
+
+portable projector
+https://www.komplett.no/product/1130220/tv-lyd-bilde/projektorer/projektorer/asus-projektor-zenbeam-s2#
+
+
+# NORA Annual Conference
+
+The NORA.startup segment will be divided into two sessions.
+
+
+## Stand
+All the startups who have signed up for a presentation will be given a dedicated space in a function room to set up a stand.
+The stands will be open the entire second day of the conference.
+
+https://www.nora.ai/nora-annual-conference/Nora.startup%20introductions/
+
+## Presentation
+At 15:00, members of NORA.startup will be invited to present their startups to the conference participants.
+We will set aside 15 minutes for each startup, followed by a 5 min Q&A.
+
+15:25-15:40
+Soundsensing
+Ole Johan Aspestrand Bjerke
+
+
+
+# Proposal
+
 Abstract document, from template
 https://docs.google.com/document/d/1PXDzPa-HfgZg_G4xIYXhMsK-8L-Yq8AvHgk57uVYj0Q/edit?usp=sharing
 
 Abstracts.
 < 500 words including references
+
+Was accepted as a poster.
 
 # Categories.
 
@@ -32,19 +202,6 @@ Keywords,
 Main text (including figures and tables),
 Acknowledgements,
 References.
-
-
-# TODO
-- Make a figure that represents
-Audio and soundlevel as input, classifications as output
-Maybe based on task formulation(s)
-Noise Event Detection, Noise Event Classification or Dominant Noise Classification
-Maybe contrast with Sound Event Detection ?
-Maybe style like DCASE book / Virtanen
-- Actually write in a couple task definitions
-- Import into Overleaf
-- Add all references
-- Format according to template
 
 
 # Keywords
