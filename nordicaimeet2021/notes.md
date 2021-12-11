@@ -1,10 +1,6 @@
 
 
 # TODO
-- Pick up poster
-- Pick up roll-up and sensors
-Maybe tablet
-Tablet stand?
 - Make presentation
 - Make demo slides
 
@@ -38,6 +34,15 @@ Product information. "buy Soundsensing"
 
 ## Presentation
 
+## TODO
+
+- Check existing presentation
+Tech
+
+- AkerBP
+
+- 
+
 ### Schedule
 1700-1830
 
@@ -52,6 +57,96 @@ Soundsensing
 - audio machine learning
 - from monitoring of noise to condition monitoring of machines and processes
 
+## Style
+Focus on usecases meet tech.
+Enough tech details that geeks pay attention
+High-level enough that project managers, investors understand
+
+Techology/Product pitch. Not a company/investor pitch. 
+
+## Key takeaways
+
+- Soundsensing works mostly with conditon monitoring (and a bit with noise monitoring)
+- Have experience in continious monitoring using sound.
+PNB
+- Have experience in integrated monitoring using sound
+Roest
+- Working very actively on technical rooms in commercial real estate
+Onboarding pilot customers now. 
+- Sound is a good (added) sensor modality for industrial usecases
+- Soundsensing is a hard-tech company
+- Exciting innovations are happening now. 
+
+## Outline
+
+Soundsensing. What we are
+
+Noise Monitoring. Where we are
+
+Condition and Process Monitoring
+
+
+Sounds of the industry
+
+Experienced personell use their 
+
+Challenges:
+often requires considerable experience
+requires large amount of concentration / focus
+can only catch 
+
+Enter Machine Learning
+had made it possible to perform near human levels on many perception tasks
+
+
+
+own industrial grade hardware
+or integrate third-party hardware with our data platform
+or can deploy our technology on integrated electronics
+
+
+Sound Event Detection
+Anomaly Detection
+Audio Classification
+
+## Next
+
+### Roest as Soundsensing demo at fairs
+
+Roest machine with firstcrack detection.
+Give out roasted coffee beans, in branded bags
+
+Put sticker on the bags.
+"Made on a Roest ... machine
+
+The coffee roasted process is terminated perfectly every time
+by Soundsensing technology that listens for the beans to start cracking
+- just like a pro barrista would!
+
+Interested in using sound to monitor machines and processes?
+Contact Soundsensing
+
+Roest / Soundsensing logos
+"
+
+Put some sticker/info on/by the machine
+"Soundsensing inside"
+"Powered by Soundsensing"
+maybe pointing to the firstcrack counter
+
+## Usecases
+Continious Acoustic Monitoring in industry
+
+
+- End of line quality control
+
+Condition Monitoring
+- Area-based Anomaly Detection
+- Machine-focused. Combine vibration,ultrasound
+
+Process Control
+- Roest
+-
 
 ## Call to Action
 
@@ -72,10 +167,47 @@ May be looking for 1 Machine Learning Engineer for 2022
 10 slides
 
 - About Soundsensing
+- Technology offering
 - Noise Monitoring
-- Roest project
 
+- Condition Monitoring
+- Roest project
+- Other industry examples
+- Technical rooms in real estate
 - CTAs
+
+- ML challenges (in continious monitoring, of machinery)
+
+
+
+Come visit our stand! Downstairs in lobby
+
+
+## ML challenges in Condition Monitoring
+
+- Very low access to labeled data
+
+
+- Drift over time. 
+Need continious learning
+
+- Highly non-stationary time-series
+
+Based on production criteria weather
+
+- Stringent requirements for false alarms
+!quality check
+0.001% for minute-wise data to get <1 FA / month
+
+- 
+
+- 
+
+## Ideas
+
+Get access to device control parameters locally
+Ie hook up to the bus or control signals for pump/ventilation/etc
+use the local info as input to the ML algorithm
 
 ## Poster
 
@@ -114,10 +246,21 @@ Does not need to be interactive
 Materials
 
 - Demo video master thesis
+https://youtu.be/KQHQxMG1CZo 
+
+- Roest coffee
+https://youtu.be/-Jmh-HsEt1g 
+
+https://jonnor.github.io/machinehearing/tinymlEMEA2021/slides.html#/demo-video
+<
+
+- Noise Monitoring of railroad
+https://www.youtube.com/watch?v=omgX8ejhlmM
 
 
 - Audio classification web interface.
 Prepare various audio clips
+
 
 - Noise activity detection
 Noise activity report.
@@ -145,25 +288,13 @@ portable projector
 https://www.komplett.no/product/1130220/tv-lyd-bilde/projektorer/projektorer/asus-projektor-zenbeam-s2#
 
 
-# NORA Annual Conference
-
-The NORA.startup segment will be divided into two sessions.
 
 
-## Stand
-All the startups who have signed up for a presentation will be given a dedicated space in a function room to set up a stand.
-The stands will be open the entire second day of the conference.
+## End of line testing
 
-https://www.nora.ai/nora-annual-conference/Nora.startup%20introductions/
+https://www.oros.com/applications/quality-process-control/end-of-line-production-test/
 
-## Presentation
-At 15:00, members of NORA.startup will be invited to present their startups to the conference participants.
-We will set aside 15 minutes for each startup, followed by a 5 min Q&A.
-
-15:25-15:40
-Soundsensing
-Ole Johan Aspestrand Bjerke
-
+Often includes sound quality. Perceptually relevant metrics
 
 
 # Proposal

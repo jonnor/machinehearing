@@ -5,18 +5,18 @@ https://neurips.cc/virtual/2021/competition/21954
 
 # TODO
 
-## Analyze results
+# Follow up research
+Why does OpenL3 do so well?
 
-- Conclude
+Why does YAMNet do so poorly?
+Exceptions need fixing
 
-## Make slides
-- Create presentation
-- Rough pass on all slides
+What improvements can be done to perform better?
+Influence on music|env for OpenL3
+Influence of input representation size. M128
 
-- Write down key points for each slide
-- Time the presentation
-- Make a video recording
-
+Could we make OpenL3 more efficient, using tech from YAMNet?
+SeparableConvs, smaller input feature size
 
 # Result analysis
 
@@ -28,6 +28,7 @@ Dominates the others most often
 ## YAMNet and OpenL3
 
 What are the expecations going in?
+That performance would be quite similar
 Use published results. AudioSet ?
 
 Which one is better, OpenL3 or YAMNet?

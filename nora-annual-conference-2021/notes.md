@@ -30,7 +30,7 @@ https://www.nora.ai/nora-annual-conference/Nora.startup%20introductions/
 
 ## Presentation
 
- November 18th
+November 18th
 https://www.nora.ai/nora-annual-conference/Nora.startup%20introductions/
 
 From 15:00

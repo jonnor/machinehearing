@@ -16,13 +16,15 @@ http://www.spacustica.pt/euronoise2021/eng/Paper_presentation.html
 - Upload to a file transfer service
 - Send link to euronoise2021@lnec.pt
 
+
 # TODO
 
-- Fill out all the slides
-- Prepare what to say on each slide
+- Show up in Q&A
 
 # Done
 
+- Finished video recording
+- Finished slides
 - Import slides from ICSV27
 - Add Soundsensing logo to footer
 
@@ -91,6 +93,8 @@ Send to cloud storage
 Combine the sensor streams
 
 Wireless Acoustic Sensor Network
+asyncronous
+clock drift
 
 IMAGE: 2x+ db20 units. 1 at source, 1 at each receiver 
 
