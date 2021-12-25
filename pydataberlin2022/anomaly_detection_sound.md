@@ -41,7 +41,7 @@ a provider of IoT sensors for sound with built Machine Learning capabilities.
 Anomaly Detection for sound
 
 
-## Tweet astract
+## Tweet abstract
 60 - 280 chars
 
 
@@ -52,6 +52,10 @@ Between 200 and 1500 characters.
 
 ## Description
 Between 400 and 50000 characters
+
+Anomaly Detection 
+It is highly related to the tasks of
+Outlier Detection and Novelty Detection.
 
 
 Our toolkit will be Tensorflow with Keras for deep learning,
@@ -64,19 +68,30 @@ We assume basic familiarity with Python programming the PyData stack,
 along with supervised machine learning and basics of deep learning (ant framework).
 Familiarity with time-series or audio data is beneficial, but not necessary.
 
-The approaches shown here can be transferred to event detection tasks
-in other multi-variate time-series, for example:
-Human Activity Detection using accelerometer data,
-neurological disease evaluation using Electroencephalography (EEG) data,
-and Action Localization in videos.
+The approaches shown here can be transferred to anomaly detection tasks
+in other multi-variate time-series with regular patterns.
+This could be vibration analysis using accelerometer data,
+motor analysis using high-resolution current measurements.
 
-Main takeaways
+Anomaly Detection can also be a powerful tool for monitoring
+a machine learning classification/regression pipeline,
+to spot data drift and/or out-of-distribution samples.
 
-- 
+Takeaways
+
+- Anomaly Detection is done using a one-class modelling approach,
+assuming that the vast majority of training data is from the "normal" class
+- While the training data does not need to be labeled,
+it strongly recommended to have a labeled set for validation and testing
+- Audio streams and long clips can be processed as set of fixed-length analysis windows
+- Spectrogram representation of audio lends itself well to anomaly detection task
+- Anomaly Detection in complex multi-variate data can be done with Autoencoders
+- In an Autoencoder, the reconstruction error used as base for the anomaly score
+
 
 ## Notes for organizers
 
-I have given some talks previously on related topics
+I have given some talks on related topics previously
 
 Audio Classification with Machine Learning (EuroPython 2019)
 https://www.youtube.com/watch?v=uCGROOUO_wY
@@ -95,26 +110,31 @@ Acoustic Anomaly Detection
 
 DCASE2020 Task2 / DCASE2021 Task2
 
-Representations. log mel spectrogram
-Represenation learning
+http://dcase.community/challenge2020/task-unsupervised-detection-of-anomalous-sounds
+http://dcase.community/challenge2021/task-unsupervised-detection-of-anomalous-sounds
 
-Take aways
 
-- Anomaly Detection in complex multi-variate data can be done with AutoEncoders
-- In an Autoencoder, the reconstruction error is basis for the anomaly score
-- The approaches shown here can transfer across from audio to other multivariate time-series
+
 
 Outline
 
 - Anomaly Detection
 How is it different from (binary classification)
 Unsupervised learning does not mean unsupervised/unlabeled evaluation
+
+- DCASE challenge dataset
+MMI / ToyAMOS
+At the moment not so many other anomaly detection datasets for sounds
+
 - Audio representations
 Fixed-width analysis windows
 Spectrograms
 log-mel spectrograms
-- (reconstructing) AutoEncoder
+
+- Reconstructing AutoEncoder
+
 - Interpolation AutoEncoder
-- DCASE / MMI / dataset
+
+- Choosing decision boundaries
 
 
