@@ -62,19 +62,23 @@ The source of interest and then always other sound sources (noise).
 ## Audio Aquisition
 
 Physically we have a sound as its variation in air pressure.
-We go through a microphone to converte to electrical voltage, an Analog-to-Digital converted (ADC) and then we have a digital waveform - which is what we will deal with.
+We go through a microphone to converted to electrical voltage,
+an Analog-to-Digital converted (ADC) and then we have a digital waveform - which is what we will deal with.
 As digital audio, it's quantized in time for instance with the sampling rate and amplitude.
 We usually deal with mono primarily with one channel when we do Audio Classification.
 There are some methods around stereo but not widely adopted, and also more channels.
 We typically use uncompressed formats, it's just the safest.
-Although you in real life situation you might also have compressed data which can have artifacts and so on that might influence your model.
+Although you in real life situation you might also have compressed data,
+which can have artifacts and so on that might influence your model.
 
 ## Spectrograms
 
 So after we have a waveform we can convert it in a spectrogram.
-And this is in practice a very useful representation, both as a human for understanding (what is this sound) and for the machines.
+And this is in practice a very useful representation,
+both as a human for understanding (what is this sound) and for the machines.
 
-To use this one example, is a frog croaking like / r / r / r. Very periodically, with a little gap.
+To use this one example, is a frog croaking like / r / r / r.
+Very periodically, with a little gap.
 And then it's hard to see but in top in a higher level there is some cicadas that are going as well.
 This allows us to both see the few frequency representation and the patterns across time.
 And together often this allows you to separate different sound sources from your mixture.
@@ -89,7 +93,9 @@ It's very widely researched. We have several open data sets that are quite good.
 AudioSet is several I think tens of thousands or even hundreds of thousands of samples.
 And in 2017 we've reached roughly human level performance (only one of these data sets has an estimate for what is human level performance) but we seem to have surpassed enough.
 
-TODO REF ESC-50
+https://research.google.com/audioset/
+
+https://github.com/karolpiczak/ESC-50
 
 ## Urbansound8k dataset
 
@@ -106,7 +112,7 @@ And it looks something like this.
 
 ### Overview
 
-So first in the input we have our we have our audio stream.
+So first in the input we have our audio stream.
 It's important to realize that of course audio has time related to it so it's more like a video than to an image.
 And in practical case scenario might you do real-time classification so this might be a infinite stream that just goes on and on.
 So it's important for that reason and for also the Machine Learning to divide the stream into small or relatively small analysis windows that you will actually process.
@@ -177,14 +183,15 @@ Yeah that's quite a few.
 So CNN's are the best in class for image classifications.
 Spectrograms are image-like audio representation, they have some differences, so a question is (or maybe it was): will CNN's work well on spectrograms?
 Because that would be interesting and the answer is... yes.
-This been researched quite a lot and this is great because there is a lot of tools, knowledge, experience and pre-trained models for image classification.
+This been researched quite a lot, and this is great because there is a lot of tools, knowledge, experience and pre-trained models for image classification.
 So being able to reuse those in the audio domain, which is not such a big field, is a major major win.
 So you'll see a lot of the research lately is, it can be a little bit boring in audio classification research, because a lot of it is like taking one year ago image classifying tools and applying them, and seeing whether it works.
+
 It is however a little bit surprising that this actually works because the spectrogram has frequency on the y-axis (typically it's shown that way) and time on the other axis.
 So a movement or a scaling in this space doesn't mean the same as in an image.
 You know an image if I have my face inside an image doesn't matter where my face appears.
-If you have a spectrogram and you have certain sound it's like a chirp up and down, if you move that up in frequency or down ,at least if you move it a lot, it's probably not the same sound anymore.
-It might go from a human talking to a bird, the shape is might be similar but the position matters.
+If you have a spectrogram and you have certain sound it's like a chirp up and down, if you move that up in frequency or down, at least if you move it a lot, it's probably not the same sound anymore.
+It might go from a human talking to a bird, the shape might be similar but the position matters.
 So it's a little bit surprising that this works, but it does seem to do really well in practice.
 
 ## SB-CNN
@@ -199,14 +206,17 @@ From 2016 and still is one is like close to state-of-the-art on this dataset Urb
 
 > If you are training CNN from scratch on audio data, start with a simple model.
 
-I mean there's no usually no reason to start with say VGG16 with 16 layers and millions of parameters, or even MobileNet or something like that.
-You can usually go quite far with with this kind of simple architecture, a couple of convolutional layers
+I mean there's no usually no reason to start with say VGG16 with 16 layers and millions of parameters,
+or even MobileNet or something like that.
+You can usually go quite far with with this kind of simple architecture - a couple of convolutional layers.
 
 So in case for example this could look something like this.
 Where we have our individual kind of blocks. Convolution, Maxpooling, ReLu non-linearity.
 Same for the second one and our full classification at the end the full connected layers.
+
 So this is our classifier. 
-Will pass the spectrogram analysis window through this, and it will give us a prediction for which class it was among the classes in Urbansound.
+We will pass the spectrogram analysis window through this,
+and it will give us a prediction for which class it was among the classes in Urbansound.
 
 ## Aggregating analysis windows
 
@@ -220,14 +230,14 @@ And you're making very rough predictions on each on a step.
 So mean mean pooling or global average pooling across those analysis windows usually does a little bit better.
 And it's nice with deep learning frameworks is that you can also have this as a layer so for instance in Keras you have the TimeDistributed layer.
 Which is there's sadly extremely a few examples of online.
-It took me a like it's not that hard to use but to mail it to to figure out how they do it.
+It's not that hard to use but it took me a while it to to figure out how they do it.
 
 So we apply a base model, which is in this case the input to this function.
-We pass it to the time distributed layer and which essentially it will it will use a single instance of your model, so we'll share the weights for all these steps in the or all the analysis windows.
-Ad then if so we'll just run in multiple times when you do the prediction step and then it will global average pooling over these predictions.
+We pass it to the TimeDistributed layer and which essentially it will use a single instance of your model, so it'll share the weights for all these steps for all the analysis windows.
+And then it will just run in multiple times when you do the prediction step and then it will global average pooling over these predictions.
 So here we're averaging predictions you can also you can also do more advanced things where you would for instance average your feature representation and then do a more advanced classifier on top of this.
-But this called probabilistic voting quite often and all literature when you do this mean pooling.
-Yes that allows us so this will give us a new model which is what will take not single in analysis windows, which will take a set of analysis windows typically an error corresponding to our four seconds with for example 10 windows.
+But this was called probabilistic voting quite often in literature, when you do this mean pooling.
+That allows us so this will give us a new model which is what will take not single in analysis windows, which will take a set of analysis windows typically corresponding to our 4 seconds with for example 10 windows.
 
 ## Demo
 
@@ -238,7 +248,7 @@ And so on so that's kind of roughly standard things, so I don't go into it here.
 
 So little demo video (if we have sound).
 
-TODO LINK VIDEO
+https://www.youtube.com/watch?v=KQHQxMG1CZo
 
 So there are 10 classes.
 Here is Children playing.
@@ -254,13 +264,16 @@ And so in this case all the classification happens on the small sensor unit whic
 
 Siren
 The model actually it didn't get the first part of the siren. Only the undulating part later.
-So this and but actually these samples are not from the Urbansound dataset which I've trained out.
-So they're out of domain samples, which is generally a much more challenging.
+So actually these samples are not from the Urbansound dataset which I've trained out.
+So they're "out of domain" samples, which is generally a much more challenging.
 
 Yes that's it for demo.
-If you want to know more about doing sound classifications on this sensor units you can get my full thesis.
+If you want to know more about doing sound classifications on these sensor units you can get my full thesis.
 Both the report and the code is there.
-It's also linked from the Machine hearing repository, so I won't go much details there.
+https://github.com/jonnor/ESC-CNN-microcontroller
+
+It's also linked from the Machine hearing repository, so I won't go much details here.
+https://github.com/jonnor/machinehearing/
 
 ## Tips & Trick
 
@@ -324,17 +337,19 @@ There's also some paper showing that you can do multi-scale.
 So for instance one has a spectrogram with very fine time resolution, and one has a one with a very coarse time resolution, and they put them in different channels.
 And this can be beneficial.
 But because image data and some that are quite different you usually do need to fine-tune so it's usually not enough to just apply a pre-trained model and then just tune the classifier at the end.
-You do need to do a couple of layers at the end and typically also the first layer at least sometimes you fine-tune the whole thing but it is generally very beneficial.
+You do need to do a couple of layers at the end and typically also the first layer at least, sometimes you fine-tune the whole thing, but it is generally very beneficial.
 So definitely, if you have a smaller data set, and you need that high performance, and you can't get it with a small model - go with the pretrained model for instance MobileNet or something like that.
 
 ### Audio Embeddings
 
 Audio embeddings is another is another strategy.
 Inspired by text embeddings where you create a for instance 128 dimensional vector from from your text data, you can do the same with sound.
-So with Look Listen Learn (L3) you can convert one second audio spectrogram into 512 dimensional vector which has been trained on millions of YouTube videos, so it has seen a very large amount of different sounds and that uses a CNN under the hood. And basically gives you that that very compressed vector classification.
+So with "Look Listen Learn" (L3) you can convert one second audio spectrogram into 512 dimensional vector which has been trained on millions of YouTube videos, so it has seen a very large amount of different sounds and that uses a CNN under the hood. And basically gives you that that very compressed vector classification.
 I didn't finish any code sample here but there is a very nice latest work is OpenL3.
-Look Listen Learn More is the paper, and they have a Python package which makes it super simple.
+Look "Listen Learn More" is the paper, and they have a Python package which makes it super simple.
 Just import, it is one function to pre-process and then you can classify audio basically just with a linear classifier from scikit-learn.
+
+https://github.com/marl/openl3
 
 So if you don't have any deep learning experience and you want it you want to try a Audio Classification problem definitely go this route first.
 Because this will basically handle the audio part for you and you'll just you can apply a simple simple classifier after that.
@@ -343,9 +358,11 @@ Because this will basically handle the audio part for you and you'll just you ca
 
 One little tip. You might want to do your own dataset right.
 Audacity is a nice editor for for audio and it has a nice support for annotating by adding a label tracking.
-There's like keyboard shortcuts for for all the functions that you need, so it's quite quick to use.
-So here I'm annotating some custom audio where we did event recognition and the nice thing is that the format that they have is basically a CSV file.
-It has no header and so on, but this Pandas one-liner will basically give you a nice data frame with all your annotations from the sound.
+There's keyboard shortcuts for for all the functions that you need, so it's quite quick to use.
+So here I'm annotating some custom audio where we did event recognition
+and the nice thing is that the format that they have is basically a CSV file.
+It has no header and so on,
+but this Pandas one-liner will basically give you a nice data frame with all your annotations from the sound.
 
 https://www.audacityteam.org/
 https://datascience.stackexchange.com/a/56372/54096
@@ -378,13 +395,15 @@ https://cassebook.github.io/
 It's quite thorough when it comes to general audio classification. A very modern book from 2018.
 
 
-I think we have we have 10 minutes for questions so please go to the microphones and the aisles to ask them.
-I think our first is there.
 
 ### Questions
 
+### Q.
+
 Hey yeah thanks Jon, a very interesting application of machine learning. I have two questions.
 So there's obviously a like a time series component to your data, I'm not so familiar with this audio classification problem, but alright can you tell us a bit about time series methods maybe LSTM and so on how successful they are?
+
+### A.
 
 Yes yeah time series is intuitively one would really want to apply that because there is definitely time component.
 So Convolutional Recurrent Neural Networks do quite well when you're looking at longer time scales.
@@ -393,9 +412,13 @@ I have a 10 or maybe 30-second clip is this from a restaurant or from a city and
 And there you see that the recurrent networks that do have a much stronger time modelling they do better.
 But for small short tasks who CNN's do just fine, surprisingly okay.
 
+### Q.
+
 And the other small question I had was just to understand your label, the target that it's learning.
 You said that this is all very mixed the sound is a very mixed data set, so are the labels just like one category of sound when you're learning,
 or would it be beneficial to have you know maybe a weighted set of two categories when doing learning?
+
+### A.
 
 Yep, so in ordinary classification tasks the typical style, or kind of by definition, is to have a single label on a some sort of window of time.
 You can have multi-label datasets of course and in practice that's a more realistic modeling of the world, because you basically always have multiple sounds.
@@ -406,13 +429,22 @@ you can either use separate classifier per track of sound of interest,
 or you can have a joint model which has multi-label classification.
 So definitely this is something that you would want to do but it does complicate the problem.
 
+### Q3.
+
 You mentioned about data argumentation that we can apply Mixup to separate classes and mix them, and then the label of that mix should be weighted also because it kind of concludes with previous question usually like 0.5 and 0.5 for the other and
+
+### A.
+
 Yes so Mixup, it was proposed things like 2-3 years ago, there's a general method.
 So you basically take your sound with your target class and you say okay let's take 80% of that (not 100%), and then take 20% of some other sound which is a non-target class, mix it together and then update the labels accordingly. 
 So it's kind of just telling you hey there is this predominant sound, but there's also this sound in the background.
 
+### Q.
+
 Yes you mentioned about the main frequency ranges but usually when you record audio microphones you get up to 20 thousand Hertz,
 so they have you any experience or I could comment on when you have added information of the higher frequency ranges does that affect the machine learning algorithm or yeah.
+
+### A.
 
 So typically recordings are done at 44 kilohertz or 48 kilohertz for general audio.
 Often machine learning is applied at lower frequency, so with 22 kilohertz or something it is just 16, in the rare case is also 8.
@@ -421,19 +453,31 @@ If you're doing speech you can do just fine on 8 kilohertz.
 Usually another thing is that noise tends to be in the lower areas of the spectrum, there's more energy in the lower end of the spectrum.
 So if you are doing birds you might want to just ignore everything below 1 kilohertz for instance and that definitely simplifies your model especially if you have a small data set.
 
+### Q.
+
 Quick question you mentioned the editor that has support for annotating audio could you please repeat the name?
 
+### A.
+
 Yes, Audacity.
+
+### Q.
 
 And my general question do having tips if for example you don't have an existing dataset just starting with a bunch of audio that you want to annotate first.
 Do you have any advice for strategies like some maybe semi-supervised?
 
+### A.
+
 Yeah semi-supervised is very interesting. There's a lot of papers but I haven't seen like very good like practical methodology for it.
 And I think in general annotating a data set is it like a whole other talk here, but I'm very interested to come to chat about this later.
+
+### Q.
 
 Thanks to you and very nice talk.
 My question would be do you have to deal with any pre-processing or like white noise filtering you mean to remove white noise,
 it's exactly just you just said like removing or ignoring certain amount?
+
+### A.
 
 Yes, you can. I mean, scoping your frequency range definitely, it's very easy so just do it if you if you know where your things of interests are.
 Denoising. You can apply a separate denoising step beforehand and then do machine learning.
@@ -442,15 +486,23 @@ For instance, maybe you can use a standard denoising algorithm trained on like t
 If you have a lot of data then in practice the machine learning algorithm itself learns to suppress the noise.
 But it only works if you have a lot of data.
 
+### Q.
+
 So thank you for the talk.
 Is it possible to train a deep convolutional neural net directly on the time domain data using a 1d convolutions and dilated convolution?
+
+### A.
 
 Yes this is possible, and it is very actively researched.
 But it's only within the last like year or two that they're getting to the same level of performance as spectrogram-based models.
 But some models now are showing actually better performance with the end-to-end trained model
 So I expect that in a couple of years maybe that will be the kind of go-to for a practical applications.
 
+### Q.
+
 Can I do a speech recognition with this? This is only like six classes like and I think you have much more classes in speech?
+
+### A.
 
 Yes if you want to do Automatic Speech Recognition, so the complete vocabulary of English for instance, then you can *theoretically*.
 But there are specific models for all automatic speech recognition that will in general do better.
@@ -458,22 +510,30 @@ So if you want full speech recognition you should look at speech specific method
 But if you're doing a simple task, like commands: yes/no up,down, one, two, three, four, five
 - you can limit your vocabulary to say maybe under a hundred classes or something, then it gets much more realistic to apply a kind of speech-unaware model like this.
 
+### Q.
+
 Thanks for an interesting presentation.
 I was just wondering from the thesis, it looks like you applied this model to a microprocessor.
 Can you tell a little bit about the framework you use where you transfer it from a Python?
 
+### A.
+
 Yes, so we use the vendor provided library from ST microelectronics for the STM32 and it's called X-CUBE-AI.
 You'll find links in the Github.
-It's a proprietary solution, only works on that microcontroller, but it's it's very: simple you throw in the Keras model, it will give you a C model out.
+It's a proprietary solution, only works on that microcontroller, but it's very simple:
+you throw in the Keras model, it will give you a C model out.
 And they have code examples about the pre-processing (yeah with some bugs, but it does work).
 And the firmware code for thesis is also in the Github repository, not just the model, so you can basically download that and and start going.
 
+
+### Outro
 
 Yeah, do join me here if you want to talk more about some specific thing about audio classification.
 I will also be around later. Thank you.
 
 Thank you, Jon Nordby
 [Applause]
+
 
 ## Speed
 6700 words. 45 minutes. 150 words per minute.
