@@ -97,6 +97,7 @@ Areas of active research
 
 
 ## Key aspects
+
 ### Relevance and attractiveness to ICASSP
 Consumer electronics. Voice assistants. Mobile phones.
 Assistive devices. Hearing aids, hearables
@@ -118,6 +119,7 @@ Industrial Internet of Things.
 ### Novelty
 
 TinyML a growing area
+
 - Machine Learning and Deep Neural Networks has been shown to do well on many sensing problems
 - Large interest for applications in industry and consumer electronics
 - Extend edge computing out to the sensors
@@ -136,5 +138,30 @@ Complete devices from 10-100 USD BOM. Including Internet connectivity
 
 ## Summary
 300 words
+
+Advances in machine learning from deep neural networks have in the last years
+greatly increased performance on many audio analysis tasks, enabling new applications.
+Generally the advances have involved large and very compute intensive neural networks,
+often running on powerful GPUs.
+However for many applications it is neccesary to deploy models on highly constrained devices,
+such as IoT sensor nodes.
+These devices often use microcontrollers with less than 1 MB of RAM and program space,
+running at under 100 Mhz and power envelopes of under 1 watt.
+Targeting such devices (dubbed "TinyML") requiring careful adaptation of the neural networks
+in order to keep the compute requirements down, while still maintaining the best possible performance.
+In this session we'll go through the work that has been done in this area for audio applications,
+including tasks such as Keyword Spotting, Sound Event Detection and Environmental Sound Classificaiton.
+Primarily the focus will be on Convolutional Neural Networks,
+as well as some notes on Recurrent Neural Networks and Transformers.
+Some of te techniques to be covered include use of efficient operators like separable convolutions and
+strided downsampling,
+hyperparameter optimization of model and spectrogram pre-processing,
+integer-quantizattion and network pruning.
+The emphasis will be on established solutions which can be easily applied in practice,
+with some .
+
+Many times 
+
+review of techniques from papers existing 
 
 
