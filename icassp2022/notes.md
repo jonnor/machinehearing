@@ -146,22 +146,23 @@ often running on powerful GPUs.
 However for many applications it is neccesary to deploy models on highly constrained devices,
 such as IoT sensor nodes.
 These devices often use microcontrollers with less than 1 MB of RAM and program space,
-running at under 100 Mhz and power envelopes of under 1 watt.
+running at under 100 Mhz and at power budgets of 100 milliwatt or less.
 Targeting such devices (dubbed "TinyML") requiring careful adaptation of the neural networks
 in order to keep the compute requirements down, while still maintaining the best possible performance.
 In this session we'll go through the work that has been done in this area for audio applications,
 including tasks such as Keyword Spotting, Sound Event Detection and Environmental Sound Classificaiton.
 Primarily the focus will be on Convolutional Neural Networks,
-as well as some notes on Recurrent Neural Networks and Transformers.
-Some of te techniques to be covered include use of efficient operators like separable convolutions and
-strided downsampling,
-hyperparameter optimization of model and spectrogram pre-processing,
-integer-quantizattion and network pruning.
-The emphasis will be on established solutions which can be easily applied in practice,
-with some .
-
-Many times 
-
-review of techniques from papers existing 
+with some notes on Recurrent Neural Networks and Transformers.
+Some of thee techniques to be covered include
+use of efficient operators like separable convolutions and strided downsampling,
+neural architecture search for model optimization,
+hyperparameter optimization of spectrogram pre-processing,
+quantization, and streaming inference.
+The emphasis will be on established solutions which can be easily applied in practice
+using frameworks such as Tensorflow Lite for Microcontrollers and X-CUBE-AI,
+but also mention of recent works from the research community and open challenges.
+While the primary application area are audio tasks on microcontrollers,
+they should be widely applicable to efficient neural networks in other "edge" scenarios
+such as larger embedded systems, mobile phone and web-browser applications.
 
 
