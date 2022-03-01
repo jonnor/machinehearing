@@ -1,9 +1,35 @@
 
-## Audio Segmentation
+# Audio Segmentation
 
 ## Applications
 
 - Voice Activity Detection / Speech Activity Detection
+- Dataset curation
+Starting point for labeling. For Sound Event Detection etc
+- Pre-filter for SED/classification model
+High recall. Low precision 
+
+## Introduction material
+
+Binary vs one-class vs multi-class vs multi-track segmentation
+How do we know how well we are doing? Evaluation and metrics. sed_eval
+Simple usecases. Sound present vs not present. Events, voice
+From continious time-series to discrete segments
+Using a simple threshold
+Using threshold with hysteresis
+Setting threshold values. Manual, heuristics, learned
+Selecting time-periods
+Statful model with learned thresholds. Gaussian Hidden Markov Model
+Pre- and post-processing steps
+Simple feature representations and transformations.
+    RMS, ZCR. dB transformation. Frequency-weigting. 
+Doing better on speech. Voice Activity Detection
+Segmentation using distance functions
+Segmentation using labeled examples. KNN for few-shot learning
+Useful tools. Extract individual segments, as separate files. Extract single class, into continious file
+
+Note. Approaches are highly relevant to segmentation of other time-series
+such as accelerometer data, EEG data etc.
 
 ### Voice Activity Detection
 
@@ -36,7 +62,8 @@ Available for Python in [py-webrtcvad](https://github.com/wiseman/py-webrtcvad).
 Expects int16 input of the audio waveform.
 Needs some massaging to work with typical floating point input. TODO, link
 
-The WebRTC VAD model is described in 2.3 of [Voice Activity Detection Scheme by Combining DNN Model with GMM Model](https://arxiv.org/abs/2005.08184).
+The WebRTC VAD model is described in 2.3 of
+[Voice Activity Detection Scheme by Combining DNN Model with GMM Model](https://arxiv.org/abs/2005.08184).
 Is based on a two-mixture Gaussian Mixture Model (noise and speech).
 The input features are 6 frequency sub-bands.
 Does online updating of the GMM, with different update coefficients for the GMM coefficients,
@@ -151,17 +178,29 @@ MaxEnt / Maximum Entropy Classifier.
 Same as Logistic Regressions.
 Or conditional exponential classifier
 
-### References
-
-https://www.programmersought.com/article/81806889517/
+### Answers needed
 
 How to use HMM model for audio segmentation
 https://stackoverflow.com/questions/66817625/how-to-use-hmm-model-for-audio-segmentation
 No answers
 
+https://thesoundofai.slack.com/archives/C012B5736N5/p1646151141304619
+
+
+### References
+
+Software
+https://github.com/tyiannak/pyAudioAnalysis/wiki/5.-Segmentation
+Shows unsupervised and supervised segmentation
+As well as Speaker Diarization, and Audio thumbnailing
+
+
+BIC-based speech dialogue segmentation 
+https://www.programmersought.com/article/81806889517/
+
+
 https://hal.archives-ouvertes.fr/hal-00957418/document
 HMM has a fixed structure, decomposing into silent,transient,tonal,residual
-
 
 Joint Segmentation and Classification
 https://www.sciencedirect.com/book/9780080993881/introduction-to-audio-analysis
