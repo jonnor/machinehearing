@@ -27,6 +27,7 @@ Doing better on speech. Voice Activity Detection
 Segmentation using distance functions
 Segmentation using labeled examples. KNN for few-shot learning
 Useful tools. Extract individual segments, as separate files. Extract single class, into continious file
+Ensembling of models using time-shifting. Test-time data augmentation
 
 Note. Approaches are highly relevant to segmentation of other time-series
 such as accelerometer data, EEG data etc.
@@ -136,10 +137,13 @@ Has some nice examples of real-time.
 
 ### Approaches
 
-### Segmentation and classification
-Aka distance-based-segmentation.
+### Segmentation using distances
 
-First segmentation, then classification.
+Divide into time windows. Compare consecutive time windows using a distance function.
+Often done with divisive clustering.
+Binary subdivision of non-overlapping consecutive windows in order to maximize distance function.
+Ends when the windows have reached a minimum length.
+Can be seen as a large number of potential cut-points.
 
 Distance metrics
 
@@ -152,9 +156,6 @@ Distance metrics
 - Learned distances (using neural networks)
 
 
-- Hidden Markov Model (HMM)
-
-
 ### Segmentation by classification
 
 Segmentation performed by classifying consecutive fixed-length segments. 
@@ -164,6 +165,7 @@ Common with both kind of approaches.
 Can be done with HMM.
 Or heuristics such as removing segments below certain length.
 
+Agglomarotive clustering can be used, considers merging consecutive clusters if similar enough.
 
 
 ### Datasets
@@ -210,6 +212,7 @@ Dynamic programming, Viterbi
 An Overview of Automatic Audio Segmentation
 October 2014
 https://www.researchgate.net/publication/287718330_An_Overview_of_Automatic_Audio_Segmentation
+Reviews about 15 articles, listing 10 different datasets.
 
 Optimized Audio Classification and Segmentation Algorithm by Using Ensemble Methods
 https://www.hindawi.com/journals/mpe/2015/209814/
@@ -227,6 +230,21 @@ https://arxiv.org/abs/2002.05194
 ICASSP
 2020
 
+Audio segmentation-by-classification approach based on factor analysis in broadcast news domain
+https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-014-0034-5
+2014
+Segmentation-by-classification approach based on factor analysis.
+The proposed technique compensates the within-class variability by using class-dependent factor
+loading matrices and obtains the scores by computing the log-likelihood ratio for the class model to a non-class model over fixed-length windows.
+Segment and classify audios coming from TV shows into five different acoustic classes: speech, music, speech with music, speech with noise, and others
 
 
+BIC-based audio segmentation by divide-and-conquer
+https://www.researchgate.net/publication/224762256_BIC-based_audio_segmentation_by_divide-and-conquer
+2008
+Among existing audio segmentation approaches, the BIC-based approach proposed by Chen and Gopalakrishnan is most well-known for its high accuracy. However, this window-growing-based segmentation approach suffers from the high computation cost.
+In this paper, we propose using the efficient divide-and-conquer strategy in audio segmentation.
 
+Multiclass audio segmentation based on recurrent neural networks for broadcast domain data
+https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-020-00172-6
+2020
