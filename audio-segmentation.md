@@ -248,3 +248,15 @@ In this paper, we propose using the efficient divide-and-conquer strategy in aud
 Multiclass audio segmentation based on recurrent neural networks for broadcast domain data
 https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-020-00172-6
 2020
+Using bidirectional long short-term Memory (BLSTM).
+RNN is complemented by a resegmentation module, gaining long term stability by means of the tied state concept in hidden Markov models.
+
+Deep Convolutional Neural Networks for Heart Sound Segmentation
+https://ieeexplore.ieee.org/document/8620278
+
+Different temporal modeling schemes are applied to the output of the proposed neural network,
+which induce the output state sequence to be consistent with the natural sequence of states within a heart sound signal
+(S1, systole, S2, diastole).
+In particular, convolutional neural networks are used in conjunction with underlying hidden Markov models and hidden semi-Markov models to infer emission distributions. The proposed approaches are tested on heart sound signals from the publicly available PhysioNet dataset, and they are shown to outperform current state-of-the-art segmentation methods by achieving an average sensitivity of 93.9% and an average positive predictive value of 94% in detecting S1 and S2 sounds.
+
+
