@@ -54,6 +54,46 @@ Useful tools
 Note. Approaches are highly relevant to segmentation of other time-series
 such as accelerometer data, EEG data etc.
 
+## Commandline API
+
+python -m audiosegment.analyze
+
+    --in folder/*.wav | .mp3 | .ogg | .flac | .m4a
+
+    --out segments.csv
+
+    --classes silence,other
+    --classes speech,other
+    --classes speech,silence,music,other
+
+    --hop 0.1
+    --min-duration silence=0.1,other=1.0
+    --max-duration 10.0
+
+    --proportions silence=0.9
+
+    --examples speech=sometext.wav
+
+segments.csv
+path,class,start,end
+
+
+python -m audiosegment.cut
+
+    --in segments.csv
+
+    --out audio/{file}_{class}_{segment}.wav
+    --out audio/
+
+    --mode split
+    --mode concatenate
+
+    --classes x,y,z
+
+    --pad-start 0.1
+    --pad-end 0.1
+
+
 ### Voice Activity Detection
 
 Real-time versus offline.
