@@ -11,23 +11,45 @@ High recall. Low precision
 
 ## Introduction material
 
-Binary vs one-class vs multi-class vs multi-track segmentation
-How do we know how well we are doing? Evaluation and metrics. sed_eval
-Simple usecases. Sound present vs not present. Events, voice
-From continious time-series to discrete segments
-Using a simple threshold
-Using threshold with hysteresis
-Setting threshold values. Manual, heuristics, learned
-Selecting time-periods
-Statful model with learned thresholds. Gaussian Hidden Markov Model
-Pre- and post-processing steps
-Simple feature representations and transformations.
-    RMS, ZCR. dB transformation. Frequency-weigting. 
+Problem definition
+
+- Binary vs one-class vs multi-class vs multi-track segmentation
+- How do we know how well we are doing? Evaluation and metrics. sed_eval
+- Simple usecases. Sound present vs not present. Events, voice
+- From continious time-series to discrete segments
+
+Baselines approaches
+
+- Using a simple threshold
+- Using threshold with hysteresis
+- Setting threshold values. Manual, heuristics, learned
+- Selecting time-periods
+
+A slightly better version
+
+- Stateful model with learned thresholds
+Gaussian Hidden Markov Model
+- Pre- and post-processing steps.
+Removal of too short segments.
+- Simple feature representations and transformations.
+RMS, ZCR. dB transformation. Frequency-weigting
+- Ensembling of models using time-shifting.
+Test-time data augmentation
+
 Doing better on speech. Voice Activity Detection
-Segmentation using distance functions
-Segmentation using labeled examples. KNN for few-shot learning
-Useful tools. Extract individual segments, as separate files. Extract single class, into continious file
-Ensembling of models using time-shifting. Test-time data augmentation
+- Voice energy bands
+- Learned speech models
+
+Alternative approaches
+
+- Segmentation using distance functions
+- Segmentation using labeled examples. KNN for few-shot learning
+
+Useful tools
+
+- Extract individual segments, as separate files.
+- Extract single class, into continious file
+
 
 Note. Approaches are highly relevant to segmentation of other time-series
 such as accelerometer data, EEG data etc.
