@@ -2,6 +2,7 @@
 # Goals
 
 - Recruit students
+State in the introduction, and in outro
 
 # Format
 
@@ -25,7 +26,26 @@ og også litt om hvordan å ta i bruk AI/maskinlæring i en startup.
 # TODO
 
 - Finish disposition of slides
-20-30 total
+
+*** Time-series of real rooms
+Soundlevels. Pumps, ventilation
+
+
+# Main takeaways
+
+- Technical maintenance in commercial buildings still done in a very
+on-site, labor-intensive, ad-hoc way
+
+- Soundsensing is delivering Conditioning Modern to use IoT to modernize technical maintenance of machines
+Plan to reach millions of buildings world-wide
+
+- We are working in practice now.
+Developing together with our customer in pilot projects
+Decided to go for this market segment in October.
+Have installed sensors since November.
+Have 5 paying customers
+
+- We need skilled and motivated people to join us
 
 
 # Disposition
@@ -45,28 +65,53 @@ Condition Monitoring
     How can Machine Learning help?
 
 
+- Commercial Buildings
+What are they
+The different actors. Owner, building manager, facility manager, tenant
+What is important
+- Technical Maintenance (of buildings)
+Driftsansvarlig bygg. Vaktmestere. Teknikere.
+- Maintenance strategies
+Breakdown maintenance
+Preventive maintenance.
+Time-based maintenance (TbM)
+Usage-based Maintenance (UbM)
+Predictive Maintenance
+- Condition-Based Maintenance (CbM)
+Temperature,Sound,vibration
+Examples
+- Machine Learning for CBM
+Supervised learning approach
+Lack of labeled data
+Unsupervised Anomaly Detection
+Labeled validation/test sets
 
-# Main takeaways
-
-- Technical maintenance in commercial buildings still done in a very
-on-site, labor-intensive, ad-hoc way
-
-- Soundsensing is delivering Conditioning Modern to use IoT to modernize technical maintenance of machines
-Plan to reach millions of buildings world-wide
-
-- We are working in practice now.
-Developing together with our customer in pilot projects
-Decided to go for this market segment in October.
-Have installed sensors since November.
-Have 5 paying customers
+** Machine State Estimation. On/off, level
+** Contextual Anomalies. Time schedule
 
 
-- We need skilled and motivated people to join us
+Maybe
+
+- Remote monitoring
+SD systems
+
+Failure Finding Maintenance (FFM)
+Risk Based Maintenance (RBM)
 
 
 
 ## Talking points
 
+- Even for a technology-driven data-intelligence provider,
+majority of time is spent outside the ML analytics/modelling.
+Primarily to get the *right* data in place.
+
+Rely on IoT sensors for data gathering.
+A lot of the data that would be valuable is currently unstructured, spread everywhere.
+Failure modes, frequency, costs. Time to repair. Downtime consequences.
+Emails, SMS/phonecalls
+Invoices
+Hard to get statistical significance
 
 - Machines and operations are getting more complex
 Energy recycling
@@ -87,11 +132,43 @@ Downtime, cost of repair/replacement
 adapting it for use in commercial buildings
 
 
+# Engagement
+
+## Questions to audience
+
+- Has anyone here experienced being at school and some part of the building did not work?
+Maybe the heating was broken, and it was too cold? 
+Or the air ventilation broke, and you got really tired?
+How quickly was it fixed?
+
+- Why do they put all the equipment into these small rooms?
+
+
+Re ventilation system
+- What are some things that could go wrong here?
+Failure Mode Effect Analysis (FMEA) 
+
+
+- Re breakdown maintenance.
+Does this seem like a good strategy? What are the consequences?
+What could be a better way to decide when to do maintenance?
+
+
+- What are the problems with doing maintance not often enough?
+
+
+- What are the problem with doing maintenance too often?
+
+
+- Supervised vs unsupervised learning?
+Labeled data versus non-labeled data. "ground truth"
+
+
+
 ## Where we are going
 
 10 years
 10 million buildings
-
 Year 1.
 
 Company like AirThings
@@ -127,102 +204,7 @@ Full-time Data Scientist
 
 
 
-# Engagement
-
-Questions to audience
-
-- Has anyone here experienced being at school and some part of the building did not work?
-Maybe the heating was broken, and it was too cold? 
-Or the air ventilation broke, and you got really tired?
-How quickly was it fixed?
-
-- Why do they put all the equipment into these small rooms?
-
-
-Re ventilation system
-- What are some things that could go wrong here?
-Failure Mode Effect Analysis (FMEA) 
-
-
-- Re breakdown maintenance.
-Does this seem like a good strategy? What are the consequences?
-What could be a better way to decide when to do maintenance?
-
-
-- What are the problems with doing maintance not often enough?
-
-
-- What are the problem with doing maintenance too often?
-
-
-
-
-Tech checks
-
-- Supervised vs unsupervised learning?
-Labeled data versus non-labeled data. "ground truth"
-
-
-Visuals
-
-- A technical room
-- Equipment types.
-Ventilation system
-Circulation pumps
-- Classification vs anomaly detection
-- P-F curve.
-Time to failure, by detection type
-
-
-*** Time-series of real rooms
-Soundlevels. Pumps, ventilation
-
-Playback
-
-- DCASE audio samples, plus spectrogram
-- Pump testjig demo
-
-
-
-
-
-# Story-arc
-
-# Topics/areas
-
-- Commercial Buildings
-What are they
-The different actors. Owner, building manager, facility manager, tenant
-What is important
-- Technical Maintenance (of buildings)
-Driftsansvarlig bygg. Vaktmestere. Teknikere.
-- Maintenance strategies
-Breakdown maintenance
-Preventive maintenance.
-Time-based maintenance (TbM)
-Usage-based Maintenance (UbM)
-Predictive Maintenance
-- Condition-Based Maintenance (CbM)
-Temperature,Sound,vibration
-Examples
-- Machine Learning for CBM
-Supervised learning approach
-Lack of labeled data
-Unsupervised Anomaly Detection
-Labeled validation/test sets
-
-Machine State Estimation. On/off, level
-
-
-
-Maybe
-
-- Remote monitoring
-SD systems
-
-Failure Finding Maintenance (FFM)
-Risk Based Maintenance (RBM)
-
+# Background
 
 
 ## Commercial building stakeholders
@@ -250,8 +232,6 @@ Internet
 - Data Science. Machine Learning
 - Maintenance. Reliability Engineering
 - Commercial Building Management. Business transformation.
-
-
 
 
 
