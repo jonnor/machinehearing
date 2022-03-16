@@ -54,7 +54,10 @@ Useful tools
 Note. Approaches are highly relevant to segmentation of other time-series
 such as accelerometer data, EEG data etc.
 
+
 ## Commandline API
+
+How it could look for a hypothetical command-line tool
 
 python -m audiosegment.analyze
 
@@ -251,6 +254,49 @@ No answers
 https://thesoundofai.slack.com/archives/C012B5736N5/p1646151141304619
 
 
+https://opendata.stackexchange.com/questions/9080/open-audio-segmentation-datasets
+looking for speech/music audio segmentation datasets
+
+Few good answers
+https://dsp.stackexchange.com/questions/9980/speech-segmentation-for-speaker-recognition
+https://dsp.stackexchange.com/questions/508/how-to-segment-phone-call-audio-into-silence-non-silence
+
+### Forced alignment
+
+Segmenting audio and aligning it with text
+https://github.com/readbeyond/aeneas
+https://github.com/lowerquality/gentle
+Is/was commonly used to make speech datasets with word-level text annotations.
+
+### Speech Segmentation
+
+BIC-based speech dialogue segmentation 
+https://www.programmersought.com/article/81806889517/
+
+https://dsp.stackexchange.com/questions/9980/speech-segmentation-for-speaker-recognition
+Adaptive Thresholding is the most common way to segment audio.
+While there are more accurate methods out there for segmenting,
+adaptive thresholding is fast and very accurate, and uses simple features such as zero-crossings, energy, and entropy.
+Same principle as is used in computer vision.
+
+Adaptive threshold method for real-time audio segmentation
+December 2005
+https://ieeexplore.ieee.org/abstract/document/1415134/
+
+Automatic speech segmentation using average level crossing rate information
+https://www.researchgate.net/publication/286073350_Adaptive_threshold_method_for_real-time_audio_segmentation
+2015
+
+Speech segmentation without speech recognition
+https://ieeexplore.ieee.org/abstract/document/1198819/
+2015
+
+A robust algorithm for accurate endpointing of speech signals
+MH Savoji
+1989
+https://www.sciencedirect.com/science/article/pii/0167639389900678
+
+
 ### References
 
 Software
@@ -258,9 +304,9 @@ https://github.com/tyiannak/pyAudioAnalysis/wiki/5.-Segmentation
 Shows unsupervised and supervised segmentation
 As well as Speaker Diarization, and Audio thumbnailing
 
-
-BIC-based speech dialogue segmentation 
-https://www.programmersought.com/article/81806889517/
+https://github.com/amsehili/auditok/
+An audio/acoustic activity detection and audio segmentation tool
+Uses energy as feature, and requires specifying a dB threshold manually
 
 
 https://hal.archives-ouvertes.fr/hal-00957418/document
