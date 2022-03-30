@@ -56,10 +56,27 @@ Issues may go undetected for long time, if no tenants
 ## Machine Failure types
 
 
+## Time variations
+
+Building usage, weather, building operations
+
+Daily       Workday start - end
+Weekly      Workday vs weekend
+Yearly      Weather
+
+Building operations is becoming increasingly more dynamic
+Driven primarily by energy optimization 
+
 ## System Architecture
 
-- Sensor with direct 4G
-- Wireless sensors, gateway with 4G
+db20
+- Sensor with 4G built-in
+- Powered by 12/24V
+-  
+
+- Wireless sensors with BLE/LoRa
+- Gateway with Ethernet/4G
+
 
 ## Lack of ground thruth
 
@@ -81,6 +98,7 @@ Store this model.
 Use to make predictions until next model is built.
 
 
+
 ## Monitoring: input statistics
 
 
@@ -99,6 +117,16 @@ Up to 50% saving possible
 Some pumps only run for a few minutes now and then
 Up to 99% saving possible 
 
+High-state / low-state
+
+Threshold enter / leave
+Soundlevel
+Minimum time in state
+Maximum time in state
+
+Different sampling/processing configuration per state
+
+
 ## Edge preprocessing for order tracking
 
 Rotation frequency finding
@@ -111,19 +139,22 @@ For vibration monitoring
 
 ## Edge Learning Anomaly Detection
 
+Representation learning using Convolutional Neural Network
+Generic for all devices
+
 Needs to be efficient and robust
 kNN
 ESP32 modules exist with 8MB PSRAM
 
-8e6/(43200)
-185 bytes per 1 minute
 
 Spectrogram 128ms 30b with compression around 3000 bytes
-
 >>> 43200*3000/1e6
 129.6 MB
 
-Doable with vector embeddings. 32-128 bytes wide
+
+8e6/(43200)
+185 bytes per 1 minute
+
 
 Can be read in around 1 second.
 Up to 16 MB/sec EasyDMA read rate
@@ -133,17 +164,33 @@ https://www.esp32.com/viewtopic.php?t=16131
 
 Maximal standby current of ESP-PSRAM32 is 50 uA
 
-D-cell
-14000-18000 mAh
+D-cell, or 2x C cell
+18-20Ah
 
->>> 19000/(100e-6*3600*24*365)
-6.024860476915271
+>>> 19000/(365*24*5)
+0.45662100456621
+
+400 uA total budget
+100 uA radio
+200 uA microphone
+100 uA processing <- too little
+
+100% does not seem feasible right now
+10% duty cycle however should be well within 
 
 BLE NRF51
 advertizing interval 1000ms 	27.5uA 
 
 Low-power MEMS microphone 185 uA
 Continious sampling not really possible with 5+ years of battery life
+
+
+
+TDK T5828, 95uA
+ST IMP23ABSU, 150 uA 
+
+https://devzone.nordicsemi.com/f/nordic-q-a/19208/nrf52-microphone-saadc-pdm-or-i2s
+700 uA to 1400 uA for analog/PDM
 
 1-10 second per 1 minute
 1.6%-16% duty cycle
@@ -155,6 +202,21 @@ Continious sampling not really possible with 5+ years of battery life
 Around 50 uA average expected
 
 Might hit 100 uA total, and 5 years
+
+
+BLE 4.0-4.2 advertizing package. Limited to 37-8= 29 bytes
+Scan response would have extra 31 data bytes available.
+BLE 5.0. Enables 255 bytes for single packet
+A chain can hold a maximum of 1650 bytes
+
+Because older devices that don’t support Bluetooth 5 will not be able to discover extended advertisements,
+an advertising set with legacy advertising PDUs for older scanning devices should also be used,
+at least until Bluetooth 5 supported hardware is commonplace in the market.
+
+
+about iBeacons only using advertisements
+The reason connections are not allowed is that if the Beacons were to establish a connection,
+advertisements would have to stop, so no other device could find the beacon.
 
 ## Challenges
 
