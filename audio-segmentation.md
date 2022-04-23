@@ -208,7 +208,26 @@ sound/music detector.
 No-one has described how to us the Opus 1.3 detector in another application?
 One [question](http://lists.xiph.org/pipermail/opus/2019-September/004386.html) on mailing list.
 
+### pyannote VAD
 
+On Huggingface
+https://huggingface.co/pyannote/voice-activity-detection
+
+### MarbleNet
+
+MarbleNet: Deep 1D Time-Channel Separable Convolutional Neural Network for Voice Activity Detection
+https://arxiv.org/abs/2010.13886
+Uses 1D CNN with separable convolutions
+On MFCCs or log mel-spectrogram.
+
+Available as part of NeMo
+https://catalog.ngc.nvidia.com/orgs/nvidia/teams/nemo/models/vad_telephony_marblenet
+https://colab.research.google.com/github/NVIDIA/NeMo/blob/r1.0.0rc1/tutorials/asr/06_Voice_Activiy_Detection.ipynb#scrollTo=HbCtcUUKA3al
+
+Available as part of Malaya
+https://malaya-speech.readthedocs.io/en/latest/load-vad.html
+
+### Kaist VAD
 https://github.com/jtkim-kaist/VAD
 2019 ICASSP
 
@@ -225,6 +244,7 @@ Supports 4 different classifier models
 - Long short term memory recurrent neural network (LSTM-RNN) [3]
 
 Where one can post-process according to application.
+
 
 ## Performance metrics
 
