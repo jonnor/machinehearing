@@ -143,6 +143,37 @@ Asthmaic breath sounds.
 
 Lots of research in 2017 on using smartphones, machine learning, low-cost portable devices.
 
+Phonocardiography device.
+Phonocardiogram (PCG), the recording of the sounds and murmurs made by heart during a cardiac cycle,
+can be effectively employed to study and monitor the activities of heart.
+Such sounds are typically recorded using a device called phonocardiograph.
+
+Four locations are most often used to listen to the heart sounds,
+which are named according to the positions where the valves can be best heard:
+
+* Aortic area - centered at the second right intercostal space.
+* Pulmonic area - in the second intercostal space along the left sternal border.
+* Tricuspid area - in the fourth intercostal space along the left sternal edge.
+* Mitral area - at the cardiac apex, in the fifth intercostal space on the midclavicular line.
+
+
+Datasets
+
+- [Classification of Heart Sound Recordings - The PhysioNet Computing in Cardiology Challenge 2016](https://physionet.org/content/challenge-2016/1.0.0/) (PhysioNet CinC).
+The Challenge training set consists of five databases (A through E) containing a total of 3,126 heart sound recordings,
+lasting from 5 seconds to just over 120 seconds.
+Distributed as a a zip archive (169 MB).
+All recordings have been resampled to 2,000 Hz and have been provided as .wav format.
+Each recording contains only one PCG lead.
+Many recordings are corrupted by various noise sources, such as talking, stethoscope motion, breathing and intestinal sounds.
+
+
+- [PASCAL Classifying Heart Sounds Challenge](http://www.peterjbentley.com/heartchallenge/) (CHSC2011).
+Two datasets, A and B. 176 files in WAV for 656 files in WAV format
+
+
+https://ieeexplore.ieee.org/abstract/document/9175450
+
 ### Acoustic Emission monitoring
 Using the emission of acoustic waves from materials under load/stress/failure.
 Alternative to ultrasonic testing in some cases.

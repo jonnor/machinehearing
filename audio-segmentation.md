@@ -116,7 +116,47 @@ Can use any dataset that has marked time regions for speech.
 Important is how noisy the datasets are, ie how much non-speech content exists.
 Like for example music.
 
+### References
+
+https://wiki.aalto.fi/pages/viewpage.action?pageId=151500905
+Very pedagogical.
+Going through the definition of the task,
+the evaluation setup,
+compares energy-based model with linear predictive model (autocorrelation-based),
+
+Describes post-processing heuristics. Such as "hangover".
+
+Features for voice activity detection: a comparative analysis
+https://asp-eurasipjournals.springeropen.com/articles/10.1186/s13634-015-0277-z
+
 ### Implementations
+
+### ITU-T G.729B
+
+From 1996.
+
+ITU-T G.729 Annex B introduces silence compression using a Voice Activity Detector (VAD).
+Features
+a) A spectral distortion
+b) An energy difference
+c) A low-band energy difference
+d) A zero-crossing difference
+Using fixed decision boundary in the space defined by these features.
+Applies smoothing and adaptive correction as post-processing.
+
+Described in https://ieeexplore.ieee.org/document/620527
+
+### GSM / ETSI
+
+The GSM standard includes two VAD alternatives.
+Option 1.
+Computes SNR in nine bands and applies a threshold to these values.
+
+
+Option 2
+Calculates different parameters: channel power, voice metrics, and noise power.
+It then thresholds the voice metrics using a threshold that varies according to the estimated SNR.
+
 
 ### WebRTC VAD
 Code exists inside the Chromium tree, under webrt/modules/audio_processing/vad
@@ -135,6 +175,8 @@ The input features are 6 frequency sub-bands.
 Does online updating of the GMM, with different update coefficients for the GMM coefficients,
 such that noise would increase slowly, but decrease quickly.
 With the assumption that the sound is mostly noise, and occationally speech segments.
+
+Uses 30 ms samples.
 
 Works well at speech vs silence.
 But does poorly with music or other noise, will often get flagged as speech.
@@ -165,6 +207,48 @@ The [opus_sm](https://github.com/jzombi/opus_sm) fork has a commandline tool of 
 sound/music detector.
 No-one has described how to us the Opus 1.3 detector in another application?
 One [question](http://lists.xiph.org/pipermail/opus/2019-September/004386.html) on mailing list.
+
+
+https://github.com/jtkim-kaist/VAD
+2019 ICASSP
+
+Implemented in Python with Tensorflow 1.x
+
+Multi-resolution cochleagram (MRCG) as feature.
+Must be precomputed, quite slow.
+
+Supports 4 different classifier models
+
+- Adaptive context attention model (ACAM)
+- Boosted deep neural network (bDNN) [2]
+- Deep neural network (DNN) [2]
+- Long short term memory recurrent neural network (LSTM-RNN) [3]
+
+Where one can post-process according to application.
+
+## Performance metrics
+
+Different error cases
+
+- FEC (Front End Clipping): clipping introduced in passing from noise to speech activity;
+- MSC (Mid Speech Clipping): clipping due to speech misclassified as noise;
+- OVER: noise interpreted as speech due to the VAD flag remaining active in passing from speech activity to noise;
+- NDS (Noise Detected as Speech): noise interpreted as speech within a silence period.
+
+### Classic models
+
+Many papers in 1990ies
+
+#### A Statistical Model-Based Voice Activity Detection.
+Sohn, 1999.
+Over 1500 citations.
+
+Hang-over correction using first-order Markov process modeling.
+
+#### Robust Voice Activity Detection Using Long-Term Signal Variability
+Ghosh, 2011
+Over 200 citations
+
 
 ### Microcontroller device models
 
@@ -199,6 +283,19 @@ Not installable as a pip library.
 Latest models ("big") not publically available.
 Has some nice examples of real-time.
 
+Can used either 30 ms, 100 ms or 250 ms windows.
+Outperforms WebRTC by large margin.
+
+### PicoVoice Cobra
+https://github.com/Picovoice/Cobra
+
+Raspberry Pi Zero, Cobra measured a realtime factor of 0.05.
+
+Outperforms WebRTC by large margin.
+Performs slightly worse than Silero, according to Silero benchmark. 
+
+Has benchmark here.
+https://github.com/Picovoice/voice-activity-benchmark
 
 ### Approaches
 
