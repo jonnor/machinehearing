@@ -1,36 +1,10 @@
 
-# Constrained Hidden Markov Models
+## Others that want to do this
 
-Given that one has data which is well described by a sequence of states
-and also the prior knowledge about state transitions,
-it may be desirable to impose constraints on the state transitons
-when learning a model from the data.
+- https://github.com/jmschrei/pomegranate/issues/9
+- https://stackoverflow.com/questions/63675733/how-to-train-a-hidden-markov-model-with-constrained-probabilities-or-missing-li
 
-## Special cases
-
-Several topologies with particular constraints have been defined.
-This include (a) linear model, (b) Bakis model, (c) left-to-right model, and (d) ergodic model.
-
-![HMM topologies](./img/HMM-topologies-Markov-Models-for-Pattern-Recognition.png)
-[Markov Models for Pattern Recognition, pp 127–136](https://link.springer.com/chapter/10.1007/978-3-540-71770-6_8).
-
-Sequentia [supports linear, ergodic and left-right topologies](https://sequentia.readthedocs.io/en/latest/sections/classifiers/gmmhmm.html#model-topologies) for its GMM-HMM implementation.
-It is achieved by the transition matrix being fully specified by the topology, and not learned from data [(code)](https://github.com/eonu/sequentia/blob/master/lib/sequentia/classifiers/hmm/gmmhmm.py#L102).
-This is implemented on top of hmmlearn.
-
-## Existing code support
-
-FIXME: find any code, paper or formula that describes how to do it?
-
-## Our approach
-
-Principle: On each step of the learning loop, modify the transition matrix to fit our contraints.
-Can be a hard change, or a softer regularization.
-
-XXX: may interact with learning rate
-XXX: may cause convergence to fail
-
-This requires access to the steps of the learning loop, and to be able to modify the transitions.
+## Implementation notes
 
 In `hmmlearn`, the HMM models have an internal method `_do_mstep()` which is called on each iteration.
 https://github.com/hmmlearn/hmmlearn/blob/d16c7c851b60e934729eb40ce5ef01164e13a813/lib/hmmlearn/hmm.py#L1171
@@ -45,34 +19,31 @@ Otherwise have to stick to the workaround from https://github.com/jmschrei/pomeg
 
 In `sequentia`, the models just use hmmlearn internally, so one would need to use the hmmlearn approach there.
 
-## Test-case
 
-Periodic waveform going up/down gradually.
-Triangle/sinewave. With some additive noise.
-low=s1,medium=s2,high=s3
-Constraint such that s1->s2 and/or s2->s3 is not allowed, but s3->s2->s1 is allowed.
-Expected: should jump s1->s3 direct when going up, but go s3->s2->s1 when going down.
-Show results with/without constraints.
-Maybe do n=NNN iterations, to make sure it is not initialization dependent.
+## VAD
 
-## Uses of constrained HMMs
+Hidden-Markov-model-based voice activity detector with high speech detection rate for speech enhancement
+https://digital-library.theiet.org/content/journals/10.1049/iet-spr.2010.0282
+2012
 
-TODO: refer to some papers etc that do this, and the purpose/effect
+An improved noise-robust voice activity detector based on hidden semi-Markov models
+https://www.sciencedirect.com/science/article/abs/pii/S0167865511000584
+2011
 
-- [Semi-supervised Constrained Hidden Markov Model Using Multiple Sensors for Remaining Useful Life Prediction and Optimal Predictive Maintenance: for Remaining Useful Life Prediction and Optimal Predictive Maintenance](https://www.researchgate.net/publication/349500297_Semi-supervised_Constrained_Hidden_Markov_Model_Using_Multiple_Sensors_for_Remaining_Useful_Life_Prediction_and_Optimal_Predictive_Maintenance_for_Remaining_Useful_Life_Prediction_and_Optimal_Predicti)
-Xinyu ZhaoYunyi KangHao YanHao YanFeng JuFeng Ju.
-September, 2019.
-Evaluated on NASA Engine degradation data.
-Using a semi-supervised left-to-right constrained Hidden Markov Model (HMM) model,
-where start state is beginning of use, and end state is failure.
-HMM states capturing degradation in condition dynamics.
-On top of this builds a Partial Observable Markov Decision Process (POMDP),
-for predictive maintenance.
-Modify the EM algorithm of the HMM learning based on the left-to-right constraint,
-and the monotonicity constraint in the multiple-sensor setting.
+A semi-continuous state transition probability HMM-based voice activity detection
+https://www.researchgate.net/publication/224751061_A_semi-continuous_state_transition_probability_HMM-based_voice_activity_detection
+June 2004
 
+## AD
 
-## Others that want to do this
+Anomaly Detection with HMM Gauge Likelihood Analysis
+https://arxiv.org/abs/1906.06134
+2019
 
-- https://github.com/jmschrei/pomegranate/issues/9
-- https://stackoverflow.com/questions/63675733/how-to-train-a-hidden-markov-model-with-constrained-probabilities-or-missing-li
+Efficient Modeling of Discrete Events for Anomaly Detection Using Hidden Markov Models
+https://link.springer.com/chapter/10.1007/11556992_38
+2005
+
+Hidden Markov Model-based Tool Wear Monitoring in Turning
+https://www.researchgate.net/publication/245368193_Hidden_Markov_Model-based_Tool_Wear_Monitoring_in_Turning
+2002
