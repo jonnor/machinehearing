@@ -1,7 +1,7 @@
 
 # Constrained Hidden Markov Models
 
-Hidden Markov Model are simple but powerful learners for sequential data
+[Hidden Markov Models](https://en.wikipedia.org/wiki/Hidden_Markov_model) are simple but powerful learners for sequential data
 (including time-series, genetic sequences et.c.),
 and are especially useful in unsupervised learning setting.
 
