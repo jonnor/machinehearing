@@ -33,15 +33,19 @@ doing constrains on the transition matrix can be done easily
 by subclassing and overriding the `_do_mstep` method, and manipulating `self.transmat_`.
 
 ```
+```python
 class ConstrainedGaussianHMM(hmmlearn.hmm.GaussianHMM):
     def _do_mstep(self, stats):
         
         # do the standard HMM learning step
         super()._do_mstep(stats)
                 
+        # NOTE: the mapping of state indices to the data is nondeterministic
+        # so you should find a heuristic to identify the correct ones
+        s2 = 1, s3 = 2
+
         # manipulate the transition matrix as you see fit
-        self.transmat_[1,2] = 0.0
-        self.transmat_[2,3] = 0.0
+        self.transmat_[s2,s3] = 0.0
 ```
 See [ConstrainedHMM.ipynb](./ConstrainedHMM.ipynb) for a full example.
 
