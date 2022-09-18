@@ -27,14 +27,33 @@ There topology changes is espected to interact with other hyper-parameters, such
 
 ## Implementations
 
-For examples of contrained HMMs using
-[hmmlearn](https://github.com/hmmlearn/hmmlearn)
-and [pomegranate](https://github.com/jmschrei/pomegranate) Python libraries,
-see [ConstrainedHMM.ipynb](./ConstrainedHMM.ipynb).
+#### hmmlearn
+With the [hmmlearn](https://github.com/hmmlearn/hmmlearn) Python library,
+doing constrains on the transition matrix can be done easily
+by subclassing and overriding the `_do_mstep` method, and manipulating `self.transmat_`.
 
-The neccesary code is intended to be copied and modified as needed to suit a particular purpose.
-There are no plans for a generic software library.
-If the needs are strong enough, we recommend that the functionality is added to the HMM libraries themselves.
+```
+class ConstrainedGaussianHMM(hmmlearn.hmm.GaussianHMM):
+    def _do_mstep(self, stats):
+        
+        # do the standard HMM learning step
+        super()._do_mstep(stats)
+                
+        # manipulate the transition matrix as you see fit
+        self.transmat_[1,2] = 0.0
+        self.transmat_[2,3] = 0.0
+```
+See [ConstrainedHMM.ipynb](./ConstrainedHMM.ipynb) for a full example.
+
+### pomegranate
+
+```
+WORK IN PROGRESS
+```
+
+For the [pomegranate](https://github.com/jmschrei/pomegranate) Python library,
+the process is currently much more involved.
+
 
 ## Special cases
 
