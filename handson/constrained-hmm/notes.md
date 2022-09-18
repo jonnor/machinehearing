@@ -2,12 +2,8 @@
 ## Others that want to do this
 
 - https://github.com/jmschrei/pomegranate/issues/9
-- https://stackoverflow.com/questions/63675733/how-to-train-a-hidden-markov-model-with-constrained-probabilities-or-missing-li
 
 ## Implementation notes
-
-In `hmmlearn`, the HMM models have an internal method `_do_mstep()` which is called on each iteration.
-https://github.com/hmmlearn/hmmlearn/blob/d16c7c851b60e934729eb40ce5ef01164e13a813/lib/hmmlearn/hmm.py#L1171
 
 In `pomegranate`, the HMM models have a public callback API.
 The callback `on_epoch_end` is called on each iteration.
@@ -18,7 +14,6 @@ Clean solution would be to expose an optional callback for modifying this.
 Otherwise have to stick to the workaround from https://github.com/jmschrei/pomegranate/issues/9
 
 In `sequentia`, the models just use hmmlearn internally, so one would need to use the hmmlearn approach there.
-
 
 ## VAD
 
