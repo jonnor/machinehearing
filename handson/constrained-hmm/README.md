@@ -41,7 +41,7 @@ If the needs are strong enough, we recommend that the functionality is added to 
 Several topologies with particular constraints have been defined.
 This include (a) linear model, (b) Bakis model, (c) left-to-right model, and (d) ergodic model.
 
-![HMM topologies](./img/HMM-topologies-Markov-Models-for-Pattern-Recognition.png)
+![HMM topologies](./img/HMM-topologies-Markov-Models-for-Pattern-Recognition_h400.png)
 
 Image from [Markov Models for Pattern Recognition, pp 127–136](https://link.springer.com/chapter/10.1007/978-3-540-71770-6_8).
 
@@ -77,5 +77,12 @@ Proposes a HMM with transition contraints to satisfy the Hardy-Weinberg equilibr
 Combined acoustic emission and vibration sensors.
 Used an HMM with 3 states; Entry, In-progress, Exit; and only allowing the transitions Entry -> In-progress -> Exit (in addition to self transitions).
 Computing an anomaly score from the differences in log probabiliis between model fitted early in machine lifetime.
+
+![A HMM topology for sleep stage tracking](./img/12938_2011_Article_558_Fig2_HTML_h300.png).
+
+![A HMM topology for machine condition monitoring](./img/hmm-semisup-machine-condition_low.png).
+
+
+
 
 
