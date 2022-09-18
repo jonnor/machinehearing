@@ -73,10 +73,11 @@ and the monotonicity constraint in the multiple-sensor setting.
 Niels Landwehr, Taneli Mielikäinen, Lauri Eronen, Hannu Toivonen & Heikki Mannila.
 May, 2007.
 Proposes a HMM with transition contraints to satisfy the Hardy-Weinberg equilibrium assumption.
-- [](https://www.extrica.com/article/15019).
+- [Online milling tool condition monitoring with a single continuous hidden Markov models approach](https://www.extrica.com/article/15019).
 Combined acoustic emission and vibration sensors.
 Used an HMM with 3 states; Entry, In-progress, Exit; and only allowing the transitions Entry -> In-progress -> Exit (in addition to self transitions).
-Computing an anomaly score from the differences in log probabiliis between model fitted early in machine lifetime.
+Like a linear topology, but without allowing cycling.
+Computing an anomaly score from the differences in log probabilities between model fitted early in machine lifetime.
 
 ![A HMM topology for sleep stage tracking](./img/12938_2011_Article_558_Fig2_HTML_h300.png).
 
