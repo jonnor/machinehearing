@@ -32,7 +32,6 @@ With the [hmmlearn](https://github.com/hmmlearn/hmmlearn) Python library,
 doing constrains on the transition matrix can be done easily
 by subclassing and overriding the `_do_mstep` method, and manipulating `self.transmat_`.
 
-```
 ```python
 class ConstrainedGaussianHMM(hmmlearn.hmm.GaussianHMM):
     def _do_mstep(self, stats):
