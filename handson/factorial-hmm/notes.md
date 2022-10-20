@@ -23,14 +23,33 @@ The number of states is often just 2, ON or OFF.
 
 - [NILMTK: Non-Intrusive Load Monitoring Toolkit](https://github.com/nilmtk/nilmtk).
 Contains dataset parsers, evaluation tools and baseline models with a standardized API. 
+! not installable from PyPi
+! setup.py has very specific dependencies on matplotlib,pandas,networkx etc
 - [Torch-NILM](https://github.com/Virtsionis/torch-nilm).
 Contains tools to evaluate neural NILMs in PyTorch. Also contains a set of strong baseline models.
 Compatible with NILMTK.
+! not installable from PyPi 
+! no setup.py file available
 - [Tutorial on implementing Additive Factorial HMM in Python](https://nbviewer.org/github/nilmtk/nilmtk/blob/v0.1.0/notebooks/fhmm.ipynb). By Nipun Batra, part of nimlmtk.
 - [Python implementation by Nelli Gofman](https://github.com/pipette/Electricity-load-disaggregation).
 Has its own implementation of the Fractorial HMM, using a naive strategy.
 Testing on UK-DALE dataset.
 - [nilm-eval FHMM](https://github.com/beckel/nilm-eval/blob/master/Python/fhmm.py).
 Based on tutorial by Nipun Batra.
+! not updated since 2015. Uses sklearn.hmm, which was made into hmmlearn a log time ago
 - [wikienergy tutorial on FHMM in Python](https://github.com/dssg/wikienergy/blob/master/docs/tutorials/FHMM_Tutorial.ipynb)
+!not updated since 2016
+
+
+https://github.com/nilmtk/nilmtk-contrib/blob/master/nilmtk_contrib/disaggregate/
+
+
+##
+
+Trying out disaggregators from nilmtk
+
+pip install git+https://github.com/nilmtk/nilm_metadata
+pip install git+https://github.com/jonnor/nilmtk
+pip install git+https://github.com/jonnor/nilmtk-contrib
+
 
