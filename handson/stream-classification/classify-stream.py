@@ -7,18 +7,10 @@ import datetime
 import matplotlib.pyplot as plt
 import numpy
 import sounddevice
-
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
-
-import inference as yamnet 
+import pandas
 
 import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-
 import logging
-logging.getLogger("tensorflow").setLevel(logging.ERROR)
-logging.getLogger("tensorflow").addHandler(logging.NullHandler(logging.ERROR))
 
 def int_or_str(text):
     """Helper function for argument parsing."""
@@ -56,6 +48,83 @@ def parse():
     return parser, args
 
 
+class SoundcardInput():
+
+    def __init__(self, device, samplerate=16000, channels=[1]):
+
+        self.channels = channels
+
+        self.device = device
+        self.samplerate = samplerate
+        self.audio_queue = queue.Queue()
+        self.stream = None
+
+    def open(self):
+
+        def audio_callback(indata, frames, time, status):
+            """This is called (from a separate thread) for each audio block."""
+            if status:
+                print(status, file=sys.stderr)
+
+            mapping = [c - 1 for c in self.channels]  # Channel numbers start with 1
+
+            # Make sure to copy input
+            data = indata[:, mapping].copy()
+            self.audio_queue.put(data)
+
+        self.stream = sounddevice.InputStream(
+            device=self.device, channels=max(self.channels),
+            samplerate=self.samplerate, callback=audio_callback)
+
+        # TODO: use a custom context manager that wraps stream
+        return self.stream
+
+class AudioChunker():
+    def __init__(self, window_size, window_hop):
+        self.window_size = window_size
+        self.window_hop = window_hop
+
+        # output
+        self.window_queue = queue.Queue()
+
+        # internal
+        self.audio_buffer = numpy.zeros(shape=(window_size,))
+        self.new_samples = 0
+
+    def push_audio(self, data):
+        # move existing data over
+        self.audio_buffer = numpy.roll(self.audio_buffer, len(data), axis=0)
+        # add the new data
+        self.audio_buffer[len(self.audio_buffer)-len(data):len(self.audio_buffer)] = data
+
+        # check if we have received enough new data to output a new window
+        self.new_samples += len(data)
+        #print('push', self.new_samples)
+        if self.new_samples >= self.window_hop:
+            w = self.audio_buffer.copy()
+            self.window_queue.put(w)
+            self.new_samples -= self.window_size 
+
+
+def spectrum_stft(audio, sr, n_fft, window):
+    """Method 1: Compute magnitude spectrogram, average over time"""
+    import librosa
+    S = librosa.stft(audio, n_fft=n_fft, window=window)
+    S_db = librosa.amplitude_to_db(numpy.abs(S*S), ref=0.0, top_db=120)
+    freqs = librosa.fft_frequencies(sr=sr, n_fft=n_fft)
+    spectrum = numpy.mean(S_db, axis=1)
+    return pandas.Series(spectrum, index=freqs)
+
+def spectrum_welch(audio, sr, n_fft, window):
+    """Method 2: Use Welch method. Uses overlapped complex spectrum"""
+    import scipy.signal
+    import librosa
+    freqs, power = scipy.signal.welch(audio, fs=sr, nfft=n_fft, window=window,
+        scaling="spectrum", average='median')
+    db = librosa.power_to_db(power, ref=0.0, top_db=120)
+    return pandas.Series(db, index=freqs)
+
+
 
 def main():
     parser, args = parse()
@@ -70,77 +139,35 @@ def main():
         device_info = sounddevice.query_devices(args.device, 'input')
         args.samplerate = device_info['default_samplerate']
 
+    samplerate = args.samplerate
 
-    mapping = [c - 1 for c in args.channels]  # Channel numbers start with 1
-    q = queue.Queue()
+    stream = SoundcardInput(device=args.device, channels=args.channels, samplerate=samplerate)
 
-    def audio_callback(indata, frames, time, status):
-        """This is called (from a separate thread) for each audio block."""
-        if status:
-            print(status, file=sys.stderr)
+    duration = 1.0
+    overlap = args.overlap
+    hop_length = int(duration*samplerate) * (1-overlap)
 
-        # Fancy indexing with mapping creates a (necessary!) copy:
-        q.put(indata[:, mapping])
-        #print(indata.shape)
+    n_fft = 1024*8
 
-    stream = sounddevice.InputStream(
-        device=args.device, channels=max(args.channels),
-        samplerate=args.samplerate, callback=audio_callback)
+    chunker = AudioChunker(window_size=int(duration*samplerate), window_hop=hop_length)
 
-    print('stream open', args.device, stream)
-
-    assert args.samplerate == 16000
-    n_samples = int(args.samplerate*0.960*1.05)
-    hop_length = n_samples * (1-args.overlap)
-    new_samples = 0
-
-    audio_buffer = numpy.zeros(shape=(n_samples,))
-
-    model = yamnet.Model()
-
-    import keras
-    import tensorflow
-
-    with stream:
+    with stream.open():
         while True:
-            data = q.get()
+            data = stream.audio_queue.get()
             data = numpy.squeeze(data)
             
-            #print(data.shape)
-            # move existing data over
-            audio_buffer = numpy.roll(audio_buffer, len(data), axis=0)
-            # add the new data
-            audio_buffer[len(audio_buffer)-len(data):len(audio_buffer)] = data
+            print('audio', data.shape)
+            chunker.push_audio(data)
 
-            # check if we have received enough new data to do new classification
-            new_samples += len(data)
-            if new_samples >= hop_length:
-                t = datetime.datetime.now()
-
-                new_samples = 0
-    
-                waveform = audio_buffer
-
-                with model.graph.as_default():
-                    #x = numpy.reshape(waveform, [1, -1])
-                    x = numpy.expand_dims(waveform, 0)
-                    #x = numpy.expand_dims(x, -1)
-
-                    scores, _spec, embeddings = model.yamnet.predict(x, steps=1, batch_size=1)
-
-                    # Report the highest-scoring classes and their scores.
-                    prediction = numpy.mean(scores, axis=0)
-                    top_n = 3                   
-                    top = numpy.argsort(prediction)[::-1][:top_n]
-
-                    def format_pred(i):
-                        return '  {:12s}: {:.3f}'.format(model.class_names[i], prediction[i])
-
-                    if numpy.max(prediction) > 0.3:
-
-                        print('classify', t)
-                        print('\n'.join(format_pred(i) for i in top))
-
+            w = None
+            try:
+                w = chunker.window_queue.get(block=False)
+            except queue.Empty as e:
+                pass
+            if w is not None:
+                print('window', w.shape)
+                s = spectrum_welch(w, sr=samplerate, n_fft=n_fft, window='hann')
+                print(s)
 
     print('stopped')
 
