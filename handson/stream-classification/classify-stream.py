@@ -146,6 +146,20 @@ def freq_response_configure_xaxis(ax, fmin=10, fmax=22000):
     ax.xaxis.set_minor_formatter(ticker.NullFormatter())   
     ax.grid(visible=True, axis='x')
 
+def butter_bandpass(lowcut, highcut, fs, order=5):
+    import scipy.signal
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = scipy.signal.butter(order, [low, high], btype='band')
+    return b, a
+
+def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
+    import scipy.signal
+    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+    y = scipy.signal.lfilter(b, a, data)
+    return y
+
 class Analyzer():
 
     def __init__(self, samplerate, history_steps):
@@ -190,8 +204,13 @@ class Analyzer():
 
 
     def push_audio(self, w):
+        print('push', w.shape)
+
+
         samplerate = self.samplerate
         n_fft = 1024*8
+
+        w = butter_bandpass_filter(w, lowcut=20, highcut=2000, fs=samplerate, order=5)
 
         spectrum_ax = self.spectrum_ax
         timeline_ax = self.timeline_ax
@@ -208,25 +227,31 @@ class Analyzer():
         sl = soundlevel(w, sr=samplerate, length=0.125)
         sl = pandas.Series(sl)
 
-        cum = spectrum.cumsum() / spectrum.sum()
+        #cum = spectrum.cumsum() / spectrum.sum()
 
         #print(cum[(cum < 0.10)])
-        upper = cum[(cum > 0.50)].index[0]
-        lower = cum[(cum < 0.10)].index[-1]
+        #upper = cum[(cum > 0.50)].index[0]
+        #lower = cum[(cum < 0.10)].index[-1]
 
         import librosa
         S = librosa.stft(y=w, n_fft=n_fft)
         S = numpy.abs(S)
+        #print(S.shape)
         #S = numpy.expand_dims(spectrum, 1)
-        centroid = librosa.feature.spectral_rolloff(S=S, n_fft=n_fft, sr=samplerate, roll_percent=0.20)
-        centroid = numpy.median(centroid)
-        print(centroid)
+        #print(S.shape)
+        # FIXME: rolloff broken with Welch spectrum
+        lower = librosa.feature.spectral_rolloff(S=S, n_fft=n_fft, sr=samplerate, roll_percent=0.20)
+        lower = numpy.median(lower)
+
+        upper = librosa.feature.spectral_rolloff(S=S, n_fft=n_fft, sr=samplerate, roll_percent=0.50)
+        upper = numpy.median(upper)
 
         f = {
             'soundlevel.q50' : sl.quantile(0.50),
-            'spectrum.q25' : centroid,
-            'spectrum.q75' : centroid,
+            'spectrum.q25' : lower,
+            'spectrum.q75' : upper,
         }
+        print(f)
         self.push_features(f)
 
         # Run anomaly detection
@@ -245,7 +270,7 @@ class Analyzer():
         spectrum_ax.plot(spectrum.index, spectrum.values)
         freq_response_configure_xaxis(spectrum_ax, fmax=(self.samplerate/2))
 
-        spectrum_ax.set_ylim(50, 80)
+        spectrum_ax.set_ylim(20, 60)
 
         spectrum_ax.axvline(f['spectrum.q75'])
         spectrum_ax.axvline(f['spectrum.q25'])
@@ -264,10 +289,11 @@ class Analyzer():
 
         #timeline_ax.plot(t, y)
 
+        norm_scores = -1.0 * (scores - numpy.max(scores))
 
         anomaly_ax.clear()
-        anomaly_ax.plot(t, scores)
-        anomaly_ax.set_ylim(-1.0, 0.0)
+        anomaly_ax.plot(t, norm_scores, color='red')
+        anomaly_ax.set_ylim(0.0, 1.0)
 
         dur = update_end_time - update_start_time
         print(f'Update {dur*1000:.0f}ms')
