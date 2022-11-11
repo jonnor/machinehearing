@@ -133,6 +133,145 @@ def soundlevel(audio, sr, length=0.125):
     db = numpy.squeeze(db)
     return db
 
+def freq_response_configure_xaxis(ax, fmin=10, fmax=22000):
+    import matplotlib.ticker as ticker
+
+    # X axis
+    ax.set_xlabel('Frequency (Hz)')
+    ax.set(xlim=(fmin, fmax), xscale='log')
+    f_major = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]
+    ax.xaxis.set_major_locator(ticker.FixedLocator(f_major))
+    ax.xaxis.set_major_formatter(ticker.FixedFormatter(f_major))
+    ax.xaxis.set_minor_locator(ticker.LogLocator(base=10, numticks=10))
+    ax.xaxis.set_minor_formatter(ticker.NullFormatter())   
+    ax.grid(visible=True, axis='x')
+
+class Analyzer():
+
+    def __init__(self, samplerate, history_steps):
+
+        self.samplerate = samplerate
+        self.history_steps = history_steps
+    
+        fig, (self.spectrum_ax, self.timeline_ax)  = plt.subplots(nrows=2, figsize=(6, 3))
+
+        self.anomaly_ax = self.timeline_ax.twinx()
+
+        self.fig = fig
+        
+        self.features = {
+            'soundlevel.q50': [],
+            'spectrum.q25': [],
+            'spectrum.q75': [],
+        }
+
+        #self.anomaly_scores = []
+
+    def push_features(self, features):
+        steps = self.history_steps
+
+        for name, value in features.items():
+
+            s = self.features[name]
+            print(len(s))
+
+            # in the start, fill everything with same value
+            if len(s) == 0:
+                s = [ value ] * steps
+            else:
+                # in normal case, shift old data, append new
+                s = s[1:]
+                print('app', len(s))
+                s.append(value)
+
+            assert len(s) == steps, (len(s), steps)
+
+            self.features[name] = s
+
+
+    def push_audio(self, w):
+        samplerate = self.samplerate
+        n_fft = 1024*8
+
+        spectrum_ax = self.spectrum_ax
+        timeline_ax = self.timeline_ax
+        anomaly_ax = self.anomaly_ax
+
+
+        update_start_time = time.time()
+
+        # Analyze the new audio
+
+        #print('window', w.shape)
+        spectrum = spectrum_welch(w, sr=samplerate, n_fft=n_fft, window='hann')
+
+        sl = soundlevel(w, sr=samplerate, length=0.125)
+        sl = pandas.Series(sl)
+
+        cum = spectrum.cumsum() / spectrum.sum()
+
+        #print(cum[(cum < 0.10)])
+        upper = cum[(cum > 0.50)].index[0]
+        lower = cum[(cum < 0.10)].index[-1]
+
+        import librosa
+        S = librosa.stft(y=w, n_fft=n_fft)
+        S = numpy.abs(S)
+        #S = numpy.expand_dims(spectrum, 1)
+        centroid = librosa.feature.spectral_rolloff(S=S, n_fft=n_fft, sr=samplerate, roll_percent=0.20)
+        centroid = numpy.median(centroid)
+        print(centroid)
+
+        f = {
+            'soundlevel.q50' : sl.quantile(0.50),
+            'spectrum.q25' : centroid,
+            'spectrum.q75' : centroid,
+        }
+        self.push_features(f)
+
+        # Run anomaly detection
+        from sklearn.ensemble import IsolationForest
+
+        est = IsolationForest(n_estimators=50)
+
+        X = pandas.DataFrame(self.features)
+        est.fit(X)
+        scores = est.score_samples(X)
+
+        # Update user interface
+ 
+        # Spectrum view
+        spectrum_ax.clear()
+        spectrum_ax.plot(spectrum.index, spectrum.values)
+        freq_response_configure_xaxis(spectrum_ax, fmax=(self.samplerate/2))
+
+        spectrum_ax.set_ylim(50, 80)
+
+        spectrum_ax.axvline(f['spectrum.q75'])
+        spectrum_ax.axvline(f['spectrum.q25'])
+
+        # Features time series
+        timeline_ax.clear()
+        
+        # TODO: plot all feature values
+        y = self.features['soundlevel.q50']
+        t = numpy.arange(0, len(y))
+        timeline_ax.plot(t, y)
+        timeline_ax.set_ylim(60, 100)
+
+
+        update_end_time = time.time()
+
+        #timeline_ax.plot(t, y)
+
+
+        anomaly_ax.clear()
+        anomaly_ax.plot(t, scores)
+        anomaly_ax.set_ylim(-1.0, 0.0)
+
+        dur = update_end_time - update_start_time
+        print(f'Update {dur*1000:.0f}ms')
+
 
 
 def main():
@@ -157,26 +296,13 @@ def main():
     hop_duration = duration * (1-overlap)
     hop_length = int(samplerate * hop_duration) 
 
-    n_fft = 1024*8
 
     chunker = AudioChunker(window_size=int(duration*samplerate), window_hop=hop_length)
 
-    import matplotlib.pyplot as plt
-    from matplotlib.animation import FuncAnimation
-    from random import randrange
+    history = 20.0
+    history_steps = int(history / hop_duration)
 
-    history = 60.0
-    history_steps = (history / hop_duration)
-
-    fig, (spectrum_ax, timeline_ax)  = plt.subplots(nrows=2, figsize=(6, 3))
-
-    features = {
-        'soundlevel.q50': [],
-        'spectrum.q25': [],
-        'spectrum.q75': [],
-    }
-
-    print('ssshow')
+    analyze = Analyzer(samplerate=samplerate, history_steps=history_steps)
 
     with stream.open():
         while True:
@@ -192,34 +318,7 @@ def main():
             except queue.Empty as e:
                 pass
             if w is not None:
-
-                update_start_time = time.time()
-
-                #print('window', w.shape)
-                spectrum = spectrum_welch(w, sr=samplerate, n_fft=n_fft, window='hann')
-
-                sl = soundlevel(w, sr=samplerate, length=0.125)
-                sl = pandas.Series(sl)
-
-                features['soundlevel.q50'].append(sl.quantile(0.50))
-
-                features['spectrum.q25'].append(spectrum.quantile(0.25))
-                features['spectrum.q75'].append(spectrum.quantile(0.75))
-
-                # TODO: remove oldest value    
-                # let older values fade away, lower opacity
-                spectrum_ax.plot(spectrum.index, spectrum.values)
-
-                timeline_ax.clear()
-
-                y = features['soundlevel.q50']
-                t = numpy.arange(0, len(y))
-                timeline_ax.plot(t, y)
-
-                update_end_time = time.time()
-
-                dur = update_end_time - update_start_time
-                print(f'Update {dur*1000:.0f}ms')
+                analyze.push_audio(w)
 
             plt.pause(0.001)
 
