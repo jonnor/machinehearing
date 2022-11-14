@@ -166,18 +166,20 @@ class Analyzer():
 
         self.samplerate = samplerate
         self.history_steps = history_steps
-    
-        fig, (self.spectrum_ax, self.timeline_ax)  = plt.subplots(nrows=2, figsize=(6, 3))
 
-        self.anomaly_ax = self.timeline_ax.twinx()
-
-        self.fig = fig
-        
         self.features = {
             'soundlevel.q50': [],
             'spectrum.q25': [],
             'spectrum.q75': [],
         }
+
+        rows = [ 'spectrum' ] + list(self.features.keys()) + [ 'anomaly' ] 
+  
+        fig, axs  = plt.subplots(nrows=len(rows), figsize=(6, 3))
+
+        self.fig = fig
+        self.axes = { k: v for k, v in zip(rows, axs) }        
+
 
         #self.anomaly_scores = []
 
@@ -211,10 +213,6 @@ class Analyzer():
         n_fft = 1024*8
 
         w = butter_bandpass_filter(w, lowcut=20, highcut=2000, fs=samplerate, order=5)
-
-        spectrum_ax = self.spectrum_ax
-        timeline_ax = self.timeline_ax
-        anomaly_ax = self.anomaly_ax
 
 
         update_start_time = time.time()
@@ -266,24 +264,23 @@ class Analyzer():
         # Update user interface
  
         # Spectrum view
+        spectrum_ax = self.axes['spectrum']
         spectrum_ax.clear()
         spectrum_ax.plot(spectrum.index, spectrum.values)
         freq_response_configure_xaxis(spectrum_ax, fmax=(self.samplerate/2))
-
-        spectrum_ax.set_ylim(20, 60)
-
         spectrum_ax.axvline(f['spectrum.q75'])
         spectrum_ax.axvline(f['spectrum.q25'])
 
-        # Features time series
-        timeline_ax.clear()
-        
-        # TODO: plot all feature values
-        y = self.features['soundlevel.q50']
-        t = numpy.arange(0, len(y))
-        timeline_ax.plot(t, y)
-        timeline_ax.set_ylim(60, 100)
 
+        # Plot all the features
+        for feature_name in self.features.keys():
+            ax = self.axes[feature_name]
+            ax.clear()
+
+            y = self.features[feature_name]
+            t = numpy.arange(0, len(y))
+            ax.plot(t, y)
+            ax.set_ylabel(feature_name)
 
         update_end_time = time.time()
 
@@ -291,9 +288,11 @@ class Analyzer():
 
         norm_scores = -1.0 * (scores - numpy.max(scores))
 
+        anomaly_ax = self.axes['anomaly']
         anomaly_ax.clear()
         anomaly_ax.plot(t, norm_scores, color='red')
         anomaly_ax.set_ylim(0.0, 1.0)
+        anomaly_ax.set_ylabel('Anomaly score')
 
         dur = update_end_time - update_start_time
         print(f'Update {dur*1000:.0f}ms')
