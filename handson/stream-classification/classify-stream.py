@@ -180,8 +180,7 @@ class Analyzer():
         self.fig = fig
         self.axes = { k: v for k, v in zip(rows, axs) }        
 
-
-        #self.anomaly_scores = []
+        self.anomaly_scores = []
 
     def push_features(self, features):
         steps = self.history_steps
@@ -263,7 +262,10 @@ class Analyzer():
 
         # Update user interface
  
+
+
         # Spectrum view
+        #print(spectrum)
         spectrum_ax = self.axes['spectrum']
         spectrum_ax.clear()
         spectrum_ax.plot(spectrum.index, spectrum.values)
@@ -285,12 +287,20 @@ class Analyzer():
         update_end_time = time.time()
 
         #timeline_ax.plot(t, y)
+    
+        self.anomaly_scores = []
 
-        norm_scores = -1.0 * (scores - numpy.max(scores))
+        norm_scores = numpy.clip(-1.0 * (scores + 0.5), 0.0, 1.0)
+
+        if len(self.anomaly_scores) == 0:
+            self.anomaly_scores = norm_scores
+        else:
+            self.anomaly_scores = self.anomaly_scores[1:] 
+            self.anomaly_scores.append(norm_scores[-1])
 
         anomaly_ax = self.axes['anomaly']
         anomaly_ax.clear()
-        anomaly_ax.plot(t, norm_scores, color='red')
+        anomaly_ax.plot(t, self.anomaly_scores, color='red')
         anomaly_ax.set_ylim(0.0, 1.0)
         anomaly_ax.set_ylabel('Anomaly score')
 
