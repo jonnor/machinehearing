@@ -193,9 +193,14 @@ class Analyzer():
             #'spectrum.upper': [],
         }
 
-        rows = [ 'spectrum' ] + list(self.features.keys()) + [ 'anomaly', 'dist' ] 
-  
-        fig, axs  = plt.subplots(nrows=len(rows), figsize=(6, 3))
+        rows = [ 'spectrum' ] + list(self.features.keys()) + [ 'anomaly' ] 
+        widths = [2, 1, 1, 1]
+        print(len(rows), len(widths))
+
+        fig, axs  = plt.subplots(nrows=len(rows),
+            figsize=(6, 3), 
+            gridspec_kw={'height_ratios': widths},
+        )
 
         self.fig = fig
         self.axes = { k: v for k, v in zip(rows, axs) }        
@@ -306,7 +311,7 @@ class Analyzer():
         #print(spectrum)
         spectrum_ax = self.axes['spectrum']
         spectrum_ax.clear()
-        spectrum_ax.plot(spectrum.index, spectrum.values, color='black')
+        spectrum_ax.plot(spectrum.index, spectrum.values, color='grey', alpha=1.0)
         freq_response_configure_xaxis(spectrum_ax, fmax=(self.samplerate/2))
         spectrum_ax.set_ylabel("Audio spectrum")
 
@@ -315,11 +320,11 @@ class Analyzer():
             if not self.features.get(name):
                 continue
             color = feature_colors[name]
-            spectrum_ax.axvline(f[name], color=color, alpha=0.5)
+            spectrum_ax.axvline(f[name], color=color, alpha=0.5, lw=1.5)
 
         for name in ['soundlevel.typical']:
             color = feature_colors[name]
-            spectrum_ax.axhline(f[name], color=color, alpha=0.5)
+            spectrum_ax.axhline(f[name], color=color, alpha=0.5, lw=1.5)
 
         hop_duration = float(self.hop_length) / self.samplerate
 
@@ -387,11 +392,11 @@ class Analyzer():
 
         anomaly_ax.axhline(threshold, ls='--', alpha=0.2, color='red')
     
-        scatter_ax = self.axes['dist']
+        scatter_ax = self.axes['spectrum']
         y_feature = 'soundlevel.typical'
         x_feature = 'spectrum.lower'
 
-        scatter_ax.clear()
+        #scatter_ax.clear()
 
         r, g, b = 0, 0, 0
 
@@ -401,13 +406,13 @@ class Analyzer():
 
         alphas = numpy.linspace(0.05, 0.8, len(self.features[x_feature]))
         color = [ (0, 0, 0, a) if s < threshold else (0.8, 0, 0, a) for s, a in zip(self.anomaly_scores, alphas)  ]
-        scatter_ax.scatter(self.features[x_feature], self.features[y_feature], color=color)
+        scatter_ax.scatter(self.features[x_feature], self.features[y_feature], color=color, s=10.0)
 
         x_lim = estimate_limits(self.features[x_feature], min=0)
         y_lim = estimate_limits(self.features[y_feature], min=0)
 
-        scatter_ax.set_xlim(x_lim)
-        scatter_ax.set_ylim(y_lim)
+        #scatter_ax.set_xlim(x_lim)
+        #scatter_ax.set_ylim(y_lim)
     
 
         dur = update_end_time - update_start_time
@@ -462,7 +467,7 @@ def main():
                 chunk_no += 1
                 # potentially ignore first chunks,
                 # since audio data often has not quite settled
-                if chunk_no > 0:
+                if chunk_no > 1:
                     analyze.push_audio(w)
 
 
