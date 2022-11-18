@@ -179,6 +179,60 @@ def estimate_limits(v, sigma=3, min=None, max=None):
         upper = numpy.maximum(max, upper)
     return lower, upper
 
+def plot_decision_contours_2d(ax, estimator,
+        x_lim=None, y_lim=None,
+        points=40,
+        levels=10,
+        threshold=0.5,
+        scaler=None,
+        alpha=0.2,
+        cmap=None):
+
+    if cmap is None:
+        cmap = 'RdYlGn_r'
+
+    if x_lim is None:
+        x_lim = ax.get_xlim()
+    if y_lim is None:
+        y_lim = ax.get_ylim()
+
+    x = numpy.linspace(x_lim[0], x_lim[1], points)
+    y = numpy.linspace(y_lim[0], y_lim[1], points)
+    X, Y = numpy.meshgrid(x, y)
+ 
+    # FIXME: make sure feature orientation is corrext
+    X_grid = numpy.c_[Y.ravel(), X.ravel()]
+
+    Z = estimator.score_samples(X_grid)
+    print(X_grid.shape, Z.shape)
+    Z_shape = Z.reshape(points, points)
+    if scaler is not None:
+        Z_shape = scaler(Z_shape)
+
+    CS = ax.contourf(X, Y, Z_shape, levels=levels, cmap=cmap, alpha=alpha, zorder=-100)
+
+def score_scaler(est, scores, kind=None):
+    """
+    Attempt to return a sane 0.0-1.0 anomaly score
+    """
+    if kind is None:
+        kind = type(est)
+
+    if kind == 'LocalOutlierFactor':
+        scaled = -1.0 * (scores + 1.5)
+        scaled *= 0.5
+    elif kind == 'EllipticEnvelope':
+        scaled = -1.0 * (scores)
+        scaled *= 0.005
+    elif kind == 'IsolationForest':
+        scaled = -1.0 * (scores + 0.5)
+        scaled *= 2.0
+    else:
+        raise ValueError(f'Unknown estimator type {kind}')
+
+    norm_scores = numpy.clip(scaled, 0.0, 1.0)
+    return norm_scores
+
 class Analyzer():
 
     def __init__(self, samplerate, history_steps, hop_length):
@@ -289,18 +343,23 @@ class Analyzer():
         from sklearn.pipeline import make_pipeline
         from sklearn.covariance import EllipticEnvelope
 
-        #est = IsolationForest(n_estimators=50)
+        est = IsolationForest(n_estimators=50)
+        est_kind = 'IsolationForest'
+
         est = make_pipeline(
             RobustScaler(),
             LocalOutlierFactor(n_neighbors=5, novelty=True),
         )
+        est_kind = 'LocalOutlierFactor'
+
         est = make_pipeline(
             #RobustScaler(),
             EllipticEnvelope(),
         )
+        est_kind = 'EllipticEnvelope'
 
         X = pandas.DataFrame(self.features)
-        X = X + (0.01+numpy.random.random(size=X.shape))
+        X = X + (0.01+numpy.random.random(size=X.shape)) # avoid collapse when all datapoints are same
         est.fit(X)
         scores = est.score_samples(X)
 
@@ -353,25 +412,10 @@ class Analyzer():
         update_end_time = time.time()
 
         #timeline_ax.plot(t, y)
-    
+        norm_scores = score_scaler(est, scores, kind=est_kind)
+
         # Compute anomaly scores
         self.anomaly_scores = []
-
-
-        # LocalOutlierFactor
-        #scaled = -1.0 * (scores + 1.5)
-        #scaled *= 0.5
-
-        #print(scores)
-
-        # EllipticEnvelope
-        scaled = -1.0 * (scores)
-        scaled *= 0.005
-
-        # isolationforest
-        #scaled = -1.0 * (scores + 0.5)
-        #scaled *= 2.0
-        norm_scores = numpy.clip(scaled, 0.0, 1.0)
 
         if len(self.anomaly_scores) == 0:
             self.anomaly_scores = norm_scores
@@ -405,7 +449,7 @@ class Analyzer():
         anomalies = self.anomaly_scores > threshold
 
         alphas = numpy.linspace(0.05, 0.8, len(self.features[x_feature]))
-        color = [ (0, 0, 0, a) if s < threshold else (0.8, 0, 0, a) for s, a in zip(self.anomaly_scores, alphas)  ]
+        color = [ (0, 0.95, 0, a) if s < threshold else (0.8, 0, 0, a) for s, a in zip(self.anomaly_scores, alphas)  ]
         scatter_ax.scatter(self.features[x_feature], self.features[y_feature], color=color, s=10.0)
 
         x_lim = estimate_limits(self.features[x_feature], min=0)
@@ -414,6 +458,14 @@ class Analyzer():
         #scatter_ax.set_xlim(x_lim)
         #scatter_ax.set_ylim(y_lim)
     
+
+        plot_decision_contours_2d(scatter_ax, est, threshold=threshold,
+            #x_lim = (20, 2000),
+            #y_lim = (00, 30),
+            scaler=lambda s: score_scaler(est, s, kind=est_kind),
+            points=50,
+            alpha=0.1,
+        )
 
         dur = update_end_time - update_start_time
         print(f'Update {dur*1000:.0f}ms')
