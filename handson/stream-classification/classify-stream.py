@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy
 import sounddevice
 import pandas
+import seaborn
 
 
 def int_or_str(text):
@@ -81,6 +82,11 @@ class SoundcardInput():
         return self.stream
 
 class AudioChunker():
+    """
+    Create fixed-length audio analysis windows from an input stream.
+
+    Window can be overlapping. 
+    """
     def __init__(self, window_size, window_hop):
         self.window_size = window_size
         self.window_hop = window_hop
@@ -162,15 +168,16 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
 
 class Analyzer():
 
-    def __init__(self, samplerate, history_steps):
+    def __init__(self, samplerate, history_steps, hop_length):
 
         self.samplerate = samplerate
         self.history_steps = history_steps
+        self.hop_length = hop_length
 
         self.features = {
-            'soundlevel.q50': [],
-            'spectrum.q25': [],
-            'spectrum.q75': [],
+            'soundlevel.typical': [],
+            'spectrum.lower': [],
+            'spectrum.upper': [],
         }
 
         rows = [ 'spectrum' ] + list(self.features.keys()) + [ 'anomaly' ] 
@@ -188,7 +195,6 @@ class Analyzer():
         for name, value in features.items():
 
             s = self.features[name]
-            print(len(s))
 
             # in the start, fill everything with same value
             if len(s) == 0:
@@ -196,7 +202,6 @@ class Analyzer():
             else:
                 # in normal case, shift old data, append new
                 s = s[1:]
-                print('app', len(s))
                 s.append(value)
 
             assert len(s) == steps, (len(s), steps)
@@ -205,14 +210,10 @@ class Analyzer():
 
 
     def push_audio(self, w):
-        print('push', w.shape)
-
-
         samplerate = self.samplerate
         n_fft = 1024*8
 
-        w = butter_bandpass_filter(w, lowcut=20, highcut=2000, fs=samplerate, order=5)
-
+        w = butter_bandpass_filter(w, lowcut=20, highcut=4000, fs=samplerate, order=5)
 
         update_start_time = time.time()
 
@@ -221,8 +222,8 @@ class Analyzer():
         #print('window', w.shape)
         spectrum = spectrum_welch(w, sr=samplerate, n_fft=n_fft, window='hann')
 
-        sl = soundlevel(w, sr=samplerate, length=0.125)
-        sl = pandas.Series(sl)
+        #sl = soundlevel(w, sr=samplerate, length=0.125)
+        #sl = pandas.Series(sl)
 
         #cum = spectrum.cumsum() / spectrum.sum()
 
@@ -243,12 +244,22 @@ class Analyzer():
         upper = librosa.feature.spectral_rolloff(S=S, n_fft=n_fft, sr=samplerate, roll_percent=0.50)
         upper = numpy.median(upper)
 
+        # Compute colors for features, so they can be consistent whenever the feature is used
+        palette = seaborn.color_palette('tab10')
+        feature_colors = { k: palette[i] for i, k in enumerate(self.features.keys()) }
+
+        #energy = numpy.sum(S, axis=0)
+        #sl = librosa.power_to_db(energy, ref=0.0)
+        #sl_typical = numpy.quantile(sl, 0.5) 
+
+        sl_typical = spectrum.quantile(0.90)
+
         f = {
-            'soundlevel.q50' : sl.quantile(0.50),
-            'spectrum.q25' : lower,
-            'spectrum.q75' : upper,
+            'soundlevel.typical' : sl_typical,
+            'spectrum.lower' : lower,
+            'spectrum.upper' : upper,
         }
-        print(f)
+        #print('features', f)
         self.push_features(f)
 
         # Run anomaly detection
@@ -263,34 +274,57 @@ class Analyzer():
         # Update user interface
  
 
-
         # Spectrum view
         #print(spectrum)
         spectrum_ax = self.axes['spectrum']
         spectrum_ax.clear()
-        spectrum_ax.plot(spectrum.index, spectrum.values)
+        spectrum_ax.plot(spectrum.index, spectrum.values, color='black')
         freq_response_configure_xaxis(spectrum_ax, fmax=(self.samplerate/2))
-        spectrum_ax.axvline(f['spectrum.q75'])
-        spectrum_ax.axvline(f['spectrum.q25'])
+        spectrum_ax.set_ylabel("Audio spectrum")
+
+        # Mark features in spectrum view
+        for name in ['spectrum.lower', 'spectrum.upper']:
+            color = feature_colors[name]
+            spectrum_ax.axvline(f[name], color=color, alpha=0.5)
+
+        for name in ['soundlevel.typical']:
+            color = feature_colors[name]
+            spectrum_ax.axhline(f[name], color=color, alpha=0.5)
+
+        hop_duration = float(self.hop_length) / self.samplerate
 
 
-        # Plot all the features
+        # TODO: mark X axis with negative time. Maybe share X axis for multiple
+        # Plot all the features as timeline
         for feature_name in self.features.keys():
             ax = self.axes[feature_name]
             ax.clear()
 
+            color = feature_colors[feature_name]
             y = self.features[feature_name]
-            t = numpy.arange(0, len(y))
-            ax.plot(t, y)
+            t = numpy.arange(-len(y), 0, 1) * hop_duration
+
+            ax.plot(t, y, color=color)
             ax.set_ylabel(feature_name)
+
+            upper, lower = numpy.quantile(y, 0.75), numpy.quantile(y, 0.25)
+            ax.axhline(upper, ls='--', color=color, alpha=0.5)
+            ax.axhline(lower, ls='--', color=color, alpha=0.5)
+            ax.fill_between(t, lower, upper, color=color, alpha=0.2)
+
+            # do not show time labels
+            ax.tick_params(axis='x', bottom=False, labelbottom=False)
 
         update_end_time = time.time()
 
         #timeline_ax.plot(t, y)
     
+        # Compute anomaly scores
         self.anomaly_scores = []
 
-        norm_scores = numpy.clip(-1.0 * (scores + 0.5), 0.0, 1.0)
+        scaled = -1.0 * (scores + 0.5)
+        scaled *= 2.0
+        norm_scores = numpy.clip(scaled, 0.0, 1.0)
 
         if len(self.anomaly_scores) == 0:
             self.anomaly_scores = norm_scores
@@ -298,11 +332,14 @@ class Analyzer():
             self.anomaly_scores = self.anomaly_scores[1:] 
             self.anomaly_scores.append(norm_scores[-1])
 
+        # Show anomaly scores
         anomaly_ax = self.axes['anomaly']
         anomaly_ax.clear()
-        anomaly_ax.plot(t, self.anomaly_scores, color='red')
+        anomaly_ax.plot(t, self.anomaly_scores, color='black', alpha=0.5)
+        anomaly_ax.fill_between(t, 0, self.anomaly_scores, interpolate=True, color='red')
         anomaly_ax.set_ylim(0.0, 1.0)
         anomaly_ax.set_ylabel('Anomaly score')
+        anomaly_ax.set_xlabel("Time")
 
         dur = update_end_time - update_start_time
         print(f'Update {dur*1000:.0f}ms')
@@ -312,9 +349,8 @@ class Analyzer():
 def main():
     parser, args = parse()
 
-    print('list')
-
     if args.list_devices:
+        print('list')
         print(sounddevice.query_devices())
         parser.exit(0)
 
@@ -337,8 +373,9 @@ def main():
     history = 20.0
     history_steps = int(history / hop_duration)
 
-    analyze = Analyzer(samplerate=samplerate, history_steps=history_steps)
+    analyze = Analyzer(samplerate=samplerate, history_steps=history_steps, hop_length=hop_length)
 
+    chunk_no = 0
     with stream.open():
         while True:
             data = stream.audio_queue.get()
@@ -353,7 +390,12 @@ def main():
             except queue.Empty as e:
                 pass
             if w is not None:
-                analyze.push_audio(w)
+                chunk_no += 1
+                # potentially ignore first chunks,
+                # since audio data often has not quite settled
+                if chunk_no > 0:
+                    analyze.push_audio(w)
+
 
             plt.pause(0.001)
 
