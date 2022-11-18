@@ -166,6 +166,19 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
     y = scipy.signal.lfilter(b, a, data)
     return y
 
+
+def estimate_limits(v, sigma=3, min=None, max=None):
+    mean, std = numpy.mean(v), numpy.std(v)
+    std_margin = sigma * std
+    minmax_margin = 0.2
+    upper = numpy.maximum(mean + std_margin, numpy.max(v)*(1.0+minmax_margin))
+    lower = numpy.minimum(mean - std_margin, numpy.min(v)*(1.0-minmax_margin))
+    if min is not None:
+        lower = numpy.minimum(min, lower)
+    if max is not None:
+        upper = numpy.maximum(max, upper)
+    return lower, upper
+
 class Analyzer():
 
     def __init__(self, samplerate, history_steps, hop_length):
@@ -177,10 +190,10 @@ class Analyzer():
         self.features = {
             'soundlevel.typical': [],
             'spectrum.lower': [],
-            'spectrum.upper': [],
+            #'spectrum.upper': [],
         }
 
-        rows = [ 'spectrum' ] + list(self.features.keys()) + [ 'anomaly' ] 
+        rows = [ 'spectrum' ] + list(self.features.keys()) + [ 'anomaly', 'dist' ] 
   
         fig, axs  = plt.subplots(nrows=len(rows), figsize=(6, 3))
 
@@ -194,7 +207,9 @@ class Analyzer():
 
         for name, value in features.items():
 
-            s = self.features[name]
+            s = self.features.get(name)
+            if s is None:
+                continue
 
             # in the start, fill everything with same value
             if len(s) == 0:
@@ -264,10 +279,23 @@ class Analyzer():
 
         # Run anomaly detection
         from sklearn.ensemble import IsolationForest
+        from sklearn.neighbors import LocalOutlierFactor
+        from sklearn.preprocessing import RobustScaler
+        from sklearn.pipeline import make_pipeline
+        from sklearn.covariance import EllipticEnvelope
 
-        est = IsolationForest(n_estimators=50)
+        #est = IsolationForest(n_estimators=50)
+        est = make_pipeline(
+            RobustScaler(),
+            LocalOutlierFactor(n_neighbors=5, novelty=True),
+        )
+        est = make_pipeline(
+            #RobustScaler(),
+            EllipticEnvelope(),
+        )
 
         X = pandas.DataFrame(self.features)
+        X = X + (0.01+numpy.random.random(size=X.shape))
         est.fit(X)
         scores = est.score_samples(X)
 
@@ -284,6 +312,8 @@ class Analyzer():
 
         # Mark features in spectrum view
         for name in ['spectrum.lower', 'spectrum.upper']:
+            if not self.features.get(name):
+                continue
             color = feature_colors[name]
             spectrum_ax.axvline(f[name], color=color, alpha=0.5)
 
@@ -322,8 +352,20 @@ class Analyzer():
         # Compute anomaly scores
         self.anomaly_scores = []
 
-        scaled = -1.0 * (scores + 0.5)
-        scaled *= 2.0
+
+        # LocalOutlierFactor
+        #scaled = -1.0 * (scores + 1.5)
+        #scaled *= 0.5
+
+        #print(scores)
+
+        # EllipticEnvelope
+        scaled = -1.0 * (scores)
+        scaled *= 0.005
+
+        # isolationforest
+        #scaled = -1.0 * (scores + 0.5)
+        #scaled *= 2.0
         norm_scores = numpy.clip(scaled, 0.0, 1.0)
 
         if len(self.anomaly_scores) == 0:
@@ -331,6 +373,8 @@ class Analyzer():
         else:
             self.anomaly_scores = self.anomaly_scores[1:] 
             self.anomaly_scores.append(norm_scores[-1])
+
+        threshold = 0.2
 
         # Show anomaly scores
         anomaly_ax = self.axes['anomaly']
@@ -340,6 +384,31 @@ class Analyzer():
         anomaly_ax.set_ylim(0.0, 1.0)
         anomaly_ax.set_ylabel('Anomaly score')
         anomaly_ax.set_xlabel("Time")
+
+        anomaly_ax.axhline(threshold, ls='--', alpha=0.2, color='red')
+    
+        scatter_ax = self.axes['dist']
+        y_feature = 'soundlevel.typical'
+        x_feature = 'spectrum.lower'
+
+        scatter_ax.clear()
+
+        r, g, b = 0, 0, 0
+
+
+        # Plot bi-variate
+        anomalies = self.anomaly_scores > threshold
+
+        alphas = numpy.linspace(0.05, 0.8, len(self.features[x_feature]))
+        color = [ (0, 0, 0, a) if s < threshold else (0.8, 0, 0, a) for s, a in zip(self.anomaly_scores, alphas)  ]
+        scatter_ax.scatter(self.features[x_feature], self.features[y_feature], color=color)
+
+        x_lim = estimate_limits(self.features[x_feature], min=0)
+        y_lim = estimate_limits(self.features[y_feature], min=0)
+
+        scatter_ax.set_xlim(x_lim)
+        scatter_ax.set_ylim(y_lim)
+    
 
         dur = update_end_time - update_start_time
         print(f'Update {dur*1000:.0f}ms')
