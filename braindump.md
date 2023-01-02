@@ -5,6 +5,243 @@ Fun stuffs
 
 * Detect clapping and its sound level in a conference
 
+## [Machine Hearing](https://github.com/jonnor/machine-hearing)
+
+General info
+
+* Blog: http://www.machinehearing.org/
+Book: Human and Machine Hearing: Extracting Meaning from Sound
+[Paper in IEEE, 2010](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/36608.pdf)
+Key ideas. Modelling human hearing. Reusing machine vision learnings by representing sound as (moving) images.
+Combined audiovisual models.
+* [What’s wrong with CNNs and spectrograms for audio processing?](https://towardsdatascience.com/whats-wrong-with-spectrograms-and-cnns-for-audio-processing-311377d7ccd). Challenges:
+Sounds intermix/blend into eachother, ie are "transparent".
+Can also have complex relationships like phase cancellation.
+Directions in spectogram have different meansings. Frequency,time. Features not invariant wrt to frequency, but generally wrt time.
+Activations in the spectrogram are non-local, eg formants.
+Sound information is serial 'events', observed only in one instance of time. Not visual stationary 'objects'.
+If freezing time, cannot understand much of the information present (compared with video).
+Temporal patterns are critical.
+
+
+## Keyword spotting
+Aka "wake word detection"
+
+Existing work on microcontrollers
+
+* [ML-KWS-for-MCU](https://github.com/ARM-software/ML-KWS-for-MCU/tree/master/Deployment).
+Speech recognition on microcontroller.
+Neural network trained with TensorFlow, then deployed on Cortex-M7, with FPU.
+Using CMSIS NN and DSP modules.
+* [CASE2012](http://elaf1.fi.mdp.edu.ar/electronica/grupos/lac/pdf/lizondo_CASE2012.pdf).
+Implemented speech recognition using MFCC on 16-bit dsPIC with 40 MIPS and 16kB RAM.
+A Cortex-M3 at 80 MHz should have 100+MIPS.
+* [An Optimized Recurrent Unit for Ultra-Low-Power Keyword Spotting](https://arxiv.org/abs/1902.05026). February 2019.
+Introduces `eGRU`, claimed to be 60x faster and 10x smaller than standard GRU cell.
+Omits the `reset` gate (and assosicaed weights W_r).
+Uses `softsign` instead of sigmoid and tanh. Faster, less prone to saturation.
+Uses fixed-point integer operations only. Q15, bitshifts for divide/mul.
+3-bit exponential weight quantization. -1,-0.5,-0.25,0,0.25,0.5,1.0. Bitwise operations, no lookup table.
+Uses a quantization-aware training. Quantized in forward pass, full precision in backward (for gradient).
+Evaluated on Keyword Spotting, Cough Detection and Environmental Sound Classification.
+Sampling rate 8kHz. 128 samples STFT window, no overlap. 64 bands. No mel filtering!
+250 timesteps for Urbansound8k.
+eGRU_opt Urbansound8k scores 61.2%. 3kB model size.
+eGRU_arc Urbansound8k score of 72%. Indicates 8kHz enough!
+
+* [How to Achieve High-Accuracy Keyword Spotting on Cortex-M Processors](https://community.arm.com/processors/b/blog/posts/high-accuracy-keyword-spotting-on-cortex-m-processors).
+Reviews many deep learning approaches. DNN, CNN, RNN, CRNN, DS-CNN.
+Considering 3 different sizes of networks, bound by NN memory limit and ops/second limits. Small= 80KB, 6M ops/inference.
+Depthwise Separable Convolutional Neural Network (DS-CNN) provides the best accuracy while requiring significantly lower memory and compute resources.
+94.5% accuracy for small network. ARM Cortex M7 (STM32F746G-DISCO).
+8-bit weights and 8-bit activations, with KWS running at 10 inferences per second.
+Each inference – including memory copying, MFCC feature extraction and DNN execution – takes about 12 ms.
+10x inferences/second. Rest sleeping = 12% duty cycle.
+* [QuickLogic partners with Nordic Semiconductor for its Amazon Alexa-compatible wearables reference design using Voice-over-Bluetooth Low Energy](https://www.nordicsemi.com/News/News-releases/Product-Related-News/QuickLogic-partners-with-Nordic-Semiconductor-for-its-Amazon-Alexa-compatible-wearables-reference-design-using-Voice-over-Bluetooth-Low-Energy). 2017/11
+Always-on wake word detection at 640uWatt typical.
+nRF51822 with **external MCU**. EOS S3 SoC’s (Cortex M4F) hardware integrated Low Power Sound Detector.
+* [Convolutional Recurrent Neural Networks for Small-Footprint Keyword Spotting](https://arxiv.org/abs/1703.05390).
+Uses Per-Channel Energy Normalization on mel spectograms. CRNN with ~230k parameters, acceptably low latency on mobile devices.
+Achieves 97.71% accuracy at 0.5 FA/hour for 5 dB signal-to-noise ratio. Down to 45k parameters tested.
+
+
+
+
+General
+
+* [Audio classification overview](http://www.nyu.edu/classes/bello/ACA_files/8-classification.pdf)
+Criterias for good features,
+PCA/LDA for dimensionality reduction. Sequential forward/backward selection
+* [Environmental sound recognition: a survey](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/S2048770314000122) (2014).
+Mentiones MPEG-7 based features, efficient and perceptual.
+* [Dolph-Chebyshev Window](http://practicalcryptography.com/miscellaneous/machine-learning/implementing-dolph-chebyshev-window/),
+good window function for audio. C reference implementation.
+* [Voice Activity Detection, tutorial](http://practicalcryptography.com/miscellaneous/machine-learning/voice-activity-detection-vad-tutorial/)
+Using 5 simple features.
+* [Machine Learning for Audio, Image and Video Analysis](http://www.dcs.gla.ac.uk/~vincia/textbook.pdf).
+* [Notes on Music Information Retrieval](https://musicinformationretrieval.com/index.html), series of Jupyter notebooks.
+Lots of goodies, from feature extraction to high-level algorithms.
+* [Detection and Classification of Acoustic Scenes and Events](https://hal.archives-ouvertes.fr/hal-01123760/document). 2014
+Review of state of the art in machine listening.
+Problem 1: Acoustic scene classification,
+Characterize acoustic environment of an audio stream by selecting a semantic label for it.
+Single-label classification. Similar to: Music genre recognition. Speaker recognition.
+Also similar to other time-based classification, ie in video.
+Approach 1. Bag of frames. Long-term statistical distribution of local spectral features. Ex MFCC.
+Compare feature distributions using GMM.
+Approach 2. Intermediate representation using higher level vocabulary/dictionary of "acoustic atoms".
+Problem 2. Acoustic event detection. Label temporal regions within an audio recording; start time, end time and label for each event instance.
+Related to. Automatic music transcription. Speaker diarisation.
+Typically treated as monophonic problem, but polyphonic is desirable.
+More challening that scene classification.
+One strategy to handle polyphonic signals is to perform audio source separation, and then to analyse the resulting signals individually.
+
+Efficiency
+
+* [A multi-layered energy consumption model for smart wireless acoustic sensor networks](https://arxiv.org/abs/1812.06672). Gert Dekkers, 2018.
+MATLAB code: https://github.com/gertdekkers/WASN_EM
+
+
+
+## Acoustic event detection (AED)
+
+Aka
+
+- Sound Event Detection
+- Automatic Environmental Sound Recognition (AESR)
+
+
+* Competitions: CLEAR "Classification of Events, Activities and Relation-
+ships". DCASE Detection and Classification of Acoustic Scenes and Events (2016,2013)
+[website](http://www.cs.tut.fi/~heittolt/research-sound-event-detection) shown progress on same dataset up to modern methods with f1-score=69.3%
+using Convolutional Recurrent Neural Networks. Dataset TUT-SED2009 TUT-CASA2009
+* [https://ieeexplore.ieee.org/document/7933055/](Bag-of-Features Methods for Acoustic Event Detection and Classification). Grzeszick, 2014/2017.
+Features are calculated for all frames in a given time window.
+Then, applying the bag-of-features concept, these features are quantized with respect to a learned codebook and a histogram representation is computed.
+Bag-of-features approaches are particularly interesting for online processing as they have a low computational cost.
+Using GCFF Gammatone frequency cepstral coefficients, in addition to MFCC.
+Codebook quantizations used: soft quantization, supervised codebook learning, and temporal modeling.
+Using DCASE 2013 office live dataset and the ITC-IRST multichannel.
+BoF principle: Learn intermediate representation of features in unsupervised manner. Clustering like k-means
+Hard-quantization: All N*K feature vectors are clustered. Only cluster centroids are of interest. Assign based on minimum distance.
+Soft-quantization: GMM with expectation maximation. Codebook has mean,variance.
+Supervized-quantization. GMM per class, concatenated.
+Re-introducing temporality. Pyramid scheme, feature augumentation by adding quantizied time coordinate.
+SVM classification. Multiclass. Linear, RBF. *Histogram-intersection kernel* works well.
+Random Forests. Works well for AED. Frame size = 1024samples@44.1kZ=22.3 ms
+The current python implementation uses a single core on a standard desktop machine and requires less than 20% of the real time for computation.
+
+* [Bird Audio Detection using probability sequence kernels](http://machine-listening.eecs.qmul.ac.uk/wp-content/uploads/sites/26/2017/02/badChallenge_iitMandi.pdf)
+Judges award DCASE2016 for most computationally efficient.
+MFCC features (voicebox), GMM, SVM classifier from libsvm with probability sequence kernel (PSK).
+AUC of 73% without short-term Gaussianization to adapt to dataset differences.
+
+* LEARNING FILTER BANKS USING DEEP LEARNING FOR ACOUSTIC SIGNALS. Shuhui Qu.
+Based on the procedure of log Mel-filter banks, we design a filter bank learning layer.
+Urbansound8K dataset, the experience guided learning leads to a 2% accuracy improvement.
+
+* [Automatic Environmental Sound Recognition: Performance Versus Computational Cost](https://ieeexplore.ieee.org/abstract/document/7515194/). 2016. Sigtia,...,Mark D. Plumbley
+Results suggest that Deep Neural Networks yield the best ratio of sound classification accuracy across a range of computational costs,
+while Gaussian Mixture Models offer a reasonable accuracy at a consistently small cost,
+and Support Vector Machines stand between both in terms of compromise between accuracy and computational cost.
+! No Convolutional Neural networks. ! used MFCC instead of mel-spectrogram
+
+* [EFFICIENT CONVOLUTIONAL NEURAL NETWORK FOR AUDIO EVENT DETECTION](https://www.researchgate.net/publication/320098222_Efficient_Convolutional_Neural_Network_For_Audio_Event_Detection). Meyer, 2017.
+structural optimizations. reduce the memory requirement by a factor 500,
+and the computational effort by a factor of 2.1 while performing 9.2 % better.
+Final weights are 904 kB. Which fits in progmem, but not in RAM on a ARM Cortex M7.
+Needs 75% of theoritical performance wrt MACs, which is likely not relalizable.
+They suggest use of a dedicated accelerator chip.
+
+* [Robust Audio Event Recognition with 1-Max Pooling Convolutional Neural Networks](https://arxiv.org/pdf/1604.06338.pdf).
+! Very shallow network performs similar to state-of-the art in event detection on very noisy datasets.
+Convolution (3..25 wide x 52 tall) -> MaxPool per frame -> Softmax across frames.
+Claims to also outperform with a single filter width setting.
+Also uses window averaging to downsample spectrogram bins to 52 bins instead of typical triangular mel.
+This arcitecture should be suitable also for Acoustic Scene Classification?
+
+* [Baby Cry Sound Detection: A Comparison of Hand Crafted Features and Deep Learning Approach](https://link.springer.com/chapter/10.1007/978-3-319-65172-9_15). 2017
+Shows that hand-crafted features can give same performance as state-of-art CNN at 20x the computational cost.
+Features: Voiced unvoiced counter (VUVC), Consecutive F_0 (CF0), Harmonic ratio accumulation (HRA).
+Classifier: Support Vector Data Description (SVDD).
+"Further research should investigate ways of reducing complexity of CNN, by decreasing the number of filters and their size"
+Dataset was constructed from http://www.audiomicro.com and https://www.freesound.org
+Approx 1 hour cry, 1 hour non-cry for training.
+! Testing set has only 26 baby cry events (15 min) as base. Upsampled by mixing in noise at 18dB.
+Makes 4h of sound with sparse amounts of target event, and 2 hours without.
+
+* [SwishNet: A Fast Convolutional Neural Network for Speech, Music and Noise Classification and Segmentation]()
+1D Convolutional Neural Network (CNN). Operates on MFCC, 20 band.
+Uses combinations of 1x3 and 1x6 convolutions. Only convolutions across temporal bands.
+? Gated activations between each step.
+? skip connections with Add.
+Architecture inspired by Inception and WaveNet architecture.
+Optionally use distilled knowledge from MobileNet trained on ImageNet.
+Tested on MUSAN, GTZAN.
+! used background noise removal
+5k and 18k parameters. Versus 220k for MobileNet.
+1ms prediction time for 1 second window on desktop CPU.
+! simple problems, GMM baseline performed 96-99% and 90%,
+MobileNet Random initialized 98-00% and 94-96%
+
+* Kaggle: The Marinexplore and Cornell University Whale Detection Challenge
+[Features & classification approaches](https://www.kaggle.com/c/whale-detection-challenge/discussion/4156).
+Many approached used with good results.
+Large range in feature sets. Mostly deep learning and tree ensembles, some SVM.
+Winner used image template on spectograms with a GradientBoostingClassifier.
+
+
+
+## Environmental sound monitoring
+Aka
+
+- Environmental Noise Monitoring
+- Noise source identification
+
+Datasets
+
+* [Urbansound-8k](https://serv.cusp.nyu.edu/projects/urbansounddataset/urbansound8k.html).
+8k samples, 10 classes. Compiled from freesound.org data
+* [ESC-50: Dataset for Environmental Sound Classification](https://github.com/karoldvl/ESC-50).
+2k samples, 40 classes in 5 major categories. Compiled from freesound.org data
+* DCASE 2013. Audio Event Detection. Indoor office sounds. 16 classes. Segmented. 19 minutes total.
+* [Google AudioSet](https://research.google.com/audioset/). 2,084,320 human-labeled 10-second sounds, 632 audio event classes. 
+
+Papers
+
+* [Acoustic Event Detection Using Machine Learning: Identifying Train Events](http://cs229.stanford.edu/proj2012/McKennaMcLaren-AcousticEventDetectionUsingMachineLearningIdentifyingTrainEvents.pdf). Shannon Mckenna,David Mclare.
+Using RMS over 0.125 seconds and 1/3 octave frequency bands. Classify individual time instances as train-event,
+then require a cluster of 3 train events successive. 
+"Performance of our classifier was significantly increased when we normalized the noise levels by
+subtracting out the mean noise level of each 1/3 octave band and dividing by the standard deviation"
+Used Logistic Regression and SVM. From 0.6 to 0.9 true positive rate (depending on site), with `<0.05` false positive rate.
+Tested across 10 sites.
+
+* [Detection of Anomalous Noise Events on Low-Capacity Acoustic Nodes
+for Dynamic Road Traffic Noise Mapping within an Hybrid WASN](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5948866/)
+
+## Speech commands
+
+Datasets
+
+* [Speech Commands Data Set](https://www.kaggle.com/c/tensorflow-speech-recognition-challenge/data).
+Kaggle competition required submissions to run in below 200ms on a Raspberry PI3.
+* [NOIZEUS: A noisy speech corpus for evaluation of speech enhancement algorithms](http://ecs.utdallas.edu/loizou/speech/noizeus/)
+30 sentences corrupted by 8 real-world noises. 
+* Mozilla [Common Voice](https://voice.mozilla.org), crowd sourcing. Compiled dataset [on Kaggle](https://www.kaggle.com/mozillaorg/common-voice), 
+
+
+## Speaker detection
+
+* [VoxCeleb](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/), 100k utterances for 1251 celebrities.
+* [Speakers in the Wild](https://www.sri.com/work/publications/speakers-wild-sitw-speaker-recognition-database)
+
+## Bird audio detection
+
+
+* DCASE 2018. Audio Event Detection, single-class: bird-present. 6 datasets of some k samples each.
+* [BirdCLEF 2016](http://www.imageclef.org/lifeclef/2016/bird). 24k audio clips of 999 birds species
+
 
 ## Research questions
 

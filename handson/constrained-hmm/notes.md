@@ -13,6 +13,27 @@ But there is no way to get or set the transitions during training, as they are C
 Clean solution would be to expose an optional callback for modifying this.
 Otherwise have to stick to the workaround from https://github.com/jmschrei/pomegranate/issues/9
 
+> I am using three vector approach to sparse matrices, but each vector is a private attribute right now
+> I'll add in a method which takes in either a dense or sparse matrix and calculates a new internal transition matrix from that.
+
+self.out_transition_log_probabilities
+self.in_transition_log_probabilities
+? which is the last one?
+
+Can have multiple batches per epoch.
+Calls self.summarize for each batch
+and then self.from_summaries for each epoch
+
+It is in self.bake that transition_log_probabilities gets created, from the self.graph instance
+Could create methods like
+def get_transition_matrix()
+def set_transition_matrix()
+Would also need the state_name to index mapping to do much interesting
+
+However for simple dissallowing of certain edges, one can use.
+
+BUT - this does not implement k-means initialization, which has to be done manually
+
 In `sequentia`, the models just use hmmlearn internally, so one would need to use the hmmlearn approach there.
 
 ## VAD
@@ -42,3 +63,12 @@ https://link.springer.com/chapter/10.1007/11556992_38
 Hidden Markov Model-based Tool Wear Monitoring in Turning
 https://www.researchgate.net/publication/245368193_Hidden_Markov_Model-based_Tool_Wear_Monitoring_in_Turning
 2002
+
+Online milling tool condition monitoring with a single continuous hidden Markov models approach
+2014
+https://www.extrica.com/article/15019
+Using a left-right HMM-GMM. 3 states.
+CNC cutting operation. Cut entry, cutting, cut exit.
+Used to generate a tool health condition using the log-likelyhood of the model.
+Used both Vibration and AE signals.
+Preprocessed with wavelet transform.
