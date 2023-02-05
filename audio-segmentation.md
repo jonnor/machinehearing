@@ -246,16 +246,8 @@ Supports 4 different classifier models
 Where one can post-process according to application.
 
 
-## Performance metrics
 
-Different error cases
-
-- FEC (Front End Clipping): clipping introduced in passing from noise to speech activity;
-- MSC (Mid Speech Clipping): clipping due to speech misclassified as noise;
-- OVER: noise interpreted as speech due to the VAD flag remaining active in passing from speech activity to noise;
-- NDS (Noise Detected as Speech): noise interpreted as speech within a silence period.
-
-### Classic models
+## Classic models
 
 Many papers in 1990ies
 
@@ -270,6 +262,49 @@ Ghosh, 2011
 Over 200 citations
 
 
+## Performance metrics
+
+Different error cases
+
+- FEC (Front End Clipping): clipping introduced in passing from noise to speech activity;
+- MSC (Mid Speech Clipping): clipping due to speech misclassified as noise;
+- OVER: noise interpreted as speech due to the VAD flag remaining active in passing from speech activity to noise;
+- NDS (Noise Detected as Speech): noise interpreted as speech within a silence period.
+
+
+## Features
+
+### Features for voice activity detection: a comparative analysis
+https://asp-eurasipjournals.springeropen.com/articles/10.1186/s13634-015-0277-z
+2015.
+Simon Graf, Tobias Herbig, Markus Buck & Gerhard Schmidt 
+EURASIP Journal on Advances in Signal Processing.
+
+Excellent review of features.
+Good controlled comparisons between features.
+Nice plots of the temporal activations of different methods.
+
+Says modulation around 4 Hz is quite important for speech.
+Can be used to discriminate against music.
+
+### Investigating the Important Temporal Modulations for Deep-Learning-Based Speech Activity Detection
+https://ieeexplore.ieee.org/abstract/document/10022462/authors#authors
+
+We describe a learnable modulation spectrogram feature for speech activity detection (SAD).
+Modulation features capture the temporal dynamics of each frequency subband.
+We compute learnable modulation spectrogram features by first calculating the log-mel spectrogram.
+Next, we filter each frequency subband with a bandpass filter that contains a learnable center frequency.
+Experimental results showed that temporal modulations around the 4–6 Hz range are crucial for deep-learning-based SAD.
+These experimental results align with previous studies that found slow temporal modulation to be most important for speech-processing tasks and speech intelligibility.
+Additionally, we found that the learnable modulation spectrogram feature outperforms both
+the standard log-mel and fixed modulation spectrogram features on the Fearless Steps Phase-04 SAD test set.
+
+IDEA:
+? could one learn a modulation feature direction on the waveform?
+Using a convolutional neural network.
+With a large hop and/or dilation to reduce number of computations.
+Could this be faster than doing STFT/mel?
+
 ### Microcontroller device models
 
 [Voice activity detection for low-resource settings](http://cs230.stanford.edu/projects_winter_2020/reports/32224732.pdf). Abhipray Sahoo, Stanford CS230.
@@ -282,6 +317,44 @@ Large improvements against WebRTC VAD under noisy conditions.
 VAD using long-term 200 ms Mel frequency band statistics, auditory masking, and a pre-trained two level decision tree ensemble based classifier.
 Near 100 % acceptance of clear voice for English, Chinese, Russian, and Polish speech and 100 % rejection of stationary noises independently of loudness.
 Reuses short-term FFT analysis (STFFT) from ASR frontend with additional 2 KB memory and 15 % complexity overhead.
+
+[Voice Activity Detector for Device with Small Processor and Memory](https://ieeexplore.ieee.org/abstract/document/8907081).
+Raw Speech Signal as input and Deep Neural Network as classifier.
+The result is an architecture with only 3 layers, 130 neurons, 64 inputs, softmax activation function, Adam optimization, dropout rate 0.2, and batch size 64. The accuracy is 0.7406 for training and 0.7168 for validation.
+?? did it use multiple-frames for temporal context
+
+[Linear detector and neural networks in cascade for voice activity detection in hearing aids](https://www.sciencedirect.com/science/article/pii/S0003682X20309373).
+Using a two-stage detector.
+In the first stage, a linear system determines whether the detection can be easily carried out, or a second stage with a more complex neural-network-based detection is required.
+The results show that the system error can be reduced up to 8.5% while using the same amount of resources.
+Moreover, the error is the lowest among the proposals that are affordably implemented in hearing aids.
+
+[](https://link.springer.com/chapter/10.1007/978-3-319-45510-5_40)
+VAD using long-term 200 ms Mel frequency band statistics, auditory masking,
+and a pre-trained two level decision tree ensemble based classifier.
+Allows capturing syllable level structure of speech and discriminating it from common noises.
+Proposed algorithm demonstrates on the test dataset almost 100 % acceptance of clear voice for English, Chinese, Russian, and Polish speech and 100 % rejection of stationary noises independently of loudness.
+The algorithm is aimed to be used as a trigger for ASR.
+It reuses short-term FFT analysis (STFT) from ASR frontend with additional 2 KB memory and 15 % complexity overhead.
+
+Nuance SREC VAD. Latency 70 ms and analyses energy envelope statistics.
+
+### gkonovalov/android-vad
+https://github.com/gkonovalov/android-vad
+
+Based on Google WebRTC VAD.
+Real-time utilizing Gaussian Mixture Model (GMM).
+Implemented in Java.
+10-30 millisecond frame sizes.
+
+
+### Hardware models
+
+A 108-nW 0.8-mm2 Analog Voice Activity Detector (VAD)
+Featuring a Time-Domain CNN with Sparsity-Aware Computation and Sparsified Quantization in 28-nm CMOS
+90% (94%) speech (non-speech) hit rate on the TIMIT dataset.
+It features a switched-capacitor circuit as the time-domain convolutional neural network (TD-CNN)
+that extracts the 1-bit features for the subsequent binarized neural network (BNN) classifier.
 
 ### Speaker dependent models
 
