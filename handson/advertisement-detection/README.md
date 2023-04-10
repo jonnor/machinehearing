@@ -63,6 +63,17 @@ https://www.audiolabs-erlangen.de/resources/MIR/FMP/C7/C7S1_AudioIdentification.
 Describes the classic audio fingerprinting using spectral landmarks.
 With implementations in Python.
 
+
+A Highly Robust Audio Fingerprinting System
+https://ismir2002.ismir.net/proceedings/02-FP04-2.pdf
+2002
+Jaap Haitsma, Ton Kalker
+Philips Research
+
+Prof. Holstlaan 4, 5616 BA,Philips Research
+
+
+
 ## Audio matching
 
 
