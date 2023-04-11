@@ -5,11 +5,26 @@
 
 https://stackoverflow.com/questions/75961430/how-to-find-out-how-many-times-a-specific-audio-repeats-in-another-longer-audio
 
+Other questions about the same
+
+- https://stackoverflow.com/questions/70076172/find-number-of-times-recognized-audio-repeat-in-the-source
+- https://stackoverflow.com/questions/62086171/compare-a-fragment-of-an-audio-file-to-a-long-audio-file
+- https://softwarerecs.stackexchange.com/questions/77290/finding-audio-clips-within-audio-files
+
+
+https://stackoverflow.com/questions/75653582/check-if-a-small-audio-clip-is-part-of-another-audio-file
+https://dsp.stackexchange.com/questions/36136/how-many-times-does-a-certain-sound-appear-in-an-audio-clip
+
+
 ## Problem formulation
 
-With a single query example. One-shot detection.
-With 2-10 examples. Few-shot detection.
-Without any query example. Generic Audio Classification / Sound Event Detection / Audio Segmentation.
+- With a single query example.
+One-shot detection. Audio matching.
+- With 2-10 examples.
+Few-shot detection.
+- Without any query example.
+Zero-shot detection.
+Generic Audio Classification / Sound Event Detection / Audio Segmentation.
 
 ## Feature representation
 
@@ -70,7 +85,9 @@ https://ismir2002.ismir.net/proceedings/02-FP04-2.pdf
 Jaap Haitsma, Ton Kalker
 Philips Research
 
-Prof. Holstlaan 4, 5616 BA,Philips Research
+
+https://github.com/Aaron-AALG/spectromap
+Python library for getting spectrogram constellation map (or audio fingerprint).
 
 
 
