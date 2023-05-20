@@ -10,20 +10,26 @@ import matplotlib.pyplot as plt
 
 def detect_voice(
     path,
-    activation_threshold = 0.80,
+    activation_threshold = 0.70,
     deactivation_threshold = 0.25,
-    min_pause = 0.250,
-    min_activation = None,
+    min_pause = 0.200,
+    min_activation = 0.100,
     save_dir = 'model_dir',
     segment_pre = 0.0,
     segment_post = 0.0,
     double_check_threshold = None,
+    parallel_chunks = 4,
+    chunk_size = 1.0,
+    overlap_chunks = True,
     ):
 
     # do initial, coarse-detection
     vad = VAD.from_hparams(source="speechbrain/vad-crdnn-libriparty", savedir=save_dir)
 
-    probabilities = vad.get_speech_prob_file(path)
+    probabilities = vad.get_speech_prob_file(path,
+        large_chunk_size=chunk_size*parallel_chunks,
+        small_chunk_size=chunk_size,
+        overlap_small_chunk=overlap_chunks)
 
     thresholded = vad.apply_threshold(probabilities,
         activation_th=activation_threshold,
