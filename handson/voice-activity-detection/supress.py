@@ -1,7 +1,12 @@
 
+import math
+import numpy
+import pandas
 import librosa
 import soundfile
 from speechbrain.pretrained import VAD
+import matplotlib
+import matplotlib.pyplot as plt
 
 def detect_voice(
     path,
@@ -12,9 +17,8 @@ def detect_voice(
     save_dir = 'model_dir',
     segment_pre = 0.0,
     segment_post = 0.0,
+    double_check_threshold = None,
     ):
-
-    # FIXME: support resampling
 
     # do initial, coarse-detection
     vad = VAD.from_hparams(source="speechbrain/vad-crdnn-libriparty", savedir=save_dir)
@@ -42,34 +46,35 @@ def detect_voice(
     if double_check_threshold:
         boundaries = vad.double_check_speech_segments(boundaries, speech_th=double_check_threshold)
 
+    # convert to friendly pandas DataFrames with time info 
+    events = pandas.DataFrame(boundaries, columns=['start', 'end'])
+    events['class'] = 'speech'
 
-    return probabilities, boundaries
+    p = numpy.squeeze(probabilities)
+    times = pandas.Series(numpy.arange(0, len(p)) * vad.time_resolution, name='time')
+    p = pandas.DataFrame(p, columns=['speech'], index=times)
 
-
-def plot_vad(audio_path, probabilities, boundaries, sr=16000):
-
-    # show spectrogram
-    audio, sr = librosa.load(audio_path, sr=sr)
-    S = librosa.feature.melspectrogram(y=audio, sr=sr)
-    S_db = librosa.power_to_db(S, ref=numpy.max)
-
-    librosa.display.specshow(spec_ax, S_db, sr=sr)
-
-    # show VAD results
+    return p, events
 
 
-def apply_gain(path, segments, out=None, sr=None):
 
-    audio, sr = librosa.load(audio_path, sr=sr, mono=False)
-    print('app', audio.shape, sr)    
+def apply_gain(path, segments, default=0.0, out=None, sr=None):
 
-    for seg in segments:
+    audio, sr = soundfile.read(path, always_2d=True)
+
+    # compute gain curves
+    gains = numpy.full_like(audio, librosa.db_to_power(default)) 
+
+    for idx, seg in segments.iterrows():
 
         s = math.floor(sr * seg['start'])
         e = math.ceil(sr * seg['end'])
         gain = librosa.db_to_power(seg['gain'])
 
-        audio[s:e, :] = gain * audio[s:e, :]
+        gains[s:e, :] = gain
+
+    # apply to audio
+    audio = audio * gains
 
     if out is not None:
         soundfile.write(out, audio, samplerate=sr)
@@ -77,18 +82,58 @@ def apply_gain(path, segments, out=None, sr=None):
 
     return audio, sr
 
-# FIXME: resample audio to temp-file, if not supported samplerate
 
-supported_samplerate = 16000
+def plot_spectrogram(ax, path, sr=16000, hop_length=1024):
 
-path = 'voiceandnot.wav'
+    audio, sr = librosa.load(path, sr=sr)
+    S = librosa.feature.melspectrogram(y=audio, sr=sr, hop_length=hop_length)
+    S_db = librosa.power_to_db(S, ref=numpy.max)
+
+    librosa.display.specshow(ax=ax, data=S_db,
+            sr=sr, hop_length=hop_length,
+            x_axis='time', y_axis='mel')
+
+    return S_db
+
+def plot_vad(input_path, probabilities, boundaries, output_path):
+
+    fig, (input_spec_ax, vad_ax, output_spec_ax) = plt.subplots(3, figsize=(10, 5), sharex=True)
+
+    # show spectrogram
+    plot_spectrogram(ax=input_spec_ax, path=input_path)
+
+
+    # show VAD results
+    probabilities.reset_index().plot(ax=vad_ax, x='time', y='speech')
+
+    for start, end in zip(boundaries['start'], boundaries['end']):
+        vad_ax.axvspan(start, end, alpha=0.3, color='green')
+
+    vad_ax.xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(1.0))
+    vad_ax.grid(True, which='minor', axis='x')
+    vad_ax.grid(True, which='major', axis='x')
+
+    # show modified audio
+    plot_spectrogram(ax=output_spec_ax, path=output_path)
+
+
+    fig.tight_layout()
+    return fig
+
+
+# XXX: model only supports 16k samplerate
+# If input is another samplerate, have to resample it first
+path = 'voiceandnot_16k.wav'
 prob, segments = detect_voice(path)
-print(prob)
-print(segments)
-plot_vad(path, prob, segments)
 
-segments.loc[, 'gain'] = -40.0
+segments['gain'] = 0.0
 
-# TODO: apply to audio. 
+out_path = 'voice-supressed.wav'
+apply_gain(path, segments, default=-20.0, out=out_path)
+
+fig = plot_vad(path, prob, segments, out_path)
+fig.savefig('vad-output.png')
+
+
 
 
