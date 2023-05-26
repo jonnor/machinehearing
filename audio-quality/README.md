@@ -90,7 +90,8 @@ This normally requires the function to be differentiable.
 |  POLQA |   Speech Quality | |   [ITU-T P.863](https://www.itu.int/rec/T-REC-P.863/en)  |
 |  VISQOL |   Audio/Speech Quality  |  [visqol](https://github.com/google/visqol) |  [Paper](https://arxiv.org/abs/2004.09584) |
 |  Frechet Audio Distance |  Audio Quality |  [frechet_audio_distance](https://github.com/google-research/google-research/tree/master/frechet_audio_distance)   |   [Paper](https://arxiv.org/abs/1812.08466) |
-|  Just Noticable Differences |  Speech/Audio Quality |   [PerceptualAudio](https://github.com/pranaymanocha/PerceptualAudio)  |  [Paper](https://arxiv.org/abs/2001.04460)  |
+|  DPAM |  Speech/Audio Quality |   [PerceptualAudio](https://github.com/pranaymanocha/PerceptualAudio)  |  [Paper](https://arxiv.org/abs/2001.04460)  |
+|  CDPAM |  Speech/Audio Quality |   [PerceptualAudio](https://github.com/pranaymanocha/PerceptualAudio)  |  [Paper](https://arxiv.org/abs/2102.05109)  |
 
 
 ![Evolution of ITU-T recommendations for Audio Quality (source: polqa.info)]((http://www.polqa.info/images/polqa_diagramm_zoom.jpg)
@@ -356,9 +357,33 @@ Implements many Speech Quality and Speech Intelligibilty metrics.
 Including Log-likelihood Ratio.
 STOI and PESQ metrics by wrapping pystoi and pypesq
 
-### Just Noticable Differences
+### DPAM
+DPAM = Deep Perceptual Audio Metric.
 
-[Paper](https://arxiv.org/abs/2001.04460)
+Paper: [A Differentiable Perceptual Audio Metric  Learned from Just Noticeable Differences](https://arxiv.org/abs/2001.04460). 2020
+
+- Uses deep neural network that operates on raw audio waveform
+- Trained on algorithmically generated degradations. Using perturbations such as noise, reverb, and compression artifacts
+- Uses active learning process with human evaluators designed to identify just-noticeable difference (JND) level
+- Human evaluators have to answer "are these two clips identical?" 
+
+[Implementation](https://github.com/pranaymanocha/PerceptualAudio).
+
+- In Python. Based on PyTorch
+- Pre-trained neural network.
+- Can output a vector representation of audio. Enables fine-tuning custom metrics
+- Differentiable. Can be used as a loss in neural network
+- MIT licensed
+
+### CDPAM
+
+Improvement upon DPAM, by the same authors.
+Inherits most properties of DPAM.
+
+Paper. [CDPAM: Contrastive learning for perceptual audio similarity](https://arxiv.org/abs/2102.05109)
+The primary improvement (over DPAM) is to combine contrastive learning and multi-dimensional representations to build robust models from limited data.
+
+[Implementation](https://github.com/pranaymanocha/PerceptualAudio).
 
 ### PEMO-Q
 PErception MOdel-based Quality estimation
