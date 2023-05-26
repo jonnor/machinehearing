@@ -162,7 +162,8 @@ Virtual Speech Quality Objective Listener
 Originally designed for Speech, but extended to Audio later (VISQOLAudio).
 Latest version, VISQOLv3 combines the two variations into one method with a mode switch.
 
-[VISQOLv3 website](https://github.com/google/visqol)
+[VISQOLv3 website](https://github.com/google/visqol).
+Paper: [ViSQOL v3: An Open Source Production Ready Objective Speech and Audio Metric](https://arxiv.org/abs/2004.09584).
 
 ### Implementations
 
@@ -170,6 +171,7 @@ Latest version, VISQOLv3 combines the two variations into one method with a mode
 Official open-source implementation VISQOLv3.
 Commandline tool written in C++.
 Cross-platform.
+Provides a command-line tool, and also a C++ API, and Python bindings.
 
 An earlier MATLAB implementation of ViSQOLAudio available is at.
 http://www.mee.tcd.ie/~sigmedia/Resources/ViSQOLAudio
@@ -204,8 +206,7 @@ Designed to be particularly sensitive to VoIP degradation
 
 ### VISQOLAudio paper summary
 
-ViSQOLAudio: An objective audio quality metric for low bitrate codecs
-https://asa.scitation.org/doi/full/10.1121/1.4921674?TRACK=RSS
+[ViSQOLAudio: An objective audio quality metric for low bitrate codecs](https://asa.scitation.org/doi/full/10.1121/1.4921674?TRACK=RSS)
 https://research.google/pubs/pub43991/
 
 Moidification of ViSQOL, with Voice Activity Detection removed and wider range of frequency bands.
@@ -216,6 +217,8 @@ Bark scale.
 - compared against the subjective listener test results carried out with headphones
 to evaluate their suitability for measuring audio quality for low bit rate codecs
 
+A key component is Neurogram Similarity Index Measure (NSIM),
+originally proposed in [Speech intelligibility prediction using a Neurogram Similarity Index Measure](https://dl.acm.org/doi/10.1016/j.specom.2011.09.004) (Hines, 2012).
 
 ### SDR
 Signal to Distortion Ratio.
