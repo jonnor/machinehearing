@@ -94,7 +94,7 @@ This normally requires the function to be differentiable.
 |  CDPAM |  Speech/Audio Quality |   [PerceptualAudio](https://github.com/pranaymanocha/PerceptualAudio)  |  [Paper](https://arxiv.org/abs/2102.05109)  |
 
 
-![Evolution of ITU-T recommendations for Audio Quality (source: polqa.info)]((http://www.polqa.info/images/polqa_diagramm_zoom.jpg)
+![Evolution of ITU-T recommendations for Audio Quality]((http://www.polqa.info/images/polqa_diagramm_zoom.jpg). Source: polqa.info
 
 
 ## Methods
