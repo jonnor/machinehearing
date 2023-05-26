@@ -9,6 +9,16 @@ For some applications standardized tests exists, such as [MUSHRA](https://en.wik
 One can carry out such tests oneself using tools like [webMUSHRA](https://github.com/audiolabs/webMUSHRA), or the tests can be performed as a service by professional laboratories such as [FORCE Senselab](https://forcetechnology.com/en/all-industry-facilities/senselab-listening-test-sensory-evaluation).
 For an extensive treaty on the topic see the book [Sensory Evaluation of Sound](https://www.routledge.com/Sensory-Evaluation-of-Sound-1st-Edition/Zacharov/p/book/9781498751360).
 
+# Own work
+
+This repository is mostly a collection of notes on existing works.
+It was built up as part of research into prior art,
+for a project to build new audio quality estimation methods using Machine Learning.
+Some outcomes of this project can be found in:
+
+- [Efficient data collection pipeline for machine learning of audio quality](https://www.researchgate.net/publication/351871844_Efficient_data_collection_pipeline_for_machine_learning_of_audio_quality). AES Show Spring 2021
+- [Predicting Audio Quality for different assessor types using machine learning](https://www.researchgate.net/publication/351871510_Predicting_Audio_Quality_for_different_assessor_types_using_machine_learning). AES Show Spring 2021
+
 # Estimating Audio Quality with models
 
 It is also possible to estimate sound quality using computer programs,
