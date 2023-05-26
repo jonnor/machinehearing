@@ -17,6 +17,13 @@ Audio Classification, Audio Event Detection and Acoustic Anomaly Detection.
 Their sensors can transmit compressed and privacy-preserving spectrograms, allowing Machine Learning to be done in the cloud using familiar tools like Python.
 Or models can be deployed onto the sensor itself, for a highly efficient on-edge ML solution.
 
+# Pages
+
+Some information is found in sub-pages.
+
+### [Audio Quality](./audio-quality)
+
+
 # Recent work
 
 ## EuroPython 2021: Sound Event Detection with Machine Learning
