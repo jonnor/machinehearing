@@ -124,6 +124,17 @@ Machinery
 
 ### Medical
 
+- Ultrasound imaging
+- Heairing aids
+- Speech impairment treatment
+- Speech-based diagnostics of cognitive issues. Including dementia et.c.
+- Acoustic monitoring of patient wards
+- Detection and diagnosis of respiratory disease
+- Computer-aided auscultation
+- Audio-based health tracking using consumer electronics
+- Snoring detection/tracking
+
+
 ### Computer-aided auscultation
 Electronic stethoscope. Transferred over Bluetooth or cable.
 Detecting and characterizing heart murmurs / cardiac murmurs.
@@ -173,6 +184,13 @@ Two datasets, A and B. 176 files in WAV for 656 files in WAV format
 
 
 https://ieeexplore.ieee.org/abstract/document/9175450
+
+
+### Health tracking using consumer electronics
+
+Papers
+
+- [Remote Breathing Rate Tracking in Stationary Position Using the Motion and Acoustic Sensors of Earables](https://www.researchgate.net/publication/369439475_Remote_Breathing_Rate_Tracking_in_Stationary_Position_Using_the_Motion_and_Acoustic_Sensors_of_Earables)
 
 ### Acoustic Emission monitoring
 Using the emission of acoustic waves from materials under load/stress/failure.
