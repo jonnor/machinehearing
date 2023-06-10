@@ -1,9 +1,11 @@
 
 # Audio identification using fingerprinting
 
-Stack Overflow questions
+## Notebooks
 
-- https://stackoverflow.com/questions/75490868/how-to-get-mel-spectagram-peaks-array-in-python
+- [Constellation map](./Constellation.ipynb).
+Example of computing Shazam-style constellations using peak-finding on a spectrogram.
+
 
 ## Educational resources
 
@@ -45,7 +47,6 @@ Video: https://archive.fosdem.org/2016/schedule/event/audio_identification/
 Decribes the architecture of a practical system.
 Includes also a discussion of the fingerprinting itself.
 
-
 ### How Shazam Works - An explanation in Python
 By Michael Strauss
 https://michaelstrauss.dev/shazam-in-python
@@ -58,6 +59,11 @@ Full code in git repository, https://github.com/MichaelCStrauss/shazam-python
 Two blog post by the creator of the algorithm
 https://oxygene.sk/2010/07/introducing-chromaprint/
 https://oxygene.sk/2011/01/how-does-chromaprint-work/
+
+### EmySound: How does Audio Fingerprinting work
+https://emysound.com/blog/open-source/2020/06/12/how-audio-fingerprinting-works.html
+
+Describes the approach used in SoundFingerprinting library.
 
 ## Software
 
@@ -94,6 +100,13 @@ and then listen to microphone to recognize sounds.
 Must be installed from git. Not yet on PyPi
 MIT licensed
 
+### soundfingerprinting
+https://github.com/AddictedCS/soundfingerprinting
+
+- Implemented in C#
+- MIT licensed
+
+
 ### Adblockradio
 Used a Shazam-like audio fingerprinting technique using spectrogram peaks.
 Implemented in Node.js
@@ -127,19 +140,33 @@ Over 1k citations.
 https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-017-0114-4
 EURASIP Journal on Audio, Speech, and Music Processing volume. 2017 
 
+Compare the ORB based method to Shazam.
+Shows much better results for speed (pitch+tempo), pitch, tempo changes in songs.
+Slightly worse results for gaussian noise.
+Storage space was 10% higher than Shazam.
+
+Stores the ORB spectrograms, and not a hash.
+Scales much more poorly with number of songs in database.
+
 Based on work done in ORB: an efficient alternative to SIFT and SURF
+ORB is two orders of magnitude faster and more computationally efficiency than SIFT.
 
-
-Robust landmark-based audio fingerprinting.
-
-
-
+ORB descriptors can be more efficiently queried using Locality Sensitive Hashing
+combined with Approximate Nearest Neighbors search.
+OpenCV has an example using FLANN.
+https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_feature2d/py_matcher/py_matcher.html#flann-based-matcher
 
 ## Services
 
+### AcousticId
 https://acoustid.biz/
 
+Uses the ChromaPrint algorithm.
+
+Pricing
 - 1 million searches, 50 USD/month
 - 15 million searches, 150 USD/month
 
+### EmySound
+https://emysound.com
 
