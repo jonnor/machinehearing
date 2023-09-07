@@ -28,8 +28,51 @@ In audio we might want to:
 
 Different approaches can be to
 
-- create a model which is interpretable/explainable by construction
-- generate explainer models on top of a black-box model
+- create a model which is interpretable/explainable by construction (intrinsic interpretability)
+- generate explainer models on top of a black-box model (post-hoc interpretation)
+
+## Feature representation
+
+Focusing on general Audio Classification, as well as Sound Event Detection.
+Detailed applications in speech and music may benefit from more specialized solutions.
+
+In addition to interpretable ML models, we need audio data representations that are understandable.
+
+- Time domain. Soundlevels
+- Frequency domain. Spectrum
+- Time-frequency domain. Spectogram 
+- Cepstral domain. MFCC
+
+Cepstral domain is not easily interpretable!
+
+Time-frequency domain can utilize methods designed for images.
+
+Where as in the time domain we can utilize (multi-variate) time-series techniques.
+
+Whether (sub) sequence modelling is important.
+Or can a bag-of-words approach be used.
+
+## Attention modelling
+
+Focusing on a particular time-range, frequency-range, or time-frequency region.
+
+## Spectrogram dictionary learning
+
+Using Non-negative matrix factorization (NMF or NNMF).
+Unsupervised or supervised.
+Applied to time-frequency / spectrograms.
+Many possible decompositions.
+Seeking a minimal amount of bases.
+Where each base is simple. And activations are sparse.
+
+Could use convolutive NMF, or even full convolution to learn templates.
+
+
+Finding appropriate temporal and frequency resolution.
+Minimixing complexity, maximizing understandability.
+
+Need to know that audio/events of interest are actually separable, before trying to explain it.
+
 
 ## Papers
 
@@ -66,7 +109,7 @@ Like using SHAP on the baseline neural network.
 
 
 ### Interpreting and Explaining Deep Neural Networks for Classification of Audio Signals
-[Paper link](https://arxiv.org/abs/1807.03418). [.
+[Paper link](https://arxiv.org/abs/1807.03418).
 By Sören Becker, Marcel Ackermann, Sebastian Lapuschkin, Klaus-Robert Müller, Wojciech Samek.
 From Fraunhofer and TU Berlin, 
 
@@ -113,6 +156,39 @@ but could be one of nine different locations.
 
 Please note that due to the uncontrolled environment of the recordings,
 many recordings are corrupted by various noise sources, such as talking, stethoscope motion, breathing and intestinal sounds. Some recordings were difficult or even impossible to classify as normal or abnormal.
+
+
+### A Deep Non-Negative Matrix Factorization Neural Network
+[Paper link](https://www1.cmc.edu/pages/faculty/bhunter/papers/deep-negative-matrix.pdf).
+Jennifer Flenner and Blake Hunter. 2017.
+
+Shows results on 3-second bird calls.
+Claims better bases than standard NMF.
+
+### Data-Dependent Feature Extraction Method Based on Non-Negative Matrix Factorization for Weakly Supervised Domestic Sound Event Detection
+https://www.mdpi.com/2076-3417/11/3/1040
+
+Shows as good results as Mel spectrogram based.
+But used 128 bases, same as the comparable spectrogram features.
+Most likely worse in terms of interpretability.
+
+### Tackling Interpretability in Audio Classification Networks with Non-negative Matrix Factorization
+https://arxiv.org/pdf/2305.07132.pdf
+Jayneel Parekh, Sanjeel Parekh, Pavlo Mozharovskyi, Gaël Richard, Florence d’Alché-Buc
+May 2023.
+
+Shows a combination of two neural networks, tied together to enable interpretability.
+Classifier is a standard CNN. Interpreter is based on NMF.
+
+The interpreter (indicated in blue) accesses hidden layer outputs of the classifier.
+These are used to predict an intermediate encoding.
+Through regularization terms, we encourage this encoding to both mimic the classifier’s output
+and also serve as the time activations of a pre-learnt NMF dictionary.
+In post-hoc interpretation, the classifier is pre-trained and fixed, and only the interpreter is trained.
+For by-design interpretation we train both jointly and make final predictions using output of interpreter.
+
+Showed how one can convert audio interpretation snippets, using soft masks on spectrogram and inverse STFT.
+Compares with Task- driven Dictionary Learning (TDL-NMF) and unsupervised-NMF.
 
 
 ## Tools
