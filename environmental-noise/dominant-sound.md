@@ -4,7 +4,7 @@
 An approach to classification of sounds for noise monitoring,
 under the assumption of single-dominant-source.
 
-# Task formulation
+# Task formulations
 
 ## Dominant Sound Classification
 
@@ -44,68 +44,8 @@ there are multiple sources that meaningfully contribute to the overall noise lev
 
 # Research questions
 
-## How often is the single-dominant-source-at-a-time a reasonable assumption?
-
-Or v.v., how often is the single-dominant-source-at-a-time assumption broken?
-How often does two (or more) noise sources appear concurrently, where B is within 10 dB of A
-Time resolution either 125ms (LAF) or 1 second (LAS).
-
-#### Possible ways of answering
-
-- Analysis of selected recordings in representative scenarios. Qualitative
-- Statistical analysis of co-occurence, given simple models
-- Analysis of real-world dataset covering many cases. Primarily quantitative
-
-## Simplified statistical analysis of co-occurrence
-
-For example:
-Given two noise sources, each active for 5 seconds at a time.
-Say 30 seconds between each activiation.
-Assume that they are independent from eachother.
-What is probability of happening at same time?
-ie overlapping by 1 second or more.
-Model emission with Poisson?
-
-Two variables: duration and .
-Can compute probabilities of co-occurence as a table.
-
-## Small scale analysis
-
-Pre-requisites: Identify some appropriate scenarios.
-
-Could maybe select some time-periods
-Say 10-30 seconds long
-that are representative of whole dataset
-analyze these manually
-mark periods of single dominant, multiple contributions
-
-
-## Large scale analysis
-
-If one had captured a mixture of these things, how would one analyse the data to answer this question?
-
-statistical analysis
-each source modelled as a soundlevel generating process
-characterized by
-a. sound level distribution
-LAFeq for each time-step
-b. emission probabilities
-
-## Generative modelling
-
-Might be possible to have source activity as a binary
-Maybe the activation patterns of sources can be Poisson
-
-Could we formulate a generative model,
-and fit it to real-world mixtures?
-could test it on synthetic mixtures first,
-to check if model is able to fit properly
-
-## How well can we attribute noise
-
-Measure in terms of dB. Ground truth computed from labeld
-Requires a labeled dataset with fine-grained event labels.
-Have to select
+- How often is the single-dominant-source-at-a-time a reasonable assumption?
+- How well can we attribute soundlevels to their class?
 
 # Hypothesis
 
@@ -124,7 +64,64 @@ Small things that would be good to figure out
 makes it easier for models to solve the Dominant Sound Classification / Sound Event Detection task.
 At least with limited data and/or model capacity.
 
+# Research methods
+
+## How often is the single-dominant-source-at-a-time a reasonable assumption?
+
+Or v.v., how often is the single-dominant-source-at-a-time assumption broken?
+How often does two (or more) noise sources appear concurrently, where B is within 10 dB of A
+Time resolution either 125ms (LAF) or 1 second (LAS).
+
+#### Possible ways of answering
+
+- Analysis of selected recordings in representative scenarios. Qualitative
+- Statistical analysis of co-occurence, given simple models
+- Analysis of real-world dataset covering many cases. Primarily quantitative
+
+#### Simplified statistical analysis of co-occurrence
+
+For example:
+Given two noise sources, each active for 5 seconds at a time.
+Say 30 seconds between each activiation.
+Assume that they are independent from eachother.
+What is probability of happening at same time?
+ie overlapping by 1 second or more.
+Model emission with Poisson?
+
+Two variables: duration and .
+Can compute probabilities of co-occurence as a table.
+
+#### Small scale analysis
+
+Pre-requisites: Identify some appropriate scenarios.
+
+Could maybe select some time-periods
+Say 10-30 seconds long
+that are representative of whole dataset
+analyze these manually
+mark periods of single dominant, multiple contributions
+
+#### Large scale analysis
+
+If one had captured a mixture of these things, how would one analyse the data to answer this question?
+
+statistical analysis
+each source modelled as a soundlevel generating process
+characterized by
+a. sound level distribution
+LAFeq for each time-step
+b. emission probabilities
+
+
+## How well can we attribute soundlevels to their class?
+
+Measure in terms of dB. Ground truth computed from labels.
+Requires a labeled dataset with suitable labels.
+
+
+
 # Open questions
+Things that need to be resolved to answer hypothesis or parts thereof.
 
 ## Noise Monitoring scenario/usecase
 Which usecase are a good fit of the proposed method?
@@ -171,6 +168,7 @@ Each activation of a source has a short (soundlevel) sequence associated with it
 Assuming that LAF/LAS captures well enough.
 
 
+
 # Ideas
 
 ## Synthetic datasets
@@ -183,8 +181,20 @@ Possible target for a follow-up paper.
 
 ## TinyML classification
 
-
+The Dominant Sound Event Detection task should be solvable using SED systems that
+can run on contemporary IoT Noise Monitoring devices.
 Target for a follow-up paper.
+
+## Generative modelling
+
+Might be possible to have source activity as a binary
+Maybe the activation patterns of sources can be Poisson
+
+Could we formulate a generative model,
+and fit it to real-world mixtures?
+could test it on synthetic mixtures first,
+to check if model is able to fit properly
+
 
 
 # Paper
@@ -299,6 +309,7 @@ Could be used to study how often sounds co-occur?
 https://dcase.community/challenge2022/task-sound-event-detection-in-domestic-environments
 https://dcase.community/challenge2023/task-sound-event-detection-with-weak-labels-and-synthetic-soundscapes 
 
+
 # Theory
 
 ## Single dominant source
@@ -308,4 +319,39 @@ If B is -5dB of A, then B contribution to sum is 1.2 dB
 If B is -10dB of A, then B contribution to sum is 0.4 dB
 This means that when A is +10 dB of B, its contribution to the sum is neglible.
 
+## Thresholds for becoming noticable noise
+
+TITLE 7 NATURAL RESOURCES & ENVIRONMENTAL CONTROL DELAWARE ADMINISTRATIVE CODE, 1149 Regulations Governing the Control of Noise. USA
+
+> Intrusive noise means unwanted sound which intrudes over and above the existing noise at a given location.
+> The relative intrusiveness of the sound depends upon its
+> amplitude, duration, frequency, time of occurrence and tonal or informational content as well as the prevailing ambient noise level.
+> A sound pressure level of 3 dB(A) above the ambient level is normally just discernable,
+> with levels of 5 dB(A) to 10 dB(A) the lower level region for complaints.
+
+Noise Guide for Local Government Part 2 Noise assessment, Australia
+
+> The NSW Industrial Noise Policy (EPA 2000),
+> which is specifically aimed at large and complex industrial activities,
+> defines intrusive noise as 5 decibels above the background noise level
+> 
+> The background level is the LA90 measurement of all noise in the area of the complaint
+> without the subject noise operating or affecting the measurement results.
+> 
+> The Interim Construction Noise Guideline (DECC 2009) notes there may be
+> some community reaction to noise from major construction projects where this is more than 10 decibels
+> above the background noise level for work during the daytime.
+> This recognises that construction noise is generally temporary
+> with the community having a slightly higher tolerance for it.
+
+BS4142:2014 states
+
+> The significance of sound of an industrial and/or commercial nature depends
+> upon both the margin by which the rating level of the specific sound source exceeds the background
+> sound level and the context in which the sound occurs
+> ...
+> A difference of around +10dB or more is likely to be an indication of a significant adverse impact,
+depending on the context.”
+> A difference of around +5dB is likely to be an indication of an adverse impact,
+depending on the context.”
 
