@@ -1,38 +1,46 @@
 
+# Combining soundlevel and classification 
 
+When doing Noise Monitoring, we the severity of noise is typically measured using sound level.
+There are international standards that define how this is done,
+and noise regulations across the world build on these standards. 
 
+When using Machine Learning for Noise Monitoring it is possible to classify the sound
+based on its characteristics, enabling to determine what type of sound - or sometimes the source of the sound is.
+This has been extensively researched,
+for example under the umbrella of Environmental Sound Classification.
 
-## Notes
+However, methods and practices for combining soundlevel and classification seem to be lacking.
+This severely limits the usefulness of machine learning for Noise Monitoring.
 
-Noise source analysis
-Combining audio classification with soundlevel
-to explain the contributions in
+# Research agenda
 
-Max-levels versus average levels
+- Task formulation.
+The tasks of combining noise levels and audio classification does not yet seem to be defined or established
+in relevant communities? Acoustics, Machine Learning
+- Real-world evaluations of data wrt different task formulations / approaches
+- Results of using the methods in practice, performance
 
-Max levels, noise events.
-Want to count how many occur, during night etc
-T-1442
-Want to know the source for each event
+Could have publications at multiple stages of this.
+Can split out investigations into domains/usecases.
+Want to demonstrate the soundness of using proposed strategy.
 
+## Hypothesis
 
-Loud event detection. Based on thresholds LAF
-Classify event.
+### Dominant Sound simplification
 
+Most practical environmental noise mixtures can be well approximated by
+a single dominant noise source at a time.
+This means that it can also be solved using Sound Event Detection.
+Related claim: Full source separation, is rarely needed.
 
-Time-series segmentation
+Work in progress: [Dominant Sound Classification & Dominant Sound Event Detection](./dominant-sound.md).
 
-Consider
+### Max noise for noise events
 
+Noise types that are regulated by maximum soundlevel tends to be sound events,
+and should be solveable in straightforward manner using Sound Event Detection.
 
-Source separation.
-Spectrogram based. 
-
-Binary masks. Assign each TF bin to one source  
-Soft/Ratio Masks. Estimate
-https://source-separation.github.io/tutorial/basics/tf_and_masking.html
-
-Challenge: uncertainty
 
 
 # Background
@@ -59,114 +67,33 @@ Models are relevant where the noise sources are far from constant.
 High degree of temporal variability.
 If the noise is near-continious, less suited?
 
-## Interesting datasets.
-- PNB.
-- Traffic.
-- Startuplab office.
 
-# Research agenda
+# Notes
 
-- Task formulation.
-The tasks of combining noise levels and audio classification does not yet seem to be defined or established
-in relevant communities? Acoustics, Machine Learning
-- Real-world evaluations of data wrt different task formulations / approaches
-- Results of using the methods in practice, performance
+Noise source analysis
+Combining audio classification with soundlevel
+to explain the contributions in
 
-Could have publications at multiple stages of this.
-Can split out investigations into domains/usecases.
-Want to demonstrate the soundness of using proposed strategy.
+Max-levels versus average levels
 
-## Hypothesis
-1. Events regulated by maximum soundlevel
-can be solved in straightforward manner using Sound Event Detection
+Max levels, noise events.
+Want to count how many occur, during night etc
+T-1442
+Want to know the source for each event
 
-2. Most practical environmental noise mixtures can be well approximated by
-a single dominant noise source at a time
-(ie source separation is rarely needed)
+Loud event detection. Based on thresholds LAF
+Classify event.
 
-# Dominant Noise Source Classification
+Time-series segmentation
+Consider
 
-Noise Classification using the single-dominant-source method/assumption
+Source separation.
+Spectrogram based. 
 
-## Task formulation
+Binary masks. Assign each TF bin to one source  
+Soft/Ratio Masks. Estimate
+https://source-separation.github.io/tutorial/basics/tf_and_masking.html
 
-### Input
-
-Stream of audio. Consisting of multiple noise sources.
-Noise sources are typically time-varying.
-
-### Output
-
-Discrete class labels in `{class0,class1....classN}`
-
-Might also allow for added pseudo-classes {unknown,mixture}
-`unknown` means the model cannot reliably detect the class.
-can be result of. insufficient classifier confidence, out-of-distribution outlier detector 
-
-`mixture` means that the dominant-source assumption is violated,
-there are multiple sources that meaningfully contribute to the overall noise level.
-Result of dominant-source classification
-
-
-## How often is the single-dominant-source-at-a-time a reasonable assumption?
-Or v.v., how often is the single-dominant-source-at-a-time assumption broken?
-If B is -5dB of A, then B contribution to sum is 1.2 dB
-If B is -10dB of A, then B contribution to sum is 0.4 dB
-How often does two (or more) noise sources appear concurrently, where B is within 10 dB of A
-Time resolution ~1 second
-
-If one had captured a mixture of these things, how would one analyse the data to answer this question?
-
-Could maybe select some time-periods
-Say 10-30 seconds long
-that are representative of whole dataset
-analyze these manually
-mark periods of single dominant, multiple contributions
-
-statistical analysis
-each source modelled as a soundlevel generating process
-characterized by
-a. sound level distribution
-LAFeq for each time-step
-b. emission probabilities
-
-Time-steps in order of 0.1 to 1 seconds.
-Maybe 0.125 to match LAF?
-Assumes that one can classify to precicely, which might be a stretch.
-But that can be considered separate problem
-
-There is considerable temporal dependency between time-frames (for each source)
-More like each activation of a source has a short (soundlevel) sequence associated with it
-
-?? Can we ignore this in the statistical analysis?
-How to represent in simple but effective way?
-
-Might be possible to have source activity as a binary
-Maybe the activation patterns of sources can be Poisson
-
-could we formulate a generative model,
-and fit it to real-world mixtures?
-could test it on synthetic mixtures first,
-to check if model is able to fit properly
-
-could create a models for estimating single-dominant source or not
-synthesize mixtures to form dataset
-different dB ratios of A,B (might also need to have background noises C,D,E)
-train model to predict the ratio
-use model to analyze real-world data
-
-Is worthy of a paper of its own?
-From product point-of-view. Want to 
-
-## 
-
-two noise sources
-active 5 seconds at a time
-30 seconds between each activiation
-independen from eachother
-
-what is probability of happening at same time?
-ie overlapping by more than 1 second
-
+Challenge: uncertainty
 
 
