@@ -5,16 +5,17 @@ Temporal distances
 
 ## Time difference of a bouncing ball
 
+Max Clark asked on Stack Overflow in [Conversational Neural Network for Peak Detection and time difference of a bouncing ball](https://stackoverflow.com/questions/69426301/conversational-neural-network-for-peak-detection-and-time-difference-of-a-bounci).
 
-Max Clark asked on Stack Overflow
-Conversational Neural Network for Peak Detection and time difference of a bouncing ball
-https://stackoverflow.com/questions/69426301/conversational-neural-network-for-peak-detection-and-time-difference-of-a-bounci
+Goal is actually to get the heigth of the initial height.
+There is information in that in the time difference between first and second bounce, but also in the distance between second and third, etc.
 
-Target here is actually to get the heigth of the ball bounce.
-There is information in that in the time difference between first and second bounce,
-but also in the distance between second and third, etc.
-So the neural network should maybe just
+I think that to get the height from only two ground touches,
+we would need to also to know the COR of the ball.
+But if we have 3 bounces, one can estimate the COR. 
+Thus we should be able to get height, without knowing any further data?!
 
+### Background
 The bounceback amount (ratio?) is a way to measure how springy the ball and surface (combined) are.
 
 https://demonstrations.wolfram.com/BounceTimeForABouncingBall/
@@ -34,18 +35,17 @@ Coefficient Of Restitution (COR) is mostly constant,
 but some indications that it can change by up to 10% when height is increased 10x.
 
 Sports balls have standardized COR values
-Table tennis ball. Shall bounce up 24–26 cm when dropped from 30.5 cm on to a standard steel block. COR of 0.887 to 0.923.
-Basketball. Shall rebound to between 960 and 1160 mm when dropped from a height of 1800 mm. COR between 0.53–0.64.
-Tennis ball. ATP regulations. Bounce to a height of 135 cm and 147 cm when dropped from 254 cm on a hard surface. COR of between 0.728 and 0.759.
-Golf ball. Roughly 0.70
-Baseball prewar construction is about 0.45.
 
+- Table tennis ball. Shall bounce up 24–26 cm when dropped from 30.5 cm on to a standard steel block. COR of 0.887 to 0.923.
+- Tennis ball. ATP regulations. Bounce to a height of 135 cm and 147 cm when dropped from 254 cm on a hard surface. COR of between 0.728 and 0.759.
+- Golf ball. Roughly 0.70
+- Basketball. Shall rebound to between 960 and 1160 mm when dropped from a height of 1800 mm. COR between 0.53–0.64.
+- Baseball prewar construction is about 0.45.
 
 For drop from rest, ignoring air friction
     C_R = \sqrt{\frac{h}{H}}, where
     h {\displaystyle h} h is the bounce height
     H {\displaystyle H} H is the drop height
-
 
 https://www.millersville.edu/physics/experiments/045/
 Bounce-to-bounce time is proportional to the square root of the bounce height.
