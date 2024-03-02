@@ -47,6 +47,13 @@ For drop from rest, ignoring air friction
     H {\displaystyle H} H is the drop height
 
 
+https://www.millersville.edu/physics/experiments/045/
+Bounce-to-bounce time is proportional to the square root of the bounce height.
+Only dependent on the COR?
+
+Log flight time is linear in bounce number
+https://www.researchgate.net/publication/228575622_Aerodynamic_Effects_in_a_Dropped_Ping-Pong_Ball_Experiment/figures?lo=1
+
 ## Triggering
 
 A practical solution running on a device would need to "trigger" the model somehow.
