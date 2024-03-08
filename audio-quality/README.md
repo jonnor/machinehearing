@@ -94,14 +94,14 @@ This normally requires the function to be differentiable.
 | Method   |      Purpose      |  Open Implementations  | Definition  |
 |----------|:-------------:|------:| ------:|
 |  PSQM |   Speech Quality  |   |  [ITU-T P.861](https://www.itu.int/rec/T-REC-P.861/en)  |
-|  STOI  |  Speech Intelligibility   |  [pystoi](https://github.com/mpariente/pystoi)  | [Paper](https://ieeexplore.ieee.org/document/5495701) |
-|  PESQ |  Speech Quality  |  |  [ITU-T P.862](https://www.itu.int/rec/T-REC-P.862/en) |
+|  SI-SDR  |  Audio Quality   |  [torchaudio](https://pytorch.org/audio/main/generated/torchaudio.models.SquimObjective.html)  | [Paper]((https://ieeexplore.ieee.org/document/8683855) |
+|  STOI  |  Speech Intelligibility   |  [pystoi](https://github.com/mpariente/pystoi),[torchaudio](https://pytorch.org/audio/main/generated/torchaudio.models.SquimObjective.html)  | [Paper](https://ieeexplore.ieee.org/document/5495701) |
+|  PESQ |  Speech Quality  | [torchaudio](https://pytorch.org/audio/main/generated/torchaudio.models.SquimObjective.html)  |  [ITU-T P.862](https://www.itu.int/rec/T-REC-P.862/en) |
 |  PEAQ |  Audio Quality  | [GstPEAQ](https://github.com/HSU-ANT/gstpeaq)  |  [ITU-R BS.1387-1](http://www.itu.int/rec/R-REC-BS.1387/en)  |
 |  POLQA |   Speech Quality | |   [ITU-T P.863](https://www.itu.int/rec/T-REC-P.863/en)  |
 |  VISQOL |   Audio/Speech Quality  |  [visqol](https://github.com/google/visqol) |  [Paper](https://arxiv.org/abs/2004.09584) |
 |  Frechet Audio Distance |  Audio Quality |  [frechet_audio_distance](https://github.com/google-research/google-research/tree/master/frechet_audio_distance)   |   [Paper](https://arxiv.org/abs/1812.08466) |
-|  DPAM |  Speech/Audio Quality |   [PerceptualAudio](https://github.com/pranaymanocha/PerceptualAudio)  |  [Paper](https://arxiv.org/abs/2001.04460)  |
-|  CDPAM |  Speech/Audio Quality |   [PerceptualAudio](https://github.com/pranaymanocha/PerceptualAudio)  |  [Paper](https://arxiv.org/abs/2102.05109)  |
+|  DNSMOS |  Speech Quality |  [DNSMOS](https://github.com/microsoft/DNS-Challenge/tree/master/DNSMOS)   |   [Paper](https://arxiv.org/abs/2110.01763) |
 
 
 ![Evolution of ITU-T recommendations for Audio Quality](http://www.polqa.info/images/polqa_diagramm_zoom.jpg). Source: polqa.info
@@ -128,6 +128,9 @@ ITU-T standardized in 2001. https://www.itu.int/rec/T-REC-P.862
 ![Block diagram of PESQ. Source: HinesVISQOL2015](Block-diagram-of-PESQ-hines.jpg)
 
 Superseeded by POLQA in 2011.
+
+Implemented in pytorch-audio / TorchAudio. Can be used as a loss function
+
 
 ### Implementations
 
@@ -232,16 +235,14 @@ A key component is Neurogram Similarity Index Measure (NSIM),
 originally proposed in [Speech intelligibility prediction using a Neurogram Similarity Index Measure](https://dl.acm.org/doi/10.1016/j.specom.2011.09.004) (Hines, 2012).
 
 ## SDR
-Signal to Distortion Ratio.
-
+Signal to Distortion Ratio (SDR).
 From the MATLAB toolbox [BSS_eval](http://bass-db.gforge.inria.fr/bss_eval/)
-
 Designed to evaluate (blind) source separation algorithms.
-
 Authors now suggest to use PEASS instead.
+Only of historical interest. Should at the very least use SI-SDR.
 
 ## SI-SDR
-Scale-invariant SDR (SI-SDR).
+Scale-Invariant Signal-to-Distortion Ratio (SI-SDR).
 Slightly modified definition of SDR, proposed in [SDR – Half-baked or Well Done?](https://ieeexplore.ieee.org/document/8683855).
 
 Corrected version of 'SDR' method from BSS_eval.
@@ -366,6 +367,12 @@ Python package.
 Implements many Speech Quality and Speech Intelligibilty metrics.
 Including Log-likelihood Ratio.
 STOI and PESQ metrics by wrapping pystoi and pypesq
+
+## DNSMOS
+
+[DNSMOS: A Non-Intrusive Perceptual Objective Speech Quality metric to evaluate Noise Suppressors](https://arxiv.org/abs/2010.15258)
+[DNSMOS P.835: A Non-Intrusive Perceptual Objective Speech Quality Metric to Evaluate Noise Suppressors](https://arxiv.org/abs/2110.01763)
+
 
 ## DPAM
 DPAM = Deep Perceptual Audio Metric.
