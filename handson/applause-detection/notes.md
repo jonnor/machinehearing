@@ -134,4 +134,22 @@ Foreground vs background applause events.
 Model to decompose foreground to background applause/clapping events.
 
 
+# Exploratory Data Analysis
+
+Applause is mostly in the form of clapping.
+
+Co-occurences in addition to clapping.
+There can be voice/speech overlapped. From presenter or host.
+There can be yeeps and other calls. Engaged audience.
+
+In spectrogram view, clapping looks pretty "dense" (as opposed to sparse). Especially compared to speech.
+Both broad-band in terms of frequency content. And no tonal components.
+And also dense in time. Onsets are close enough that room reverberation never lets the levels drop all the way down.
+
+In published conference talk recordings, the clapping is relatively low in volume relative to the person(s) speaking.
+This is usually the desired for playback, and levels are probably set to make it so, either live or in post-production.
+Means that it is not entirely representative of the sound in the room in terms of sound level.
+I would think that applause would generally be as loud as person speaking, or maybe a bit louder even?
+!1 file had room mic in separate channel from speaker microphones.
+
 
