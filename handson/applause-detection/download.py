@@ -28,7 +28,7 @@ def ensure_dir(path):
 
 def main():
 
-    files = dataset.load()
+    files = dataset.load_files()
 
     print(files.head(5))
     #download_audio
@@ -37,7 +37,7 @@ def main():
     ensure_dir(out_dir)
 
     for idx, file in files.iterrows():
-        download_audio(file['url'], out_dir=out_dir)
+        download_audio(file['identifier'], out_dir=out_dir)
 
 
 
