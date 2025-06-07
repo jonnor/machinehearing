@@ -26,6 +26,7 @@ Some real-world examples are referenced at the bottom of this page.
 
 - Provide an example on real data.
 For example fitting a repeated sequential (cyclic) process, such as those found in automation/manufacturing.
+Maybe from MMII dataset?
 
 ## Implementation
 

@@ -1,40 +1,87 @@
 
 ## Others that want to do this
 
+Constrains inside the EM loop
+
 - https://github.com/jmschrei/pomegranate/issues/9
 
-## Implementation notes
+# Anomaly Detection for cyclic behavior
 
-In `pomegranate`, the HMM models have a public callback API.
-The callback `on_epoch_end` is called on each iteration.
-https://github.com/jmschrei/pomegranate/blob/f115a242a5b50854bbf199d43fe2cfd061e9708a/pomegranate/hmm.pyx#L2715
-The callback gets the model instance as self.model before on_training_begin
-But there is no way to get or set the transitions during training, as they are C arrays inside Cython
-Clean solution would be to expose an optional callback for modifying this.
-Otherwise have to stick to the workaround from https://github.com/jmschrei/pomegranate/issues/9
+In manufacturing and automation, cycling behavior is common in several processes.
+For example in assembly, a machine might first do A, then B, then C,
+and correct outcome depends on the correct order of operations, as well as correct operation inside each.
 
-> I am using three vector approach to sparse matrices, but each vector is a private attribute right now
-> I'll add in a method which takes in either a dense or sparse matrix and calculates a new internal transition matrix from that.
+In such a system, one want to be able to detect anomalies, such as:
 
-self.out_transition_log_probabilities
-self.in_transition_log_probabilities
-? which is the last one?
+- Incorrect order of operations/states (in a cycle)
+- Cycles that do not complex / are aborted prematurely
+- Cycles that take abnormally long (or short) time
+- States (in a cycle) that are abnormally short or long
+- Anomalous data inside a particular stage
 
-Can have multiple batches per epoch.
-Calls self.summarize for each batch
-and then self.from_summaries for each epoch
+Thesis. A typical automation loop is be well approximated with a HMM, using a `linear` topology.
+This, along with some preprocessing, should enable detecting all these kinds of anomalies.
 
-It is in self.bake that transition_log_probabilities gets created, from the self.graph instance
-Could create methods like
-def get_transition_matrix()
-def set_transition_matrix()
-Would also need the state_name to index mapping to do much interesting
+A constrained HMM approach is particularly attractive when
+different stages in cycle have different lengths (possibly also varying in length).
 
-However for simple dissallowing of certain edges, one can use.
 
-BUT - this does not implement k-means initialization, which has to be done manually
+## Datasets
 
-In `sequentia`, the models just use hmmlearn internally, so one would need to use the hmmlearn approach there.
+#### Genesis Demonstrator
+https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning
+
+- Machine is ortable pick-and-place, with air powered gripper
+- Sorts different two different materials (wood and metal) into their corresponding target locations
+- Materials can come from 
+- 8 states in the State Machine of the program.
+- 3 kinds of anomalies introduced in different sub-datasets: linear drive jam, linear drive gradual impairment, air pressure gradual drop
+- Rrecords 5(+4) continuous signals, 13 discrete signals
+
+#### Bosch Research CNC Machining Data
+https://github.com/boschresearch/CNC_Machining
+
+- Tri-axial accelerometer (Bosch CISS Sensor) mounted inside the machine.
+- Sampling rate equal to 2 kHz.
+- Thereby normal as well as anomoulous data have been collected for 6 different timeframes, each lasting 6 months from October 2018 until August 2021 and labelled accordingly.
+- Data from three different CNC milling machines each executing 15 processes.
+
+#### CNC turning: roughness, forces and tool wear
+https://www.kaggle.com/datasets/adorigueto/cnc-turning-roughness-forces-and-tool-wear?select=Prep.csv
+
+Surface roughness was measured on six different spots after each machining run
+
+? might all be normal. Not sure if there are outliers/anomaly conditions present.
+
+#### Turning Dataset for Chatter Diagnosis Using Machine Learning
+Dataset: https://data.mendeley.com/datasets/hvm4wh3jzx/1
+Paper: https://arxiv.org/abs/1905.08671
+
+- Two perpendicular single axis accelerometers, a tri-axial accelerometer, a microphone, and a laser tachometer.
+- no-chatter, intermediate chatter, chatter, and unknown.
+- The cutting test is performed by turning an Aluminum 6061 workpiece on a Clasuing-Gamet 33 cm (13 inch) engine lathe
+- four different cutting configurations were collected where each cutting configuration depends on the stickout distance
+- For each stickout distance, we collect data for several combinations of the rotational speed and depth of cut
+
+800 MB compressed, 6 GB uncompressed.
+
+### Custom data collection / demonstration
+Can maybe be done with a 3d printer, CNC machine.
+Making the same part repeatedly.
+Ideally a part that is simple to make, such that one can collect many times.
+Need a way to introduce realistic/plausible anomalies, in a safe manner.
+
+
+### Manufacturing process as repeated-cycle
+
+In CNC mills or lathes, making a part is often a series of cuts.
+Combined this makes one very long cycle - unique to a part.
+One can of course model this particular part/program as a long sequence of states, one state per unique cut.
+
+But one can maybe also model individual cuts as repeated instances of the same cycles (enter, cut, leave),
+without modelling each cut as a separate state?
+Perhaps they can be similar enough that anomalies can be detected.
+
 
 ## VAD
 
