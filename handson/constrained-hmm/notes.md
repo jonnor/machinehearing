@@ -53,6 +53,60 @@ Surface roughness was measured on six different spots after each machining run
 
 ? might all be normal. Not sure if there are outliers/anomaly conditions present.
 
+#### CNC Mill Tool Wear
+https://www.kaggle.com/datasets/shasun/tool-wear-detection-in-cnc-mill
+
+Machining data was collected from a CNC machine for variations of tool condition, feed rate, and clamping pressure.
+Each experiment produced a finished wax part with an "S" shape.
+Run on 2" x 2" x 1.5" wax blocks.
+
+- 18 experiments, each giving one time-series
+- Sampled at 10 Hz
+- Multiple active machining operations, labeled as "Layer 1 Up", "Layer 1 Down", "Layer 2 Up", "Layer 2 Down", "Layer 3 Up", and "Layer 3 Down". 
+- Experiments were run with different feed rates,
+- Experiments were run with different clamping pressures, of 2.5, 3.0, and 4.0 bar
+- visual flaws indicated with a passed_visual_inspection column
+- Some experiments were aborted for safety concerns, see machining_completed column
+- Eight experiments were run with an unworn tool while ten were run with a worn tool (see tool_condition column for indication).
+
+! Simple experiments.
+Would be quite doable to replicate locally.
+
+WARN: some dirty data:
+
+    Note that some variables will not accurately reflect the operation of the CNC machine.
+    This can usually be detected by when M1_CURRENT_FEEDRATE reads 50,
+    when X1 ActualPosition reads 198, or when M1_CURRENT_PROGRAM_NUMBER does not read 0.
+    The source of these errors has not been identified.
+
+This notebook has some reasonable basic EDA on the dataset,
+https://www.kaggle.com/code/paulsatyajit/cnc-milling-machine-tool-wear-detection
+
+    Experiments are up to 2000 seconds long.
+
+This one has some focused EDA on Spindle output power vs Machining process
+https://www.kaggle.com/code/jiprud/cnc-data-analysis
+
+    Hypothesis: Output power of the tool (S1_OutputPower) is bigger for "Milling" points than in "Preparation" ones. Let's see if we can prove this.
+    Conclusion: hypothesis was proven correct. Average spindle power for Milling steps is two times bigger than for non Milling steps
+
+Notebook explored Mahalanobis for unsupervised anomaly detection for tool wear
+https://www.kaggle.com/code/clashofphish/attempt-mahalanobis-distance-for-outlier-detection
+
+    Had problems with bad readings.
+    Was not successful.
+
+
+Questions:
+
+- Can we reliably find the machining states, with unsupervised method? Segmentation
+- Do we need special features/preprocessing to be able to do the segmentation?
+- Can one detect the "jog" between each active operation?
+- What changes/differences are there in the signal between toolwear/not, degraded/not and aborted/not ?
+- Can the aborted operation be detected, with unsupervised method?
+- Is the difference in commanded vs actual position useful for AD wrt relevant conditions?
+- Is a stage-aware or per-stage analysis helpful in predicting toolwear/visual degradation?
+
 #### Turning Dataset for Chatter Diagnosis Using Machine Learning
 Dataset: https://data.mendeley.com/datasets/hvm4wh3jzx/1
 Paper: https://arxiv.org/abs/1905.08671
