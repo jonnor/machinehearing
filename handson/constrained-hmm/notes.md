@@ -31,26 +31,37 @@ different stages in cycle have different lengths (possibly also varying in lengt
 #### Genesis Demonstrator
 https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning
 
-- Machine is ortable pick-and-place, with air powered gripper
+- Machine is portable pick-and-place, with air powered gripper
 - Sorts different two different materials (wood and metal) into their corresponding target locations
-- Materials can come from 
 - 8 states in the State Machine of the program.
 - 3 kinds of anomalies introduced in different sub-datasets: linear drive jam, linear drive gradual impairment, air pressure gradual drop
 - Rrecords 5(+4) continuous signals, 13 discrete signals
 
 #### Bosch Research CNC Machining Data
 https://github.com/boschresearch/CNC_Machining
+Paper: https://www.semanticscholar.org/paper/Smart-Data-Collection-System-for-Brownfield-CNC-A-Tnani-Feil/647d015c9c34646aa13974e946150619002dbb69
+Unofficial download: https://www.kaggle.com/datasets/maximilianfellhuber/cnc-machining-data
 
 - Tri-axial accelerometer (Bosch CISS Sensor) mounted inside the machine.
 - Sampling rate equal to 2 kHz.
 - Thereby normal as well as anomoulous data have been collected for 6 different timeframes, each lasting 6 months from October 2018 until August 2021 and labelled accordingly.
 - Data from three different CNC milling machines each executing 15 processes.
 
+! not complete cycles.
+
+> The machine performs a sequence of several operations using different tools on aluminium parts to work the specified design.
+> It is important to mention that the machines produce different parts and the process flow changes over time
+> ...
+> For sake of confidentiality the tool operations order has been shuffled
+> and only a part of the production flow is present in the dataset.
+
+
 #### CNC turning: roughness, forces and tool wear
 https://www.kaggle.com/datasets/adorigueto/cnc-turning-roughness-forces-and-tool-wear?select=Prep.csv
 
 Surface roughness was measured on six different spots after each machining run
 
+!!! not time-series
 ? might all be normal. Not sure if there are outliers/anomaly conditions present.
 
 #### CNC Mill Tool Wear
@@ -79,6 +90,11 @@ WARN: some dirty data:
     when X1 ActualPosition reads 198, or when M1_CURRENT_PROGRAM_NUMBER does not read 0.
     The source of these errors has not been identified.
 
+!!! Might not have comparable data.
+Looking at 'Y1_ActualPosition', 'X1_ActualPosition' over time, it seems that different jobs at same speed does not operate in the same order?
+There are also a variable amount of 158,198 inside, very short, moving in under 100 ms. Seems not plausible for an actual jog to home
+
+
 This notebook has some reasonable basic EDA on the dataset,
 https://www.kaggle.com/code/paulsatyajit/cnc-milling-machine-tool-wear-detection
 
@@ -96,7 +112,6 @@ https://www.kaggle.com/code/clashofphish/attempt-mahalanobis-distance-for-outlie
     Had problems with bad readings.
     Was not successful.
 
-
 Questions:
 
 - Can we reliably find the machining states, with unsupervised method? Segmentation
@@ -107,6 +122,42 @@ Powers, regulation delays (diff in Position/Velocity/Acceleration).
 - Can the condition leading to aborted operation be detected, with unsupervised method?
 So not using position, which is consequence of an actual abort.
 - Is a stage-aware or per-stage analysis helpful in predicting toolwear/visual degradation?
+
+#### CNC Milling Process Dataset (2025)
+Download. https://www.kaggle.com/datasets/grzegorzpiecuch/cnc-milling
+Paper. https://www.nature.com/articles/s41597-025-04923-y
+
+- Full life cycle of 14 cutting tools
+- The tools performed 968 milling cycles
+- Each cycle is assigned process data (e.g. tool number, sample number, sample hardness)
+- The data contain vibration signals (8 measuring channels from the spindle and work table)
+and current signals (12 measuring channels from the spindle and work table).
+
+Each part/sample made is a square block milled out.
+Each "cycle" is a simple milling operation. 4 are rough cuts of one circumference of block, then a surfacing operation.
+Each layer goes a bit further down. In theory identicial to previous layer?
+
+Paper has nice annotations of time-series data wrt the part being made.
+
+26 GB download, 112 GB unpacked.
+
+#### PHM data challenge 2010
+https://www.kaggle.com/datasets/rabahba/phm-data-challenge-2010?resource=download
+
+- There are six individual cutter records, c1…c6.
+- Aprox 300 individual data acquisition files (one for each cut)
+- Force, Vibration, AE-RMS sampled at 50 kHz
+
+7 GB download, 19 GB unpacked
+
+#### NASA Milling Dataset 
+
+https://www.kaggle.com/datasets/vinayak123tyagi/milling-data-set-prognostic-data
+
+!!! Not time-series
+
+- 16 cases
+- X number of runs per case
 
 #### Turning Dataset for Chatter Diagnosis Using Machine Learning
 Dataset: https://data.mendeley.com/datasets/hvm4wh3jzx/1
