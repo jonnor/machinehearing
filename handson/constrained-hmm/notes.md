@@ -70,7 +70,7 @@ Run on 2" x 2" x 1.5" wax blocks.
 - Eight experiments were run with an unworn tool while ten were run with a worn tool (see tool_condition column for indication).
 
 ! Simple experiments.
-Would be quite doable to replicate locally.
+Would be quite doable to replicate locally. If one has a CNC mill capable of reporting actual positions, as well as motor voltage/amp/power.
 
 WARN: some dirty data:
 
@@ -103,8 +103,9 @@ Questions:
 - Do we need special features/preprocessing to be able to do the segmentation?
 - Can one detect the "jog" between each active operation?
 - What changes/differences are there in the signal between toolwear/not, degraded/not and aborted/not ?
-- Can the aborted operation be detected, with unsupervised method?
-- Is the difference in commanded vs actual position useful for AD wrt relevant conditions?
+Powers, regulation delays (diff in Position/Velocity/Acceleration).
+- Can the condition leading to aborted operation be detected, with unsupervised method?
+So not using position, which is consequence of an actual abort.
 - Is a stage-aware or per-stage analysis helpful in predicting toolwear/visual degradation?
 
 #### Turning Dataset for Chatter Diagnosis Using Machine Learning
